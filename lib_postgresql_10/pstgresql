@@ -1,0 +1,5 @@
+psql comment
+1. sudo -i -u postgres
+2. psql
+user postgres
+password postgres
