@@ -1,0 +1,143 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 6, 2018, 9:07:22 PM
+    Author     : newbiecihuy
+*/
+*input{text-transform: capitalize;}
+/*input[type="text"] {
+    width: 500px;
+}
+textarea {
+    width:500px;
+}*/
+.uppercase{text-transform: capitalize;}
+#main-content{margin-left:0;min-height:100%}
+
+* {
+    font-family: Raleway, sans-serif;;
+}
+.bg-cl{
+
+    background: #273036 !important;
+
+}
+.bg-clr{
+
+    background: #4186bd !important;
+
+}
+.font-cl{ color: #b6c5cd; }
+.font-log{color: #ffffff; }
+.font-header{color: #ffffff !important; font-weight: bold; 22px;}
+#contextMenu {
+    position: absolute;
+    display:none;
+}
+#clock {
+    margin: 20px auto;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 40px;
+    color: #FFFBCC;
+    font-size: 20px;
+    font-family: calibri;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.spinner {
+    display: inline-block;
+    opacity: 0;
+    width: 0;
+    -webkit-transition: opacity 0.25s, width 0.25s;
+    -moz-transition: opacity 0.25s, width 0.25s;
+    -o-transition: opacity 0.25s, width 0.25s;
+    transition: opacity 0.25s, width 0.25s;
+}
+.has-spinner.active {
+    cursor:progress;
+}
+.has-spinner.active .spinner {
+    opacity: 1;
+    width: auto; /* This doesn't work, just fix for unkown width elements */
+}
+
+/* Form with Multiple Steps*/
+
+
+/*#form_add_po {
+    background-color: #ffffff;
+    margin: 100px auto;
+    font-family: Raleway;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
+}*/
+
+h1 {
+    text-align: center;  
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+    background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+    display: none;
+}
+
+button {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: Raleway;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#prevBtn {
+    background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;  
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    background-color: #4CAF50;
+}

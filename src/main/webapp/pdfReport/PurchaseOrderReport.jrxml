@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+    <property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="po_number" class="java.lang.String"/>
+        <field name="po_date" class="java.lang.String"/>
+	<field name="po_type" class="java.lang.String"/>
+	<field name="payment_term" class="java.lang.String"/>
+	<field name="deliveryh_term" class="java.lang.String"/>
+	
+	<field name="transport_mode" class="java.lang.String"/>
+	<field name="quotation_number" class="java.lang.String"/>
+	<field name="rfq_number" class="java.lang.String"/>
+	<field name="vendor" class="java.lang.String"/>
+	<field name="vendor_address" class="java.lang.String"/>
+	<field name="mid" class="java.lang.String"/>
+	<field name="tid" class="java.lang.String"/>
+	<field name="aktifitas_field_service" class="java.lang.String"/>
+	<field name="details_field_service" class="java.lang.String"/>
+	<field name="companyLogo" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+    <title>
+        <band height="79"/>
+    </title>
+    <pageHeader>
+        <band height="35"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="61"/>
+    </columnHeader>
+    <detail>
+        <band height="125"/>
+    </detail>
+    <columnFooter>
+        <band height="45"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="54"/>
+    </pageFooter>
+    <summary>
+        <band height="42"/>
+    </summary>
+</jasperReport>
