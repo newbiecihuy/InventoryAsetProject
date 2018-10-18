@@ -62,6 +62,13 @@
             </div>
         </div>
     </div>
+    <div id="contextMenu" class="dropdown clearfix">
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+            <li><a tabindex="0" href="#" class="glyphicon glyphicon-remove-sign"></a></li>
+            <li class="divider"></li>
+            <li><a tabindex="0" href="#"  onclick="myFunction_report_excel_details()">Report Excel</a></li>
+        </ul>
+    </div>
     <!--    <form id="form_add_po" name="form_add_po" class="invisible " method="POST" action="">
             <div id="ajaxResponse_form_add_po" class="resp"></div>
             <div class="box-body hidden_add_po">

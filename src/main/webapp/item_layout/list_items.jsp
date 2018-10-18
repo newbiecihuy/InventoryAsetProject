@@ -53,7 +53,8 @@
                                     <th class="supplier_id">Supplier Id</th>
                                      <th class="product_name">Item Name</th>
                                     <th class="product_code">Item Code</th>     
-                                    <th class="price_item">Price</th>
+                                    <th class="price_item">Price Item</th>
+                                    <th class="sell_price">Sales Price</th>
                                     <th class="id_stock">id_stock</th>
                                     <th class="estemated_date_before">estemated_date_before</th>
                                     <th class="estemated_date_after">estemated_date_after</th>

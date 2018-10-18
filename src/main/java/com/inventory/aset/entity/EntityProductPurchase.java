@@ -27,7 +27,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_product_purchase")
 @NamedQueries({
-    @NamedQuery(name = "EntityProductPurchase.findAll", query = "SELECT c FROM EntityProductPurchase c"),
+    @NamedQuery(name = "EntityProductPurchase.findAll", query = "SELECT c FROM EntityProductPurchase c")
+    ,
     @NamedQuery(name = "EntityProductPurchase.findByidProductPurchase", query = "SELECT c FROM EntityProductPurchase c WHERE c.idProductPurchase = :idProductPurchase")
 })
 public class EntityProductPurchase implements Serializable {
@@ -54,7 +55,7 @@ public class EntityProductPurchase implements Serializable {
     private int qtty;
 
     @Column(name = "price")
-    private int price;
+    private int price=0;
 
     @Column(name = "total_product_purchase")
     private int totalProductPurchase;
@@ -70,12 +71,15 @@ public class EntityProductPurchase implements Serializable {
     private Date createdDate;
     @Column(name = "create_time")
     private String createdTime;
-    
+
     @Column(name = "input_date")
     @Temporal(TemporalType.DATE)
     private Date inputDate;
     @Column(name = "input_time")
     private String inputTime;
+
+    @Column(name = "disconto")
+    private Integer disconto;
 
     @Column(name = "update_date")
     @Temporal(TemporalType.DATE)
@@ -87,7 +91,7 @@ public class EntityProductPurchase implements Serializable {
 
     }
 
-    public EntityProductPurchase(Long idProductPurchase, EntityPurchases purchaseId, EntityProducts idProduct, EntityUnits unitId, int qtty, int price, int totalProductPurchase, String pic, Date createdDate, String createdTime, Date inputDate, String inputTime, Date updateDate, String updateTime) {
+    public EntityProductPurchase(Long idProductPurchase, EntityPurchases purchaseId, EntityProducts idProduct, EntityUnits unitId, int qtty, int price, int totalProductPurchase, String pic, Date createdDate, String createdTime, Date inputDate, String inputTime, Integer disconto, Date updateDate, String updateTime) {
         this.idProductPurchase = idProductPurchase;
         this.purchaseId = purchaseId;
         this.idProduct = idProduct;
@@ -100,6 +104,7 @@ public class EntityProductPurchase implements Serializable {
         this.createdTime = createdTime;
         this.inputDate = inputDate;
         this.inputTime = inputTime;
+        this.disconto = disconto;
         this.updateDate = updateDate;
         this.updateTime = updateTime;
     }
@@ -208,6 +213,14 @@ public class EntityProductPurchase implements Serializable {
         this.inputTime = inputTime;
     }
 
+    public Integer getDisconto() {
+        return disconto;
+    }
+
+    public void setDisconto(Integer disconto) {
+        this.disconto = disconto;
+    }
+
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -224,7 +237,7 @@ public class EntityProductPurchase implements Serializable {
         this.updateTime = updateTime;
     }
 
-   
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -89,6 +89,14 @@
         <servlet-name>GetPaymentTermServlet</servlet-name>
         <servlet-class>com.inventory.aset.controller.GetPaymentTermServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetItemPOServlet</servlet-name>
+        <servlet-class>com.inventory.aset.controller.GetItemPOServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetItemSupplierServlet</servlet-name>
+        <servlet-class>com.inventory.aset.controller.GetItemSupplierServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/userServlet</url-pattern>
@@ -168,6 +176,14 @@
     <servlet-mapping>
         <servlet-name>GetPaymentTermServlet</servlet-name>
         <url-pattern>/getPaymentTermServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetItemPOServlet</servlet-name>
+        <url-pattern>/getItemPOServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetItemSupplierServlet</servlet-name>
+        <url-pattern>/getItemSupplierServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

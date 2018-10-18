@@ -90,6 +90,25 @@ $(document).ready(function () {
                     }
                     return rupiah;
                 }
+            },{
+                data: "sell_price",
+                targets: "sell_price",
+                bAutoWidth: true,
+                visible: false,
+                searchable: true,
+                mRender: function (data_price, type_price, row_price) {
+//                    return data_priceItem;
+                    var number = data_price;
+                    var number_string = number.toString();
+                    var sisa = number_string.length % 3;
+                    var rupiah = number_string.substr(0, sisa);
+                    var ribuan = number_string.substr(sisa).match(/\d{3}/g);
+                    if (ribuan) {
+                        var separator = sisa ? '.' : '';
+                        rupiah += separator + ribuan.join('.');
+                    }
+                    return rupiah;
+                }
             }, {
                 data: 'id_stock',
                 targets: "id_stock",

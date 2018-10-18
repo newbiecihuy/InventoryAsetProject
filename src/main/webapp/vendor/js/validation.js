@@ -57,17 +57,55 @@ window.onload = hideURLParams;
 // end hide parameter function
 //
 //document.querySelectorAll('.\\3A \\`\\(');
+//
+//Get URL Parameters With JavaScript
+//https://html-online.com/articles/get-url-parameters-javascript/
+//function getUrlVars() {
+//    var vars = {};
+//    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+//        vars[key] = value;
+//    });
+//    return vars;
+//}
+//end Get URL Parameters With JavaScript
+//https://stackoverflow.com/questions/3757929/posting-data-into-javascript-from-an-url
+//https://www.dte.web.id/2012/04/set-value-based-url-in-address-bar.html
+function getUrlQueryString(param) {
+    var outObj = {};
+    var qs = window.location.search;
+    if (qs !== "") {
+        qs = decodeURIComponent(qs.replace(/\?/, ""));
+        var paramsArray = qs.split("&");
+        var length = paramsArray.length;
+        for (var i = 0; i < length; ++i) {
+            var nameValArray = paramsArray[i].split("=");
+            nameValArray[0] = nameValArray[0].toLowerCase();
+            if (outObj[nameValArray[0]]) {
+                outObj[nameValArray[0]] = outObj[nameValArray[0]] + ";" + nameValArray[1];
+            } else {
+                if (nameValArray.length > 1) {
+                    outObj[nameValArray[0]] = nameValArray[1];
+                } else {
+                    outObj[nameValArray[0]] = true;
+                }
+            }
+        }
+    }
+    var retVal = param ? outObj[param.toLowerCase()] : qs;
+    return retVal ? retVal : "";
+}
+//end Get URL Parameters With JavaScript
 $(document).ready(function () {
-    String.prototype.escapeSpecialChars = function () {
-        return this.replace(/\\n/g, "\\n")
-                .replace(/\\'/g, "\\'")
-                .replace(/\\"/g, '\\"')
-                .replace(/\\&/g, "\\&")
-                .replace(/\\r/g, "\\r")
-                .replace(/\\t/g, "\\t")
-                .replace(/\\b/g, "\\b")
-                .replace(/\\f/g, "\\f");
-    };
+//    String.prototype.escapeSpecialChars = function () {
+//        return this.replace(/\\n/g, "\\n")
+//                .replace(/\\'/g, "\\'")
+//                .replace(/\\"/g, '\\"')
+//                .replace(/\\&/g, "\\&")
+//                .replace(/\\r/g, "\\r")
+//                .replace(/\\t/g, "\\t")
+//                .replace(/\\b/g, "\\b")
+//                .replace(/\\f/g, "\\f");
+//    };
     /* parse json fucntion()
      * http://stackoverflow.com/questions/1184624/convert-form-data-to-javascript-object-with-jquery
      * http://jsfiddle.net/sxGtM/3/
@@ -105,7 +143,6 @@ $(document).ready(function () {
         var userName = $("#userName").val();
         var email = $("#email").val();
         if ($("#userName").val() === "") {
-
             $('#userName').css('background', '#e74c3c');
             return false;
         } else {
@@ -124,10 +161,8 @@ $(document).ready(function () {
             return false;
         } else {
             $('#roleName').css('background', '');
-            w
         }
         if ($("#address").val() === "") {
-            A
             $('#address').css('background', '#e74c3c');
             return false;
         } else {
@@ -823,7 +858,9 @@ $(document).ready(function () {
     console.log($("#roleName").val());
     $("#roleName").autocomplete({
         minLength: 1,
+        cacheLength: 1,
         autoFocus: true,
+        scroll: true,
         source: createDynamicURL() + "/autoCompleteRolenameServlet"
     }).autocomplete("option", "appendTo", "#form_add_pic");
 //
@@ -842,68 +879,116 @@ $(document).ready(function () {
 ////    
     $("#supplier_name").autocomplete({
         minLength: 1,
+        cacheLength: 1,
         autoFocus: true,
+        scroll: true,
         source: createDynamicURL() + "/autoCompleteSupplierName"
     }).autocomplete("option", "appendTo", "#form_add_supplier");
 
     $("#supplier_name_po").autocomplete({
         minLength: 1,
+        cacheLength: 1,
         autoFocus: true,
+        scroll: true,
         source: createDynamicURL() + "/autoCompleteSupplierName"
     }).autocomplete("option", "appendTo", "#form_add_po");
 
     $("#supplier_code_po").autocomplete({
         minLength: 1,
+        cacheLength: 1,
         autoFocus: true,
+        scroll: true,
         source: createDynamicURL() + "/autoCompleteSupplierCode"
     }).autocomplete("option", "appendTo", "#form_add_po");
 
     $("#po_type").autocomplete({
         minLength: 1,
+        cacheLength: 1,
         autoFocus: true,
+        scroll: true,
         source: createDynamicURL() + "/autoCompleteTypePO"
     }).autocomplete("option", "appendTo", "#form_add_po");
 //    
 
-//    $("#item_name").autocomplete({
-//        minLength: 2,
-//        autoFocus: true,
-//        source: createDynamicURL() + "/autoCompleteProductCode"
-//    }).autocomplete("option", "appendTo", "#form_create_po");
-
     $("#product_name").autocomplete({
         minLength: 1,
+        cacheLength: 1,
         autoFocus: true,
+        scroll: true,
         source: createDynamicURL() + "/autoCompleteProductName"
     }).autocomplete("option", "appendTo", "#form_edit_delegate_details");
 
     $("#categories_name").autocomplete({
         minLength: 1,
+        cacheLength: 1,
         autoFocus: true,
+        scroll: true,
         source: createDynamicURL() + "/autoCompleteCategoryName"
     }).autocomplete("option", "appendTo", "#form_add_item");
 
     $("#supplier_name").autocomplete({
         minLength: 1,
+        cacheLength: 1,
         autoFocus: true,
+        scroll: true,
         source: createDynamicURL() + "/autoCompleteSupplierName"
     }).autocomplete("option", "appendTo", "#form_add_item");
+
 //            
 
 //    $("#form_add_pic").load(function () {
 //        alert(editUserFunc(this));
 //    });
 
-    $("#item_name_po").click(function () {
-        var idSupplier = $("#supplier_id_form_create_po").val();
-
+//    $("#item_name_po").click(function () {
+//        var idSupplier = $("#supplier_id_form_create_po").val();
 //        alert(idSupplier);
-//        item_supEmpty(idSupplier);
+////        item_supEmpty(idSupplier);
+//    });
+//    $("#item_name_po").autocomplete({
+//        var idSupplier = $("#supplier_id_form_create_po").val(),
+//        minLength: 1,
+//        cacheLength: 1,
+//        autoFocus: true,
+//        scroll: true,
+//        source: createDynamicURL() + "/getItemPOServlet"
+//    }).autocomplete("option", "appendTo", "#form_create_po");
+    $('body').on('click', '#item_name_po', function () {
+        $(this).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: createDynamicURL() + "/getItemPOServlet",
+                    dataType: "json",
+                    method: "GET",
+                    data: {
+                        term: request.term,
+                        idSupplier: $("#supplier_id_form_create_po").val()
+                    }, success: function (data) {
+                        response($.map(data, function (item) {
+                            var code = item.split("|");
+                            return {
+                                label: code[0],
+                                value: code[0],
+                                data: item
+                            };
+                        }));
+                    }
+                });
+            },
+//            autoFocus: true,
+            minLength: 1,
+            scroll: true,
+            select: function (event, ui) {
+//                var output = ui.item.data.split("|");
+//                $('#item_name_po').val(output[1]);
+            },
+            delay: 300
+        }).autocomplete("option", "appendTo", "#form_create_po");
     });
-    $("#unit_price_po").change(discount);
-    $("#unit_price_po").blur(format_rupiah);
-    $("#qtty_po").change(discount);
-    $("#unit_item_po").blur(format_rupiah);
+//    $("#unit_price_po").change(discount);
+//    $("#unit_price_po").blur(format_rupiah);
+//    $("#qtty_po").change(discount);
+//    $("#unit_item_po").blur(format_rupiah);
 });
 
 function myFunction_reset_excel_service_details() {
@@ -1525,6 +1610,7 @@ function myFunction_form_upload() {
     });
     return false;
 }
+
 function yahoo_mail() {
     $("#smtpSocketFactoryPort").val("465");
     $("#smtpSocketFactoryClass").val("javax.net.ssl.SSLSocketFactory");
@@ -1560,14 +1646,15 @@ function getVariable(variable) {
 }
 
 function editUserFunc(data_users) {//, supplier_name, supplier_code, address, contact_name, contact_num, status_supp
-    $("#form_add_pic").focus(function () {
-        alert(data_users.user_name);
-        var param = "";
-//        "&userName=" + escape(data_users.user_name) + "&id_user=" + escape(data_users.id_user)
-//                + "&action_edit=" + "EDIT" + "&email=" + escape(data_users.email)
-//                + "&address=" + escape(data_users.address) + "&role_name=" + escape(data_users.role_name)
-//                + "&imei=" + escape(data_users.imei) + "&phone=" + escape(data_users.phone)
-//                + "&gender=" + escape(data_users.gender)
+
+//        alert(data_users.user_name);
+//        alert(data_users.phone);
+    alert(data_users.gender);
+    var param = "&userName=" + escape(data_users.user_name) + "&id_user=" + escape(data_users.id_user)
+            + "&action_edit=" + "EDIT" + "&email=" + escape(data_users.email)
+            + "&address=" + escape(data_users.address) + "&role_name=" + escape(data_users.role_name)
+            + "&imei=" + escape(data_users.imei) + "&phone=" + escape(data_users.phone)
+            + "&gender=" + escape(data_users.gender);
 
 
 //        document.getElementById("userName").value = data_users.user_name;
@@ -1581,8 +1668,7 @@ function editUserFunc(data_users) {//, supplier_name, supplier_code, address, co
 //        document.getElementById("action_edit").value = "EDIT";
 
 //    var isi_param = param.replace(/%20/g, "");
-        window.location = "index.jsp?url=user_layout&pages=add_user_form" + decodeURI(param);//jQuery.param(data_users)
-    });
+    window.location = "index.jsp?url=user_layout&pages=add_user_form" + decodeURI(param);//jQuery.param(data_users
 }
 
 function editSupplierFunc(data_supplier) {//, supplier_name, supplier_code, address, contact_name, contact_num, status_supp
@@ -1613,8 +1699,8 @@ function editPoFunc(data_form_po) {
     window.location = "index.jsp?url=purcahase_layout&pages=form_edit_po";
 }
 function addPoItemFunc(data_form_po) {
-    var param = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id=" + escape(data_form_po.supplier_id);
-    window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + param; //data_form_po.purchase_id;
+    var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id);
+    window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + decodeURI(myParam); //data_form_po.purchase_id;
 
 }
 
@@ -1679,6 +1765,16 @@ function deleteCategoriesFunc(data_categories) {
 function deleteItemFunc(data_Item) {
 
 }
+//Generate PDF
+function purchasePdfReport(data_record_po) {
+
+}
+//End Generate PDF
+//Generate Excel
+function purchaseExcelReport(data_record_po) {
+
+}
+//End Generate Excel
 function categories_empty() {
     console.log("entered categories_empty function");
     var categories_name = $("#categories_name").val();
@@ -1872,9 +1968,11 @@ function supplier_code_empty() {
 //}
 function item_supEmpty() {
     var idSupplier = document.getElementById("supplier_id_form_create_po").value;
+    var item_name_po = document.getElementById("item_name_po").value;
 
     var dataString = {
-        idSupplier: idSupplier
+        idSupplier: idSupplier,
+        item_name_po: item_name_po
     };
     console.log(dataString);
     $.ajax({
@@ -1901,9 +1999,12 @@ function item_supEmpty() {
                 //                        }
                 //                        $("#ajaxResponse").html("<div><b>" + jsonData.kota_merchant_del + "</b></div>");
                 console.log(response.item_name);
-                $("#item_name").val(response.item_name);
+                $("#item_name_po").val(response.item_name_po);
                 console.log(response.unit_price_po);
                 $("#unit_price_po").val(response.unit_price_po);
+                console.log(response.product_id);
+                $("#id_product").val(response.product_id);
+
             }
             //display error message
             else {
@@ -1963,13 +2064,7 @@ function type_po_empty() {
         }
     });
 }
-//function getUrlVars() {
-//    var vars = {};
-//    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-//        vars[key] = value;
-//    });
-//    return vars;
-//}
+
 
 function add_row() {
 //    alert("add_row");
@@ -1995,6 +2090,9 @@ function add_row() {
     var td6 = document.createElement('td');
     td6.setAttribute('class', 'display');
     var td7 = document.createElement('td');
+    td7.setAttribute('class', 'display');
+    var td8 = document.createElement('td');
+    td8.setAttribute('class', 'display');
 //    td2.setAttribute('width', '50px');
 //      append element
     itemlist.appendChild(row);
@@ -2005,11 +2103,18 @@ function add_row() {
 //                CreTE element input
     var e_item_name = document.createElement('input');
     e_item_name.type = "text";
-    e_item_name.id = "item_name";
-    e_item_name.name = "item_name";
+    e_item_name.id = "item_name_po";
+    e_item_name.name = "item_name_po";
     e_item_name.placeholder = "Like Sugar";
     e_item_name.setAttribute('required', '');
-    e_item_name.setAttribute('class', 'input-block-level');
+    e_item_name.setAttribute('class', 'form-control-static uppercase');
+    e_item_name.addEventListener('onchange', item_supEmpty, true);
+
+    var e_id_product = document.createElement('input');
+    e_id_product.type = "hidden";
+    e_id_product.id = "id_product";
+    e_id_product.name = "id_product";
+
     var e_qtty_po = document.createElement('input');
     e_qtty_po.type = "number";
     e_qtty_po.id = "qtty_po";
@@ -2017,40 +2122,54 @@ function add_row() {
     e_qtty_po.setAttribute('required', '');
     e_qtty_po.setAttribute('min', '1');
     e_qtty_po.setAttribute('value', '0');
-    e_qtty_po.addEventListener("onchange", discount);
-    e_qtty_po.setAttribute('class', 'input-block-level');
+//    e_qtty_po.addEventListener("onchange", discount);
+    e_qtty_po.setAttribute('class', 'form-control-static uppercase');
+    e_qtty_po.addEventListener('onchange', discount, true);
+
+
     var e_unit_item_po = document.createElement('input');
     e_unit_item_po.type = "text";
     e_unit_item_po.id = "unit_item_po";
     e_unit_item_po.name = "unit_item_po";
     e_unit_item_po.placeholder = "Unit";
     e_unit_item_po.setAttribute('required', '');
-    e_unit_item_po.addEventListener("onblur", format_rupiah);
-    e_unit_item_po.setAttribute('class', 'input-block-level');
+//    e_unit_item_po.addEventListener("onblur", format_rupiah);
+    e_unit_item_po.setAttribute('class', 'form-control-static uppercase');
+    e_unit_item_po.addEventListener('onblur', format_rupiah, true);
+
+
     var e_unit_price_po = document.createElement('input');
+//    var element_unit_price_po = document.getElementById('unit_price_po');
     e_unit_price_po.type = "text";
     e_unit_price_po.id = "unit_price_po";
     e_unit_price_po.name = "unit_price_po";
     e_unit_price_po.placeholder = "In IDR";
     e_unit_price_po.setAttribute('required', '');
-    e_unit_price_po.addEventListener("onblur", format_rupiah);
-    e_unit_price_po.addEventListener("onchange", discount);
-    e_unit_price_po.setAttribute('class', 'input-block-level');
+//    e_unit_price_po.addEventListener("onblur", format_rupiah);
+//    e_unit_price_po.addEventListener("onchange", discount);
+    e_unit_price_po.setAttribute('class', 'form-control-static uppercase');
+    e_unit_item_po.addEventListener('onblur', format_rupiah, true);
+    e_unit_price_po.addEventListener("onchange", discount, true);
+
     var e_discount_item_po = document.createElement('input');
+//    var element_discount_item_po = document.getElementById('discount_item_po');
     e_discount_item_po.type = "number";
     e_discount_item_po.id = "discount_item_po";
     e_discount_item_po.name = "discount_item_po";
     e_discount_item_po.placeholder = "Discount";
     e_discount_item_po.setAttribute('min', '0');
     e_discount_item_po.setAttribute('value', '0');
-    e_discount_item_po.addEventListener("onchange", discount);
-    e_discount_item_po.setAttribute('class', 'input-block-level');
+//    e_discount_item_po.addEventListener("onchange", discount);
+    e_discount_item_po.setAttribute('class', 'form-control-static uppercase');
+    e_discount_item_po.addEventListener("onchange", discount, true);
+
+
     var e_total_price_po = document.createElement('input');
     e_total_price_po.type = "text";
     e_total_price_po.id = "total_price_po";
     e_total_price_po.name = "total_price_po";
-    e_total_price_po.placeholder = "in IDR";
-    e_total_price_po.setAttribute('class', 'input-block-level');
+    e_total_price_po.placeholder = "IDR";
+    e_total_price_po.setAttribute('class', 'form-control-static uppercase');
 //    var e_button_1 = document.createElement('button');
 //    e_button_1.setAttribute('class', 'btn-primary');
 //
@@ -2069,13 +2188,34 @@ function add_row() {
         row.appendChild(td5);
         row.appendChild(td6);
         row.appendChild(td7);
+        row.appendChild(td8);
         td1.appendChild(e_item_name);
         td2.appendChild(e_qtty_po);
         td3.appendChild(e_unit_item_po);
         td4.appendChild(e_unit_price_po);
         td5.appendChild(e_discount_item_po);
         td6.appendChild(e_total_price_po);
-        td7.appendChild(e_button_2);
+        td7.appendChild(e_id_product);
+        td8.appendChild(e_button_2);
+//        e_item_name.onchange = function () {
+//            item_supEmpty();
+//        };
+//        e_qtty_po.onchange = function () {
+//            discount();
+//        };
+//        e_unit_item_po.onblur = function () {
+//            format_rupiah();
+//        };
+//        e_unit_price_po.onblur = function () {
+//            format_rupiah();
+//        };
+//        e_unit_price_po.onchange = function () {
+//            discount();
+//        };
+//        e_discount_item_po.onchange = function () {
+//            discount();
+//        };
+
 //        e_button_2.appendChild(e_i);
 //        td7.appendChild(e_button_2);
 
@@ -2094,6 +2234,7 @@ function remove(id) {
 //var element_qtty_po = document.getElementById('qtty_po ');
 //var element_discount_item_po= document.getElementById('qtty_po ');
 
+
 function format_rupiah() {
     var number = document.getElementById("unit_price_po").value;
     var number_string = number.toString();
@@ -2104,25 +2245,25 @@ function format_rupiah() {
         var separator = sisa ? '.' : '';
         rupiah += separator + ribuan.join('.');
     }
-    return  document.getElementById("unit_price_po").value = rupiah;
+    return  document.getElementById("unit_price_po").value = number_string;//rupiah;
 }
 function price_item_cek() {
     var number = document.getElementById("price_item").value;
-    var number_string = number.toString();
-    var sisa = number_string.length % 3;
-    var rupiah = number_string.substr(0, sisa);
-    var ribuan = number_string.substr(sisa).match(/\d{3}/g);
-    if (ribuan) {
-        var separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-    return  document.getElementById("price_item").value = rupiah;
+//    var number_string = number.toString();
+//    var sisa = number_string.length % 3;
+//    var rupiah = number_string.substr(0, sisa);
+//    var ribuan = number_string.substr(sisa).match(/\d{3}/g);
+//    if (ribuan) {
+//        var separator = sisa ? '.' : '';
+//        rupiah += separator + ribuan.join('.');
+//    }
+    return  document.getElementById("price_item").value = number;//rupiah;
 }
 
 function discount() {
     var price = document.getElementById("unit_price_po").value;
     var qtty = document.getElementById("qtty_po").value;
-    var pricedNew = price.split('.').join("");
+    var pricedNew = price;//price.split('.').join("");
     var i = document.getElementById("discount_item_po").value;
     var nilai_unit = "";
     var nilai_akhir = "";
@@ -2131,7 +2272,7 @@ function discount() {
         nilai_unit = pricedNew * qtty;
         if (i > 0) {
             diskon = i * nilai_unit / 100;
-            nilai_akhir = pricedNew - diskon;
+            nilai_akhir = nilai_unit - diskon;
         } else {
             nilai_akhir = nilai_unit;
         }
@@ -2145,27 +2286,28 @@ function discount() {
     var sisa = number_string.length % 3;
     var rupiah = number_string.substr(0, sisa);
     var ribuan = number_string.substr(sisa).match(/\d{3}/g);
-    if (ribuan) {
-        var separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-    subTotal(rupiah);
-    return  document.getElementById("price_po").value = rupiah;
+//    if (ribuan) {
+//        var separator = sisa ? '.' : '';
+//        rupiah += separator + ribuan.join('.');
+//    }
+//    subTotal(rupiah);
+    subTotal(number_string);
+    return  document.getElementById("price_po").value = number_string;
 }
 function subTotal(Nrupiah) {
     var item_price = Nrupiah;
     var rupiah = 0;
     if (item_price > 0) {
         var number_string = item_price.split('.').join("").toString();
-        var sisa = number_string.length % 3;
-        rupiah = number_string.substr(0, sisa);
-        var ribuan = number_string.substr(sisa).match(/\d{3}/g);
-        if (ribuan) {
-            var separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
+//        var sisa = number_string.length % 3;
+//        rupiah = number_string.substr(0, sisa);
+//        var ribuan = number_string.substr(sisa).match(/\d{3}/g);
+//        if (ribuan) {
+//            var separator = sisa ? '.' : '';
+//            rupiah += separator + ribuan.join('.');
+//        }
     }
-    return  document.getElementById("sub_total").value = rupiah;
+    return  document.getElementById("sub_total").value = number_string;
     total(Nrupiah);
 }
 function total(Ntotal) {
@@ -2208,3 +2350,5 @@ function remove_form() {
     // menghapus <tr> terakhir beserta element2 didalamnya
     target.removeChild(akhir);
 }
+
+

@@ -66,7 +66,7 @@ function validateForm() {
             y[i].className += " invalid";
             valid = false;
         }
-        if (document.getElementById("supplier_name_po").value === "") {
+        if (document.getElementById("supplier_code").value === "") {
             y[i].className += " invalid";
             valid = false;
         }
@@ -119,9 +119,9 @@ function fixStepIndicator(n) {
 
 //});
 function foo2() {
-    alert("HELLO WORLD");
-    alert(JSON.stringify($('#form_add_po').serializeObject()));
-    console.log(JSON.stringify($('#form_add_po').serializeObject()));
+//    alert("HELLO WORLD");
+//    alert(JSON.stringify($('#form_add_po').serializeObject()));
+//    console.log(JSON.stringify($('#form_add_po').serializeObject()));
 
     $.ajax({
         type: "POST",
@@ -148,4 +148,5 @@ function foo2() {
         }
 
     });
+    return false;
 }

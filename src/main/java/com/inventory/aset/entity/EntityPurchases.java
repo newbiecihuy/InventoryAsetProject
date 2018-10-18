@@ -61,6 +61,9 @@ public class EntityPurchases implements Serializable {
     @Basic(optional = false)
     @Column(name = "quotation_number")
     private String quotationNumber;
+    
+    @Column(name = "total_product_purchase_cost")
+    private String totalProductPurchaseCost="0";
 
     @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "purchaseId")
     private List<EntityProductPurchase> entityProductPurchase;
@@ -138,13 +141,14 @@ public class EntityPurchases implements Serializable {
 
     }
 
-    public EntityPurchases(Long purchaseId, String purchaseCode, String purchaseDesc, String transportMode, String rfqNumber, String quotationNumber, List<EntityProductPurchase> entityProductPurchase, EntitySuppliers supplierId, EntityTypePO typePOId, Date date, String time, Date inputDate, String inputTime, Date dateEdit, String timeEdit, String deliveryTerm, String deliveryPoint, String invoiceTo, String appproveBy, String pic) {
+    public EntityPurchases(Long purchaseId, String purchaseCode, String purchaseDesc, String transportMode, String rfqNumber, String quotationNumber, String totalProductPurchaseCost, List<EntityProductPurchase> entityProductPurchase, EntitySuppliers supplierId, EntityTypePO typePOId, Date date, String time, Date inputDate, String inputTime, Date dateEdit, String timeEdit, String deliveryTerm, String deliveryPoint, String invoiceTo, String appproveBy, String pic) {
         this.purchaseId = purchaseId;
         this.purchaseCode = purchaseCode;
         this.purchaseDesc = purchaseDesc;
         this.transportMode = transportMode;
         this.rfqNumber = rfqNumber;
         this.quotationNumber = quotationNumber;
+        this.totalProductPurchaseCost = totalProductPurchaseCost;
         this.entityProductPurchase = entityProductPurchase;
         this.supplierId = supplierId;
         this.typePOId = typePOId;
@@ -207,6 +211,14 @@ public class EntityPurchases implements Serializable {
 
     public void setQuotationNumber(String quotationNumber) {
         this.quotationNumber = quotationNumber;
+    }
+
+    public String getTotalProductPurchaseCost() {
+        return totalProductPurchaseCost;
+    }
+
+    public void setTotalProductPurchaseCost(String totalProductPurchaseCost) {
+        this.totalProductPurchaseCost = totalProductPurchaseCost;
     }
 
     public List<EntityProductPurchase> getEntityProductPurchase() {
@@ -345,7 +357,6 @@ public class EntityPurchases implements Serializable {
         this.pic = pic;
     }
 
-    
     
 
     @Override

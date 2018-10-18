@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.controller;
 
+import com.inventory.aset.dao.local.EntityCategoriesDaoLocal;
 import com.inventory.aset.dao.local.EntityPurchasesDaoLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,10 +20,13 @@ import com.inventory.aset.dao.local.EntityProductsDaoLocal;
 import com.inventory.aset.dao.local.EntityStockDaoLocal;
 import com.inventory.aset.dao.local.EntityTypePODaoLocal;
 import com.inventory.aset.dao.local.EntityUnitsDaoLocal;
+import com.inventory.aset.entity.EntityCategories;
 import com.inventory.aset.entity.EntityProductPurchase;
 import com.inventory.aset.entity.EntityProducts;
 import com.inventory.aset.entity.EntityPurchases;
 import com.inventory.aset.entity.EntityStock;
+import com.inventory.aset.entity.EntityTypePO;
+import com.inventory.aset.entity.EntityUnits;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -53,8 +57,10 @@ public class CreatePOItemServlet extends HttpServlet {
     EntityStockDaoLocal entityStockDao;
     @EJB
     EntityUnitsDaoLocal entityUnitsDao;
+//    @EJB
+//    EntityTypePODaoLocal entityTypePODao;
     @EJB
-    EntityTypePODaoLocal EntityTypePODao;
+    EntityCategoriesDaoLocal entityCategoriesDaoLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -116,40 +122,63 @@ public class CreatePOItemServlet extends HttpServlet {
             String action_edit = "";
             String action_delete = "";
             long id_product_purchase = 0;
+//            long id_product = 0l;
             long purchase_id = 0;
+            long supplier_id_form_create_po = 0l;
 //            int qtty_po = 0;
             double tax_po = 0;
-            String item_name[], qtty_po[], unit_item_po[], unit_price_po[], discount_item_po[], price_po[], sub_total, total_price_po = null;
-            String isi_item_name, isi_qtty_po, isi_unit_item_po, isi_unit_price_p, isi_discount_item_po, isi_price_po = null;
-            Object node_item_name, node_unit_item_po, node_unit_price_po, node_discount_item_po, node_price_po, node_qtty_po = null;
+            String item_name_po[], qtty_po[], unit_item_po[], id_product[], unit_price_po[], discount_item_po[], price_po[], sub_total, total_price_po = null;
+            String isi_item_name, isi_qtty_po, isi_unit_item_po, isi_id_product, isi_unit_price_po, isi_discount_item_po, isi_price_po = null;
+            Object node_item_name, node_unit_item_po, node_unit_price_po, node_id_product, node_discount_item_po, node_price_po, node_qtty_po = null;
             JSONArray arr_item_name = null;
             JSONArray arr_unit_item_po = null;
+            JSONArray arr_id_product = null;
             JSONArray arr_unit_price_po = null;
             JSONArray arr_discount_item_po = null;
-            JSONArray arr_total_price_po = null;
+            JSONArray arr_price_po = null;
+//            JSONArray arr_total_price_po = null;
             JSONArray arr_qtty_po = null;
 //            JSONArray arrMid = null;
+            EntityPurchases dataPurcahse = new EntityPurchases();
             EntityProducts dataProducts = new EntityProducts();
             EntityProductPurchase dataProductPurchase = new EntityProductPurchase();
             EntityStock dataStockProduct = new EntityStock();
 //            
+            EntityCategories dataCategories = new EntityCategories();
+            EntityUnits dataUnit = new EntityUnits();
             for (int i = 0; i < array.size(); i++) {
                 JSONObject object = array.getJSONObject(0);
                 object = array.getJSONObject(i);
-                action_edit = object.getString("action_edit_item_po");
-                action_delete = object.getString("action_delete_item_po");
+                action_edit = object.getString("action_edit_item_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                action_delete = object.getString("action_delete_item_po").trim().replaceAll("['\":<>\\[\\],-]", "");
 
                 if (!"".equals(object.getString("purchase_id")) && !object.getString("purchase_id").isEmpty()) {
-                    purchase_id = Long.parseLong(object.getString("purchase_id"));
+                    purchase_id = Long.parseLong(object.getString("purchase_id").trim().replaceAll("['\":<>\\[\\],-]", ""));
+                } else {
+                    purchase_id = 0l;
                 }
                 if (!"".equals(object.getString("id_product_purchase")) && !object.getString("id_product_purchase").isEmpty()) {
-                    id_product_purchase = Long.parseLong(object.getString("id_product_purchase"));
+                    id_product_purchase = Long.parseLong(object.getString("id_product_purchase").trim().replaceAll("['\":<>\\[\\],-]", ""));
+                } else {
+                    id_product_purchase = 0l;
                 }
+
                 if (id_product_purchase == 0l) {
 
-                    EntityPurchases dataPurcahse = entityPurchasesDao.find(purchase_id);
-                    if (!object.getString("item_name").isEmpty()) {
-                        node_item_name = object.getString("item_name");
+                    dataPurcahse = entityPurchasesDao.find(purchase_id);
+
+                    if (!object.getString("supplier_id_form_create_po").isEmpty()) {
+                        supplier_id_form_create_po = Long.parseLong(object.getString("supplier_id_form_create_po").trim().replaceAll("['\":<>\\[\\],-]", ""));
+                    } else {
+                        supplier_id_form_create_po = 0l;
+                    }
+                    if (!object.getString("id_product").isEmpty()) {
+                        node_id_product = object.getString("id_product").trim().replaceAll("['\":<>\\[\\],-]", "");
+                    } else {
+                        node_id_product = "";
+                    }
+                    if (!object.getString("item_name_po").isEmpty()) {
+                        node_item_name = object.getString("item_name_po").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         node_item_name = "";
                     }
@@ -159,32 +188,32 @@ public class CreatePOItemServlet extends HttpServlet {
                         node_qtty_po = 0;
                     }
                     if (!object.getString("unit_item_po").isEmpty()) {
-                        node_unit_item_po = object.getString("unit_item_po");
+                        node_unit_item_po = object.getString("unit_item_po").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         node_unit_item_po = "";
                     }
                     if (!object.getString("unit_price_po").isEmpty()) {
-                        node_unit_price_po = object.getString("unit_price_po");
+                        node_unit_price_po = object.getString("unit_price_po").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         node_unit_price_po = "";
                     }
                     if (!object.getString("discount_item_po").isEmpty()) {
-                        node_discount_item_po = object.getString("discount_item_po");
+                        node_discount_item_po = object.getString("discount_item_po").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         node_discount_item_po = "";
                     }
                     if (!object.getString("price_po").isEmpty()) {
-                        node_price_po = object.getString("price_po");
+                        node_price_po = object.getString("price_po").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         node_price_po = "";
                     }
                     if (!object.getString("sub_total").isEmpty()) {
-                        sub_total = object.getString("sub_total");
+                        sub_total = object.getString("sub_total").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         sub_total = "";
                     }
                     if (!object.getString("total_price_po").isEmpty()) {
-                        total_price_po = object.getString("total_price_po");
+                        total_price_po = object.getString("total_price_po").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         total_price_po = "";
                     }
@@ -197,9 +226,9 @@ public class CreatePOItemServlet extends HttpServlet {
                     if ((node_item_name instanceof JSONArray)) {
                         System.out.println("isi node_item_name: " + node_item_name);
                         arr_item_name = object.getJSONArray("item_name");
-                        item_name = new String[arr_item_name.size()];
+                        item_name_po = new String[arr_item_name.size()];
                     } else {
-                        item_name = new String[1];
+                        item_name_po = new String[1];
                     }
                     if ((node_qtty_po instanceof JSONArray)) {
                         System.out.println("isi qtty_po: " + node_qtty_po);
@@ -208,10 +237,48 @@ public class CreatePOItemServlet extends HttpServlet {
                     } else {
                         qtty_po = new String[1];
                     }
+                    if ((node_unit_item_po instanceof JSONArray)) {
+                        System.out.println("isi node_unit_item_po: " + node_unit_item_po);
+                        arr_unit_item_po = object.getJSONArray("unit_item_po");
+                        unit_item_po = new String[arr_unit_item_po.size()];
+                    } else {
+                        unit_item_po = new String[1];
+                    }
 
-                    for (int j = 0; j < item_name.length; j++) {
+                    if ((node_id_product instanceof JSONArray)) {
+                        System.out.println("isi node_id_product: " + node_id_product);
+                        arr_id_product = object.getJSONArray("id_product");
+                        id_product = new String[arr_id_product.size()];
+                    } else {
+                        id_product = new String[1];
+                    }
+                    if ((node_unit_price_po instanceof JSONArray)) {
+                        System.out.println("isi node_unit_price_po: " + node_unit_price_po);
+                        arr_unit_price_po = object.getJSONArray("unit_price_po");
+                        unit_price_po = new String[arr_unit_price_po.size()];
+                    } else {
+                        unit_price_po = new String[1];
+                    }
 
-                        if (item_name.length == 1) {
+                    if ((node_discount_item_po instanceof JSONArray)) {
+                        System.out.println("isi node_unit_price_po: " + node_unit_price_po);
+                        arr_discount_item_po = object.getJSONArray("discount_item_po");
+                        discount_item_po = new String[arr_discount_item_po.size()];
+                    } else {
+                        discount_item_po = new String[1];
+                    }
+
+                    if ((node_price_po instanceof JSONArray)) {
+                        System.out.println("isi price_po: " + node_price_po);
+                        arr_price_po = object.getJSONArray("price_po");
+                        price_po = new String[arr_price_po.size()];
+                    } else {
+                        price_po = new String[1];
+                    }
+
+                    for (int j = 0; j < item_name_po.length; j++) {
+
+                        if (item_name_po.length == 1) {
                             isi_item_name = node_item_name.toString().replaceAll("['\":<>\\[\\],-]", "");
                         } else {
                             isi_item_name = arr_item_name.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
@@ -221,58 +288,107 @@ public class CreatePOItemServlet extends HttpServlet {
                         } else {
                             isi_qtty_po = arr_qtty_po.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
                         }
-                        List<EntityProducts> cekItemName = entityProductsDao.findWithProductName(isi_item_name.toLowerCase());
+                        if (unit_item_po.length == 1) {
+                            isi_unit_item_po = node_unit_item_po.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        } else {
+                            isi_unit_item_po = arr_unit_item_po.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                        }
+                        if (id_product.length == 1) {
+                            isi_id_product = node_id_product.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        } else {
+                            isi_id_product = arr_id_product.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                        }
+                        if (unit_price_po.length == 1) {
+                            isi_unit_price_po = node_unit_price_po.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        } else {
+                            isi_unit_price_po = arr_unit_price_po.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                        }
+                        if (discount_item_po.length == 1) {
+                            isi_discount_item_po = node_discount_item_po.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        } else {
+                            isi_discount_item_po = arr_discount_item_po.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                        }
+                        if (price_po.length == 1) {
+                            isi_price_po = node_price_po.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        } else {
+                            isi_price_po = arr_price_po.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                        }
+
+                        List<EntityUnits> cekUnitName = entityUnitsDao.getUnitName(isi_unit_item_po);
+                        if (cekUnitName.size() > 0) {
+                            dataUnit = entityUnitsDao.getUnit(cekUnitName.get(0).getUnitId());
+                            dataProductPurchase.setUnitId(dataUnit);
+                        } else {
+                            dataUnit.setUnitName(isi_unit_item_po);
+                            dataUnit.setCreatedDate(now);
+                            dataUnit.setCreatedTime(time_now);
+                            dataUnit.setPic(("PIC").toLowerCase());
+                            entityUnitsDao.createUnit(dataUnit);
+                            dataProductPurchase.setUnitId(dataUnit);
+                        }
+//                        List<EntityProducts> cekItemName = entityProductsDao.findWithProductName(isi_item_name.toLowerCase());
+                        List<EntityProducts> cekItemName = entityProductsDao.findBySuplierIdItemId(supplier_id_form_create_po, Long.parseLong(isi_id_product));
                         System.out.println("isi cekItemName" + cekItemName);
                         if (cekItemName.size() > 0) {
-                            dataProducts.setProductName(isi_item_name.toLowerCase());
-                            dataProducts.setPic(("PIC").toLowerCase());
-                            dataProducts.setCreatedAt(now);
-                            dataProducts.setCreatedAtTime(time_now);
-                            String sub_str = Arrays.toString(item_name).toLowerCase().substring(0, 4);
-                            dataProducts.setProductCode(sub_str);
-                            dataProducts.setBarcode("");
-                            dataProducts.setPict_path("");
-                            dataProducts.setStatus_item(true);
-                            dataProducts.setDescription(Arrays.toString(item_name).toLowerCase() + "/" + "Date Input :" + now + ":" + time_now);
-                            entityProductsDao.createProducts(dataProducts);
-                        } else {
-                            dataProducts = entityProductsDao.getProducts(cekItemName.get(0).getIdProduct());
-                            dataProducts.setProductName(Arrays.toString(item_name).toLowerCase());
-                            dataProducts.setPic(("PIC").toLowerCase());
-                            dataProducts.setUpdatedAt(now);
-                            dataProducts.setUpdatedAtTime(time_now);
-                            String sub_str = Arrays.toString(item_name).toLowerCase().substring(0, 4);
-                            dataProducts.setProductCode(sub_str);
-                            dataProducts.setBarcode("");
-                            dataProducts.setPict_path("");
-                            dataProducts.setStatus_item(true);
-                            dataProducts.setDescription(Arrays.toString(item_name).toLowerCase() + "/" + "Date Input :" + now + ":" + time_now);
-                            entityProductsDao.updateProducts(dataProducts);
-                        }
-                        List<EntityStock> cekIdProduct = entityStockDao.findByIdProduct(dataProducts);
-                        if (cekIdProduct == null) {
-                            EntityProducts regProducts = entityProductsDao.find(cekIdProduct.get(0).getIdProduct());
-                            dataStockProduct.setIdProduct(regProducts);
-                            dataStockProduct.setDate(now);
-                            dataStockProduct.setTime(code);
-                            dataStockProduct.setPic(("PIC").toLowerCase());
-                            dataStockProduct.setStock(Integer.parseInt(isi_qtty_po));
-                            entityStockDao.updateStock(dataStockProduct);
+                            List<EntityStock> dataStokById = entityStockDao.findByIdProduct(cekItemName.get(0).getIdProduct());//id_product
+//                            dataStokById.get(0).setStock(Integer.parseInt(isi_qtty_po));
+                            if (dataStokById.size() > 0) {
+                                dataStockProduct = entityStockDao.find(dataStokById.get(0).getIdStock());
+                                dataStockProduct.setDate(now);
+                                dataStockProduct.setTime(time_now);
+                                dataStockProduct.setPic(("PIC").toLowerCase());
+                                dataStockProduct.setStock(Integer.parseInt(isi_qtty_po));
+                                entityStockDao.updateStock(dataStockProduct);
+                            } else {
+                                List<EntityCategories> dataCategory = entityCategoriesDaoLocal.findByCategoriesName("raw material");
+                                dataCategories = entityCategoriesDaoLocal.find(dataCategory.get(0).getCategoryId());
+                                dataProducts.setProductCode("");
+                                dataProducts.setBarcode("");
+                                dataProducts.setCategoryId(dataCategories);
+                                dataProducts.setCreatedAt(tgl);
+                                dataProducts.setCreatedAtTime(time_now);
+                                dataProducts.setEntityStock(dataStockProduct);
+//                              entityProductsDao.createProducts(dataProducts);
+                                dataStockProduct.setIdProduct(dataProducts);
+                                dataStockProduct.setBuyPrice(isi_unit_price_po);
+                                dataStockProduct.setIdProduct(dataProducts);
+                                dataStockProduct.setDate(now);
+                                dataStockProduct.setTime(time_now);
+                                dataStockProduct.setPic(("PIC").toLowerCase());
+                                dataStockProduct.setStock(Integer.parseInt(isi_qtty_po));
+                                entityProductsDao.createProducts(dataProducts);
+                                entityStockDao.updateStock(dataStockProduct);
+                            }
 
                         } else {
-                            dataStockProduct.setIdProduct(dataProducts);
-                            dataStockProduct.setDate(now);
-                            dataStockProduct.setTime(code);
-                            dataStockProduct.setPic(("PIC").toLowerCase());
-                            dataStockProduct.setStock(Integer.parseInt(isi_qtty_po));
-                            entityStockDao.createStock(dataStockProduct);
+                            code = "xx0";
                         }
+//                        List<EntityStock> cekIdProduct = entityStockDao.findByIdProduct(id_product);//dataProducts
+//                        if (cekIdProduct != null) {
+//                            dataStockProduct.setIdProduct(dataProducts);
+//                            dataStockProduct.setDate(now);
+//                            dataStockProduct.setTime(code);
+//                            dataStockProduct.setPic(("PIC").toLowerCase());
+//                            dataStockProduct.setStock(Integer.parseInt(isi_qtty_po));
+//                            entityStockDao.createStock(dataStockProduct);
+//                        }
+                        dataProducts = entityProductsDao.find(cekItemName.get(0).getIdProduct());
 
+                        dataProductPurchase.setPurchaseId(dataPurcahse);
+                        dataProductPurchase.setQtty(Integer.parseInt(isi_qtty_po));
+                        dataProductPurchase.setDisconto(Integer.parseInt(isi_discount_item_po));
+                        dataProductPurchase.setPrice(Integer.parseInt(isi_price_po));
                         dataProductPurchase.setIdProduct(dataProducts);
                         dataProductPurchase.setCreatedDate(now);
+                        dataProductPurchase.setInputDate(now);
                         dataProductPurchase.setCreatedTime(time_now);
+                        dataProductPurchase.setInputTime(time_now);
                         dataProductPurchase.setPic(("PIC").toLowerCase());
-
+                        entityProductPurchaseDao.createProductPurchase(dataProductPurchase);
+                        dataPurcahse.setStatusPo("need approval");
+                        dataPurcahse.setTotalProductPurchaseCost(total_price_po);
+                        entityPurchasesDao.updatePurchases(dataPurcahse);
+                        code = "1";
                     }
 
 //                    if (!object.getString("item_name").isEmpty()) {
@@ -315,6 +431,63 @@ public class CreatePOItemServlet extends HttpServlet {
 //                    } else {
 //                        total_price_po = "";
 //                    }
+                } else if (action_edit.equalsIgnoreCase("EDIT")) {
+                    dataPurcahse = entityPurchasesDao.find(purchase_id);
+                    if (!object.getString("supplier_id_form_create_po").isEmpty()) {
+                        supplier_id_form_create_po = Long.parseLong(object.getString("supplier_id_form_create_po").trim().replaceAll("['\":<>\\[\\],-]", ""));
+                    } else {
+                        supplier_id_form_create_po = 0l;
+                    }
+                    if (!object.getString("id_product").isEmpty()) {
+                        node_id_product = object.getString("id_product").trim().replaceAll("['\":<>\\[\\],-]", "");
+                    } else {
+                        node_id_product = "";
+                    }
+                    if (!object.getString("item_name_po").isEmpty()) {
+                        node_item_name = object.getString("item_name_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                    } else {
+                        node_item_name = "";
+                    }
+                    if (object.getInt("qtty_po") != 0) {
+                        node_qtty_po = object.getInt("qtty_po");
+                    } else {
+                        node_qtty_po = 0;
+                    }
+                    if (!object.getString("unit_item_po").isEmpty()) {
+                        node_unit_item_po = object.getString("unit_item_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                    } else {
+                        node_unit_item_po = "";
+                    }
+                    if (!object.getString("unit_price_po").isEmpty()) {
+                        node_unit_price_po = object.getString("unit_price_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                    } else {
+                        node_unit_price_po = "";
+                    }
+                    if (!object.getString("discount_item_po").isEmpty()) {
+                        node_discount_item_po = object.getString("discount_item_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                    } else {
+                        node_discount_item_po = "";
+                    }
+                    if (!object.getString("price_po").isEmpty()) {
+                        node_price_po = object.getString("price_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                    } else {
+                        node_price_po = "";
+                    }
+                    if (!object.getString("sub_total").isEmpty()) {
+                        sub_total = object.getString("sub_total").trim().replaceAll("['\":<>\\[\\],-]", "");
+                    } else {
+                        sub_total = "";
+                    }
+                    if (!object.getString("total_price_po").isEmpty()) {
+                        total_price_po = object.getString("total_price_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                    } else {
+                        total_price_po = "";
+                    }
+                    if (!object.getString("tax_po").isEmpty()) {
+                        tax_po = object.getDouble("tax_po");
+                    } else {
+                        tax_po = 0;
+                    }
                 }
 
             }

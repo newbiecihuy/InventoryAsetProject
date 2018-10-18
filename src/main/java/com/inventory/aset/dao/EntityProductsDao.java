@@ -85,13 +85,29 @@ public class EntityProductsDao extends AbstractFacade<EntityProducts> implements
     }
 
     @Override
-    public List<EntityProducts> findByProductName(String pramString) {
-        return em.createQuery("SELECT Distinct ep.productName  FROM EntityProducts ep WHERE ep.productName LIKE \"" + pramString + "%\" ").getResultList();
+    public List<EntityProducts> findByProductName(String paramString) {
+        return em.createQuery("SELECT Distinct ep.productName  FROM EntityProducts ep WHERE ep.productName LIKE \"" + paramString + "%\" ").getResultList();
     }
 
     @Override
-    public List<EntityProducts> findByProductCode(String pramString) {
-        return em.createQuery("SELECT Distinct ep.productCode  FROM EntityProducts ep WHERE ep.productCode LIKE \"" + pramString + "%\" ").getResultList();
+    public List<EntityProducts> findByProductCode(String paramString) {
+        return em.createQuery("SELECT Distinct ep.productCode  FROM EntityProducts ep WHERE ep.productCode LIKE \"" + paramString + "%\" ").getResultList();
+    }
+
+    @Override
+    public List<EntityProducts> findBySuplierId(Long paramLong) {
+        return em.createQuery("SELECT Distinct ep.productName   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramLong + "\"").getResultList();
+    }
+
+    @Override
+    public List<EntityProducts> findBySuplierIdItemId(Long paramSupId, Long paramId) {
+        return em.createQuery("SELECT  ep   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramSupId + "\" AND " + "ep.idProduct =  \"" + paramId + "\"").getResultList();
+    }
+
+    @Override
+    public List<EntityProducts> getItemDetails(Long paramLong, String paramString) {
+        return em.createQuery("SELECT  ep  FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramLong + "\" "
+                + "AND ep.productName=  \"" + paramString + "\"").getResultList();
     }
 
     @Override

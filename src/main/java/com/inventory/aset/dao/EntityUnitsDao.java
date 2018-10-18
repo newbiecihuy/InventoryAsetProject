@@ -30,11 +30,19 @@ public class EntityUnitsDao extends AbstractFacade<EntityUnits> implements Entit
         return em;
     }
 
+//    @Override
+//    public void createUnit(EntityUnits dataUnit) {
+//        em.persist(dataUnit);
+//    }
     @Override
-    public void createUnit(EntityUnits dataUnit) {
+    public EntityUnits createUnit(EntityUnits dataUnit) {
         em.persist(dataUnit);
+        em.flush();
+
+        return dataUnit;
     }
 
+     
     @Override
     public void updateUnit(EntityUnits dataUnit) {
         em.merge(dataUnit);

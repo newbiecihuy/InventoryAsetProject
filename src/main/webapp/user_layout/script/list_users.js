@@ -157,8 +157,8 @@ $(document).ready(function () {
                             status_user: va_status_user
                         };
                         return"<a href='#'><i class='fa fa-check-square-o activeRecord' rel='13' title='inactive'></i></a>\n\
-                               <a id='updateDataUser' href='#' onclick='return editUserFunc(" + JSON.stringify(data_users) + ")'><i class='fa fa-edit activeRecord' rel='13' title='Edit'></i></a>\n\
-                               <a href='#' onclick='return deleteUserFunc(" + JSON.stringify(data_users) + ")'><i class='fa fa-trash activeRecord' rel='13'title='Delete'></i></a>";
+                               <a id='updateDataUser' href='#'  onclick='javascript:editUserFunc(" + JSON.stringify(data_users) + ")'><i class='fa fa-edit activeRecord' rel='13' title='Edit'></i></a>\n\
+                               <a href='#' onclick='javascript:deleteUserFunc(" + JSON.stringify(data_users) + ")'><i class='fa fa-trash activeRecord' rel='13'title='Delete'></i></a>";
 //                      return "<a href='" + data_pict_1 + " 'target='_blank' class='btn btn-info'>" + "<font color='#f2f2f2' size='2em'>" + "Display" + "</font>" + "</a>";
                     }
                 }

@@ -38,7 +38,14 @@ public interface EntityProductsDaoLocal {
 
     List<EntityProducts> findWithProductName(String paramName);
 
+    List<EntityProducts> findBySuplierId(Long paramLong);
+
+    List<EntityProducts> findBySuplierIdItemId(Long paramSupId, Long paramId);
+
+    List<EntityProducts> getItemDetails(Long paramLong, String paramString);
+
     EntityProducts find(Object paramObject);
 
     int count();
+
 }

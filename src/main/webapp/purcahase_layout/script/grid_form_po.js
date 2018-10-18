@@ -57,11 +57,12 @@ $(document).ready(function () {
                     var va_purchase_code = row_pcCode["purchase_code"];
                     var va_supplier_id = row_pcCode["supplier_id"];
                     var data_record_po = {
-
-                    }
+                        purchase_id: va_purchase_id,
+                        supplier_id: va_supplier_id
+                    };
                     if (row_pcCode["is_delete"] === "0") { //0 = Active, 1=NActive
                         if (row_pcCode["status_po"] !== "No Item") { //No Item
-                            return"<a href='#'>" + data_pcCode + "</a>";
+                            return"<a href='#' onclick='javascript:purchasePdfReport(" + JSON.stringify(data_record_po) + ")' >" + data_pcCode + "</a>";
                         } else {
                             return data_pcCode;
                         }
@@ -186,10 +187,23 @@ $(document).ready(function () {
                             pic: va_pic,
                             is_delete: va_is_delete
                         };
-                        return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
-                               <a href='#' onclick='return addPoItemFunc(" + JSON.stringify(data_form_po) + ")' ><i class='fa fa-plus' title='Add Item'></i></a>\n\
-                               <a id='updateDataPo' href='#' onclick='return editPoFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
+                        if (row_po["is_delete"] === "0") {//active
+                            if (row_po["status_po"] !== "No Item") {
+//                            $("i#list_item").css("background-color", "blue");
+                                return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
+                               <a  id='addItemPo' href='#' onclick='javascript:addPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-plus' title='Add Item'></i></a>\n\
+                               <a  id='listtemPo' href='#')'><i id='list_item' class='fa fa-list fa-fw'  title='List Item'></i></a>\n\
+                               <a id='updateDataPo' href='#' onclick='javascript:editPoFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-edit'title='Edit PO'></i></a>\n\
                                <a href='#'><i class='fa fa-trash ' title='Delete'></i></a>";
+                            } else if (row_po["status_po"] === "No Item") {
+//                            $("i#list_item").css("background-color", "#e0e0d1");
+                                return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
+                               <a  id='addItemPo' href='#' onclick='javascript:addPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-plus' title='Add Item'></i></a>\n\
+                               <a  id='listtemPo' href='#' onclick='javascript:listPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i id='list_item' class='fa fa-list fa-fw' style='color:#e0e0d1;'  title='List Item'></i></a>\n\
+                               <a id='updateDataPo' href='#' onclick='javascript:editPoFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-edit'title='Edit PO'></i></a>\n\
+                               <a href='#'><i class='fa fa-trash ' title='Delete'></i></a>";
+                            }
+                        }
 //                      return "<a href='" + data_pict_1 + " 'target='_blank' class='btn btn-info'>" + "<font color='#f2f2f2' size='2em'>" + "Display" + "</font>" + "</a>";
                     }
                 }

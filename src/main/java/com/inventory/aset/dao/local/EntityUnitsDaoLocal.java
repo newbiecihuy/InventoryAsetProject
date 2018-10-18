@@ -16,7 +16,7 @@ import javax.ejb.Local;
 @Local
 public interface EntityUnitsDaoLocal {
 
-    void createUnit(EntityUnits dataUnit);
+    EntityUnits createUnit(EntityUnits dataUnit);
 
     void updateUnit(EntityUnits dataUnit);
 

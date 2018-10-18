@@ -53,8 +53,9 @@ public class EntityStock implements Serializable {
 
     @Column(name = "price")
     private int price;
+    
     @Column(name = "sell_price")
-    private int sellPrice;
+    private String sellPrice="0";
 
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
@@ -101,7 +102,7 @@ public class EntityStock implements Serializable {
 
     }
 
-    public EntityStock(Long idStock, int stock, String buyPrice, int price, int sellPrice, Date date, String time, Date estematedDateBefore, Date estematedDateAfter, String pic, EntityProducts idProduct) {
+    public EntityStock(Long idStock, int stock, String buyPrice, int price, String sellPrice, Date date, String time, Date estematedDateBefore, Date estematedDateAfter, String pic, EntityProducts idProduct) {
         this.idStock = idStock;
         this.stock = stock;
         this.buyPrice = buyPrice;
@@ -147,13 +148,15 @@ public class EntityStock implements Serializable {
         this.price = price;
     }
 
-    public int getSellPrice() {
+    public String getSellPrice() {
         return sellPrice;
     }
 
-    public void setSellPrice(int sellPrice) {
+    public void setSellPrice(String sellPrice) {
         this.sellPrice = sellPrice;
     }
+
+   
 
     public Date getDate() {
         return date;

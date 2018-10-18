@@ -215,6 +215,12 @@ public class ItemServlet extends HttpServlet {
                         obj.put("price_item", dataStock.getBuyPrice());
                     }
 
+                    if (dataStock.getSellPrice() == null) {
+                        obj.put("sell_price", "");
+                    } else {
+                        obj.put("sell_price", dataStock.getSellPrice());
+                    }
+
                     if (dataStock.getEstematedDateBefore() == null) {
                         obj.put("estemated_date_before", "");
                     } else {
@@ -436,10 +442,10 @@ public class ItemServlet extends HttpServlet {
                     dataProducts.setBarcode("");
                     dataProducts.setPict_path("");
 
-                    dataStock.setBuyPrice(price_item);
                     dataProducts.setEntityStock(dataStock);
 //                    entityProductsDao.createProducts(dataProducts);
                     dataStock.setIdProduct(dataProducts);
+                    dataStock.setBuyPrice(price_item);
 
                     try {
                         dataStock.setEstematedDateBefore(sdf.parse(estemated_date_before));
@@ -553,6 +559,7 @@ public class ItemServlet extends HttpServlet {
                     entityProductsDao.updateProducts(dataProducts);
                     dataStock.setIdProduct(dataProducts);
                     dataStock.setBuyPrice(price_item);
+                    dataStock.setSellPrice("0");
                     try {
                         dataStock.setEstematedDateBefore(sdf.parse(estemated_date_before));
                     } catch (ParseException ex) {

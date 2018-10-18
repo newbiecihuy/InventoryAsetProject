@@ -18,7 +18,8 @@ textarea {
 #main-content{margin-left:0;min-height:100%}
 
 * {
-    font-family: Raleway, sans-serif;;
+    font-family: Raleway, sans-serif;
+    text-transform: capitalize;
 }
 .bg-cl{
 

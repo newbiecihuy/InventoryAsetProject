@@ -294,8 +294,8 @@ public class UserServlet extends HttpServlet {
                 JSONObject object = array.getJSONObject(0);
                 object = array.getJSONObject(i);
                 action_insert = object.getString("action_insert");
-                action_edit = object.getString("action_edit");
-                action_delete = object.getString("action_delete");
+                action_edit = object.getString("action_edit").trim().replaceAll("['\":<>\\[\\],-]", "");
+                action_delete = object.getString("action_delete").trim().replaceAll("['\":<>\\[\\],-]", "");
 
                 if (!"".equals(object.getString("id_user")) && !object.getString("id_user").isEmpty()) {
                     idUsers = object.getLong("id_user");
@@ -304,38 +304,38 @@ public class UserServlet extends HttpServlet {
                 if (idUsers == 0l) {
 
                     if (!object.getString("userName").isEmpty()) {
-                        userName = object.getString("userName");
+                        userName = object.getString("userName").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         userName = "";
                     }
                     if (!object.getString("roleName").isEmpty()) {
-                        roleName = object.getString("roleName");
+                        roleName = object.getString("roleName").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         roleName = "";
                     }
 
                     if (!object.getString("address").isEmpty()) {
-                        address = object.getString("address");
+                        address = object.getString("address").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         address = "";
                     }
                     if (!object.getString("nomorIMEI").isEmpty()) {
-                        nomorIMEI = object.getString("nomorIMEI");
+                        nomorIMEI = object.getString("nomorIMEI").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         nomorIMEI = "";
                     }
                     if (!object.getString("email").isEmpty()) {
-                        email = object.getString("email");
+                        email = object.getString("email").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         email = "";
                     }
                     if (!object.getString("gender").isEmpty()) {
-                        gender = object.getString("gender");
+                        gender = object.getString("gender").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         gender = "";
                     }
                     if (!object.getString("phone").isEmpty()) {
-                        phone = object.getString("phone");
+                        phone = object.getString("phone").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         phone = "";
                     }
@@ -402,57 +402,57 @@ public class UserServlet extends HttpServlet {
                         userRolesDao.createUserRoles(userRole);
 
                         System.out.println("Persist OK");
-                        code = "1";
+//                        code = "1";
 //                        em.getTransaction().commit();
 
                     } finally {
                     }
 
-//                    code = "1";
+                    code = "1";
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
                     dataUser = usersDao.find(idUsers);
                     if (!object.getString("userName").isEmpty()) {
-                        userName = object.getString("userName");
+                        userName = object.getString("userName").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         userName = "";
                     }
                     if (!object.getString("roleName").isEmpty()) {
-                        roleName = object.getString("roleName");
+                        roleName = object.getString("roleName").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         roleName = "";
                     }
 
-                    if (!object.getString("password").isEmpty()) {
-                        password = object.getString("password");
-                        String isipassUser = password;
-                        String isiPassword = EncryptionUtil.setSHA256(passUser);
-                        dataUser.setPassword(isipassUser);
-                        dataUser.setPasswordEnc(isiPassword);
-                    } else {
-                        password = "";
-                    }
+//                    if (!object.getString("password").isEmpty()) {
+//                        password = object.getString("password").trim().replaceAll("['\":<>\\[\\],-]", "");
+//                        String isipassUser = password;
+//                        String isiPassword = EncryptionUtil.setSHA256(passUser);
+//                        dataUser.setPassword(isipassUser);
+//                        dataUser.setPasswordEnc(isiPassword);
+//                    } else {
+//                        password = "";
+//                    }
                     if (!object.getString("address").isEmpty()) {
-                        address = object.getString("address");
+                        address = object.getString("address").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         address = "";
                     }
                     if (!object.getString("nomorIMEI").isEmpty()) {
-                        nomorIMEI = object.getString("nomorIMEI");
+                        nomorIMEI = object.getString("nomorIMEI").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         nomorIMEI = "";
                     }
                     if (!object.getString("email").isEmpty()) {
-                        email = object.getString("email");
+                        email = object.getString("email").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         email = "";
                     }
                     if (!object.getString("gender").isEmpty()) {
-                        gender = object.getString("gender");
+                        gender = object.getString("gender").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         gender = "";
                     }
                     if (!object.getString("phone").isEmpty()) {
-                        phone = object.getString("phone");
+                        phone = object.getString("phone").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         phone = "";
                     }
@@ -473,10 +473,35 @@ public class UserServlet extends HttpServlet {
                     dataUser.setPhone(phone);
                     dataUser.setNomorIMEI(nomorIMEI);
                     usersDao.updateUser(dataUser);
-//                    userRolesPK.setId(idUsers);
-                    userRolesPK.setRoleName(roleName.toLowerCase());
-                    userRolesPK.setUserName(userName.toLowerCase());
-                    EntityUserRoles userRole = userRolesDao.find(userRolesPK);
+                    Long isi_id = idUsers;
+                    System.out.println("isi_id"+isi_id);
+//                    userRolesPK.setId(isi_id);
+//                    userRolesPK.setRoleName(roleName.toLowerCase());
+//                    userRolesPK.setUserName(userName.toLowerCase());
+//                    EntityUserRoles userRole = userRolesDao.find(userRolesPK);
+////                    if (userRole != null) {
+////                        System.out.println("User sudah terdaftar");
+//////
+//////                        if ((em != null) || (em.isOpen())) {
+//////                            em.close();
+//////                        }
+////                        code = "error";
+////                        return;
+////                    }
+//                    userRole = new EntityUserRoles();
+//                    try {
+////                        em.getTransaction().begin();
+//                        userRole.setUser_roles_pk(userRolesPK);
+//                        userRolesDao.createUserRoles(userRole);
+//
+//                        System.out.println("Merge OK");
+////                        code = "1";
+////                        em.getTransaction().commit();
+//
+//                    } finally {
+//                    }
+
+                    code = "1";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
                     dataUser = usersDao.find(idUsers);
                     dataUser.setStatusUsers(false);//delete

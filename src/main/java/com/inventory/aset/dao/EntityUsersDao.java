@@ -66,7 +66,7 @@ public class EntityUsersDao extends AbstractFacade<EntityUsers> implements Entit
     @Override
     public List<EntityUsers> getAllUsers(int max) {
 //        return em.createNamedQuery("EntityUsers.findAll").getResultList();
-        return em.createQuery("SELECT u FROM EntityUserss u").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT u FROM EntityUsers u").setMaxResults(max).getResultList();
     }
 
     @Override
