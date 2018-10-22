@@ -116,14 +116,20 @@ public class EntityProducts implements Serializable {
 
     @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "idProduct")
     private Collection<EntityProductSell> entityProductSell;
+    
+    @Column(name = "is_approve")
+    private boolean isApprove = false;
 
     @Column(name = "pic")
     private String pic;
+    
+    
 
     public EntityProducts() {
+      
     }
 
-    public EntityProducts(Long idProduct, String productName, String productCode, String barcode, String pict_path, EntityCategories categoryId, EntitySuppliers supplierId, Date createdAt, String createdAtTime, Date inputDate, String inputTime, Date updatedAt, String updatedAtTime, String description, EntityStock entityStock, Collection<EntityProductPurchase> entityProductPurchase, Collection<EntityProductSell> entityProductSell, String pic) {
+    public EntityProducts(Long idProduct, String productName, String productCode, String barcode, String pict_path, EntityCategories categoryId, EntitySuppliers supplierId, Date createdAt, String createdAtTime, Date inputDate, String inputTime, Date updatedAt, String updatedAtTime, String description, EntityStock entityStock, Collection<EntityProductPurchase> entityProductPurchase, Collection<EntityProductSell> entityProductSell, boolean isApprove, String pic) {
         this.idProduct = idProduct;
         this.productName = productName;
         this.productCode = productCode;
@@ -141,6 +147,7 @@ public class EntityProducts implements Serializable {
         this.entityStock = entityStock;
         this.entityProductPurchase = entityProductPurchase;
         this.entityProductSell = entityProductSell;
+        this.isApprove = isApprove;
         this.pic = pic;
     }
 
@@ -302,6 +309,14 @@ public class EntityProducts implements Serializable {
 
     public void setEntityProductSell(Collection<EntityProductSell> entityProductSell) {
         this.entityProductSell = entityProductSell;
+    }
+
+    public boolean isIsApprove() {
+        return isApprove;
+    }
+
+    public void setIsApprove(boolean isApprove) {
+        this.isApprove = isApprove;
     }
 
     public String getPic() {

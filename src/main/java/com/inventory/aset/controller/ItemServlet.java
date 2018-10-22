@@ -234,6 +234,11 @@ public class ItemServlet extends HttpServlet {
                         obj.put("estemated_date_after", sdf.format(dataStock.getEstematedDateAfter()));
 //                        dateAfter_val = sdf.parse(dataStock.getEstematedDateAfter().toString());
                     }
+                    if (dataProduct.isIsApprove()) {
+                        obj.put("isApprove", "1");
+                    } else {
+                        obj.put("isApprove", "0");
+                    }
 
                     if (!dataProduct.isStatus_item()) {
                         obj.put("status_item", "0");

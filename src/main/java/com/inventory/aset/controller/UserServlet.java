@@ -261,6 +261,7 @@ public class UserServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
 
             String code = "0";
+            String msg = "";
             System.out.println(request.getParameter("JSONFile"));
             JSONArray array = (JSONArray) JSONSerializer.toJSON(request.getParameter("JSONFile"));
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -409,6 +410,7 @@ public class UserServlet extends HttpServlet {
                     }
 
                     code = "1";
+                    msg = "Has been Recorded";
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
                     dataUser = usersDao.find(idUsers);
                     if (!object.getString("userName").isEmpty()) {
@@ -474,7 +476,7 @@ public class UserServlet extends HttpServlet {
                     dataUser.setNomorIMEI(nomorIMEI);
                     usersDao.updateUser(dataUser);
                     Long isi_id = idUsers;
-                    System.out.println("isi_id"+isi_id);
+                    System.out.println("isi_id" + isi_id);
 //                    userRolesPK.setId(isi_id);
 //                    userRolesPK.setRoleName(roleName.toLowerCase());
 //                    userRolesPK.setUserName(userName.toLowerCase());
@@ -501,19 +503,23 @@ public class UserServlet extends HttpServlet {
 //                    } finally {
 //                    }
 
-                    code = "1";
+                    code = "3";
+                    msg = "Has been Updated";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
                     dataUser = usersDao.find(idUsers);
                     dataUser.setStatusUsers(false);//delete
                     dataUser.setUpdatedDate(now);
                     dataUser.setUpdatedTime(time_now);
                     usersDao.deleteUser(dataUser);
+                    code = "4";
+                    msg = "Has been Deleted";
                 }
 
             }
 
             JSONObject jsonobj = new JSONObject();
             jsonobj.put("RC", code);
+            jsonobj.put("msg", msg);
             out.println(jsonobj.toString());
             out.flush();
             System.out.println(jsonobj.toString());

@@ -60,6 +60,11 @@ public class EntityTaxDao extends AbstractFacade<EntityTax> implements EntityTax
 //        return em.createNamedQuery("EntityTax.findAll").getResultList();
         return em.createQuery("SELECT t FROM EntityTax t").setMaxResults(max).getResultList();
     }
+    @Override
+    public List<EntityTax> getTaxByType(String taxType) {
+//        return em.createNamedQuery("EntityTax.findAll").getResultList();
+         return em.createQuery("SELECT t FROM EntityTax t WHERE t.taxType =  \"" + taxType + "\"").getResultList();
+    }
 
     @Override
     public EntityTax find(Object paramId) {

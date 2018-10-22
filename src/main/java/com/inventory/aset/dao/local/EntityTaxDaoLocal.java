@@ -15,6 +15,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface EntityTaxDaoLocal {
+
     void createTax(EntityTax dataTax);
 
     void updateTax(EntityTax dataTax);
@@ -27,8 +28,10 @@ public interface EntityTaxDaoLocal {
 
     List<EntityTax> getAllTax(int max);
 
-//    List<EntityProductSell> getSellId(Object sellId);
+    List<EntityTax> getTaxByType(String taxType);
+    
     EntityTax find(Object paramObject);
 
     int count();
+
 }

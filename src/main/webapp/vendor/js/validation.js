@@ -10,9 +10,8 @@
 
 function createDynamicURL()
 {
-    //The variable to be returned
+//The variable to be returned
     var URL;
-
     //The variables containing the respective IDs
 //    var companyID=...
 //    var branchID=...
@@ -27,7 +26,6 @@ function createDynamicURL()
 //    URL+=employeeID;
 //    URL+="/info";
     URL = "/InventoryAsetProject/";
-
     return URL;
 }
 /*
@@ -45,7 +43,7 @@ function getURLParameter(name) {
 }
 
 function hideURLParams() {
-    //Parameters to hide (ie ?success=value, ?error=value, etc)
+//Parameters to hide (ie ?success=value, ?error=value, etc)
     var hide = ['success', 'error'];
     for (var h in hide) {
         if (getURLParameter(h)) {
@@ -136,7 +134,6 @@ $(document).ready(function () {
     $(function () {
         $("#tgl_service_details_start").datepicker().datepicker("setDate", new Date());
     });
-
     // form_add_pic  
     $("#form_add_pic").submit(function () {
 
@@ -211,20 +208,20 @@ $(document).ready(function () {
             return false;
         }
 
-        var data_add_pic = {
-            userName: $("#userName").val(),
-            address: $("#address").val(),
-            email: $("#email").val(),
-            gender: $("#gender").val(),
-            action: $("#action").val(),
-            roleName: $("#roleName").val(),
-            nomorIMEI: $("#nomorIMEI").val(),
-            action_insert: $("#action_insert").val(),
-            action_edit: $("#action_edit").val(),
-            action_delete: $("#action_delete").val()
-        };
+//        var data_add_pic = {
+//            userName: $("#userName").val(),
+//            address: $("#address").val(),
+//            email: $("#email").val(),
+//            gender: $("#gender").val(),
+//            action: $("#action").val(),
+//            roleName: $("#roleName").val(),
+//            nomorIMEI: $("#nomorIMEI").val(),
+//            action_insert: $("#action_insert").val(),
+//            action_edit: $("#action_edit").val(),
+//            action_delete: $("#action_delete").val()
+//        };
 
-        console.log("isi data_add_pic" + data_add_pic);
+//        console.log("isi data_add_pic" + data_add_pic);
         $.ajax({
             type: "POST",
             url: createDynamicURL() + "/userServlet",
@@ -233,11 +230,13 @@ $(document).ready(function () {
             success: function (response) {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
-
-                    $("#form_add_user_response").html("<div><p><b>" + "User " + userName + " Has been Recorded" + "</b></p></div>");
+                    $("#form_add_user_response").html("<div><p><b>" + "User " + userName + response.msg + "</b></p></div>");
                     $('#btn_add_pic').prop('disabled', true);
                 } else if (response.RC === "2") {
                     $("#form_add_user_response").html("<div><p><b>" + "User " + userName + " Already Registered" + "</b></p></div>").addClass('error').css({});
+                } else if (response.RC === "3") {
+                    $("#form_add_user_response").html("<div><p><b>" + "User " + userName + response.msg + "</b></p></div>").addClass('error').css({});
+                    $('#btn_add_pic').prop('disabled', true);
                 }
                 //display error message
                 else {
@@ -256,12 +255,27 @@ $(document).ready(function () {
 //        return;
     });
     // form_add_supplier  
+    $('#checkbox_value').text($('#tax').val());
+    $("#tax").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'on');
+        } else {
+            $(this).attr('value', 'off');
+        }
+
+        $('#checkbox_value').text($('#tax').val());
+    });
+//    if ($("#tax").attr('checked', 'checked')) {
+//        $('#checkbox_value').text('true');
+//    }
     $("#form_add_supplier").submit(function () {
 
         var supplier_name = $("#supplier_name").val();
         var address_supplier = $("#address_supplier").val();
         var contact_suplier_name = $("#contact_suplier_name").val();
         var cotact_suplier_num = $("#cotact_suplier_num").val();
+        var checkbox_value = $('#tax').val();
+        var txt_val = "";
 
         if ($("#supplier_name").val() === "") {
 
@@ -291,12 +305,28 @@ $(document).ready(function () {
         } else {
             $('#cotact_suplier_num').css('background', '');
         }
-
+        if (checkbox_value === "on" || checkbox_value === "true") {
+            txt_val = "active";
+        } else {
+            txt_val = "dis active";
+        }
+//        var checkedValue = $('.messageCheckbox:checked').val();
+//        $('#checkbox-value').text($('#tax').val());
+//        $("#tax").on('change', function () {
+//            if ($(this).is(':checked')) {
+//                $(this).attr('value', 'true');
+//            } else {
+//                $(this).attr('value', 'false');
+//            }
+//
+//            $('#checkbox-value').text($('#checkbox1').val());
+//        });
         if (confirm("Supllier Data \n\n"
                 + "Name    :" + supplier_name + "\n\n"
                 + "Address    :" + address_supplier + "\n\n"
                 + "Contact Person    :" + contact_suplier_name + "\n\n"
                 + "Contact Number    :" + cotact_suplier_num + "\n\n"
+                + "Tax    :" + txt_val + "\n\n"
                 ) === true) {
             $('#supplier_name').css('background', '');
             $('#address_supplier').css('background', '');
@@ -311,18 +341,17 @@ $(document).ready(function () {
             return false;
         }
 
-////        var data_add_pic = $("#form_add_pic").serialize();
-        var data_add_supplier = {
-            supplier_name: $("#supplier_name").val(),
-            address_supplier: $("#address_supplier").val(),
-            contact_suplier_name: $("#contact_suplier_name").val(),
-            cotact_suplier_num: $("#cotact_suplier_num").val(),
-            action_insert_supp: $("#action_insert_supp").val(),
-            action_edit_supp: $("#action_edit_supp").val(),
-            action_delete: $("#action_delete").val()
-        };
 
-        console.log("isi data_add_supplier" + data_add_supplier);
+//        var data_add_supplier = {
+//            supplier_name: $("#supplier_name").val(),
+//            address_supplier: $("#address_supplier").val(),
+//            contact_suplier_name: $("#contact_suplier_name").val(),
+//            cotact_suplier_num: $("#cotact_suplier_num").val(),
+//            action_insert_supp: $("#action_insert_supp").val(),
+//            action_edit_supp: $("#action_edit_supp").val(),
+//            action_delete: $("#action_delete").val()
+//        };
+//        console.log("isi data_add_supplier" + data_add_supplier);
         $.ajax({
             type: "POST",
             url: createDynamicURL() + "/supplierServlet",
@@ -332,10 +361,13 @@ $(document).ready(function () {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
 
-                    $("#form_add_supplier_response").html("<div><p><b>" + "Supplier  " + supplier_name + " Has been Recorded" + "</b></p></div>");
+                    $("#form_add_supplier_response").html("<div><p><b>" + "Supplier  " + supplier_name + response.msg + "</b></p></div>");
 //                    $('#btn_add_supplier').prop('disabled', true);
                 } else if (response.RC === "2") {
                     $("#form_add_supplier_response").html("<div><p><b>" + "Supplier " + supplier_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
+                } else if (response.RC === "3") {
+                    $("#form_add_supplier_response").html("<div><p><b>" + "Supplier " + supplier_name + response.msg + "</b></p></div>").addClass('error').css({});
+                    $('#btn_add_supplier').prop('disabled', true);
                 }
                 //display error message
                 else {
@@ -358,7 +390,6 @@ $(document).ready(function () {
     $("#form_add_categories").submit(function () {
         var category_name = $("#category_name").val();
         var category_desc = $("#category_desc").val();
-
         if ($("#category_name").val() === "") {
 
             $('#category_name').css('background', '#e74c3c');
@@ -413,7 +444,6 @@ $(document).ready(function () {
 
         });
         return false;
-
     });
     // form_add_item  
     $("#form_add_item").submit(function () {
@@ -421,7 +451,6 @@ $(document).ready(function () {
         var item_name = $("#item_name").val();
         var categori_name = $("#categories_name").val();
         var description = $("#description").val();
-
         if ($("#item_name").val() === "") {
 
             $('#item_name').css('background', '#e74c3c');
@@ -514,7 +543,6 @@ $(document).ready(function () {
 //        $('#form_add_item')[0].reset();
 //        return;
     });
-
     $("#form_add_po").submit(function () {
         var supplier_name = $("#supplier_name_po").val();
         var date = $("#tgl_input_po").val();
@@ -591,8 +619,6 @@ $(document).ready(function () {
 
         });
         return false;
-
-
     });
 //    
     $("#form_upload").submit(function () {
@@ -683,7 +709,6 @@ $(document).ready(function () {
 
                     $("#ajaxResponse_form_email_config").html("<div><p><b>" + "SUCCES" + "</b></p></div>");
                     $('#btn_ubmit_form_email_config').prop('disabled', true);
-
                 }
                 //display error message
                 else {
@@ -783,33 +808,39 @@ $(document).ready(function () {
         return false;
     });
     $("#form_create_po").submit(function () {
+        if (confirm("Actived Tax \n\n") === true) {
+            $("#tax_po").val("true");
+//            document.getElementById("tax_po").value = "true";
+        } else {
+            $("#tax_po").val("false");
+//            document.getElementById("tax_po").value = "false";
+            return false;
+        }
         $.ajax({
             type: "POST",
-            url: createDynamicURL() + "/createPOItemServlet",
-            dataType: "json",
+            url: createDynamicURL() + "/createPOServlet",
+//            data: {JSONFile: data_add_item}, // look here!
             data: {JSONFile: "[" + JSON.stringify($('#form_create_po').serializeObject()) + "]"}, // look here!
-//           data: {rows:rowValues, columns:columnValues},
             success: function (response) {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
 
-                    $("#ajaxResponse_form_delegate").html("<div><p><b>" + "SUCCES" + "</b></p></div>");
-                    $('#btn_form_create_po').prop('disabled', true);
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order   " + "" + response.msg + "</b></p></div>");
                 } else if (response.RC === "2") {
-                    $("#ajaxResponse_form_delegate").html("<div><p><b>" + "Data Duplicate" + "</b></p></div>");
-//                    $('#btn_submit_form_company').prop('disabled', true);
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + " Already Registered" + "</b></p></div>").addClass('error').css({});
+                } else if (response.RC === "3") {
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
                 }
                 //display error message
                 else {
-                    $("#ajaxResponse_form_delegate").html("<div><p><b>Invalid!</b></p></div>");
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>Invalid!</b></p></div>").addClass('error').css({});
                 }
             },
             //If there was no resonse from the server
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("Something really bad happened " + textStatus);
-                $("#ajaxResponse_form_delegate").html(jqXHR.responseText);
+                $("#ajaxResponse_form_add_po").html(jqXHR.responseText);
             }
-
 
         });
         return false;
@@ -884,7 +915,6 @@ $(document).ready(function () {
         scroll: true,
         source: createDynamicURL() + "/autoCompleteSupplierName"
     }).autocomplete("option", "appendTo", "#form_add_supplier");
-
     $("#supplier_name_po").autocomplete({
         minLength: 1,
         cacheLength: 1,
@@ -892,7 +922,6 @@ $(document).ready(function () {
         scroll: true,
         source: createDynamicURL() + "/autoCompleteSupplierName"
     }).autocomplete("option", "appendTo", "#form_add_po");
-
     $("#supplier_code_po").autocomplete({
         minLength: 1,
         cacheLength: 1,
@@ -900,7 +929,6 @@ $(document).ready(function () {
         scroll: true,
         source: createDynamicURL() + "/autoCompleteSupplierCode"
     }).autocomplete("option", "appendTo", "#form_add_po");
-
     $("#po_type").autocomplete({
         minLength: 1,
         cacheLength: 1,
@@ -917,7 +945,6 @@ $(document).ready(function () {
         scroll: true,
         source: createDynamicURL() + "/autoCompleteProductName"
     }).autocomplete("option", "appendTo", "#form_edit_delegate_details");
-
     $("#categories_name").autocomplete({
         minLength: 1,
         cacheLength: 1,
@@ -925,7 +952,6 @@ $(document).ready(function () {
         scroll: true,
         source: createDynamicURL() + "/autoCompleteCategoryName"
     }).autocomplete("option", "appendTo", "#form_add_item");
-
     $("#supplier_name").autocomplete({
         minLength: 1,
         cacheLength: 1,
@@ -933,7 +959,6 @@ $(document).ready(function () {
         scroll: true,
         source: createDynamicURL() + "/autoCompleteSupplierName"
     }).autocomplete("option", "appendTo", "#form_add_item");
-
 //            
 
 //    $("#form_add_pic").load(function () {
@@ -990,7 +1015,6 @@ $(document).ready(function () {
 //    $("#qtty_po").change(discount);
 //    $("#unit_item_po").blur(format_rupiah);
 });
-
 function myFunction_reset_excel_service_details() {
     document.getElementById("form_report_excel_field_service_details").reset();
     $('#tgl_excel_service_details_start').css('background', '');
@@ -1037,6 +1061,7 @@ function myFunction_reset_formUser() {
     $("#content_pass").text("").removeClass('error');
     $("#content_userName").text("").removeClass('error');
     $("#content_email").text("").removeClass('error');
+    $('#btn_add_pic').prop('disabled', false);
     return false;
 }
 function myFunction_reset_formSupplier() {
@@ -1045,6 +1070,7 @@ function myFunction_reset_formSupplier() {
     $('#address_supplier').css('background', '');
     $('#conttact_suplier_name').css('background', '');
     $('#conttact_suplier_num').css('background', '');
+    $('#btn_add_supplier').prop('disabled', false);
     return false;
 }
 function myFunction_reset_formCategory() {
@@ -1063,8 +1089,6 @@ function  myFunction_reset_form_create_po() {
     document.getElementById("form_create_po").reset();
 //    $('#btn_form_create_po').prop('disabled', false);
     document.getElementById("btn_form_create_po").disabled = false;
-
-
 }
 //function myFunction_reset_form_email_config() {
 //    document.getElementById("form_email_config").reset();
@@ -1208,7 +1232,6 @@ function cekNumber() {
                     //                           
         });
         $("#delivery_term").focus();
-
         document.getElementById("prevBtn").disabled = true;
         document.getElementById("nextBtn").disabled = true;
         return false;
@@ -1284,9 +1307,7 @@ function myFunctionExcelFieldService() {
 
     var tgl_excel_service_details_start = $('#tgl_excel_service_details_start').val();
     var tgl_excel_service_details_end = $('#tgl_excel_service_details_end').val();
-
     window.location = createDynamicURL() + "/excelFieldServiceDetailsServlet?tgl_excel_service_details_start=" + tgl_excel_service_details_start + "&tgl_excel_service_details_end=" + tgl_excel_service_details_end;
-
 }
 //    if (nama_teknisi_field_service !== "" && tgl_excel_service_details_start !== "" && tgl_excel_service_details_end !== "") {
 
@@ -1554,16 +1575,6 @@ function myFunction_form_upload() {
 //    alert("form_upload");
 
     var data_upload_excel_delegasi = new FormData($("#form_upload")[0]);
-
-//    var id_delegate = $("#id_delegate").val();
-//    console.log("id_delegate" + id_delegate);
-//        alert(id_nojo_form_upload);
-////        return;
-//    jQuery.each(data_upload_excel_pemasangan.files, function (i, file) {
-//
-//        data_upload_excel_pemasangan.append('id_nojo_form_upload' + id_nojo_form_upload, file);
-//    });
-//    alert(data_upload_excel_delegasi);
     $.ajax({
         type: "POST",
 //        dataType: 'json',
@@ -1586,12 +1597,10 @@ function myFunction_form_upload() {
 
 //                alert("No File Found");
                 $("#content_form_upload").html("<div><b>No File Found !</b></div>");
-
             } else if (response.RC === "00nmx") {
 
 //                alert("Fail Upload File");
                 $("#content_form_upload").html("<div><b>Fail Upload  data Job Order !</b></div>");
-
             } else if (response.RC === "typ0x") {
 //                alert("type  Aset Not Listed");
                 $("#content_form_upload").html("<div><b>Type  Aset Not Found !</b></div>");
@@ -1633,42 +1642,28 @@ function other_mail() {
     return;
 }
 
-function getVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split("=");
-        if (pair[0] === variable) {
-            return pair[1];
-        }
-    }
-    return (false);
-}
+//function getVariable(variable) {
+//    var query = window.location.search.substring(1);
+//    var vars = query.split("&");
+//    for (var i = 0; i < vars.length; i++) {
+//        var pair = vars[i].split("=");
+//        if (pair[0] === variable) {
+//            return pair[1];
+//        }
+//    }
+//    return (false);
+//}
 
 function editUserFunc(data_users) {//, supplier_name, supplier_code, address, contact_name, contact_num, status_supp
 
-//        alert(data_users.user_name);
-//        alert(data_users.phone);
-    alert(data_users.gender);
+//    alert(data_users.gender);
     var param = "&userName=" + escape(data_users.user_name) + "&id_user=" + escape(data_users.id_user)
             + "&action_edit=" + "EDIT" + "&email=" + escape(data_users.email)
             + "&address=" + escape(data_users.address) + "&role_name=" + escape(data_users.role_name)
             + "&imei=" + escape(data_users.imei) + "&phone=" + escape(data_users.phone)
             + "&gender=" + escape(data_users.gender);
-
-
-//        document.getElementById("userName").value = data_users.user_name;
-//        document.getElementById("id_user").value = data_users.id_user;
-//        document.getElementById("email").value = data_users.email;
-//        document.getElementById("address").value = data_users.address;
-//        document.getElementById("role_name").value = data_users.role_name;
-//        document.getElementById("imei").value = data_users.imei;
-//        document.getElementById("phone").value = data_users.phone;
-//        document.getElementById("gender").value = data_users.gender;
-//        document.getElementById("action_edit").value = "EDIT";
-
 //    var isi_param = param.replace(/%20/g, "");
-    window.location = "index.jsp?url=user_layout&pages=add_user_form" + decodeURI(param);//jQuery.param(data_users
+    window.location = "index.jsp?url=user_layout&pages=add_user_form" + decodeURI(param); //jQuery.param(data_users
 }
 
 function editSupplierFunc(data_supplier) {//, supplier_name, supplier_code, address, contact_name, contact_num, status_supp
@@ -1679,7 +1674,8 @@ function editSupplierFunc(data_supplier) {//, supplier_name, supplier_code, addr
     var param = "&supplier_name=" + escape(data_supplier.supplier_name) + "&supplier_id=" + escape(data_supplier.supplier_id)
             + "&action_edit_supp=" + "EDIT" + "&supplier_code=" + escape(data_supplier.supplier_code)
             + "&address_supplier=" + escape(data_supplier.address) + "&contact_suplier_name=" + escape(data_supplier.contact_name)
-            + "&cotact_suplier_num=" + escape(data_supplier.contact_num);
+            + "&cotact_suplier_num=" + escape(data_supplier.contact_num)
+            + "&tax=" + escape(data_supplier.tax);
 //    var isi_param = param.replace(/%20/g, "");
     window.location = "index.jsp?url=supllier_layout&pages=add_supllier_form" + decodeURI(param); //data_form_po.purchase_id;
 //
@@ -1690,7 +1686,6 @@ function editCategoriesFunc(data_categories) {//, supplier_name, supplier_code, 
 //    alert(data_categories.category_id);
     var myParam = "&category_name=" + escape(data_categories.name_categories) + "&category_id=" + escape(data_categories.category_id)
             + "&action_edit_category=" + "EDIT" + "&category_desc=" + escape(data_categories.category_desc);
-
     window.location = "index.jsp?url=item_layout&pages=add_category_form" + decodeURI(myParam); //data_form_po.purchase_id;
 
 }
@@ -1699,7 +1694,8 @@ function editPoFunc(data_form_po) {
     window.location = "index.jsp?url=purcahase_layout&pages=form_edit_po";
 }
 function addPoItemFunc(data_form_po) {
-    var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id);
+    var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id)
+            + "&tax_item_po=" + escape(data_form_po.supplier_tax);
     window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + decodeURI(myParam); //data_form_po.purchase_id;
 
 }
@@ -1723,7 +1719,6 @@ function deleteUserFunc(data_users) {
         action_edit: $("#action_edit").val(),
         action_delete: "DELETE"
     };
-
     $.ajax({
         type: "POST",
         url: createDynamicURL() + "/userServlet",
@@ -1732,7 +1727,6 @@ function deleteUserFunc(data_users) {
         success: function (response) {
             //our country code was correct so we have some information to display
             if (response.RC === "1") {
-
                 $("#form_add_user_response").html("<div><p><b>" + "User " + data_users.user_name + " Has been Recorded" + "</b></p></div>");
 //                $('#btn_add_pic').prop('disabled', true);
             } else if (response.RC === "2") {
@@ -1811,8 +1805,6 @@ function categories_empty() {
 function supplier_item_empty() {
     console.log("entered empty function");
     //get the form data and then serialize that
-    //            var dataString = $("#form_delegate").serialize();
-    //get the form data using another method 
     var supplier_name = $("#supplier_name").val();
 //    var dataString = {};
 //    if (supplier_name !== "") {
@@ -1820,10 +1812,6 @@ function supplier_item_empty() {
         supplier_name: supplier_name
 
     };
-//    }
-//    if (supplier_code !== "") {
-//        dataString = {supplier_code: supplier_code};
-//    }
     console.log(dataString);
     $.ajax({
         type: "POST",
@@ -1857,11 +1845,7 @@ function supplier_item_empty() {
 function supplier_empty() {
     console.log("entered empty function");
     //get the form data and then serialize that
-    //            var dataString = $("#form_delegate").serialize();
-    //get the form data using another method 
     var supplier_name = $("#supplier_name_po").val();
-//    var dataString = {};
-//    if (supplier_name !== "") {
     var dataString = {
         supplier_name: supplier_name
 
@@ -1889,6 +1873,8 @@ function supplier_empty() {
                 $("#supplier_code_po").val(response.supplier_code);
                 console.log(response.supplier_code);
                 $("#supplier_id_po").val(response.supplier_id);
+                console.log(response.tax);
+                $("#tax_po").val(response.tax);
             }
             //display error message
             else {
@@ -1930,24 +1916,15 @@ function supplier_code_empty() {
         success: function (response) {
             //our country code was correct so we have some information to display
             if (response) {
-//                        var counters="";
-                //                        var jsonData = JSON.stringify(response)
-                //                        $("#ajaxResponse").html("<div><b>Merchant Name Valid!</b></div>");
-                //                        $("#ajaxResponse").html("");
-                //                        $("#ajaxResponse").html("<div><b>" + jsonData + "</b></div>");
-                //                        var jsonData = JSON.stringify(response);
-                //                        for (var i = 0; i < jsonData.length; i++) {
-                //                            counters = jsonData;
-                //                           console.log(counter.kota_merchant_dela);
-                //                            
-                //                        }
-                //                        $("#ajaxResponse").html("<div><b>" + jsonData.kota_merchant_del + "</b></div>");
+
                 console.log(response.supplier_name);
                 $("#supplier_name_po").val(response.supplier_name);
                 console.log(response.supplier_code);
                 $("#supplier_code_po").val(response.supplier_code);
                 console.log(response.supplier_code);
                 $("#supplier_id_po").val(response.supplier_id);
+                console.log(response.tax);
+                $("#tax_po").val(response.tax);
             }
             //display error message
             else {
@@ -1969,7 +1946,6 @@ function supplier_code_empty() {
 function item_supEmpty() {
     var idSupplier = document.getElementById("supplier_id_form_create_po").value;
     var item_name_po = document.getElementById("item_name_po").value;
-
     var dataString = {
         idSupplier: idSupplier,
         item_name_po: item_name_po
@@ -2004,7 +1980,6 @@ function item_supEmpty() {
                 $("#unit_price_po").val(response.unit_price_po);
                 console.log(response.product_id);
                 $("#id_product").val(response.product_id);
-
             }
             //display error message
             else {
@@ -2109,12 +2084,10 @@ function add_row() {
     e_item_name.setAttribute('required', '');
     e_item_name.setAttribute('class', 'form-control-static uppercase');
     e_item_name.addEventListener('onchange', item_supEmpty, true);
-
     var e_id_product = document.createElement('input');
     e_id_product.type = "hidden";
     e_id_product.id = "id_product";
     e_id_product.name = "id_product";
-
     var e_qtty_po = document.createElement('input');
     e_qtty_po.type = "number";
     e_qtty_po.id = "qtty_po";
@@ -2125,8 +2098,6 @@ function add_row() {
 //    e_qtty_po.addEventListener("onchange", discount);
     e_qtty_po.setAttribute('class', 'form-control-static uppercase');
     e_qtty_po.addEventListener('onchange', discount, true);
-
-
     var e_unit_item_po = document.createElement('input');
     e_unit_item_po.type = "text";
     e_unit_item_po.id = "unit_item_po";
@@ -2136,8 +2107,6 @@ function add_row() {
 //    e_unit_item_po.addEventListener("onblur", format_rupiah);
     e_unit_item_po.setAttribute('class', 'form-control-static uppercase');
     e_unit_item_po.addEventListener('onblur', format_rupiah, true);
-
-
     var e_unit_price_po = document.createElement('input');
 //    var element_unit_price_po = document.getElementById('unit_price_po');
     e_unit_price_po.type = "text";
@@ -2150,7 +2119,6 @@ function add_row() {
     e_unit_price_po.setAttribute('class', 'form-control-static uppercase');
     e_unit_item_po.addEventListener('onblur', format_rupiah, true);
     e_unit_price_po.addEventListener("onchange", discount, true);
-
     var e_discount_item_po = document.createElement('input');
 //    var element_discount_item_po = document.getElementById('discount_item_po');
     e_discount_item_po.type = "number";
@@ -2162,8 +2130,6 @@ function add_row() {
 //    e_discount_item_po.addEventListener("onchange", discount);
     e_discount_item_po.setAttribute('class', 'form-control-static uppercase');
     e_discount_item_po.addEventListener("onchange", discount, true);
-
-
     var e_total_price_po = document.createElement('input');
     e_total_price_po.type = "text";
     e_total_price_po.id = "total_price_po";
@@ -2234,7 +2200,13 @@ function remove(id) {
 //var element_qtty_po = document.getElementById('qtty_po ');
 //var element_discount_item_po= document.getElementById('qtty_po ');
 
-
+function  taxfunc() {
+    if (document.getElementById("tax_item_po").value === "1") {
+//        document.getElementById("tax_po").value = "10";
+    } else {
+//        document.getElementById("tax_po").value = "";
+    }
+}
 function format_rupiah() {
     var number = document.getElementById("unit_price_po").value;
     var number_string = number.toString();
@@ -2245,7 +2217,7 @@ function format_rupiah() {
         var separator = sisa ? '.' : '';
         rupiah += separator + ribuan.join('.');
     }
-    return  document.getElementById("unit_price_po").value = number_string;//rupiah;
+    return  document.getElementById("unit_price_po").value = number_string; //rupiah;
 }
 function price_item_cek() {
     var number = document.getElementById("price_item").value;
@@ -2257,13 +2229,13 @@ function price_item_cek() {
 //        var separator = sisa ? '.' : '';
 //        rupiah += separator + ribuan.join('.');
 //    }
-    return  document.getElementById("price_item").value = number;//rupiah;
+    return  document.getElementById("price_item").value = number; //rupiah;
 }
 
 function discount() {
     var price = document.getElementById("unit_price_po").value;
     var qtty = document.getElementById("qtty_po").value;
-    var pricedNew = price;//price.split('.').join("");
+    var pricedNew = price; //price.split('.').join("");
     var i = document.getElementById("discount_item_po").value;
     var nilai_unit = "";
     var nilai_akhir = "";
@@ -2318,7 +2290,7 @@ function total(Ntotal) {
 //element_qtty_po.onchange = discount; 
 
 function add_input() {
-    //mencari element dengan id "formku" (yaitu table)
+//mencari element dengan id "formku" (yaitu table)
     var target = document.getElementById("form_add_po");
     // membuat element <tr>
     var tabel_row = document.createElement("tr");
@@ -2343,7 +2315,7 @@ function add_input() {
 
 }
 function remove_form() {
-    // mencari element dengan id="formku" yaitu table
+// mencari element dengan id="formku" yaitu table
     var target = document.getElementById("form_add_po");
     // mendapatkan element terakhir dari <table> yaitu <tr> terakhir
     var akhir = target.lastChild;

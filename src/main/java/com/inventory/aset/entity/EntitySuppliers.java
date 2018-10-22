@@ -77,7 +77,7 @@ public class EntitySuppliers implements Serializable {
     private boolean isActive = true;
     @Basic(optional = false)
     @Column(name = "tax")
-    private boolean tax;
+    private boolean tax = false;
     @Column(name = "is_delete")
     private boolean isDelete = false;
     @Column(name = "pic")

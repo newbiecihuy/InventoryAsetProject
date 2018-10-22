@@ -86,6 +86,20 @@ $(document).ready(function () {
                 visible: true,
                 searchable: true
             }, {
+                data: "tax",
+                targets: "tax",
+                bAutoWidth: true,
+                visible: false,
+//                mRender: function (data_tax, type_tax, row_tax) {
+//                    if (data_tax === '1') {
+//                        return "active";
+//                    }
+//                    if (data_tax === '0') {
+//                        return "Nactive";
+//                    }
+//
+//                }
+            }, {
                 data: "status_supp",
                 targets: "status_supp",
                 bAutoWidth: true,
@@ -117,6 +131,7 @@ $(document).ready(function () {
                         var va_address = row_app["address"];
                         var va_contact_name = row_app["contact_name"];
                         var va_contact_num = row_app["contact_num"]; //,supplier_name,supplier_code,address,contact_name,contact_num,status_supp
+                        var va_tax = row_app["tax"];
                         var va_status_supp = row_app["status_supp"]; // <a href='#'id='updateDataUser' onclick='javascript:myFunc(" + supplier_id + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
 
                         var data_supplier = {
@@ -126,6 +141,7 @@ $(document).ready(function () {
                             address: va_address,
                             contact_name: va_contact_name,
                             contact_num: va_contact_num,
+                            tax: va_tax,
                             status_supp: va_status_supp
                         };
                         return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\

@@ -52,7 +52,8 @@
                                     <th class="supplier_code">Supplier Code</th>
                                     <th class="address">Supplier Address</th>
                                     <th class="contact_name">Contact Name</th>    
-                                    <th class="contact_num">Contact Number</th>                 
+                                    <th class="contact_num">Contact Number</th>   
+                                    <th class="tax">tax</th> 
                                     <th class="status_supp">Status</th>     
                                     <th class="created_date">Added Date</th>
                                     <th class="action_supp">Action</th>     

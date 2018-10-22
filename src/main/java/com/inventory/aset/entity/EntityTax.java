@@ -42,7 +42,7 @@ public class EntityTax implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "tax_title")
-    private int taxTitle;
+    private String taxTitle;
 
     @Basic(optional = false)
     @Column(name = "tax_value")
@@ -52,7 +52,7 @@ public class EntityTax implements Serializable {
 
     }
 
-    public EntityTax(Long taxId, String taxType, int taxTitle, int taxValue) {
+    public EntityTax(Long taxId, String taxType, String taxTitle, int taxValue) {
         this.taxId = taxId;
         this.taxType = taxType;
         this.taxTitle = taxTitle;
@@ -75,13 +75,15 @@ public class EntityTax implements Serializable {
         this.taxType = taxType;
     }
 
-    public int getTaxTitle() {
+    public String getTaxTitle() {
         return taxTitle;
     }
 
-    public void setTaxTitle(int taxTitle) {
+    public void setTaxTitle(String taxTitle) {
         this.taxTitle = taxTitle;
     }
+
+   
 
     public int getTaxValue() {
         return taxValue;

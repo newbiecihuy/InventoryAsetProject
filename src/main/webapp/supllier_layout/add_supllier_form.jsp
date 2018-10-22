@@ -8,15 +8,7 @@
 <!DOCTYPE html>
 
 <body>
-    <%
-//        String supplier_name = null;
-//        String supplier_code = null;
-//        if (request.getParameter("supplier_name") != null) {
-//            supplier_name = request.getParameter("supplier_name").replaceAll("\\s", "");
-//        }
-//        if (request.getParameter("supplier_code") != null) {
-//            supplier_code = request.getParameter("supplier_code").replaceAll("\\s", "");
-//        }
+    <%--
         String supplier_code = "";
         if (request.getParameter("supplier_code") != null) {
             supplier_code = request.getParameter("supplier_code");
@@ -42,7 +34,11 @@
         if (request.getParameter("cotact_suplier_num") != null) {
             cotact_suplier_num = request.getParameter("cotact_suplier_num");
         }
-    %>
+        String tax = "";
+        if (request.getParameter("tax") != null) {
+            tax = request.getParameter("tax");
+        }
+    --%>
     <section class="content-header">
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -64,33 +60,40 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label for="supplier_name" class="req">Supplier Name &nbsp;:</label>
-                        <input type="text" name="supplier_name" id="supplier_name" class="form-control ui-widget-content sw uppercase" value="<% out.println(supplier_name);%>" />
-                        <input type="hidden" name="supplier_id" id="supplier_id" value="<% out.println(supplier_id);%>"/>
+                        <input type="text" name="supplier_name" id="supplier_name" class="form-control ui-widget-content sw uppercase" value="<%-- out.println(supplier_name);--%>" />
+                        <input type="hidden" name="supplier_id" id="supplier_id" value="<%--out.println(supplier_id);--%>"/>
                         <input type="hidden" name="action_insert_supp" id="action_insert_supp"  class="form-control ui-widget-content sw uppercase"/>
-                        <input type="hidden" name="action_edit_supp" id="action_edit_supp"  class="form-control ui-widget-content sw uppercase" value="<% out.println(request.getParameter("action_edit_supp"));%>"/>
+                        <input type="hidden" name="action_edit_supp" id="action_edit_supp"  class="form-control ui-widget-content sw uppercase" value="<%--out.println(request.getParameter("action_edit_supp"));--%>"/>
                         <input type="hidden" name="action_delete_supp" id="action_delete_supp"  class="form-control ui-widget-content sw uppercase"/>
                         <span class="required-server"> </span>
                     </div> 
                     <div class="form-group">
                         <label for="supplier_code" class="req">Supplier Code&nbsp;:</label>
-                        <input type="text" name="supplier_code" id="supplier_code"  placeholder="Suplier Code" class="form-control ui-widget-content sw uppercase" value="<% out.println(supplier_code);%>"/>
+                        <input type="text" name="supplier_code" id="supplier_code"  placeholder="Suplier Code" class="form-control ui-widget-content sw uppercase" value="<%--out.println(supplier_code);--%>"/>
                         <span class="required-server"> </span>
                     </div>
                     <div class="form-group">
                         <label for="address_supplier" class="req">Address&nbsp;:</label>
-                        <textarea  name="address_supplier" id="address_supplier"  placeholder="Adress"  class="form-control ui-widget-content sw uppercase"><% out.println(address_supplier);%></textarea>
+                        <textarea  name="address_supplier" id="address_supplier"  placeholder="Adress"  class="form-control ui-widget-content sw uppercase"><%-- out.println(address_supplier);--%></textarea>
                         <span class="required-server"> </span>
                     </div>
                     <div class="form-group">
                         <label for="contact_suplier_name" class="req">Contact Name &nbsp;:</label>
-                        <input type="text" name="contact_suplier_name" id="contact_suplier_name" class="form-control ui-widget-content sw uppercase" data-required="true" value="<% out.println(contact_suplier_name);%>" />
+                        <input type="text" name="contact_suplier_name" id="contact_suplier_name" class="form-control ui-widget-content sw uppercase" data-required="true" value="<%--out.println(contact_suplier_name);--%>" />
                         <span class="required-server"> </span>
                     </div>
                     <div class="form-group">
                         <label for="cotact_suplier_num" class="req">Contact Number &nbsp;:</label>
-                        <input type="text" name="cotact_suplier_num" id="cotact_suplier_num"  class="required ui-widget-content form-control uppercase" value="<% out.println(cotact_suplier_num);%>"/>
+                        <input type="text" name="cotact_suplier_num" id="cotact_suplier_num"  class="required ui-widget-content form-control uppercase" value="<%--out.println(cotact_suplier_num);--%>"/>
                         <span class="required-server"> </span>
                     </div>
+                    <div class="form-group">
+                        <label for="tax" class="req">Tax &nbsp;:</label>
+                        <label class="checkbox-inline" for="is_active_a">
+                            <input type="checkbox" class="inline checkbox" name="tax" id="tax"><i id="checkbox_value" style="color:whitesmoke" class=""></i>
+                        </label>
+                    </div>
+
 
 
                     <!--                    <div class="form-group">
@@ -115,4 +118,59 @@
             </form> 
         </div>
     </div>
+    <script type="text/javascript" >
+        var supplier_name = getUrlQueryString('supplier_name');
+        if (supplier_name !== "") {
+            $("#supplier_name").val(supplier_name);
+        } else {
+            $("#supplier_name").val("");
+        }
+        var supplier_id = getUrlQueryString('supplier_id');
+        if (supplier_id !== "") {
+            $("#supplier_id").val(supplier_id);
+        } else {
+            $("#supplier_id").val("");
+        }
+        var action_edit_supp = getUrlQueryString('action_edit_supp');
+        if (action_edit_supp !== "") {
+            $("#action_edit_supp").val(action_edit_supp);
+        } else {
+            $("#action_edit_supp").val("");
+        }
+        var supplier_code = getUrlQueryString('supplier_code');
+        if (supplier_code !== "") {
+            $("#supplier_code").val(supplier_code);
+        } else {
+            $("#supplier_code").val("");
+        }
+
+        var address_supplier = getUrlQueryString('address_supplier');
+        if (address_supplier !== "") {
+            $("#address_supplier").val(address_supplier);
+        } else {
+            $("#address_supplier").val("");
+        }
+        var contact_suplier_name = getUrlQueryString('contact_suplier_name');
+        if (contact_suplier_name !== "") {
+            $("#contact_suplier_name").val(contact_suplier_name);
+        } else {
+            $("#contact_suplier_name").val("");
+        }
+        var cotact_suplier_num = getUrlQueryString('cotact_suplier_num');
+        if (cotact_suplier_num !== "") {
+            $("#cotact_suplier_num").val(cotact_suplier_num);
+        } else {
+            $("#cotact_suplier_num").val("");
+        }
+        var tax = getUrlQueryString('tax');
+        if (tax === "1") {
+            $("#tax").attr('checked', 'checked');
+            $('#checkbox_value').text($('#tax').val());
+        } else {
+//            $("#tax").attr('checked', '');
+            $('#checkbox_value').text($('#tax').val());
+//            document.getElementById("checkbox_value").value = "false";
+        }
+
+    </script>
 </body>

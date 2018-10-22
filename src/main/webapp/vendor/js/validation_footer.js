@@ -122,31 +122,5 @@ function foo2() {
 //    alert("HELLO WORLD");
 //    alert(JSON.stringify($('#form_add_po').serializeObject()));
 //    console.log(JSON.stringify($('#form_add_po').serializeObject()));
-
-    $.ajax({
-        type: "POST",
-        url: createDynamicURL() + "/createPOServlet",
-//            data: {JSONFile: data_add_item}, // look here!
-        data: {JSONFile: "[" + JSON.stringify($('#form_add_po').serializeObject()) + "]"}, // look here!
-        success: function (response) {
-            //our country code was correct so we have some information to display
-            if (response.RC === "1") {
-
-                $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order   " + "" + " Has been Recorded" + "</b></p></div>");
-            } else if (response.RC === "2") {
-                $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + " Already Registered" + "</b></p></div>").addClass('error').css({});
-            }
-            //display error message
-            else {
-                $("#ajaxResponse_form_add_po").html("<div><p><b>Invalid!</b></p></div>").addClass('error').css({});
-            }
-        },
-        //If there was no resonse from the server
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log("Something really bad happened " + textStatus);
-            $("#ajaxResponse_form_add_po").html(jqXHR.responseText);
-        }
-
-    });
-    return false;
+    
 }

@@ -83,6 +83,12 @@ $(document).ready(function () {
                 bAutoWidth: true,
                 searchable: true
             }, {
+                data: "supplier_tax",
+                targets: "supplier_tax",
+                bAutoWidth: true,
+                visible: false,
+                searchable: true
+            }, {
                 data: "tgl_input_po",
                 targets: "tgl_input_po",
                 bAutoWidth: true,
@@ -172,6 +178,7 @@ $(document).ready(function () {
                         var va_purchase_code = row_po["purchase_code"];
                         var va_supplier_id = row_po["supplier_id"];
                         var va_supplier_name = row_po["supplier_name"];
+                        var va_tax = row_po["supplier_tax"];
                         var va_tgl_input_po = row_po["tgl_input_po"];
                         var va_purchase_desc = row_po["purchase_desc"];
                         var va_pic = row_po["pic"];
@@ -182,6 +189,7 @@ $(document).ready(function () {
                             purchase_code: va_purchase_code,
                             supplier_id: va_supplier_id,
                             supplier_name: va_supplier_name,
+                            supplier_tax:va_tax,
                             tgl_input_po: va_tgl_input_po,
                             purchase_desc: va_purchase_desc,
                             pic: va_pic,

@@ -42,11 +42,11 @@ public class EntityAsetRequisition implements Serializable {
     private Integer jmlAngka;
     @Column(name = "jml_permintaan", nullable = true)
     private Integer jmlPermintaan;
-    @Column(name = "jml_pinjam", nullable = true)
-    private Integer jmlPinjam;
+    
     @Temporal(TemporalType.DATE)
     @Column(name = "tanggal_permintaan")
     private Date tanggalPermintaan;
+    
     @Column(name = "jam_permintaan", nullable = true)
     private String jamPermintaan;
     @Column(name = "tgl_approve")
@@ -63,14 +63,13 @@ public class EntityAsetRequisition implements Serializable {
     public EntityAsetRequisition() {
     }
 
-    public EntityAsetRequisition(Long ReqId, String departemen, String pemohon, String approval, Integer jmlAngka, Integer jmlPermintaan, Integer jmlPinjam, Date tanggalPermintaan, String jamPermintaan, Date tglApprove, String jamApprove, String keterangan, Long typeReqId) {
+    public EntityAsetRequisition(Long ReqId, String departemen, String pemohon, String approval, Integer jmlAngka, Integer jmlPermintaan, Date tanggalPermintaan, String jamPermintaan, Date tglApprove, String jamApprove, String keterangan, Long typeReqId) {
         this.ReqId = ReqId;
         this.departemen = departemen;
         this.pemohon = pemohon;
         this.approval = approval;
         this.jmlAngka = jmlAngka;
         this.jmlPermintaan = jmlPermintaan;
-        this.jmlPinjam = jmlPinjam;
         this.tanggalPermintaan = tanggalPermintaan;
         this.jamPermintaan = jamPermintaan;
         this.tglApprove = tglApprove;
@@ -127,14 +126,6 @@ public class EntityAsetRequisition implements Serializable {
         this.jmlPermintaan = jmlPermintaan;
     }
 
-    public Integer getJmlPinjam() {
-        return jmlPinjam;
-    }
-
-    public void setJmlPinjam(Integer jmlPinjam) {
-        this.jmlPinjam = jmlPinjam;
-    }
-
     public Date getTanggalPermintaan() {
         return tanggalPermintaan;
     }
@@ -182,6 +173,8 @@ public class EntityAsetRequisition implements Serializable {
     public void setTypeReqId(Long typeReqId) {
         this.typeReqId = typeReqId;
     }
+
+    
 
     @Override
     public int hashCode() {

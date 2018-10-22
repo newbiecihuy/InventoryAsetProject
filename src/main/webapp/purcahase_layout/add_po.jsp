@@ -23,51 +23,6 @@
                     </td>
                 </table>
             </form>
-            <!--            <form id="form_add_po" action="">
-                            <div id="ajaxResponse_form_add_po" class="resp"></div>
-                             One "tab" for each step in the form: 
-                            <div class="tab">
-                                <label for="supplier_code_po" >Supplier Name &nbsp;:</label>
-                                <p><input class="form-control" oninput="this.className = ''" id="supplier_name_po" required="" name="supplier_name_po" placeholder="Supplier Name" onchange="supplier_empty()"></p>
-                                <label for="supplier_code_po" >Supplier Code &nbsp;:</label>
-                                <p><input class="form-control" oninput="this.className = ''" id="supplier_code_po" required=""  placeholder="Supplier Code" name="supplier_code_po" onchange="supplier_code_empty()"></p>
-                                <p><input class="form-control invisible" name="supplier_id_po" id="supplier_id_po"></p>
-                                <p><input class="form-control invisible" name="purchase_id"  id="purchase_id"></p>
-                                <p><input class="form-control invisible" name="action_insert_po" id="action_insert_po"/></p>
-                                <p><input class="form-control invisible" name="action_edit_po" id="action_edit_po"/></p>
-                                <p><input class="form-control invisible" name="action_delete_po" id="action_delete_po"/></p>
-                                
-            
-                            </div>
-                            <div class="tab">Contact Info:
-                                <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p>
-                                <p><input placeholder="Phone..." oninput="this.className = ''" name="phone"></p>
-                            </div>
-                            <div class="tab">Birthday:
-                                <p><input placeholder="dd" oninput="this.className = ''" name="dd"></p>
-                                <p><input placeholder="mm" oninput="this.className = ''" name="nn"></p>
-                                <p><input placeholder="yyyy" oninput="this.className = ''" name="yyyy"></p>
-                            </div>
-                            <div class="tab">Login Info:
-                                <p><input placeholder="Username..." oninput="this.className = ''" name="uname"></p>
-                                <p><input placeholder="Password..." oninput="this.className = ''" name="pword" type="password"></p>
-                                <a href='#' class="btn btn-primary" onclick="add_input(); return false;" ><i class="fa fa fa-plus-square"></i> Add</a>
-                                <a href='#' class="btn btn-warning" onclick="remove_form(); return false;"><i class="fa fa-minus-square"></i> Remove</a>
-                            </div>
-                            <div style="overflow:auto;">
-                                <div style="float:right;">
-                                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                                </div>
-                            </div>
-                             Circles which indicates the steps of the form: 
-                            <div style="text-align:center;margin-top:40px;">
-                                <span class="step"></span>
-                                <span class="step"></span>
-                                <span class="step"></span>
-                                <span class="step"></span>
-                            </div>
-                        </form>-->
             <form id="form_add_po" name="form_add_po" class=" " method="POST" action="">
                 <div id="ajaxResponse_form_add_po" class="resp"></div>
                 <div class="box-body">
@@ -85,6 +40,7 @@
                             <input  class="form-control invisible" name="action_insert_po" id="action_insert_po"/>
                             <input  class="form-control invisible" name="action_edit_po" id="action_edit_po"/>
                             <input  class="form-control invisible"name="action_delete_po" id="action_delete_po"/>
+                            <input  class="form-control invisible" name="tax_po" id="tax_po"/>
                             <span class="form-error"></span>
                         </div>
                     </div>
@@ -144,10 +100,12 @@
                             <input  class="form-control" id="dlvr_point"  placeholder="Delivery Point" name="dlvr_point">
                             <span class="form-error"></span>
                         </div>
+                        <!--                        
                         <a href='#' class="btn btn-primary" onclick="add_input(); return false;" ><i class="fa fa fa-plus-square"></i> Add</a>
                         <a href='#' class="btn btn-warning" onclick="remove_form(); return false;"><i class="fa fa-minus-square"></i> Remove</a>
-                        <!--                    <button type="submit" class="btn btn-primary" id="btn_add_supplier">Submit</button>
-                                                <button type="reset"  class="btn btn-danger" value="Reset" id="btn_reset" onclick="myFunction_reset_addPO()">RESET</button>-->
+                        <button type="submit" class="btn btn-primary" id="btn_add_supplier">Submit</button>
+                        <button type="reset"  class="btn btn-danger" value="Reset" id="btn_reset" onclick="myFunction_reset_addPO()">RESET</button>
+                        -->
                     </div>
                     <div style="overflow:auto;">
                         <div style="float:right;">

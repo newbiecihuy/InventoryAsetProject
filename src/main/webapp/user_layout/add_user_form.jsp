@@ -60,7 +60,6 @@
             <li class="active">add</li>
         </ol>
     </section>
-
     <div id ="div_add_pic" class="panel panel-default"  >
         <div class="panel-body">
             <form>
@@ -84,7 +83,7 @@
                     </div> 
                     <div class="form-group">
                         <label for="email" class="req">E-Mail &nbsp;:</label>
-                        <input type="text"  name="email" id="email" oninput="cekEmail()"  class=" required ui-widget-content form-control" value="<%-- out.println(email);--%>">
+                        <input type="text"  name="email" id="email" oninput="cekEmail()"  class="required ui-widget-content form-control" value="<%-- out.println(email);--%>">
                         <span class="required-server"> </span>
                     </div>
                     <div class="form-group">
@@ -197,13 +196,13 @@
         var gender = getUrlQueryString('gender');
         if (gender !== null) {
             var radios = document.getElementsByName('gender');
-                if (gender === "m") {
+            if (gender === "m") {
 //                    document.getElementById("gender")[0].checked = true;
-                    document.form_add_pic.gender[0].checked = true;
-                }
-                if (gender === "f") {
-                    document.form_add_pic.gender[1].checked = true;
-                }
+                document.getElementsByName('gender').gender[0].checked = true;
+            }
+            if (gender === "f") {
+                document.getElementsByName('gender').gender[1].checked = true;
+            }
         } else {
             document.getElementById("gender").value = "";
         }

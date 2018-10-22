@@ -164,6 +164,11 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         obj.put("supplier_name", EncryptionUtil.upperCaseFirst(dataPO.getSupplierId().getSupplierName()));
                     }
+                    if (dataPO.getSupplierId().isTax()) {
+                        obj.put("supplier_tax", "1");
+                    } else {
+                        obj.put("supplier_tax", "0");
+                    }
                     if (dataPO.getDate() == null) {
                         obj.put("tgl_input_po", "");
                     } else {
@@ -307,7 +312,12 @@ public class CreatePOServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
 
             String code = "0";
-            System.out.println(request.getParameter("JSONFile"));
+            String msg = "";
+            System.out.println("cek json" + request.getParameter("JSONFile"));
+//            if (!request.getParameter("JSONFile").isEmpty()) {
+//                System.out.println("cek json" + request.getParameter("JSONFile"));
+//                return;
+//            }
             JSONArray array = (JSONArray) JSONSerializer.toJSON(request.getParameter("JSONFile"));
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat sdfNoPO = new SimpleDateFormat("MM");
@@ -325,12 +335,13 @@ public class CreatePOServlet extends HttpServlet {
             Date tgl_input_po = null;
             Date tgl_input_po_date = null;
             String supplier_name, noPo, noPoVal, year, supplier_code, isi_tgl_input, po_type, payment_term,
-                    delivery_term, transport_mode, quotation_number, rfq_number, invoice_to,
+                    delivery_term, transport_mode, quotation_number, rfq_number, invoice_to, tax_po,
                     dlvr_point, purchase_desc = "";
 
             EntityPurchases dataPurchases = new EntityPurchases();
             EntitySuppliers dataSupplier = new EntitySuppliers();
             EntityTypePO dataTypePO = new EntityTypePO();
+
             for (int i = 0; i < array.size(); i++) {
                 JSONObject object = array.getJSONObject(0);
                 object = array.getJSONObject(i);
@@ -418,6 +429,11 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         dlvr_point = "";
                     }
+                    if (!object.getString("tax_po").isEmpty()) {
+                        tax_po = object.getString("tax_po");
+                    } else {
+                        tax_po = "";
+                    }
 
                     List<EntityTypePO> cekTypePO = entityTypePODao.getByTypePO(po_type.toLowerCase());
                     System.out.println("isi cekTypePO" + cekTypePO);
@@ -461,6 +477,7 @@ public class CreatePOServlet extends HttpServlet {
                     dataPurchases.setInvoiceTo(invoice_to.toLowerCase());
                     entityPurchasesDao.createPurchases(dataPurchases);
                     code = "1";
+                    msg = "Has been Recorded";
                     System.out.println("isi c" + dataPurchases);
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
 
@@ -533,7 +550,11 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         dlvr_point = "";
                     }
-
+                    if (!object.getString("tax_po").isEmpty()) {
+                        tax_po = object.getString("tax_po");
+                    } else {
+                        tax_po = "";
+                    }
                     List<EntityTypePO> cekTypePO = entityTypePODao.getByTypePO(po_type.toLowerCase());
                     System.out.println("isi cekTypePO" + cekTypePO);
                     if (cekTypePO.size() > 0) {
@@ -571,7 +592,8 @@ public class CreatePOServlet extends HttpServlet {
                     dataPurchases.setInvoiceTo(invoice_to.toLowerCase());
                     entityPurchasesDao.updatePurchases(dataPurchases);
                     System.out.println("isi e" + dataPurchases);
-                    code = "1";
+                    code = "3";
+                    msg = "Has been Updated";
                 } else if (action_edit.equalsIgnoreCase("Approve")) {
                     entityPurchasesDao.getPurchases(purchase_id);
                     dataPurchases.setIsApprove(true);
@@ -589,12 +611,14 @@ public class CreatePOServlet extends HttpServlet {
                     dataPurchases.setTimeEdit(time_now);
                     entityPurchasesDao.updatePurchases(dataPurchases);
                     System.out.println("isi d" + dataPurchases);
-                    code = "1";
+                    code = "4";
+                    msg = "Has been Deleted";
                 }
             }
 
             JSONObject jsonobj = new JSONObject();
             jsonobj.put("RC", code);
+            jsonobj.put("msg", msg);
             out.println(jsonobj.toString());
             out.flush();
             System.out.println(jsonobj.toString());

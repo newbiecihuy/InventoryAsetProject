@@ -184,6 +184,11 @@ public class SupplierServlet extends HttpServlet {
                         } else {
                             obj.put("contact_num", dataSuppliers.getContactNum());
                         }
+                        if (dataSuppliers.isTax()) {
+                            obj.put("tax", "1");
+                        } else {
+                            obj.put("tax", "0");
+                        }
                         if (!dataSuppliers.isIsActive()) {
                             obj.put("status_supp", "0");
                         } else {
@@ -244,7 +249,8 @@ public class SupplierServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
 
             String code = "0";
-            System.out.println(request.getParameter("JSONFile"));
+            String msg = "";
+            System.out.println("isi" + request.getParameter("JSONFile"));
             JSONArray array = (JSONArray) JSONSerializer.toJSON(request.getParameter("JSONFile"));
 //JSONArray array = (JSONArray) JSONSerializer.toJSON(EscapeChars.forJSON(request.getParameter("JSONFile")));
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -261,6 +267,7 @@ public class SupplierServlet extends HttpServlet {
 //            String supplier_name = "";
             String supplier_name = null;
             String supplier_code = null, address_supplier, contact_suplier_name, cotact_suplier_num = null;
+            String checkbox_value = null;
             EntitySuppliers dataSupplier = new EntitySuppliers();
             for (int i = 0; i < array.size(); i++) {
                 JSONObject object = array.getJSONObject(0);
@@ -301,7 +308,16 @@ public class SupplierServlet extends HttpServlet {
                     } else {
                         cotact_suplier_num = "";
                     }
-
+//                    if (object.containsKey("checkbox_value")) {
+//                        checkbox_value = object.getString("checkbox_value");
+//                    } else {
+//                        checkbox_value = "";
+//                    }
+                    if (object.containsKey("tax")) {
+                        checkbox_value = object.getString("tax");
+                    } else {
+                        checkbox_value = "";
+                    }
                     List<EntitySuppliers> cekSupplierName = entitySuppliersDao.getSupplierName(supplier_name);
                     System.out.println("isi cekSupplierName" + cekSupplierName);
                     if (cekSupplierName.size() > 0) {
@@ -322,8 +338,15 @@ public class SupplierServlet extends HttpServlet {
                     dataSupplier.setCreatedTime(time_now);
                     dataSupplier.setContactName(contact_suplier_name.toLowerCase());
                     dataSupplier.setContactNum(cotact_suplier_num);
+                    if ("on".equalsIgnoreCase(checkbox_value)) {
+                        dataSupplier.setTax(true);
+                    } else {
+                        dataSupplier.setTax(false);
+                    }
                     entitySuppliersDao.createSuppliers(dataSupplier);
+
                     code = "1";
+                    msg = "Has been Recorded";
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
                     dataSupplier = entitySuppliersDao.getSuppliers(supplier_id);
                     if (!object.getString("supplier_name").isEmpty()) {
@@ -351,6 +374,16 @@ public class SupplierServlet extends HttpServlet {
                     } else {
                         cotact_suplier_num = "";
                     }
+//                    if (object.containsKey("checkbox_value")) {
+//                        checkbox_value = object.getString("checkbox_value");
+//                    } else {
+//                        checkbox_value = "";
+//                    }
+                    if (object.containsKey("tax")) {
+                        checkbox_value = object.getString("tax");
+                    } else {
+                        checkbox_value = "";
+                    }
 
                     dataSupplier.setSupplierName(supplier_name.toLowerCase());
                     dataSupplier.setSupplierCode(supplier_code.toLowerCase());
@@ -359,20 +392,28 @@ public class SupplierServlet extends HttpServlet {
                     dataSupplier.setCreatedTime(time_now);
                     dataSupplier.setContactName(contact_suplier_name.toLowerCase());
                     dataSupplier.setContactNum(cotact_suplier_num);
+                    if ("on".equalsIgnoreCase(checkbox_value)) {
+                        dataSupplier.setTax(true);
+                    } else {
+                        dataSupplier.setTax(false);
+                    }
                     entitySuppliersDao.updateSuppliers(dataSupplier);
-                    code = "1";
+                    code = "3";
+                    msg = "Has been Updated";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
                     dataSupplier = entitySuppliersDao.getSuppliers(supplier_id);
                     dataSupplier.setIsActive(false);
                     dataSupplier.setUpdatedDate(now);
                     dataSupplier.setUpdatedTime(time_now);
                     entitySuppliersDao.deleteSuppliers(dataSupplier);
-                    code = "1";
+                    code = "4";
+                    msg = "Has been Deleted";
                 }
 
             }
             JSONObject jsonobj = new JSONObject();
             jsonobj.put("RC", code);
+            jsonobj.put("msg", msg);
             out.println(jsonobj.toString());
             out.flush();
             System.out.println(jsonobj.toString());

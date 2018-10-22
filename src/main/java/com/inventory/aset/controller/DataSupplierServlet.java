@@ -137,7 +137,11 @@ public class DataSupplierServlet extends HttpServlet {
                 } else {
                     obj.put("supplier_code", EncryptionUtil.upperCaseFirst(entitySuppliers.getSupplierCode()));
                 }
-
+                if (entitySuppliers.isTax()) {
+                    obj.put("tax", "1");
+                } else {
+                    obj.put("tax", "0");
+                }
                 jsonArray.add(obj);
             }
             out.print(obj.toString());

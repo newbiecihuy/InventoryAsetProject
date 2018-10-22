@@ -25,6 +25,10 @@
         if (request.getParameter("action_edit_item_po") != null) {
             action_edit_item_po = request.getParameter("action_edit_item_po");
         }
+        String tax_item_po = "";
+        if (request.getParameter("tax_item_po") != null) {
+            tax_item_po = request.getParameter("tax_item_po");
+        }
         int id_product_purchase = 0;
         if (request.getParameter("id_product_purchase") != null) {
             id_product_purchase = Integer.parseInt(request.getParameter("id_product_purchase"));
@@ -49,13 +53,15 @@
             <form id="form_create_po"  name="form_create_po" class="form-horizontal" method="POST" action="" class="display" >
                 <!--<p id="content_form_delegate" class="message success" ></p>-->
                 <legend class="display ui-widget ui-widget-header ui-corner-all">Add Item Purcahse</legend>
-                <div id="ajaxResponse_form_delegate" class="resp"></div>
+                <div id="ajaxResponse_form_add_po" class="resp"></div>
                 <table  name="data_table" id="data_table" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
                     <input type="hidden" readonly="readonly"  name="purchase_id" id="purchase_id" value="<% out.println(purchase_id);%>"/>
                     <input type="hidden" readonly="readonly" name="supplier_id_form_create_po" id="supplier_id_form_create_po" value="<% out.println(supplier_id_form_create_po);%>"/>
                     <input type="hidden" readonly="readonly" name="id_add_item_po" id="id_add_item_po" value="<% out.println(id_add_item_po);%>"/>
                     <input type="hidden" name="id_product_purchase" id="action_edit_item_po" value="<% out.println(id_product_purchase);%>"/>
                     <input type="hidden" name="action_edit_item_po" id="action_edit_item_po" value="<% out.println(action_edit_item_po);%>"/>
+                    <input type="hidden" name="tax_item_po" id="tax_item_po" value="<% out.println(tax_item_po);%>" onblur="taxfunc()"/>
+                    <input type="hidden" name="tax_po" id="tax_po" placeholder="TAX"/>
                     <input type="hidden" name="action_delete_item_po" id="action_delete_item_po"/>
 
                     <tr>
@@ -85,9 +91,9 @@
                     <tr >
                         <td class="control-label"  align="left"> <input type="text" required="" name="sub_total" id="sub_total" class="form-control-static"  placeholder="SubTotal"/></td>
                     </tr>
-                    <tr >
+<!--                    <tr >
                         <td class="control-label"  align="left"><input type="text" name="tax_po" id="tax_po" class="form-control-static" placeholder="TAX"/></td>
-                    </tr>
+                    </tr>-->
                     <tr >
                         <td class="control-label"  align="left"><input type="text" required="" name="total_price_po" id="total_price_po" class="form-control-static" placeholder="IDR"/>
                     </tr>
