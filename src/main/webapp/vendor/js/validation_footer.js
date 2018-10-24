@@ -22,9 +22,11 @@ function showTab(n) {
         document.getElementById("prevBtn").style.display = "inline";
     }
     if (n === (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
-        document.getElementById("nextBtn").onclick = foo2;
+          document.getElementById("nextBtn").style.visibility = "hidden"; 
+//        document.getElementById("nextBtn").innerHTML = "Submit";
+//        document.getElementById("nextBtn").onclick = foo2;
     } else {
+        document.getElementById("nextBtn").style.visibility = "visible"; 
         document.getElementById("nextBtn").innerHTML = "Next";
 //        document.getElementById('nextBtn').onclick = null;
     }
@@ -66,7 +68,7 @@ function validateForm() {
             y[i].className += " invalid";
             valid = false;
         }
-        if (document.getElementById("supplier_code").value === "") {
+        if (document.getElementById("supplier_code_po").value === "") {
             y[i].className += " invalid";
             valid = false;
         }
@@ -118,9 +120,8 @@ function fixStepIndicator(n) {
 }
 
 //});
-function foo2() {
+//function foo2() {
 //    alert("HELLO WORLD");
 //    alert(JSON.stringify($('#form_add_po').serializeObject()));
 //    console.log(JSON.stringify($('#form_add_po').serializeObject()));
-    
-}
+//}

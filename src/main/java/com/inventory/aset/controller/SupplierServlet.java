@@ -322,6 +322,12 @@ public class SupplierServlet extends HttpServlet {
                     System.out.println("isi cekSupplierName" + cekSupplierName);
                     if (cekSupplierName.size() > 0) {
                         code = "2";
+                        JSONObject jsonobj = new JSONObject();
+                        jsonobj.put("RC", code);
+                        jsonobj.put("msg", msg);
+                        out.println(jsonobj.toString());
+                        out.flush();
+                        System.out.println(jsonobj.toString());
                         return;
                     }
 //                    List<EntitySuppliers> cekSupplierCode = entitySuppliersDao.findBySupplierCode(supplier_name);

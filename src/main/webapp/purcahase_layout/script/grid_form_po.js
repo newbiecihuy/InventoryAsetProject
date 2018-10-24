@@ -99,6 +99,12 @@ $(document).ready(function () {
                 bAutoWidth: true,
                 searchable: true
             }, {
+                data: "payment_term",
+                targets: "payment_term",
+                visible: false,
+                bAutoWidth: true,
+                searchable: true
+            }, {
                 data: "delivery_term",
                 targets: "delivery_term",
                 bAutoWidth: true,
@@ -112,6 +118,12 @@ $(document).ready(function () {
                 data: "quotation_number",
                 targets: "quotation_number",
                 bAutoWidth: true,
+                searchable: true
+            }, {
+                data: "rfq_number",
+                targets: "rfq_number",
+                bAutoWidth: true,
+                visible: false,
                 searchable: true
             }, {
                 data: "dlvr_point",
@@ -180,6 +192,14 @@ $(document).ready(function () {
                         var va_supplier_name = row_po["supplier_name"];
                         var va_tax = row_po["supplier_tax"];
                         var va_tgl_input_po = row_po["tgl_input_po"];
+                        var va_po_type = row_po["po_type"];
+                        var va_payment_term = row_po["payment_term"];
+                        var va_delivery_term = row_po["delivery_term"];
+                        var va_transport_mode = row_po["transport_mode"];
+                        var va_quotation_number = row_po["quotation_number"];
+                        var va_rfq_number = row_po["rfq_number"];
+                        var va_dlvr_point = row_po["dlvr_point"];
+                        var va_invoice_to = row_po["invoice_to"];
                         var va_purchase_desc = row_po["purchase_desc"];
                         var va_pic = row_po["pic"];
                         var va_is_delete = row_po["is_delete"];
@@ -189,11 +209,20 @@ $(document).ready(function () {
                             purchase_code: va_purchase_code,
                             supplier_id: va_supplier_id,
                             supplier_name: va_supplier_name,
-                            supplier_tax:va_tax,
+                            supplier_tax: va_tax,
                             tgl_input_po: va_tgl_input_po,
+                            po_type: va_po_type,
+                            payment_term: va_payment_term,
+                            delivery_term: va_delivery_term,
+                            transport_mode: va_transport_mode,
+                            quotation_number: va_quotation_number,
+                            rfq_number: va_rfq_number,
+                            dlvr_point: va_dlvr_point,
+                            invoice_to: va_invoice_to,
                             purchase_desc: va_purchase_desc,
                             pic: va_pic,
                             is_delete: va_is_delete
+
                         };
                         if (row_po["is_delete"] === "0") {//active
                             if (row_po["status_po"] !== "No Item") {

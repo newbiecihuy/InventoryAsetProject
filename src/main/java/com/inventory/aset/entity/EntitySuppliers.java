@@ -41,7 +41,7 @@ public class EntitySuppliers implements Serializable {
     private Long supplierId;
 
     @Basic(optional = false)
-    @Column(name = "supplier_code", length = 500)
+    @Column(name = "supplier_code",length = 500)
     private String supplierCode;
 
     @Basic(optional = false)
@@ -234,8 +234,6 @@ public class EntitySuppliers implements Serializable {
     public void setEntityPurchases(List<EntityPurchases> entityPurchases) {
         this.entityPurchases = entityPurchases;
     }
-
-    
 
     @Override
     public int hashCode() {

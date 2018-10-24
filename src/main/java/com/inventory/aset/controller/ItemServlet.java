@@ -293,6 +293,7 @@ public class ItemServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
 
             String code = "0";
+            String msg = "";
             System.out.println(request.getParameter("JSONFile"));
             JSONArray array = (JSONArray) JSONSerializer.toJSON(request.getParameter("JSONFile"));
 //            JSONArray array = (JSONArray) JSONSerializer.toJSON(EscapeChars.forJSON(request.getParameter("JSONFile")));
@@ -402,16 +403,47 @@ public class ItemServlet extends HttpServlet {
 //                    } else {
 //                        isi_status = true;
 //                    }
-                    List<EntityProducts> cekItemName = entityProductsDao.findWithProductName(item_name.toLowerCase());
+//                    List<EntityProducts> cekItemName = entityProductsDao.findWithProductName(item_name.toLowerCase());
+//                    System.out.println("isi cekItemName" + cekItemName);
+//                    if (cekItemName.size() > 0) {
+//                        code = "2";
+//                        return;
+//                    }
+                    List<EntityProducts> cekItemName = entityProductsDao.findWithProductNameSuplier(item_name.toLowerCase(), supplier_id);
                     System.out.println("isi cekItemName" + cekItemName);
                     if (cekItemName.size() > 0) {
                         code = "2";
+                        JSONObject jsonobj = new JSONObject();
+                        jsonobj.put("RC", code);
+                        jsonobj.put("msg", msg);
+                        out.println(jsonobj.toString());
+                        out.flush();
+                        System.out.println(jsonobj.toString());
+                        return;
+                    }
+                    List<EntityProducts> cekProductCode = entityProductsDao.findByProductCode(product_code.toLowerCase());
+                    System.out.println("isi cekProductCode.size" + cekProductCode.size());
+                    if (cekProductCode.size() > 0) {
+                        code = "33";
+                        msg = "Product Code Already Registered";
+                        JSONObject jsonobj = new JSONObject();
+                        jsonobj.put("RC", code);
+                        jsonobj.put("msg", msg);
+                        out.println(jsonobj.toString());
+                        out.flush();
+                        System.out.println(jsonobj.toString());
                         return;
                     }
                     dataSuppplier = entitySuppliersDao.find(supplier_id);
                     System.out.println("isi dataSuppplier" + dataSuppplier);
                     if (dataSuppplier == null) {
                         code = "44";
+                        JSONObject jsonobj = new JSONObject();
+                        jsonobj.put("RC", code);
+                        jsonobj.put("msg", msg);
+                        out.println(jsonobj.toString());
+                        out.flush();
+                        System.out.println(jsonobj.toString());
                         return;
                     }
 
@@ -465,7 +497,7 @@ public class ItemServlet extends HttpServlet {
                     entityProductsDao.createProducts(dataProducts);
                     entityStockDao.updateStock(dataStock);
                     code = "1";
-
+                    msg = "Has been Recorded";
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
 
                     dataProducts = entityProductsDao.getProducts(id_product);
@@ -577,7 +609,8 @@ public class ItemServlet extends HttpServlet {
                     }
                     entityStockDao.updateStock(dataStock);
 
-                    code = "1";
+                    code = "3";
+                    msg = "Has been Updated";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
                     dataProducts = entityProductsDao.getProducts(id_product);
                     dataProducts.setStatus_item(false);
@@ -585,12 +618,13 @@ public class ItemServlet extends HttpServlet {
                     dataProducts.setUpdatedAt(now);
                     dataProducts.setUpdatedAtTime(time_now);
                     entityProductsDao.updateProducts(dataProducts);
-                    code = "3";
+                    code = "5";
                 }
 
             }
             JSONObject jsonobj = new JSONObject();
             jsonobj.put("RC", code);
+            jsonobj.put("msg", msg);
             out.println(jsonobj.toString());
             out.flush();
             System.out.println(jsonobj.toString());

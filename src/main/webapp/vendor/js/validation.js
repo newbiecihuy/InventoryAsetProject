@@ -451,6 +451,7 @@ $(document).ready(function () {
         var item_name = $("#item_name").val();
         var categori_name = $("#categories_name").val();
         var description = $("#description").val();
+        var product_code = $("#product_code").val();
         if ($("#item_name").val() === "") {
 
             $('#item_name').css('background', '#e74c3c');
@@ -521,10 +522,14 @@ $(document).ready(function () {
             success: function (response) {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
-                    $("#ajaxResponse_form_add_item").html("<div><p><b>" + "Item  " + item_name + " Has been Recorded" + "</b></p></div>");
+                    $("#ajaxResponse_form_add_item").html("<div><p><b>" + "Item  " + item_name + response.msg + "</b></p></div>");
                 } else if (response.RC === "2") {
                     $("#ajaxResponse_form_add_item").html("<div><p><b>" + "Item " + item_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
-                } else if (response.RC === "2") {
+                } else if (response.RC === "3") {
+                    $("#ajaxResponse_form_add_item").html("<div><p><b>" + "Item " + item_name + response.msg + "</b></p></div>").addClass('error').css({});
+                } else if (response.RC === "33") {
+                    $("#ajaxResponse_form_add_item").html("<div><p><b>" + product_code + response.msg + "</b></p></div>").addClass('error').css({});
+                } else if (response.RC === "44") {
                     $("#ajaxResponse_form_add_item").html("<div><p><b>" + "Item " + item_name + " Supplier Not found" + "</b></p></div>").addClass('error').css({});
                 }
                 //display error message
@@ -808,14 +813,7 @@ $(document).ready(function () {
         return false;
     });
     $("#form_create_po").submit(function () {
-        if (confirm("Actived Tax \n\n") === true) {
-            $("#tax_po").val("true");
-//            document.getElementById("tax_po").value = "true";
-        } else {
-            $("#tax_po").val("false");
-//            document.getElementById("tax_po").value = "false";
-            return false;
-        }
+
         $.ajax({
             type: "POST",
             url: createDynamicURL() + "/createPOServlet",
@@ -1689,15 +1687,43 @@ function editCategoriesFunc(data_categories) {//, supplier_name, supplier_code, 
     window.location = "index.jsp?url=item_layout&pages=add_category_form" + decodeURI(myParam); //data_form_po.purchase_id;
 
 }
-function editPoFunc(data_form_po) {
-    alert(data_form_po.purchase_id);
-    window.location = "index.jsp?url=purcahase_layout&pages=form_edit_po";
-}
+
 function addPoItemFunc(data_form_po) {
+    var tax_po_val = "";
+    if (data_form_po.supplier_tax === "1") {
+        if (confirm("This Supplier Have Tax PPN, You want Activated for this tractions ? \n\n") === true) {
+//            $("#tax_po").val("true");
+//            document.getElementById("tax_po").value = "true";
+            tax_po_val = "true";
+        } else {
+//            $("#tax_po").val("false");
+//            document.getElementById("tax_po").value = "false";
+            tax_po_val = "false";
+//            return false;
+
+        }
+    }
     var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id)
-            + "&tax_item_po=" + escape(data_form_po.supplier_tax);
+            + "&tax_item_po=" + escape(data_form_po.supplier_tax) + "&tax_po_val=" + escape(tax_po_val);
+
     window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + decodeURI(myParam); //data_form_po.purchase_id;
 
+}
+
+function editPoFunc(data_form_po) {
+//    alert(data_form_po.purchase_id);
+
+    var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_name_po=" + escape(data_form_po.supplier_name)
+            + "&supplier_id_po=" + escape(data_form_po.supplier_id) + "&action_edit_po=" + escape("EDIT")
+            + "&tax_po=" + escape(data_form_po.supplier_tax) + "&tgl_input_po=" + escape(data_form_po.tgl_input_po)
+            + "&po_type=" + escape(data_form_po.po_type) + "&payment_term=" + escape(data_form_po.payment_term)
+            + "&delivery_term=" + escape(data_form_po.delivery_term) + "&transport_mode=" + escape(data_form_po.transport_mode)
+            + "&quotation_number=" + escape(data_form_po.quotation_number) + "&rfq_number=" + escape(data_form_po.rfq_number)
+            + "&purchase_desc=" + escape(data_form_po.purchase_desc) + "&invoice_to=" + escape(data_form_po.invoice_to)
+            + "&dlvr_point=" + escape(data_form_po.dlvr_point);
+
+    alert("myParam value : " + myParam);
+    window.location = "index.jsp?url=purcahase_layout&pages=add_po&" + decodeURI(myParam); //data_form_po.purchase_id;
 }
 
 function editItemFunc(data_Items) {
@@ -2279,8 +2305,9 @@ function subTotal(Nrupiah) {
 //            rupiah += separator + ribuan.join('.');
 //        }
     }
-    return  document.getElementById("sub_total").value = number_string;
     total(Nrupiah);
+    return  document.getElementById("sub_total").value = number_string;
+
 }
 function total(Ntotal) {
     var tax = document.getElementById("tax_po").value;

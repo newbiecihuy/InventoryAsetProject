@@ -83,8 +83,8 @@ public class CreatePOServlet extends HttpServlet {
             System.out.println("isi searchString: " + searchString);
             String status = request.getParameter("status");
             SimpleDateFormat sdfMonthPO = new SimpleDateFormat("MM");
-            SimpleDateFormat sdfMonthCompare = new SimpleDateFormat("MM");
             SimpleDateFormat sdfYearNoPO = new SimpleDateFormat("yyyy");
+            SimpleDateFormat sdfMonthCompare = new SimpleDateFormat("MM");
             SimpleDateFormat sdfYearCompare = new SimpleDateFormat("yyyy");
 //          String rows = request.getParameter("rows");
             String page = request.getParameter("page");
@@ -101,7 +101,7 @@ public class CreatePOServlet extends HttpServlet {
             start = request.getParameter("start");
             length = request.getParameter("length");
 
-            System.out.println("length" + length);
+            System.out.println("length " + length);
 //            System.out.println("page" + page);
             int totalPages = 0;
             int totalCount = 0;
@@ -192,7 +192,7 @@ public class CreatePOServlet extends HttpServlet {
                     if (dataPO.getDeliveryTerm() == null) {
                         obj.put("delivery_term", "");
                     } else {
-                        obj.put("delivery_term", dataPO.getDeliveryTerm());
+                        obj.put("delivery_term", EncryptionUtil.upperCaseFirst(dataPO.getDeliveryTerm()));
                     }
                     if (dataPO.getTransportMode() == null) {
                         obj.put("transport_mode", "");
@@ -204,10 +204,10 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         obj.put("quotation_number", dataPO.getQuotationNumber());
                     }
-                    if (dataPO.getPurchaseDesc() == null) {
-                        obj.put("purchase_desc", "");
+                    if (dataPO.getRfqNumber() == null) {
+                        obj.put("rfq_number", "");
                     } else {
-                        obj.put("purchase_desc", EncryptionUtil.upperCaseFirst(dataPO.getPurchaseDesc()));
+                        obj.put("rfq_number", dataPO.getRfqNumber());
                     }
                     if (dataPO.getDeliveryPoint() == null) {
                         obj.put("dlvr_point", "");
@@ -219,20 +219,15 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         obj.put("invoice_to", EncryptionUtil.upperCaseFirst(dataPO.getInvoiceTo()));
                     }
-                    if (!dataPO.isIsDelete()) {
-                        obj.put("is_delete", "0");
+                    if (dataPO.getPurchaseDesc() == null) {
+                        obj.put("purchase_desc", "");
                     } else {
-                        obj.put("is_delete", "1");
+                        obj.put("purchase_desc", EncryptionUtil.upperCaseFirst(dataPO.getPurchaseDesc()));
                     }
-                    if (!dataPO.isIsApprove()) {
-                        obj.put("is_approve", "0");
+                    if (dataPO.getStatusPo() == null) {
+                        obj.put("status_po", "");
                     } else {
-                        obj.put("is_approve", "1");
-                    }
-                    if (dataPO.getAppproveBy() == null) {
-                        obj.put("approve_by", "");
-                    } else {
-                        obj.put("approve_by", EncryptionUtil.upperCaseFirst(dataPO.getAppproveBy()));
+                        obj.put("status_po", EncryptionUtil.upperCaseFirst(dataPO.getStatusPo()));
                     }
                     if (dataPO.getPic() == null) {
                         obj.put("pic", "");
@@ -244,10 +239,16 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         obj.put("is_approve", "1");
                     }
-                    if (dataPO.getStatusPo() == null) {
-                        obj.put("status_po", "");
+                    if (!dataPO.isIsDelete()) {
+                        obj.put("is_delete", "0");
                     } else {
-                        obj.put("status_po", EncryptionUtil.upperCaseFirst(dataPO.getStatusPo()));
+                        obj.put("is_delete", "1");
+                    }
+
+                    if (dataPO.getAppproveBy() == null) {
+                        obj.put("approve_by", "");
+                    } else {
+                        obj.put("approve_by", EncryptionUtil.upperCaseFirst(dataPO.getAppproveBy()));
                     }
 
                     EntityPurchases dataPurchases = entityPurchasesDao.getPurchases(dataPO.getPurchaseId());
@@ -269,8 +270,8 @@ public class CreatePOServlet extends HttpServlet {
                             PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
                         }
 
-                        dataPurchases.setPurchaseCode(PONumber);
-                        entityPurchasesDao.updatePurchases(dataPurchases);
+//                        dataPurchases.setPurchaseCode(PONumber);
+//                        entityPurchasesDao.updatePurchases(dataPurchases);
                     }
                     jsonArray.add(obj);
                 }
@@ -304,7 +305,6 @@ public class CreatePOServlet extends HttpServlet {
         try {
             System.out.println("Inside doPost");
             processRequest(request, response);
-            System.out.println("Inside doPost");
 
             System.out.println("Tester");
             response.setContentType("application/json");
@@ -320,9 +320,14 @@ public class CreatePOServlet extends HttpServlet {
 //            }
             JSONArray array = (JSONArray) JSONSerializer.toJSON(request.getParameter("JSONFile"));
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat sdfNoPO = new SimpleDateFormat("MM");
+            SimpleDateFormat sdfMonthPO = new SimpleDateFormat("MM");
             SimpleDateFormat sdfYearNoPO = new SimpleDateFormat("yyyy");
             SimpleDateFormat jamFormat = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat sdfMonthCompare = new SimpleDateFormat("MM");
+            SimpleDateFormat sdfYearCompare = new SimpleDateFormat("yyyy");
+
+//             SimpleDateFormat sdfMonthPO = new SimpleDateFormat("MM");
+//            SimpleDateFormat sdfYearNoPO = new SimpleDateFormat("yyyy");
             Date tgl = new Date();
             Date now = new Date();
             sdf.format(now);
@@ -334,7 +339,8 @@ public class CreatePOServlet extends HttpServlet {
             long supplier_id = 0l;
             Date tgl_input_po = null;
             Date tgl_input_po_date = null;
-            String supplier_name, noPo, noPoVal, year, supplier_code, isi_tgl_input, po_type, payment_term,
+            String noPo, noPoVal, year, monthCompare, yearCompare = null;
+            String supplier_name, supplier_code, isi_tgl_input, po_type, payment_term,
                     delivery_term, transport_mode, quotation_number, rfq_number, invoice_to, tax_po,
                     dlvr_point, purchase_desc = "";
 
@@ -475,6 +481,24 @@ public class CreatePOServlet extends HttpServlet {
                     dataPurchases.setPurchaseDesc(purchase_desc.toLowerCase());
                     dataPurchases.setDeliveryPoint(dlvr_point.toLowerCase());
                     dataPurchases.setInvoiceTo(invoice_to.toLowerCase());
+
+                    int nilai = 0;
+                    String PONumber = null;
+                    monthCompare = sdfMonthCompare.format(now);
+                    yearCompare = sdfYearCompare.format(now);
+                    noPo = sdfMonthPO.format(tgl_input_po);
+                    year = sdfYearNoPO.format(tgl_input_po);
+                    noPoVal = EncryptionUtil.setMonth(noPo);
+//                        int nilai = i + 1;
+                    if (monthCompare.equals(noPo) && yearCompare.equals(year)) {
+                        nilai = i + 1;
+                        PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+                    } else {
+                        nilai = 1;
+                        PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+                    }
+
+                    dataPurchases.setPurchaseCode(PONumber);
                     entityPurchasesDao.createPurchases(dataPurchases);
                     code = "1";
                     msg = "Has been Recorded";
@@ -590,6 +614,25 @@ public class CreatePOServlet extends HttpServlet {
                     dataPurchases.setPurchaseDesc(purchase_desc.toLowerCase());
                     dataPurchases.setDeliveryPoint(dlvr_point.toLowerCase());
                     dataPurchases.setInvoiceTo(invoice_to.toLowerCase());
+
+                    int nilai = 0;
+                    String PONumber = null;
+                    monthCompare = sdfMonthCompare.format(now);
+                    yearCompare = sdfYearCompare.format(now);
+                    noPo = sdfMonthPO.format(tgl_input_po);
+                    year = sdfYearNoPO.format(tgl_input_po);
+                    noPoVal = EncryptionUtil.setMonth(noPo);
+//                        int nilai = i + 1;
+                    if (monthCompare.equals(noPo) && yearCompare.equals(year)) {
+                        nilai = i + 1;
+                        PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+                    } else {
+                        nilai = 1;
+                        PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+                    }
+
+                    dataPurchases.setPurchaseCode(PONumber);
+
                     entityPurchasesDao.updatePurchases(dataPurchases);
                     System.out.println("isi e" + dataPurchases);
                     code = "3";

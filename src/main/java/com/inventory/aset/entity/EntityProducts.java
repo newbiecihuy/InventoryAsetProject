@@ -110,23 +110,21 @@ public class EntityProducts implements Serializable {
 //    
     @OneToOne(mappedBy = "idProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private EntityStock entityStock;
-    
+
     @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "idProduct")
     private Collection<EntityProductPurchase> entityProductPurchase;
 
     @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "idProduct")
     private Collection<EntityProductSell> entityProductSell;
-    
+
     @Column(name = "is_approve")
     private boolean isApprove = false;
 
     @Column(name = "pic")
     private String pic;
-    
-    
 
     public EntityProducts() {
-      
+
     }
 
     public EntityProducts(Long idProduct, String productName, String productCode, String barcode, String pict_path, EntityCategories categoryId, EntitySuppliers supplierId, Date createdAt, String createdAtTime, Date inputDate, String inputTime, Date updatedAt, String updatedAtTime, String description, EntityStock entityStock, Collection<EntityProductPurchase> entityProductPurchase, Collection<EntityProductSell> entityProductSell, boolean isApprove, String pic) {

@@ -85,6 +85,11 @@ public class EntityProductsDao extends AbstractFacade<EntityProducts> implements
     }
 
     @Override
+    public List<EntityProducts> findWithProductNameSuplier(String paramName, long paramLong) {
+        return em.createQuery("SELECT ep FROM EntityProducts ep WHERE ep.productName =  \"" + paramName + "\" AND " + "ep.supplierId.supplierId =  \"" + paramLong + "\" ").getResultList();
+    }
+
+    @Override
     public List<EntityProducts> findByProductName(String paramString) {
         return em.createQuery("SELECT Distinct ep.productName  FROM EntityProducts ep WHERE ep.productName LIKE \"" + paramString + "%\" ").getResultList();
     }

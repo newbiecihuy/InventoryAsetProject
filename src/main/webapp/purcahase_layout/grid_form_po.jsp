@@ -42,9 +42,11 @@
                                     <th class="supplier_tax">Tax</th> 
                                     <th class="tgl_input_po">P&#8228;O&#8228; Date</th> 
                                     <th class="po_type">P&#8228;O&#8228; Type</th> 
+                                    <th class="payment_term">payment_term</th> 
                                     <th class="delivery_term">Delivery Term</th> 
                                     <th class="transport_mode">Transport Mode</th> 
                                     <th class="quotation_number">Quotation Number</th>
+                                    <th class="rfq_number">rfq_number</th>
                                     <th class="dlvr_point">Delivery Point</th> 
                                     <th class="invoice_to">Invoice To</th> 
                                     <th class="purchase_desc">Desc</th> 

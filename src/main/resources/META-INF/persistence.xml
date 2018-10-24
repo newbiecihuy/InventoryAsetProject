@@ -25,7 +25,7 @@
     <class>com.inventory.aset.entity.users.EntityUserRoles</class>
     <class>com.inventory.aset.entity.users.EntityUsers</class>
     <class>com.inventory.aset.entity.users.EntityVerificationToken</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <!--    <properties>
           <property name="eclipselink.jdbc.password" value="postgres"/>
