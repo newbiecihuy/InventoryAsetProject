@@ -5,7 +5,6 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.dao.local.EntityTypePODaoLocal;
 import com.inventory.aset.entity.EntityTypePO;
 import com.inventory.aset.util.EncryptionUtil;
 import java.io.IOException;
@@ -22,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import com.inventory.aset.facadebean.local.EntityTypePOFacadeLocal;
 
 /**
  *
@@ -34,7 +34,7 @@ public class GetPaymentTermServlet extends HttpServlet {
 
     }
     @EJB
-    EntityTypePODaoLocal entityTypePODao;
+    EntityTypePOFacadeLocal entityTypePODao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

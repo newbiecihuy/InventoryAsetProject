@@ -5,9 +5,7 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.dao.EntityProductsDao;
-import com.inventory.aset.dao.local.EntityProductsDaoLocal;
-import com.inventory.aset.dao.local.EntityStockDaoLocal;
+import com.inventory.aset.facadebean.EntityProductsFacade;
 import com.inventory.aset.entity.EntityProducts;
 import com.inventory.aset.entity.EntityStock;
 import com.inventory.aset.util.EncryptionUtil;
@@ -25,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import com.inventory.aset.facadebean.local.EntityProductsFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityStockFacadeLocal;
 
 /**
  *
@@ -37,9 +37,9 @@ public class GetItemSupplierServlet extends HttpServlet {
 
     }
     @EJB
-    EntityProductsDaoLocal entityProductsDao;
+    EntityProductsFacadeLocal entityProductsDao;
     @EJB
-    EntityStockDaoLocal entityStockDao;
+    EntityStockFacadeLocal entityStockDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

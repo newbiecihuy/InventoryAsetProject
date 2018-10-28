@@ -6,8 +6,6 @@
 package com.inventory.aset.controller.autoComplete;
 
 import com.google.gson.Gson;
-import com.inventory.aset.dao.local.EntityPurchasesDaoLocal;
-import com.inventory.aset.dao.local.EntityTypePODaoLocal;
 import com.inventory.aset.entity.EntityPurchases;
 import com.inventory.aset.entity.EntityTypePO;
 import java.io.IOException;
@@ -24,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import com.inventory.aset.facadebean.local.EntityPurchasesFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityTypePOFacadeLocal;
 
 /**
  *
@@ -36,9 +36,9 @@ public class AutoCompleteTypePO extends HttpServlet {
 
     }
     @EJB
-    EntityPurchasesDaoLocal entityPurchasesDao;
+    EntityPurchasesFacadeLocal entityPurchasesDao;
     @EJB
-    EntityTypePODaoLocal entityTypePODao;
+    EntityTypePOFacadeLocal entityTypePODao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -5,9 +5,6 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.dao.local.EntityPurchasesDaoLocal;
-import com.inventory.aset.dao.local.EntitySuppliersDaoLocal;
-import com.inventory.aset.dao.local.EntityTypePODaoLocal;
 import com.inventory.aset.entity.EntityPurchases;
 import com.inventory.aset.entity.EntitySuppliers;
 import com.inventory.aset.entity.EntityTypePO;
@@ -29,6 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import com.inventory.aset.facadebean.local.EntityPurchasesFacadeLocal;
+import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityTypePOFacadeLocal;
 
 /**
  *
@@ -41,11 +41,11 @@ public class CreatePOServlet extends HttpServlet {
 
     }
     @EJB
-    EntityPurchasesDaoLocal entityPurchasesDao;
+    EntityPurchasesFacadeLocal entityPurchasesDao;
     @EJB
-    EntitySuppliersDaoLocal entitySuppliersDao;
+    EntitySuppliersFacadeLocal entitySuppliersDao;
     @EJB
-    EntityTypePODaoLocal entityTypePODao;
+    EntityTypePOFacadeLocal entityTypePODao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

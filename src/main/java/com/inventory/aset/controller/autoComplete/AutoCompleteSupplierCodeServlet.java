@@ -21,7 +21,7 @@ import java.util.Enumeration;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import com.inventory.aset.dao.local.EntitySuppliersDaoLocal;
+import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;
 
 /**
  *
@@ -34,7 +34,7 @@ public class AutoCompleteSupplierCodeServlet extends HttpServlet {
 
     }
     @EJB
-    EntitySuppliersDaoLocal entitySupplierDao;
+    EntitySuppliersFacadeLocal entitySupplierDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

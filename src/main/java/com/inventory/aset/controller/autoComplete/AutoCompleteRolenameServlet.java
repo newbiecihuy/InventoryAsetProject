@@ -6,7 +6,6 @@
 package com.inventory.aset.controller.autoComplete;
 
 import com.google.gson.Gson;
-import com.inventory.aset.dao.local.EntityUsersLocal;
 import com.inventory.aset.entity.users.EntityUsers;
 import com.inventory.aset.util.EncryptionUtil;
 import java.io.IOException;
@@ -23,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import com.inventory.aset.facadebean.local.EntityUsersFacadeLocal;
 
 /**
  *
@@ -34,7 +34,7 @@ public class AutoCompleteRolenameServlet extends HttpServlet {
     public AutoCompleteRolenameServlet() {
     }
     @EJB
-    private EntityUsersLocal usersDao;
+    private EntityUsersFacadeLocal usersDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

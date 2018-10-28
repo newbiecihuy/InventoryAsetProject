@@ -5,8 +5,6 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.dao.local.EntityCategoriesDaoLocal;
-import com.inventory.aset.dao.local.EntityPurchasesDaoLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -15,11 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.inventory.aset.dao.local.EntityProductPurchaseDaoLocal;
-import com.inventory.aset.dao.local.EntityProductsDaoLocal;
-import com.inventory.aset.dao.local.EntityStockDaoLocal;
-import com.inventory.aset.dao.local.EntityTypePODaoLocal;
-import com.inventory.aset.dao.local.EntityUnitsDaoLocal;
 import com.inventory.aset.entity.EntityCategories;
 import com.inventory.aset.entity.EntityProductPurchase;
 import com.inventory.aset.entity.EntityProducts;
@@ -36,6 +29,13 @@ import java.util.logging.Logger;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import com.inventory.aset.facadebean.local.EntityCategoriesFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityProductPurchaseFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityProductsFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityPurchasesFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityStockFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityUnitsFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityTypePOFacadeLocal;
 
 /**
  *
@@ -48,19 +48,19 @@ public class CreatePOItemServlet extends HttpServlet {
 
     }
     @EJB
-    EntityPurchasesDaoLocal entityPurchasesDao;
+    EntityPurchasesFacadeLocal entityPurchasesDao;
     @EJB
-    EntityProductPurchaseDaoLocal entityProductPurchaseDao;
+    EntityProductPurchaseFacadeLocal entityProductPurchaseDao;
     @EJB
-    EntityProductsDaoLocal entityProductsDao;
+    EntityProductsFacadeLocal entityProductsDao;
     @EJB
-    EntityStockDaoLocal entityStockDao;
+    EntityStockFacadeLocal entityStockDao;
     @EJB
-    EntityUnitsDaoLocal entityUnitsDao;
+    EntityUnitsFacadeLocal entityUnitsDao;
 //    @EJB
-//    EntityTypePODaoLocal entityTypePODao;
+//    EntityTypePOFacadeLocal entityTypePODao;
     @EJB
-    EntityCategoriesDaoLocal entityCategoriesDaoLocal;
+    EntityCategoriesFacadeLocal entityCategoriesDaoLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

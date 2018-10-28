@@ -14,6 +14,7 @@ function showTab(n) {
     var x = document.getElementsByClassName("tab");
 //        for (var n = 0; n < x.length; n += 1) {
     x[n].style.display = "block";
+//    document.getElementById("tab").style.display = "block";
 
     // ... and fix the Previous/Next buttons:
     if (n === 0) {
@@ -125,3 +126,36 @@ function fixStepIndicator(n) {
 //    alert(JSON.stringify($('#form_add_po').serializeObject()));
 //    console.log(JSON.stringify($('#form_add_po').serializeObject()));
 //}
+//http://www.jquery-steps.com/Examples
+//$(document).ready(function () {
+//    var form = $("#form_add_po");
+//    form.validate({
+//        errorPlacement: function errorPlacement(error, element) {
+//            element.before(error);
+//        }
+////    ,rules: {
+////        confirm: {
+////            equalTo: "#password"
+////        }
+////    }
+//    });
+//    form.children("div").steps({
+//        headerTag: "h3",
+//        bodyTag: "section",
+//        transitionEffect: "slideLeft",
+//        onStepChanging: function (event, currentIndex, newIndex)
+//        {
+//            form.validate().settings.ignore = ":disabled,:hidden";
+//            return form.valid();
+//        },
+//        onFinishing: function (event, currentIndex)
+//        {
+//            form.validate().settings.ignore = ":disabled";
+//            return form.valid();
+//        },
+//        onFinished: function (event, currentIndex)
+//        {
+//            alert("Submitted!");
+//        }
+//    });
+//});

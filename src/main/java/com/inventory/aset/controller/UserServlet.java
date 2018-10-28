@@ -5,9 +5,6 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.dao.local.EntityUserRolesLocal;
-import com.inventory.aset.dao.local.EntityUserRolesPKDaoLocal;
-import com.inventory.aset.dao.local.EntityUsersLocal;
 import com.inventory.aset.entity.users.EntityUserRoles;
 import com.inventory.aset.entity.users.EntityUserRolesPK;
 import com.inventory.aset.entity.users.EntityUsers;
@@ -29,6 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import com.inventory.aset.facadebean.local.EntityUserRolesFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityUserRolesPKFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityUsersFacadeLocal;
 
 /**
  *
@@ -41,13 +41,13 @@ public class UserServlet extends HttpServlet {
     public UserServlet() {
     }
     @EJB
-    private EntityUsersLocal usersDao;
+    private EntityUsersFacadeLocal usersDao;
 
     @EJB
-    private EntityUserRolesPKDaoLocal userRolesDaoPk;
+    private EntityUserRolesPKFacadeLocal userRolesDaoPk;
 
     @EJB
-    private EntityUserRolesLocal userRolesDao;
+    private EntityUserRolesFacadeLocal userRolesDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -75,12 +75,15 @@
         <!--auto complate -->
         <!--<script type="text/javascript" src="vendor/js/jquery.autocomplete.js"></script>-->
         <link rel="stylesheet" href="vendor/css/jquery.autocomplete.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="vendor/css/jquery.steps.css" type="text/css" media="screen"/>
         <!-- -->
+        <script type="text/javascript" src="vendor/js/jquery.cookie-1.3.1.js" ></script>
         <script type="text/javascript" src="vendor/js/hideshow.js" ></script>
         <script type="text/javascript" src="vendor/js/jquery.tablesorter.min.js"></script>
         <script type="text/javascript" src="vendor/js/jquery.equalHeight.js"></script>
         <script type="text/javascript" src="vendor/js/validation.js"></script>
         <script type="text/javascript" src="vendor/js/contextMenu.js"></script>
+        <script type="text/javascript" src="vendor/js/jquery.steps.js"></script>
         <script type="text/javascript" src="vendor/js/clock.js"></script>
         <script type="text/javascript" src="vendor/js/sha256.js"></script>
         <script type="text/javascript" src="vendor/js/md5.js"></script>

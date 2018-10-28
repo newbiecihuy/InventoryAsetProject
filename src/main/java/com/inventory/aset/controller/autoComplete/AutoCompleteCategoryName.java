@@ -6,7 +6,6 @@
 package com.inventory.aset.controller.autoComplete;
 
 import com.google.gson.Gson;
-import com.inventory.aset.dao.local.EntityCategoriesDaoLocal;
 import com.inventory.aset.entity.EntityCategories;
 import com.inventory.aset.util.EncryptionUtil;
 import java.io.IOException;
@@ -23,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import com.inventory.aset.facadebean.local.EntityCategoriesFacadeLocal;
 
 /**
  *
@@ -35,7 +35,7 @@ public class AutoCompleteCategoryName extends HttpServlet {
 
     }
     @EJB
-    EntityCategoriesDaoLocal entityCategoriesDao;
+    EntityCategoriesFacadeLocal entityCategoriesDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

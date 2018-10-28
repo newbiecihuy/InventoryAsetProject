@@ -5,7 +5,6 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.dao.local.EntitySettingsDaoLocal;
 import com.inventory.aset.entity.EntitySuppliers;
 import com.inventory.aset.util.EncryptionUtil;
 import java.io.IOException;
@@ -25,8 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
-import com.inventory.aset.dao.local.EntitySuppliersDaoLocal;
 import com.inventory.aset.entity.EntitySettings;
+import com.inventory.aset.facadebean.local.EntitySettingsFacadeLocal;
+import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;
 
 /**
  *
@@ -38,9 +38,9 @@ public class SupplierServlet extends HttpServlet {
     public SupplierServlet() {
     }
     @EJB
-    EntitySuppliersDaoLocal entitySuppliersDao;
+    EntitySuppliersFacadeLocal entitySuppliersDao;
     @EJB
-    EntitySettingsDaoLocal entitySettingsDao;
+    EntitySettingsFacadeLocal entitySettingsDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -318,7 +318,7 @@ public class SupplierServlet extends HttpServlet {
                     } else {
                         checkbox_value = "";
                     }
-                    List<EntitySuppliers> cekSupplierName = entitySuppliersDao.getSupplierName(supplier_name);
+                    List<EntitySuppliers> cekSupplierName = entitySuppliersDao.getSupplierName(supplier_name.toLowerCase());
                     System.out.println("isi cekSupplierName" + cekSupplierName);
                     if (cekSupplierName.size() > 0) {
                         code = "2";
@@ -330,18 +330,26 @@ public class SupplierServlet extends HttpServlet {
                         System.out.println(jsonobj.toString());
                         return;
                     }
-//                    List<EntitySuppliers> cekSupplierCode = entitySuppliersDao.findBySupplierCode(supplier_name);
-//                    System.out.println("isi cekSupplierCode" + cekSupplierCode);
-//                    if (cekSupplierCode.size() > 0) {
-//                        code = "3";
-//                        return;
-//                    }
+                    List<EntitySuppliers> cekSupplierCode = entitySuppliersDao.getSupplierCode(supplier_code.toLowerCase());
+                    System.out.println("isi cekSupplierCode" + cekSupplierCode);
+                    if (cekSupplierCode.size() > 0) {
+                        code = "33";
+                        msg = "Already Registered";
+                        JSONObject jsonobj = new JSONObject();
+                        jsonobj.put("RC", code);
+                        jsonobj.put("msg", msg);
+                        out.println(jsonobj.toString());
+                        out.flush();
+                        System.out.println(jsonobj.toString());
+                        return;
+                    }
 
                     dataSupplier.setSupplierName(supplier_name.toLowerCase());
                     dataSupplier.setSupplierCode(supplier_code.toLowerCase());
                     dataSupplier.setAddress(address_supplier.toLowerCase());
                     dataSupplier.setCreatedDate(now);
                     dataSupplier.setCreatedTime(time_now);
+                    dataSupplier.setPic(("PIC").toLowerCase());
                     dataSupplier.setContactName(contact_suplier_name.toLowerCase());
                     dataSupplier.setContactNum(cotact_suplier_num);
                     if ("on".equalsIgnoreCase(checkbox_value)) {
@@ -394,8 +402,8 @@ public class SupplierServlet extends HttpServlet {
                     dataSupplier.setSupplierName(supplier_name.toLowerCase());
                     dataSupplier.setSupplierCode(supplier_code.toLowerCase());
                     dataSupplier.setAddress(address_supplier.toLowerCase());
-                    dataSupplier.setCreatedDate(now);
-                    dataSupplier.setCreatedTime(time_now);
+                    dataSupplier.setUpdatedDate(now);
+                    dataSupplier.setUpdatedTime(time_now);
                     dataSupplier.setContactName(contact_suplier_name.toLowerCase());
                     dataSupplier.setContactNum(cotact_suplier_num);
                     if ("on".equalsIgnoreCase(checkbox_value)) {

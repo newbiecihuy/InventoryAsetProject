@@ -274,6 +274,7 @@ $(document).ready(function () {
         var address_supplier = $("#address_supplier").val();
         var contact_suplier_name = $("#contact_suplier_name").val();
         var cotact_suplier_num = $("#cotact_suplier_num").val();
+        var supplier_code = $("#supplier_code").val();
         var checkbox_value = $('#tax').val();
         var txt_val = "";
 
@@ -368,6 +369,9 @@ $(document).ready(function () {
                 } else if (response.RC === "3") {
                     $("#form_add_supplier_response").html("<div><p><b>" + "Supplier " + supplier_name + response.msg + "</b></p></div>").addClass('error').css({});
                     $('#btn_add_supplier').prop('disabled', true);
+                }
+                else if (response.RC === "33") {
+                    $("#form_add_supplier_response").html("<div><p><b>" + "Supplier code" + supplier_code+ response.msg + "</b></p></div>").addClass('error').css({});
                 }
                 //display error message
                 else {
@@ -884,7 +888,7 @@ $(document).ready(function () {
 //        return false;
 //    });
 //autocomplete
-    console.log($("#roleName").val());
+//    console.log($("#roleName").val());
     $("#roleName").autocomplete({
         minLength: 1,
         cacheLength: 1,
@@ -1709,11 +1713,14 @@ function addPoItemFunc(data_form_po) {
     window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + decodeURI(myParam); //data_form_po.purchase_id;
 
 }
-
+function listPoItemFunc(data_form_po){
+    alert(data_form_po.purchase_id);
+    window.location = "index.jsp?url=purcahase_layout&pages=list_item_po&" ;//+ decodeURI(myParam); //data_form_po.purchase_id;
+}
 function editPoFunc(data_form_po) {
 //    alert(data_form_po.purchase_id);
 
-    var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_name_po=" + escape(data_form_po.supplier_name)
+    var param = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_name_po=" + escape(data_form_po.supplier_name)
             + "&supplier_id_po=" + escape(data_form_po.supplier_id) + "&action_edit_po=" + escape("EDIT")
             + "&tax_po=" + escape(data_form_po.supplier_tax) + "&tgl_input_po=" + escape(data_form_po.tgl_input_po)
             + "&po_type=" + escape(data_form_po.po_type) + "&payment_term=" + escape(data_form_po.payment_term)
@@ -1722,8 +1729,8 @@ function editPoFunc(data_form_po) {
             + "&purchase_desc=" + escape(data_form_po.purchase_desc) + "&invoice_to=" + escape(data_form_po.invoice_to)
             + "&dlvr_point=" + escape(data_form_po.dlvr_point);
 
-    alert("myParam value : " + myParam);
-    window.location = "index.jsp?url=purcahase_layout&pages=add_po&" + decodeURI(myParam); //data_form_po.purchase_id;
+//    alert("myParam value : " + myParam);
+//    window.location = "index.jsp?url=purcahase_layout&pages=add_po&" + decodeURI(myParam); //data_form_po.purchase_id;
 }
 
 function editItemFunc(data_Items) {

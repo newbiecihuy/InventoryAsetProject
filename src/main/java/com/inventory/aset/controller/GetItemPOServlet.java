@@ -6,7 +6,6 @@
 package com.inventory.aset.controller;
 
 import com.google.gson.Gson;
-import com.inventory.aset.dao.local.EntityProductsDaoLocal;
 import com.inventory.aset.entity.EntityCategories;
 import com.inventory.aset.entity.EntityProducts;
 import com.inventory.aset.util.EncryptionUtil;
@@ -24,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import com.inventory.aset.facadebean.local.EntityProductsFacadeLocal;
 
 /**
  *
@@ -37,7 +37,7 @@ public class GetItemPOServlet extends HttpServlet {
     }
 
     @EJB
-    EntityProductsDaoLocal entityProductsDao;
+    EntityProductsFacadeLocal entityProductsDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

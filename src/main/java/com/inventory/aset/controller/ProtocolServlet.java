@@ -5,7 +5,6 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.dao.local.EntityProtocolDaoLocal;
 import com.inventory.aset.entity.EntityProtocol;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import com.inventory.aset.facadebean.local.EntityProtocolFacadeLocal;
 
 /**
  *
@@ -38,7 +38,7 @@ public class ProtocolServlet extends HttpServlet {
         
     }
     @EJB
-    EntityProtocolDaoLocal entityProtocolDao;
+    EntityProtocolFacadeLocal entityProtocolDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

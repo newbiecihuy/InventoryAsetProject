@@ -6,7 +6,6 @@
 package com.inventory.aset.controller;
 
 import com.inventory.aset.controller.SupplierServlet;
-import com.inventory.aset.dao.local.EntityCategoriesDaoLocal;
 import com.inventory.aset.entity.EntityCategories;
 import com.inventory.aset.util.EncryptionUtil;
 import java.io.IOException;
@@ -27,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import com.inventory.aset.facadebean.local.EntityCategoriesFacadeLocal;
 
 /**
  *
@@ -38,7 +38,7 @@ public class GetCategoryServlet extends HttpServlet {
     public GetCategoryServlet() {
     }
     @EJB
-    EntityCategoriesDaoLocal entityCategoriesDao;
+    EntityCategoriesFacadeLocal entityCategoriesDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
