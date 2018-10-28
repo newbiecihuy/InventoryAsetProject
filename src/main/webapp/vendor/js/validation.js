@@ -11,7 +11,7 @@
 function createDynamicURL()
 {
 //The variable to be returned
-  var URL="";
+    var URL = "";
     //The variables containing the respective IDs
 //    var companyID=...
 //    var branchID=...
@@ -1664,7 +1664,7 @@ function editUserFunc(data_users) {//, supplier_name, supplier_code, address, co
             + "&imei=" + escape(data_users.imei) + "&phone=" + escape(data_users.phone)
             + "&gender=" + escape(data_users.gender);
 //    var isi_param = param.replace(/%20/g, "");
-    window.location = "index.jsp?url=user_layout&pages=add_user_form" + decodeURI(param); //jQuery.param(data_users
+    window.location = "index.jsp?url=user_layout&pages=add_user_form" + param; //decodeURI(param)
 }
 
 function editSupplierFunc(data_supplier) {//, supplier_name, supplier_code, address, contact_name, contact_num, status_supp
@@ -1678,7 +1678,7 @@ function editSupplierFunc(data_supplier) {//, supplier_name, supplier_code, addr
             + "&cotact_suplier_num=" + escape(data_supplier.contact_num)
             + "&tax=" + escape(data_supplier.tax);
 //    var isi_param = param.replace(/%20/g, "");
-    window.location = "index.jsp?url=supllier_layout&pages=add_supllier_form" + decodeURI(param); //data_form_po.purchase_id;
+    window.location = "index.jsp?url=supllier_layout&pages=add_supllier_form" + param; //decodeURI(param);
 //
 
 }
@@ -1687,7 +1687,7 @@ function editCategoriesFunc(data_categories) {//, supplier_name, supplier_code, 
 //    alert(data_categories.category_id);
     var myParam = "&category_name=" + escape(data_categories.name_categories) + "&category_id=" + escape(data_categories.category_id)
             + "&action_edit_category=" + "EDIT" + "&category_desc=" + escape(data_categories.category_desc);
-    window.location = "index.jsp?url=item_layout&pages=add_category_form" + decodeURI(myParam); //data_form_po.purchase_id;
+    window.location = "index.jsp?url=item_layout&pages=add_category_form" + myParam; //decodeURI(myParam)data_form_po.purchase_id;
 
 }
 
@@ -1709,7 +1709,7 @@ function addPoItemFunc(data_form_po) {
     var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id)
             + "&tax_item_po=" + escape(data_form_po.supplier_tax) + "&tax_po_val=" + escape(tax_po_val);
 
-    window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + decodeURI(myParam); //data_form_po.purchase_id;
+    window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + myParam; // decodeURI(myParam)
 
 }
 function listPoItemFunc(data_form_po) {
@@ -1719,7 +1719,8 @@ function listPoItemFunc(data_form_po) {
 function editPoFunc(data_form_po) {
 //    alert(data_form_po.purchase_id);
 
-    var param = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_name_po=" + escape(data_form_po.supplier_name)
+    var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_name_po=" + escape(data_form_po.supplier_name)
+            + "&supplier_code_po=" + escape(data_form_po.supplier_code)
             + "&supplier_id_po=" + escape(data_form_po.supplier_id) + "&action_edit_po=" + escape("EDIT")
             + "&tax_po=" + escape(data_form_po.supplier_tax) + "&tgl_input_po=" + escape(data_form_po.tgl_input_po)
             + "&po_type=" + escape(data_form_po.po_type) + "&payment_term=" + escape(data_form_po.payment_term)
@@ -1729,7 +1730,7 @@ function editPoFunc(data_form_po) {
             + "&dlvr_point=" + escape(data_form_po.dlvr_point);
 
 //    alert("myParam value : " + myParam);
-//    window.location = "index.jsp?url=purcahase_layout&pages=add_po&" + decodeURI(myParam); //data_form_po.purchase_id;
+    window.location = "index.jsp?url=purcahase_layout&pages=add_po&" + myParam; //decodeURI(myParam)
 }
 
 function editItemFunc(data_Items) {
@@ -1741,7 +1742,7 @@ function editItemFunc(data_Items) {
             + "&description=" + escape(data_Items.description) + "&id_stock=" + escape(data_Items.id_stock);
 //    var isi_param = param.replace(/%20/g, "");
 
-    window.location = "index.jsp?url=item_layout&pages=form_add_item" + decodeURI(param);
+    window.location = "index.jsp?url=item_layout&pages=form_add_item" + param;//decodeURI(param)
 }
 function deleteUserFunc(data_users) {
 
@@ -2312,11 +2313,11 @@ function subTotal(Nrupiah) {
 //        }
     }
     total(number_string);//Nrupiah
-    return  document.getElementById("sub_total").value = ;
+    return  document.getElementById("sub_total").value = number_string;
 
 }
 function total(Ntotal) {
-    var tax = document.getElementById("val_tax_po").value ='10';
+    var tax = document.getElementById("val_tax_po").value = '10';
     return  document.getElementById("total_price_po").value = Ntotal;
 }
 //element_unit_price_po.onchange = discount;

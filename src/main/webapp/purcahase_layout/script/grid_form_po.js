@@ -83,6 +83,12 @@ $(document).ready(function () {
                 bAutoWidth: true,
                 searchable: true
             }, {
+                data:"supplier_code",
+                targets: "supplier_code",
+                bAutoWidth: true,
+                visible: false,
+                searchable: true
+            },{
                 data: "supplier_tax",
                 targets: "supplier_tax",
                 bAutoWidth: true,
@@ -203,12 +209,14 @@ $(document).ready(function () {
                         var va_purchase_desc = row_po["purchase_desc"];
                         var va_pic = row_po["pic"];
                         var va_is_delete = row_po["is_delete"];
+                        var va_supplier_code = row_po["supplier_code"];
 
                         var data_form_po = {
                             purchase_id: va_purchase_id,
                             purchase_code: va_purchase_code,
                             supplier_id: va_supplier_id,
                             supplier_name: va_supplier_name,
+                            supplier_code: va_supplier_code,
                             supplier_tax: va_tax,
                             tgl_input_po: va_tgl_input_po,
                             po_type: va_po_type,
@@ -229,16 +237,16 @@ $(document).ready(function () {
 //                            $("i#list_item").css("background-color", "blue");
                                 return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                <a  id='addItemPo' href='#' onclick='javascript:addPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-plus' title='Add Item'></i></a>\n\
-                               <a  id='listtemPo' href='#' onclick='javascript:listPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i id='list_item' class='fa fa-list fa-fw'  title='List Item'></i></a>\n\
+                               <a  id='listtemPo' href='#' onclick='javascript:listPoItemFunc(" + JSON.stringify(data_form_po) + ")''><i id='list_item' class='fa fa-list fa-fw'  title='List Item'></i></a>\n\
                                <a id='updateDataPo' href='#' onclick='javascript:editPoFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-edit'title='Edit PO'></i></a>\n\
-                               <a href='#'><i class='fa fa-trash ' title='Delete'></i></a>";
+                               <a href='#' onclick='javascript:deletePoFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-trash ' title='Delete'></i></a>";
                             } else if (row_po["status_po"] === "No Item") {
 //                            $("i#list_item").css("background-color", "#e0e0d1");
                                 return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                <a  id='addItemPo' href='#' onclick='javascript:addPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-plus' title='Add Item'></i></a>\n\
                                <a  id='listtemPo' href='#'><i id='list_item' class='fa fa-list fa-fw' style='color:#e0e0d1;'  title='List Item'></i></a>\n\
                                <a id='updateDataPo' href='#' onclick='javascript:editPoFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-edit'title='Edit PO'></i></a>\n\
-                               <a href='#'><i class='fa fa-trash ' title='Delete'></i></a>";
+                               <a href='#' onclick='javascript:deletePoFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-trash ' title='Delete'></i></a>";
                             }
                         }
 //                      return "<a href='" + data_pict_1 + " 'target='_blank' class='btn btn-info'>" + "<font color='#f2f2f2' size='2em'>" + "Display" + "</font>" + "</a>";

@@ -39,6 +39,7 @@
                                     <th class="purchase_code">P&#8228;O&#8228; Number</th>                                    
                                     <th class="supplier_id">supplier_id</th>     
                                     <th class="supplier_name">Supplier Name</th> 
+                                     <th class="supplier_code">Supplier Code</th> 
                                     <th class="supplier_tax">Tax</th> 
                                     <th class="tgl_input_po">P&#8228;O&#8228; Date</th> 
                                     <th class="po_type">P&#8228;O&#8228; Type</th> 

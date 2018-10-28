@@ -146,6 +146,12 @@
         } else {
             $("#supplier_name_po").val("");
         }
+        var supplier_code_po  = getUrlQueryString('supplier_code_po');
+        if (supplier_code_po !== "") {
+            $("#supplier_code_po").val(supplier_code_po);
+        } else {
+            $("#supplier_code_po").val("");
+        }
         var supplier_id_po = getUrlQueryString('supplier_id_po');
         if (supplier_id_po !== "") {
             $("#supplier_id_po").val(supplier_id_po);

@@ -164,6 +164,11 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         obj.put("supplier_name", EncryptionUtil.upperCaseFirst(dataPO.getSupplierId().getSupplierName()));
                     }
+                    if (dataPO.getSupplierId().getSupplierCode()== null) {
+                        obj.put("supplier_code", "");
+                    } else {
+                        obj.put("supplier_code", EncryptionUtil.upperCaseFirst(dataPO.getSupplierId().getSupplierCode()));
+                    }
                     if (dataPO.getSupplierId().isTax()) {
                         obj.put("supplier_tax", "1");
                     } else {
