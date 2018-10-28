@@ -229,14 +229,14 @@ $(document).ready(function () {
 //                            $("i#list_item").css("background-color", "blue");
                                 return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                <a  id='addItemPo' href='#' onclick='javascript:addPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-plus' title='Add Item'></i></a>\n\
-                               <a  id='listtemPo' href='#')'><i id='list_item' class='fa fa-list fa-fw'  title='List Item'></i></a>\n\
+                               <a  id='listtemPo' href='#' onclick='javascript:listPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i id='list_item' class='fa fa-list fa-fw'  title='List Item'></i></a>\n\
                                <a id='updateDataPo' href='#' onclick='javascript:editPoFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-edit'title='Edit PO'></i></a>\n\
                                <a href='#'><i class='fa fa-trash ' title='Delete'></i></a>";
                             } else if (row_po["status_po"] === "No Item") {
 //                            $("i#list_item").css("background-color", "#e0e0d1");
                                 return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                <a  id='addItemPo' href='#' onclick='javascript:addPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-plus' title='Add Item'></i></a>\n\
-                               <a  id='listtemPo' href='#' onclick='javascript:listPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i id='list_item' class='fa fa-list fa-fw' style='color:#e0e0d1;'  title='List Item'></i></a>\n\
+                               <a  id='listtemPo' href='#'><i id='list_item' class='fa fa-list fa-fw' style='color:#e0e0d1;'  title='List Item'></i></a>\n\
                                <a id='updateDataPo' href='#' onclick='javascript:editPoFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-edit'title='Edit PO'></i></a>\n\
                                <a href='#'><i class='fa fa-trash ' title='Delete'></i></a>";
                             }

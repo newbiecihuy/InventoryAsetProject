@@ -8,37 +8,7 @@
 <!DOCTYPE html>
 
 <body>
-    <%--
-        String supplier_code = "";
-        if (request.getParameter("supplier_code") != null) {
-            supplier_code = request.getParameter("supplier_code");
-        }
-        String supplier_name = "";
-        if (request.getParameter("supplier_name") != null) {
-            supplier_name = request.getParameter("supplier_name");
-        }
-        int supplier_id = 0;
-        if (request.getParameter("supplier_id") != null) {
-            supplier_id = Integer.parseInt(request.getParameter("supplier_id"));
-        }
-
-        String address_supplier = "";
-        if (request.getParameter("address_supplier") != null) {
-            address_supplier = request.getParameter("address_supplier");
-        }
-        String contact_suplier_name = "";
-        if (request.getParameter("contact_suplier_name") != null) {
-            contact_suplier_name = request.getParameter("contact_suplier_name");
-        }
-        String cotact_suplier_num = "";
-        if (request.getParameter("cotact_suplier_num") != null) {
-            cotact_suplier_num = request.getParameter("cotact_suplier_num");
-        }
-        String tax = "";
-        if (request.getParameter("tax") != null) {
-            tax = request.getParameter("tax");
-        }
-    --%>
+    
     <section class="content-header">
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>

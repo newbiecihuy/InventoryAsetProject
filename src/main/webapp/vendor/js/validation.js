@@ -11,7 +11,7 @@
 function createDynamicURL()
 {
 //The variable to be returned
-    var URL;
+  var URL="";
     //The variables containing the respective IDs
 //    var companyID=...
 //    var branchID=...
@@ -369,9 +369,8 @@ $(document).ready(function () {
                 } else if (response.RC === "3") {
                     $("#form_add_supplier_response").html("<div><p><b>" + "Supplier " + supplier_name + response.msg + "</b></p></div>").addClass('error').css({});
                     $('#btn_add_supplier').prop('disabled', true);
-                }
-                else if (response.RC === "33") {
-                    $("#form_add_supplier_response").html("<div><p><b>" + "Supplier code" + supplier_code+ response.msg + "</b></p></div>").addClass('error').css({});
+                } else if (response.RC === "33") {
+                    $("#form_add_supplier_response").html("<div><p><b>" + "Supplier code" + supplier_code + response.msg + "</b></p></div>").addClass('error').css({});
                 }
                 //display error message
                 else {
@@ -1713,9 +1712,9 @@ function addPoItemFunc(data_form_po) {
     window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + decodeURI(myParam); //data_form_po.purchase_id;
 
 }
-function listPoItemFunc(data_form_po){
+function listPoItemFunc(data_form_po) {
     alert(data_form_po.purchase_id);
-    window.location = "index.jsp?url=purcahase_layout&pages=list_item_po&" ;//+ decodeURI(myParam); //data_form_po.purchase_id;
+    window.location = "index.jsp?url=purcahase_layout&pages=list_item_po&";//+ decodeURI(myParam); //data_form_po.purchase_id;
 }
 function editPoFunc(data_form_po) {
 //    alert(data_form_po.purchase_id);
@@ -2312,12 +2311,12 @@ function subTotal(Nrupiah) {
 //            rupiah += separator + ribuan.join('.');
 //        }
     }
-    total(Nrupiah);
-    return  document.getElementById("sub_total").value = number_string;
+    total(number_string);//Nrupiah
+    return  document.getElementById("sub_total").value = ;
 
 }
 function total(Ntotal) {
-    var tax = document.getElementById("tax_po").value;
+    var tax = document.getElementById("val_tax_po").value ='10';
     return  document.getElementById("total_price_po").value = Ntotal;
 }
 //element_unit_price_po.onchange = discount;
