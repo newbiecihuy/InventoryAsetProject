@@ -5,10 +5,8 @@
  */
 package com.inventory.aset.facadebean;
 
-import com.inventory.aset.entity.EntityPurchases;
 import com.inventory.aset.entity.EntitySells;
 import java.util.List;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
