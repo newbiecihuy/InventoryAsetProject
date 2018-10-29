@@ -27,6 +27,7 @@
     <class>com.inventory.aset.entity.users.EntityVerificationToken</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
+    <validation-mode>NONE</validation-mode>
     <!--    <properties>
           <property name="eclipselink.jdbc.password" value="postgres"/>
           <property name="eclipselink.jdbc.user" value="postgres"/>
@@ -41,7 +42,6 @@
           <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
           <property name="javax.persistence.jdbc.password" value="postgres"/>
         </properties>-->
-    <validation-mode>NONE</validation-mode>
     <properties>
       <property name="eclipselink.jdbc.password" value="postgres"/>
       <property name="eclipselink.jdbc.user" value="postgres"/>
