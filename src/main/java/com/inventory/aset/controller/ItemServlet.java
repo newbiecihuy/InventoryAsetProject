@@ -240,10 +240,16 @@ public class ItemServlet extends HttpServlet {
                         obj.put("isApprove", "0");
                     }
 
-                    if (!dataProduct.isStatus_item()) {
-                        obj.put("status_item", "0");
+//                    if (!dataProduct.isStatus_item()) {
+//                        obj.put("status_item", "0");
+//                    } else {
+//                        obj.put("status_item", "1");
+//                    }
+                    if (dataProduct.getStatus_item() == 0) {
+                        obj.put("status_item", 0);
                     } else {
-                        obj.put("status_item", "1");
+                        obj.put("status_item", dataProduct.getStatus_item());
+//                        dateAfter_val = sdf.parse(dataStock.getEstematedDateAfter().toString());
                     }
 
                     if (dataProduct.getPic() == null) {
@@ -310,7 +316,7 @@ public class ItemServlet extends HttpServlet {
             long categori_id = 0;
             long supplier_id = 0;
             long id_stock = 0l;
-            boolean isi_status = true;
+//            boolean isi_status = false;
             String item_name, categories_name, description, status_item, supplier_name, product_code, price_item, estemated_date_before, estemated_date_after = null;
 
             EntityProducts dataProducts = new EntityProducts();
@@ -472,7 +478,7 @@ public class ItemServlet extends HttpServlet {
                     }
 //                  dataCategory = entityCategoriesDao.getCategories(categori_id);
 //                  dataProducts.setCategoryId(dataCategory);
-                    dataProducts.setStatus_item(isi_status);
+//                  dataProducts.setStatus_item(isi_status);
                     dataProducts.setDescription(description.toLowerCase());
 //                    String sub_str = item_name.substring(0, 4);
 //                    dataProducts.setProductCode(sub_str);
@@ -586,7 +592,7 @@ public class ItemServlet extends HttpServlet {
                     }
 //                  dataCategory = entityCategoriesDao.getCategories(categori_id);
 //                  dataProducts.setCategoryId(dataCategory);
-                    dataProducts.setStatus_item(true);
+                    dataProducts.setStatus_item(0);
                     dataProducts.setDescription(description.toLowerCase());
                     dataProducts.setProductCode(product_code.toLowerCase());
                     dataProducts.setBarcode("");
@@ -613,7 +619,7 @@ public class ItemServlet extends HttpServlet {
                     msg = "Has been Updated";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
                     dataProducts = entityProductsDao.getProducts(id_product);
-                    dataProducts.setStatus_item(false);
+                    dataProducts.setStatus_item(2);
 
                     dataProducts.setUpdatedAt(now);
                     dataProducts.setUpdatedAtTime(time_now);

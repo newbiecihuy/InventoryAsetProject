@@ -54,7 +54,17 @@ $(document).ready(function () {
                 visible: true,
                 searchable: true,
                 mRender: function (data_supName, type_supName, row_supName) {
-                    return data_supName.replace('&nbsp;', /%20/g);
+                    var va_supplier_id = row_supName["supplier_id"];
+                    var data_record_supplier = {
+                        supplier_id: va_supplier_id
+                    };
+                    if (row_supName['status_supp'] === 1) {
+//                        return "NActive";
+                        return"<a href='#' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
+                    } else {
+                        return data_supName.replace('&nbsp;', /%20/g);
+                    }
+//                    return data_supName.replace('&nbsp;', /%20/g);
 
                 }
             }, {
@@ -89,7 +99,7 @@ $(document).ready(function () {
                 data: "tax",
                 targets: "tax",
                 bAutoWidth: true,
-                visible: false,
+                visible: false
 //                mRender: function (data_tax, type_tax, row_tax) {
 //                    if (data_tax === '1') {
 //                        return "active";
@@ -106,13 +116,21 @@ $(document).ready(function () {
                 visible: true,
                 searchable: true,
                 mRender: function (data_sup, type_sup, row_sup) {
-                    if (data_sup === '1') {
-                        return "Active";
+                    var va_supplier_id = row_sup["supplier_id"];
+                    var data_record_supplier = {
+                        supplier_id: va_supplier_id
+                    };
+                    if (data_sup === 0) {
+                        return "NotApproved";
                     }
-                    if (data_sup === '0') {
-                        return "NActive";
+                    if (data_sup === 1) {
+                        return "Approved";
+//                        return"<a href='#' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + "Active" + "</a>";
                     }
-
+                    if (data_sup === 2) {
+                        $(data_sup).css('color', 'red');
+                        return "Rejected";
+                    }
                 }
             }, {
                 data: "created_date",

@@ -122,8 +122,11 @@ public class EntityPurchases implements Serializable {
     @Column(name = "invoice_to")
     private String invoiceTo;
 
+//    @Column(name = "is_approve")
+//    private boolean isApprove = false;
+    
     @Column(name = "is_approve")
-    private boolean isApprove = false;
+    private int isApprove = 0;
 
     @Column(name = "is_delete")
     private boolean isDelete = false;
@@ -141,14 +144,13 @@ public class EntityPurchases implements Serializable {
 
     }
 
-    public EntityPurchases(Long purchaseId, String purchaseCode, String purchaseDesc, String transportMode, String rfqNumber, String quotationNumber, String totalProductPurchaseCost, List<EntityProductPurchase> entityProductPurchase, EntitySuppliers supplierId, EntityTypePO typePOId, Date date, String time, Date inputDate, String inputTime, Date dateEdit, String timeEdit, String deliveryTerm, String deliveryPoint, String invoiceTo, String appproveBy, String pic) {
+    public EntityPurchases(Long purchaseId, String purchaseCode, String purchaseDesc, String transportMode, String rfqNumber, String quotationNumber, List<EntityProductPurchase> entityProductPurchase, EntitySuppliers supplierId, EntityTypePO typePOId, Date date, String time, Date inputDate, String inputTime, Date dateEdit, String timeEdit, String deliveryTerm, String deliveryPoint, String invoiceTo, String appproveBy, String pic) {
         this.purchaseId = purchaseId;
         this.purchaseCode = purchaseCode;
         this.purchaseDesc = purchaseDesc;
         this.transportMode = transportMode;
         this.rfqNumber = rfqNumber;
         this.quotationNumber = quotationNumber;
-        this.totalProductPurchaseCost = totalProductPurchaseCost;
         this.entityProductPurchase = entityProductPurchase;
         this.supplierId = supplierId;
         this.typePOId = typePOId;
@@ -317,11 +319,11 @@ public class EntityPurchases implements Serializable {
         this.invoiceTo = invoiceTo;
     }
 
-    public boolean isIsApprove() {
+    public int getIsApprove() {
         return isApprove;
     }
 
-    public void setIsApprove(boolean isApprove) {
+    public void setIsApprove(int isApprove) {
         this.isApprove = isApprove;
     }
 

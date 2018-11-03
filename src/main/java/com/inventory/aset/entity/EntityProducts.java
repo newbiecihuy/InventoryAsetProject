@@ -96,7 +96,7 @@ public class EntityProducts implements Serializable {
     private String description;
 
     @Column(name = "status_item")
-    private boolean status_item = true;
+    private int status_item = 0;
 
     @Column(name = "is_delete")
     private boolean isDelete = false;
@@ -127,7 +127,7 @@ public class EntityProducts implements Serializable {
 
     }
 
-    public EntityProducts(Long idProduct, String productName, String productCode, String barcode, String pict_path, EntityCategories categoryId, EntitySuppliers supplierId, Date createdAt, String createdAtTime, Date inputDate, String inputTime, Date updatedAt, String updatedAtTime, String description, EntityStock entityStock, Collection<EntityProductPurchase> entityProductPurchase, Collection<EntityProductSell> entityProductSell, boolean isApprove, String pic) {
+    public EntityProducts(Long idProduct, String productName, String productCode, String barcode, String pict_path, EntityCategories categoryId, EntitySuppliers supplierId, Date createdAt, String createdAtTime, Date inputDate, String inputTime, Date updatedAt, String updatedAtTime, String description, EntityStock entityStock, Collection<EntityProductPurchase> entityProductPurchase, Collection<EntityProductSell> entityProductSell, String pic) {
         this.idProduct = idProduct;
         this.productName = productName;
         this.productCode = productCode;
@@ -145,7 +145,6 @@ public class EntityProducts implements Serializable {
         this.entityStock = entityStock;
         this.entityProductPurchase = entityProductPurchase;
         this.entityProductSell = entityProductSell;
-        this.isApprove = isApprove;
         this.pic = pic;
     }
 
@@ -269,11 +268,11 @@ public class EntityProducts implements Serializable {
         this.description = description;
     }
 
-    public boolean isStatus_item() {
+    public int getStatus_item() {
         return status_item;
     }
 
-    public void setStatus_item(boolean status_item) {
+    public void setStatus_item(int status_item) {
         this.status_item = status_item;
     }
 

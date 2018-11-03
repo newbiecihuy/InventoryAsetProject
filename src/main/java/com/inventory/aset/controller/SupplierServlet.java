@@ -144,70 +144,75 @@ public class SupplierServlet extends HttpServlet {
                 for (int i = 0; i < supplierList.size(); i++) {
                     EntitySuppliers dataSuppliers = (EntitySuppliers) supplierList.get(i);
                     JSONObject obj = new JSONObject();
-                    if (dataSuppliers.isIsActive() == true) {
-                        if (dataSuppliers.getSupplierId() == null) {
-                            obj.put("supplier_id", "");
-                            obj.put("no", "");
-                            obj.put("action_supp", "");
-                        } else {
-                            obj.put("supplier_id", dataSuppliers.getSupplierId());
-                            obj.put("no", i + 1);
-                            obj.put("action_supp", "");
-                        }
-                        if (dataSuppliers.getCreatedDate() == null) {
-                            obj.put("created_date", "");
-                        } else {
-                            obj.put("created_date", sdf.format(dataSuppliers.getCreatedDate()) + "-" + dataSuppliers.getCreatedTime());
-                        }
-                        if (dataSuppliers.getSupplierName() == null) {
-                            obj.put("supplier_name", "");
-                        } else {
-                            obj.put("supplier_name", EncryptionUtil.upperCaseFirst(dataSuppliers.getSupplierName()));
-                        }
-                        if (dataSuppliers.getSupplierCode() == null) {
-                            obj.put("supplier_code", "");
-                        } else {
-                            obj.put("supplier_code", EncryptionUtil.upperCaseFirst(dataSuppliers.getSupplierCode()));
-                        }
-                        if (dataSuppliers.getAddress() == null) {
-                            obj.put("address", "");
-                        } else {
-                            obj.put("address", EncryptionUtil.upperCaseFirst(dataSuppliers.getAddress()));
-                        }
-                        if (dataSuppliers.getContactName() == null) {
-                            obj.put("contact_name", "");
-                        } else {
-                            obj.put("contact_name", EncryptionUtil.upperCaseFirst(dataSuppliers.getContactName()));
-                        }
-                        if (dataSuppliers.getContactNum() == null) {
-                            obj.put("contact_num", "");
-                        } else {
-                            obj.put("contact_num", dataSuppliers.getContactNum());
-                        }
-                        if (dataSuppliers.isTax()) {
-                            obj.put("tax", "1");
-                        } else {
-                            obj.put("tax", "0");
-                        }
-                        if (!dataSuppliers.isIsActive()) {
-                            obj.put("status_supp", "0");
-                        } else {
-                            obj.put("status_supp", "1");
-                        }
+//                    if (dataSuppliers.isIsActive() == true) {
+                    if (dataSuppliers.getSupplierId() == null) {
+                        obj.put("supplier_id", "");
+                        obj.put("no", "");
+                        obj.put("action_supp", "");
+                    } else {
+                        obj.put("supplier_id", dataSuppliers.getSupplierId());
+                        obj.put("no", i + 1);
+                        obj.put("action_supp", "");
+                    }
+                    if (dataSuppliers.getCreatedDate() == null) {
+                        obj.put("created_date", "");
+                    } else {
+                        obj.put("created_date", sdf.format(dataSuppliers.getCreatedDate()) + "-" + dataSuppliers.getCreatedTime());
+                    }
+                    if (dataSuppliers.getSupplierName() == null) {
+                        obj.put("supplier_name", "");
+                    } else {
+                        obj.put("supplier_name", EncryptionUtil.upperCaseFirst(dataSuppliers.getSupplierName()));
+                    }
+                    if (dataSuppliers.getSupplierCode() == null) {
+                        obj.put("supplier_code", "");
+                    } else {
+                        obj.put("supplier_code", EncryptionUtil.upperCaseFirst(dataSuppliers.getSupplierCode()));
+                    }
+                    if (dataSuppliers.getAddress() == null) {
+                        obj.put("address", "");
+                    } else {
+                        obj.put("address", EncryptionUtil.upperCaseFirst(dataSuppliers.getAddress()));
+                    }
+                    if (dataSuppliers.getContactName() == null) {
+                        obj.put("contact_name", "");
+                    } else {
+                        obj.put("contact_name", EncryptionUtil.upperCaseFirst(dataSuppliers.getContactName()));
+                    }
+                    if (dataSuppliers.getContactNum() == null) {
+                        obj.put("contact_num", "");
+                    } else {
+                        obj.put("contact_num", dataSuppliers.getContactNum());
+                    }
+                    if (dataSuppliers.isTax()) {
+                        obj.put("tax", "1");
+                    } else {
+                        obj.put("tax", "0");
+                    }
+//                        if (!dataSuppliers.isIsActive()) {
+//                            obj.put("status_supp", "0");
+//                        } else {
+//                            obj.put("status_supp", "1");
+//                        }
+                    if (dataSuppliers.getIsActive() == 0) {
+                        obj.put("status_supp", 0);
+                    } else {
+                        obj.put("status_supp", dataSuppliers.getIsActive());
+                    }
 //                         if (dataSuppliers.getContactNum() == null) {
 //                            obj.put("status_supp", "");
 //                        } else {
 //                            obj.put("status_supp", dataSuppliers.getContactNum());
 //                        }
-                        List<EntitySettings> getSupllierCode = entitySettingsDao.findWithParamName("supplier_code");
-                        if (getSupllierCode.size() > 0) {
-                            EntitySettings dataSetting = getSupllierCode.get(0);
+                    List<EntitySettings> getSupllierCode = entitySettingsDao.findWithParamName("supplier_code");
+                    if (getSupllierCode.size() > 0) {
+                        EntitySettings dataSetting = getSupllierCode.get(0);    
 
-                            EntitySuppliers updateData = entitySuppliersDao.getSuppliers(dataSuppliers.getSupplierId());
-                            updateData.setSupplierCode(dataSetting.getValue());
-                            entitySuppliersDao.updateSuppliers(updateData);
-                        }
+                        EntitySuppliers updateData = entitySuppliersDao.getSuppliers(dataSuppliers.getSupplierId());
+                        updateData.setSupplierCode(dataSetting.getValue());
+                        entitySuppliersDao.updateSuppliers(updateData);
                     }
+//                    }
                     jsonArray.add(obj);
                 }
             }
@@ -416,7 +421,7 @@ public class SupplierServlet extends HttpServlet {
                     msg = "Has been Updated";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
                     dataSupplier = entitySuppliersDao.getSuppliers(supplier_id);
-                    dataSupplier.setIsActive(false);
+                    dataSupplier.setIsActive(0);
                     dataSupplier.setUpdatedDate(now);
                     dataSupplier.setUpdatedTime(time_now);
                     entitySuppliersDao.deleteSuppliers(dataSupplier);

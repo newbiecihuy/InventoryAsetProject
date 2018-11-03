@@ -102,7 +102,7 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
 
     @Override
     public List<EntityProducts> findBySuplierId(Long paramLong) {
-        return em.createQuery("SELECT Distinct ep.productName   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramLong + "\"").getResultList();
+        return em.createQuery("SELECT Distinct ep.productName   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramLong + "\" AND" + "ep.status_item =  \"" + true + "\"").getResultList();
     }
 
     @Override
@@ -120,7 +120,5 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
     public int count() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-   
 
 }

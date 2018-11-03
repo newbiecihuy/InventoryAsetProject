@@ -83,12 +83,12 @@ $(document).ready(function () {
                 bAutoWidth: true,
                 searchable: true
             }, {
-                data:"supplier_code",
+                data: "supplier_code",
                 targets: "supplier_code",
                 bAutoWidth: true,
                 visible: false,
                 searchable: true
-            },{
+            }, {
                 data: "supplier_tax",
                 targets: "supplier_tax",
                 bAutoWidth: true,
@@ -164,11 +164,14 @@ $(document).ready(function () {
                 visible: false,
                 searchable: false,
                 mRender: function (data_sup, type_sup, row_sup) {
-                    if (data_sup === '1') {
+                    if (data_sup === 1) {
                         return "Approve";
                     }
-                    if (data_sup === '0') {
+                    if (data_sup === 0) {
                         return "NotApprove";
+                    }
+                    if (data_sup === 2) {
+                        return "Reject";
                     }
 
                 }

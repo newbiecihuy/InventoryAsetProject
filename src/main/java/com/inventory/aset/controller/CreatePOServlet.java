@@ -164,7 +164,7 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         obj.put("supplier_name", EncryptionUtil.upperCaseFirst(dataPO.getSupplierId().getSupplierName()));
                     }
-                    if (dataPO.getSupplierId().getSupplierCode()== null) {
+                    if (dataPO.getSupplierId().getSupplierCode() == null) {
                         obj.put("supplier_code", "");
                     } else {
                         obj.put("supplier_code", EncryptionUtil.upperCaseFirst(dataPO.getSupplierId().getSupplierCode()));
@@ -239,11 +239,17 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         obj.put("pic", EncryptionUtil.upperCaseFirst(dataPO.getPic()));
                     }
-                    if (!dataPO.isIsApprove()) {
-                        obj.put("is_approve", "0");
+//                    if (!dataPO.isIsApprove()) {
+//                        obj.put("is_approve", "0");
+//                    } else {
+//                        obj.put("is_approve", "1");
+//                    }
+                    if (dataPO.getIsApprove() == 0) {
+                        obj.put("is_approve", 0);
                     } else {
-                        obj.put("is_approve", "1");
+                        obj.put("is_approve", dataPO.getIsApprove());
                     }
+
                     if (!dataPO.isIsDelete()) {
                         obj.put("is_delete", "0");
                     } else {
@@ -644,7 +650,7 @@ public class CreatePOServlet extends HttpServlet {
                     msg = "Has been Updated";
                 } else if (action_edit.equalsIgnoreCase("Approve")) {
                     entityPurchasesDao.getPurchases(purchase_id);
-                    dataPurchases.setIsApprove(true);
+                    dataPurchases.setIsApprove(1);
                     dataPurchases.setAppproveBy("Pak Yos");
                     dataPurchases.setDateEdit(now);
                     dataPurchases.setTimeEdit(time_now);

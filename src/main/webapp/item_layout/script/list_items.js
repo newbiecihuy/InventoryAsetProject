@@ -90,7 +90,7 @@ $(document).ready(function () {
                     }
                     return rupiah;
                 }
-            },{
+            }, {
                 data: "sell_price",
                 targets: "sell_price",
                 bAutoWidth: true,
@@ -152,11 +152,16 @@ $(document).ready(function () {
                 visible: true,
                 searchable: true,
                 mRender: function (data_item, type_item, row_item) {
-                    if (data_item === '1') {
-                        return "Active";
+                    if (data_item === 1) {
+                        return "Approved";
                     }
-                    if (data_item === '0') {
-                        return "Inactive";
+                    if (data_item === 0) {
+                        return "NotApproved";
+                        
+                    }
+                    if (data_item === 2) {
+                        $(data_item).css('color', 'red');
+                        return "Rejected";
                     }
 
                 }

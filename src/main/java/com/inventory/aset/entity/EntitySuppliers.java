@@ -41,7 +41,7 @@ public class EntitySuppliers implements Serializable {
     private Long supplierId;
 
     @Basic(optional = false)
-    @Column(name = "supplier_code",length = 500)
+    @Column(name = "supplier_code", length = 500)
     private String supplierCode;
 
     @Basic(optional = false)
@@ -72,9 +72,13 @@ public class EntitySuppliers implements Serializable {
     private Date updatedDate;
     @Column(name = "updated_time")
     private String updatedTime;
+//    @Basic(optional = false)
+//    @Column(name = "is_active")
+//    private boolean isActive = true;
     @Basic(optional = false)
     @Column(name = "is_active")
-    private boolean isActive = true;
+    private int isActive = 0;
+
     @Basic(optional = false)
     @Column(name = "tax")
     private boolean tax = false;
@@ -90,7 +94,7 @@ public class EntitySuppliers implements Serializable {
     public EntitySuppliers() {
     }
 
-    public EntitySuppliers(Long supplierId, String supplierCode, String supplierName, String address, String contactName, String contactNum, Date createdDate, String createdTime, Date updatedDate, String updatedTime, boolean tax, String pic, List<EntityProducts> entityProducts, List<EntityPurchases> entityPurchases) {
+    public EntitySuppliers(Long supplierId, String supplierCode, String supplierName, String address, String contactName, String contactNum, Date createdDate, String createdTime, Date updatedDate, String updatedTime, String pic, List<EntityProducts> entityProducts, List<EntityPurchases> entityPurchases) {
         this.supplierId = supplierId;
         this.supplierCode = supplierCode;
         this.supplierName = supplierName;
@@ -101,7 +105,6 @@ public class EntitySuppliers implements Serializable {
         this.createdTime = createdTime;
         this.updatedDate = updatedDate;
         this.updatedTime = updatedTime;
-        this.tax = tax;
         this.pic = pic;
         this.entityProducts = entityProducts;
         this.entityPurchases = entityPurchases;
@@ -187,11 +190,11 @@ public class EntitySuppliers implements Serializable {
         this.updatedTime = updatedTime;
     }
 
-    public boolean isIsActive() {
+    public int getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(boolean isActive) {
+    public void setIsActive(int isActive) {
         this.isActive = isActive;
     }
 
@@ -235,6 +238,7 @@ public class EntitySuppliers implements Serializable {
         this.entityPurchases = entityPurchases;
     }
 
+   
     @Override
     public int hashCode() {
         int hash = 0;

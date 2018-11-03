@@ -1797,11 +1797,16 @@ function purchasePdfReport(data_record_po) {
 
 }
 //End Generate PDF
+//
 //Generate Excel
 function purchaseExcelReport(data_record_po) {
 
 }
+function suplierExcelReport(data_record_supplier) {
+
+}
 //End Generate Excel
+//
 function categories_empty() {
     console.log("entered categories_empty function");
     var categories_name = $("#categories_name").val();
@@ -2116,7 +2121,12 @@ function add_row() {
     e_item_name.placeholder = "Like Sugar";
     e_item_name.setAttribute('required', '');
     e_item_name.setAttribute('class', 'form-control-static uppercase');
-    e_item_name.addEventListener('onchange', item_supEmpty, true);
+    e_item_name.addEventListener('onchange', item_supEmpty, function (e) {
+        item_supEmpty();
+    });
+//    e_item_name.onchange = function () {
+//        item_supEmpty();
+//    };
     var e_id_product = document.createElement('input');
     e_id_product.type = "hidden";
     e_id_product.id = "id_product";
@@ -2128,6 +2138,9 @@ function add_row() {
     e_qtty_po.setAttribute('required', '');
     e_qtty_po.setAttribute('min', '1');
     e_qtty_po.setAttribute('value', '0');
+    e_qtty_po.onchange = function () {
+        discount();
+    };
 //    e_qtty_po.addEventListener("onchange", discount);
     e_qtty_po.setAttribute('class', 'form-control-static uppercase');
     e_qtty_po.addEventListener('onchange', discount, true);
@@ -2147,6 +2160,12 @@ function add_row() {
     e_unit_price_po.name = "unit_price_po";
     e_unit_price_po.placeholder = "In IDR";
     e_unit_price_po.setAttribute('required', '');
+    e_unit_price_po.onblur = function () {
+        format_rupiah();
+    };
+    e_unit_price_po.onchange = function () {
+        discount();
+    };
 //    e_unit_price_po.addEventListener("onblur", format_rupiah);
 //    e_unit_price_po.addEventListener("onchange", discount);
     e_unit_price_po.setAttribute('class', 'form-control-static uppercase');
@@ -2162,7 +2181,10 @@ function add_row() {
     e_discount_item_po.setAttribute('value', '0');
 //    e_discount_item_po.addEventListener("onchange", discount);
     e_discount_item_po.setAttribute('class', 'form-control-static uppercase');
-    e_discount_item_po.addEventListener("onchange", discount, true);
+//    e_discount_item_po.addEventListener("onchange", discount, true);
+    e_discount_item_po.onchange = function () {
+        discount();
+    };
     var e_total_price_po = document.createElement('input');
     e_total_price_po.type = "text";
     e_total_price_po.id = "total_price_po";
