@@ -90,7 +90,7 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 
     @Override
     public List<EntitySuppliers> findBySupplierName(String supplierName) {
-        return em.createQuery("SELECT Distinct es.supplierName  FROM EntitySuppliers es WHERE es.supplierName LIKE \"" + supplierName + "%\" ").getResultList();
+        return em.createQuery("SELECT Distinct es.supplierName  FROM EntitySuppliers es WHERE es.supplierName LIKE \"" + supplierName + "%\" AND es.isActive =  \"" + 1 + "\"").getResultList();
     }
 
     @Override

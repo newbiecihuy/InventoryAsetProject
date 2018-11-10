@@ -819,7 +819,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: createDynamicURL() + "/createPOServlet",
+            url: createDynamicURL() + "/ceatePOItemServlet",
 //            data: {JSONFile: data_add_item}, // look here!
             data: {JSONFile: "[" + JSON.stringify($('#form_create_po').serializeObject()) + "]"}, // look here!
             success: function (response) {
@@ -2121,12 +2121,10 @@ function add_row() {
     e_item_name.placeholder = "Like Sugar";
     e_item_name.setAttribute('required', '');
     e_item_name.setAttribute('class', 'form-control-static uppercase');
-    e_item_name.addEventListener('onchange', item_supEmpty, function (e) {
-        item_supEmpty();
-    });
-//    e_item_name.onchange = function () {
+    e_item_name.setAttribute("onchange", item_supEmpty);
+//    e_item_name.setAttribute("onchange", function () {
 //        item_supEmpty();
-//    };
+//    });
     var e_id_product = document.createElement('input');
     e_id_product.type = "hidden";
     e_id_product.id = "id_product";
@@ -2138,12 +2136,10 @@ function add_row() {
     e_qtty_po.setAttribute('required', '');
     e_qtty_po.setAttribute('min', '1');
     e_qtty_po.setAttribute('value', '0');
-    e_qtty_po.onchange = function () {
-        discount();
-    };
+    e_qtty_po.setAttribute("onchange", discount);
 //    e_qtty_po.addEventListener("onchange", discount);
     e_qtty_po.setAttribute('class', 'form-control-static uppercase');
-    e_qtty_po.addEventListener('onchange', discount, true);
+    e_qtty_po.addEventListener('onchange', discount);
     var e_unit_item_po = document.createElement('input');
     e_unit_item_po.type = "text";
     e_unit_item_po.id = "unit_item_po";
@@ -2152,7 +2148,7 @@ function add_row() {
     e_unit_item_po.setAttribute('required', '');
 //    e_unit_item_po.addEventListener("onblur", format_rupiah);
     e_unit_item_po.setAttribute('class', 'form-control-static uppercase');
-    e_unit_item_po.addEventListener('onblur', format_rupiah, true);
+    e_unit_item_po.addEventListener('onblur', format_rupiah);
     var e_unit_price_po = document.createElement('input');
 //    var element_unit_price_po = document.getElementById('unit_price_po');
     e_unit_price_po.type = "text";
@@ -2160,17 +2156,13 @@ function add_row() {
     e_unit_price_po.name = "unit_price_po";
     e_unit_price_po.placeholder = "In IDR";
     e_unit_price_po.setAttribute('required', '');
-    e_unit_price_po.onblur = function () {
-        format_rupiah();
-    };
-    e_unit_price_po.onchange = function () {
-        discount();
-    };
+    e_unit_price_po.setAttribute("onblur", format_rupiah);
+    e_unit_price_po.setAttribute("onchange", discount);
 //    e_unit_price_po.addEventListener("onblur", format_rupiah);
 //    e_unit_price_po.addEventListener("onchange", discount);
     e_unit_price_po.setAttribute('class', 'form-control-static uppercase');
-    e_unit_item_po.addEventListener('onblur', format_rupiah, true);
-    e_unit_price_po.addEventListener("onchange", discount, true);
+    e_unit_item_po.addEventListener('onblur', format_rupiah);
+    e_unit_price_po.addEventListener("onchange", discount);
     var e_discount_item_po = document.createElement('input');
 //    var element_discount_item_po = document.getElementById('discount_item_po');
     e_discount_item_po.type = "number";
@@ -2182,9 +2174,7 @@ function add_row() {
 //    e_discount_item_po.addEventListener("onchange", discount);
     e_discount_item_po.setAttribute('class', 'form-control-static uppercase');
 //    e_discount_item_po.addEventListener("onchange", discount, true);
-    e_discount_item_po.onchange = function () {
-        discount();
-    };
+    e_discount_item_po.setAttribute("onchange", discount);
     var e_total_price_po = document.createElement('input');
     e_total_price_po.type = "text";
     e_total_price_po.id = "total_price_po";

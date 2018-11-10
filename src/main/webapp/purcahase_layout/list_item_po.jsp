@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <body>
+      <script type="text/javascript" src="purcahase_layout/script/list_item_po.js"></script>
     <section class="content-header">
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -32,13 +33,17 @@
                         <table name="grid_list_item_po" id="grid_list_item_po" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th class="noCompany">No.</th>
-                                    <th class="idCompany">idCompany</th>
-                                    <th class="companyName">Company</th>
-                                    <th class="companyAddrs">Address</th>    
-                                    <th class="companyTitle">Title</th> 
-                                    <th class="companyLogo">Logo</th>  
-                                    <th class="isActive_company">Actived</th>
+                                    <th class="no_itemPo">No.</th>
+                                    <th class="id_po">idPo</th>
+                                    <th class="id_supplier_po">idSupplier</th>
+                                    <th class="id_categories_po">idCategories</th>
+                                    <th class="id_product_po">idproduct</th>
+                                    <th class="supplier_name_po">supplier</th>
+                                    <th class="supplier_code_po">supplier_code</th>
+                                    <th class="supplier_tax_po">supplier_tax_po</th>
+                                    <th class="product_name_po">Items</th>
+                                    <th class="pice_item_po">Price</th>    
+                                    <th class="action_item_po">action</th> 
                                 </tr>
                             </thead>
 
