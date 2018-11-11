@@ -1714,7 +1714,8 @@ function addPoItemFunc(data_form_po) {
 }
 function listPoItemFunc(data_form_po) {
     alert(data_form_po.purchase_id);
-    window.location = "index.jsp?url=purcahase_layout&pages=list_item_po&";//+ decodeURI(myParam); //data_form_po.purchase_id;
+    var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id);
+    window.location = "index.jsp?url=purcahase_layout&pages=list_item_po&" + myParam; //data_form_po.purchase_id;
 }
 function editPoFunc(data_form_po) {
 //    alert(data_form_po.purchase_id);

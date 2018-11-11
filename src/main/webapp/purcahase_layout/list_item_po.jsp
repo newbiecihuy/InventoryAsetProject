@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <body>
-      <script type="text/javascript" src="purcahase_layout/script/list_item_po.js"></script>
+    <script type="text/javascript" src="purcahase_layout/script/list_item_po.js"></script>
     <section class="content-header">
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -42,7 +42,10 @@
                                     <th class="supplier_code_po">supplier_code</th>
                                     <th class="supplier_tax_po">supplier_tax_po</th>
                                     <th class="product_name_po">Items</th>
-                                    <th class="pice_item_po">Price</th>    
+                                    <th class="qtty_item_po">Qtty</th>
+                                    <th class="price_item_po">Price</th>   
+                                    <th class="pic_item_po">PIC</th>  
+                                    <th class="is_delete">is_delete</th>  
                                     <th class="action_item_po">action</th> 
                                 </tr>
                             </thead>
