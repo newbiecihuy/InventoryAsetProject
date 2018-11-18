@@ -28,7 +28,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <form>
-                <table cellpadding="0" cellspacing="0"  style="border: 0px" class="table">
+                <table cellpadding="0" cellspacing="0"  style="border: 0px">
                     <td class="controls">
                         <a href="index.jsp?url=item_layout&pages=list_categories" class="btn btn-success" role="button" aria-pressed="true"><font color='#b6c5cd' size='2em'>view Categories</font></a>
                     </td>

@@ -18,7 +18,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <form>
-                <table cellpadding="0" cellspacing="0"  style="border: 0px" class="table">
+                <table cellpadding="0" cellspacing="0"  style="border: 0px" class="">
                     <td class="controls">
                         <a href="index.jsp?url=config_layout&pages=list_email" class='btn btn-success'><font color='#b6c5cd' size='2em'>Back</font></a>
                     </td>

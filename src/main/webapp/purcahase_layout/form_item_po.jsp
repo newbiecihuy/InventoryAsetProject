@@ -52,7 +52,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <form>
-                <table cellpadding="0" cellspacing="0"  style="border: 0px" class="table">
+                <table cellpadding="0" cellspacing="0"  style="border: 0px">
                     <td class="controls">
                         <a href="index.jsp?url=purcahase_layout&pages=grid_form_po" class="btn btn-success" role="button" aria-pressed="true"><font color='#b6c5cd' size='2em'>View list P&#8228;O&#8228;</font></a>
                     </td>
@@ -66,11 +66,11 @@
                     <input type="hidden" readonly="readonly"  name="purchase_id" id="purchase_id" value="<% out.println(purchase_id);%>"/>
                     <input type="hidden" readonly="readonly" name="supplier_id_form_create_po" id="supplier_id_form_create_po" value="<% out.println(supplier_id_form_create_po);%>"/>
                     <input type="hidden" readonly="readonly" name="id_add_item_po" id="id_add_item_po" value="<% out.println(id_add_item_po);%>"/>
-                    <input type="hidden" name="id_product_purchase" id="action_edit_item_po" value="<% out.println(id_product_purchase);%>"/>
+                    <input type="hidden" name="id_product_purchase" id="id_product_purchase" value="<% out.println(id_product_purchase);%>"/>
                     <input type="hidden" name="action_edit_item_po" id="action_edit_item_po" value="<% out.println(action_edit_item_po);%>"/>
                     <input type="hidden" name="tax_item_po" id="tax_item_po" value="<% out.println(tax_item_po);%>" /><!--onblur="taxfunc()"-->
-                    <input type="hidden" name="tax_po_val" id="tax_po_val" placeholder="TAX" value="<% out.println(tax_po);%>" />
-                    <input type="hidden" name="val_tax_po" id="val_tax_po" class="form-control-static" placeholder="TAX" value="<% out.println(val_tax_po);%>" /></td>
+                    <input type="text" name="tax_po_val" id="tax_po_val" placeholder="TAX" value="<% out.println(tax_po);%>" />
+                    <input type="text" name="val_tax_po" id="val_tax_po" class="form-control-static" placeholder="TAX" value="<% out.println(val_tax_po);%>" /></td>
                     <input type="hidden" name="action_delete_item_po" id="action_delete_item_po"/>
 
                     <tr>

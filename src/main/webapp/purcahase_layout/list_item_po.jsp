@@ -31,6 +31,8 @@
 
                     <form  name="tbl_grid_list_item_po" id="tbl_grid_list_item_po" class="display" >
                         <table name="grid_list_item_po" id="grid_list_item_po" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
+                            <input type="hidden" name="purchase_id" id="purchase_id" value=""/>
+                            <input type="hidden" name="supplier_id_form_create_po" id="supplier_id_form_create_po" value=""/>
                             <thead>
                                 <tr>
                                     <th class="no_itemPo">No.</th>
@@ -65,6 +67,21 @@
                                         </div>-->
                 </div>
             </div>
+            <script type="text/javascript" >
+                var purchase_id = getUrlQueryString('purchase_id');
+
+                if (purchase_id !== "") {
+                    $("#purchase_id").val(purchase_id);
+                } else {
+                    $("#purchase_id").val("");
+                }
+                var supplier_id_po = getUrlQueryString('supplier_id_form_create_po');
+                if (supplier_id_po !== "") {
+                    $("#supplier_id_form_create_po").val(supplier_id_po);
+                } else {
+                    $("#supplier_id_form_create_po").val("");
+                }
+            </script>
         </div>
     </div>
 </body>

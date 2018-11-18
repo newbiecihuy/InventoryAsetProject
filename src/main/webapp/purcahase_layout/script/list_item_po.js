@@ -5,21 +5,11 @@
  */
 var editor; // use a global for the submit and return data rendering in the examples
 $(document).ready(function () {
-    var purchase_id = getUrlQueryString('purchase_id');
-    var servletParam = "/ceatePOItemServlet&";
+    var purchase_id = document.getElementById("purchase_id").value;
+    var supplier_id_po = document.getElementById("supplier_id_form_create_po").value;
+    var servletParam = "/ceatePOItemServlet?";
     if (purchase_id !== "") {
-        $("#purchase_id").val(purchase_id);
-    } else {
-        $("#purchase_id").val("");
-    }
-    var supplier_id_po = getUrlQueryString('supplier_id_form_create_po');
-    if (supplier_id_po !== "") {
-        $("#supplier_id_form_create_po").val(supplier_id_po);
-    } else {
-        $("#supplier_id_form_create_po").val("");
-    }
-    if (purchase_id !== "") {
-        servletParam = "/ceatePOItemServlet&purchase_id=" + escape(purchase_id) + "&supplier_id_po=" + escape(supplier_id_po);
+        servletParam = "/ceatePOItemServlet?purchase_id=" + purchase_id + "&supplier_id_po=" + supplier_id_po;
     }
     var tbl_grid_list_item_po = $("#grid_list_item_po").DataTable({
         processing: true,
@@ -97,7 +87,14 @@ $(document).ready(function () {
                 targets: "supplier_tax_po",
                 bAutoWidth: true,
                 visible: false,
-                searchable: true
+                searchable: true,
+                mRender: function (data_tax_po, type_tax_po, row_tax_po) {
+                    if (data_tax_po === 1) {
+                        return "tax";
+                    } else {
+                        return "--";
+                    }
+                }
             }, {
                 data: "product_name_po",
                 targets: "product_name_po",

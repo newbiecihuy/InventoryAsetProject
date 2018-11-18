@@ -26,7 +26,7 @@ public interface EntityProductPurchaseFacadeLocal {
 
     EntityProductPurchase getProductPurchase(long paramLong);
 
-    List<EntityProductPurchase> getAllProductPurchase(int max);
+    List<EntityProductPurchase> getAllProductPurchase(int param, int max);
 
 //    List<EntityProductPurchase> getIdProductPurchase(long paramLong);
 //    List<EntityProductPurchase> findWithPrice(String price);

@@ -17,7 +17,7 @@
     <div class="panel panel-default">
         <div class="panel-body ">
             <form>
-                <table cellpadding="0" cellspacing="0"  style="border: 0px" class="table">
+                <table cellpadding="0" cellspacing="0"  style="border: 0px">
                     <td class="controls">
                         <a href="index.jsp?url=purcahase_layout&pages=grid_form_po" class="btn btn-success" role="button" aria-pressed="true"><font color='#b6c5cd' size='2em'>View list P&#8228;O&#8228;</font></a>
                     </td>

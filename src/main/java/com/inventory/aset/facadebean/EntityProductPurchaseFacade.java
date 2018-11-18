@@ -56,9 +56,9 @@ public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPur
     }
 
     @Override
-    public List<EntityProductPurchase> getAllProductPurchase(int max) {
+    public List<EntityProductPurchase> getAllProductPurchase(int param, int max) {
 //        return em.createNamedQuery("EntityProductPurchase.findAll").getResultList();
-        return em.createQuery("SELECT l FROM EntityProductPurchase l ").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT l FROM EntityProductPurchase l where l.purchaseId.purchaseId=  \"" + param + "\"").setMaxResults(max).getResultList();
     }
 
     @Override

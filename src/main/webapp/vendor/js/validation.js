@@ -828,7 +828,7 @@ $(document).ready(function () {
 
                     $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order   " + "" + response.msg + "</b></p></div>");
                 } else if (response.RC === "2") {
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + " Already Registered" + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg+ "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "3") {
                     $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
                 }
@@ -1015,7 +1015,17 @@ $(document).ready(function () {
 //    $("#unit_price_po").blur(format_rupiah);
 //    $("#qtty_po").change(discount);
 //    $("#unit_item_po").blur(format_rupiah);
+
+// match password funct using jquery
+//  $('#password_view, #password_view2').on('keyup', function () {
+//	  if ($('#password_view').val() == $('#password_view2').val()) {
+//	    $('#e_password').html('Matching').css('color', 'green');
+//	  } else 
+//	    $('#e_password').html('Not Matching').css('color', 'red');
+//	});
+
 });
+
 function myFunction_reset_excel_service_details() {
     document.getElementById("form_report_excel_field_service_details").reset();
     $('#tgl_excel_service_details_start').css('background', '');
@@ -1168,6 +1178,18 @@ function cekPass() {
     }
     return cekPass();
 }
+
+//match password funct using native javascript
+//function checkPass() {
+//	  if (document.getElementById('password_view').value == document.getElementById('password_view2').value) {
+//	    document.getElementById('e_password').style.color = 'green';
+//	    document.getElementById('e_password').innerHTML = 'matching';
+//	  } else {
+//	    document.getElementById('e_password').style.color = 'red';
+//	    document.getElementById('e_password').innerHTML = 'not matching';
+//	  }
+//	}
+
 function cekPass_email_config() {
     var minchar = 5;
     var pass_email_config = $("#pass_email_config").val();
@@ -1571,55 +1593,55 @@ function myFunctionExcelFieldService() {
 //}
 
 
-function myFunction_form_upload() {
-
-//    alert("form_upload");
-
-    var data_upload_excel_delegasi = new FormData($("#form_upload")[0]);
-    $.ajax({
-        type: "POST",
-//        dataType: 'json',
-        url: createDynamicURL() + "/uploadDelegationServlet", //uploadDataExcelServlet
-        data: data_upload_excel_delegasi,
-        cache: false,
-        async: false,
-        timeout: 10000,
-        processData: false, // Do'nt process the files
-        contentType: false, // Set content type to false as jQuery will tell the server its a query string request                       
-        success: function (response) {
-
-            if (response.RC === "1") {
-
-                $("#content_form_upload").html("<div><b>Success Upload Job Order</b></div>");
-//                alert("Success");
-//                window.location.href = "index.jsp?ref=data_grid_custcare&pages=grid_no_jo";
-
-            } else if (response.RC === "x0s") {
-
-//                alert("No File Found");
-                $("#content_form_upload").html("<div><b>No File Found !</b></div>");
-            } else if (response.RC === "00nmx") {
-
-//                alert("Fail Upload File");
-                $("#content_form_upload").html("<div><b>Fail Upload  data Job Order !</b></div>");
-            } else if (response.RC === "typ0x") {
-//                alert("type  Aset Not Listed");
-                $("#content_form_upload").html("<div><b>Type  Aset Not Found !</b></div>");
-            } else {
-//                alert("Fail Upload");
-                $("#content_form_upload").html("<div><b>Fail Upload!</b></div>");
-            }
-        }, error: function (jqXHR, textStatus, errorThrown) {
-//            alert("Something really bad happened " + textStatus);
-            $("#content_form_upload").html("<div><b>Something really bad happened" + textStatus + "</b></div>");
-//            window.location.href = "index.jsp?ref=data_grid_custcare&pages=grid_no_jo";
-
-//                            $("#form_upload_excel_delegate").html(jqXHR.responseText);
-        }
-
-    });
-    return false;
-}
+//function myFunction_form_upload() {
+//
+////    alert("form_upload");
+//
+//    var data_upload_excel_delegasi = new FormData($("#form_upload")[0]);
+//    $.ajax({
+//        type: "POST",
+////        dataType: 'json',
+//        url: createDynamicURL() + "/uploadDelegationServlet", //uploadDataExcelServlet
+//        data: data_upload_excel_delegasi,
+//        cache: false,
+//        async: false,
+//        timeout: 10000,
+//        processData: false, // Do'nt process the files
+//        contentType: false, // Set content type to false as jQuery will tell the server its a query string request                       
+//        success: function (response) {
+//
+//            if (response.RC === "1") {
+//
+//                $("#content_form_upload").html("<div><b>Success Upload Job Order</b></div>");
+////                alert("Success");
+////                window.location.href = "index.jsp?ref=data_grid_custcare&pages=grid_no_jo";
+//
+//            } else if (response.RC === "x0s") {
+//
+////                alert("No File Found");
+//                $("#content_form_upload").html("<div><b>No File Found !</b></div>");
+//            } else if (response.RC === "00nmx") {
+//
+////                alert("Fail Upload File");
+//                $("#content_form_upload").html("<div><b>Fail Upload  data Job Order !</b></div>");
+//            } else if (response.RC === "typ0x") {
+////                alert("type  Aset Not Listed");
+//                $("#content_form_upload").html("<div><b>Type  Aset Not Found !</b></div>");
+//            } else {
+////                alert("Fail Upload");
+//                $("#content_form_upload").html("<div><b>Fail Upload!</b></div>");
+//            }
+//        }, error: function (jqXHR, textStatus, errorThrown) {
+////            alert("Something really bad happened " + textStatus);
+//            $("#content_form_upload").html("<div><b>Something really bad happened" + textStatus + "</b></div>");
+////            window.location.href = "index.jsp?ref=data_grid_custcare&pages=grid_no_jo";
+//
+////                            $("#form_upload_excel_delegate").html(jqXHR.responseText);
+//        }
+//
+//    });
+//    return false;
+//}
 
 function yahoo_mail() {
     $("#smtpSocketFactoryPort").val("465");
@@ -1697,11 +1719,11 @@ function addPoItemFunc(data_form_po) {
         if (confirm("This Supplier Have Tax PPN, You want Activated for this tractions ? \n\n") === true) {
 //            $("#tax_po").val("true");
 //            document.getElementById("tax_po").value = "true";
-            tax_po_val = "true";
+            tax_po_val = "1";
         } else {
 //            $("#tax_po").val("false");
 //            document.getElementById("tax_po").value = "false";
-            tax_po_val = "false";
+            tax_po_val = "0";
 //            return false;
 
         }
@@ -1713,7 +1735,7 @@ function addPoItemFunc(data_form_po) {
 
 }
 function listPoItemFunc(data_form_po) {
-    alert(data_form_po.purchase_id);
+//    alert(data_form_po.purchase_id);
     var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id);
     window.location = "index.jsp?url=purcahase_layout&pages=list_item_po&" + myParam; //data_form_po.purchase_id;
 }

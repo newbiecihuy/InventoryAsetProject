@@ -97,6 +97,10 @@
         <servlet-name>GetItemSupplierServlet</servlet-name>
         <servlet-class>com.inventory.aset.controller.GetItemSupplierServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CeatePOItemServlet</servlet-name>
+        <servlet-class>com.inventory.aset.controller.CreatePOItemServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/userServlet</url-pattern>
@@ -184,6 +188,10 @@
     <servlet-mapping>
         <servlet-name>GetItemSupplierServlet</servlet-name>
         <url-pattern>/getItemSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CeatePOItemServlet</servlet-name>
+        <url-pattern>/ceatePOItemServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

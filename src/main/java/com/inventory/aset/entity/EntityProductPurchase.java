@@ -80,6 +80,11 @@ public class EntityProductPurchase implements Serializable {
 
     @Column(name = "disconto")
     private Integer disconto;
+    
+    @Column(name = "tax_status")
+    private Integer tax_status;
+//    @Column(name = "tax_status")
+//    private boolean tax_status;
 
     @Column(name = "update_date")
     @Temporal(TemporalType.DATE)
@@ -91,13 +96,12 @@ public class EntityProductPurchase implements Serializable {
 
     }
 
-    public EntityProductPurchase(Long idProductPurchase, EntityPurchases purchaseId, EntityProducts idProduct, EntityUnits unitId, int qtty, int price, int totalProductPurchase, String pic, Date createdDate, String createdTime, Date inputDate, String inputTime, Integer disconto, Date updateDate, String updateTime) {
+    public EntityProductPurchase(Long idProductPurchase, EntityPurchases purchaseId, EntityProducts idProduct, EntityUnits unitId, int qtty, int totalProductPurchase, String pic, Date createdDate, String createdTime, Date inputDate, String inputTime, Integer disconto, Integer tax_status, Date updateDate, String updateTime) {
         this.idProductPurchase = idProductPurchase;
         this.purchaseId = purchaseId;
         this.idProduct = idProduct;
         this.unitId = unitId;
         this.qtty = qtty;
-        this.price = price;
         this.totalProductPurchase = totalProductPurchase;
         this.pic = pic;
         this.createdDate = createdDate;
@@ -105,6 +109,7 @@ public class EntityProductPurchase implements Serializable {
         this.inputDate = inputDate;
         this.inputTime = inputTime;
         this.disconto = disconto;
+        this.tax_status = tax_status;
         this.updateDate = updateDate;
         this.updateTime = updateTime;
     }
@@ -219,6 +224,14 @@ public class EntityProductPurchase implements Serializable {
 
     public void setDisconto(Integer disconto) {
         this.disconto = disconto;
+    }
+
+    public Integer getTax_status() {
+        return tax_status;
+    }
+
+    public void setTax_status(Integer tax_status) {
+        this.tax_status = tax_status;
     }
 
     public Date getUpdateDate() {

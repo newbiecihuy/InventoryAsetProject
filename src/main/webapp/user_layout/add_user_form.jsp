@@ -63,7 +63,7 @@
     <div id ="div_add_pic" class="panel panel-default"  >
         <div class="panel-body">
             <form>
-                <table cellpadding="0" cellspacing="0"  style="border: 0px" class="table">
+                <table cellpadding="0" cellspacing="0"  style="border: 0px">
                     <td class="controls">
                         <a href="index.jsp?url=user_layout&pages=list_users"  class="btn btn-success" role="button" aria-pressed="true"><font color='#b6c5cd' size='2em'>View Users</font></a>
                     </td>

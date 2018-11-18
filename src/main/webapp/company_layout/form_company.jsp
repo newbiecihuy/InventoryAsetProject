@@ -75,7 +75,7 @@
         })
     </script>
     <form>
-        <table cellpadding="0" cellspacing="0" class="table">
+        <table cellpadding="0" cellspacing="0">
             <div class="form-group">
                 <!--<td class="controls">-->
                 <a href="index.jsp?ref=config&pages=grid_company" class='btn btn-info'><font color='#40B3DF' size='2em'>Back</font></a>
