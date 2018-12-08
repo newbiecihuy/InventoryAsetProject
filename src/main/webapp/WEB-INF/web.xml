@@ -101,6 +101,10 @@
         <servlet-name>CeatePOItemServlet</servlet-name>
         <servlet-class>com.inventory.aset.controller.CreatePOItemServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ExcelItemsSuplierServlet</servlet-name>
+        <servlet-class>com.inventory.aset.report.excel.ExcelItemsSuplierServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/userServlet</url-pattern>
@@ -192,6 +196,10 @@
     <servlet-mapping>
         <servlet-name>CeatePOItemServlet</servlet-name>
         <url-pattern>/ceatePOItemServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcelItemsSuplierServlet</servlet-name>
+        <url-pattern>/excelItemsSuplierServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

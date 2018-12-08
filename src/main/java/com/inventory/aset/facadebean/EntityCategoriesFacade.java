@@ -84,10 +84,7 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
         return (EntityCategories) em.find(EntityCategories.class, categoryId);
     }
 
-    @Override
-    public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 
 //    @Override
 //    protected EntityManager getEntityManager() {

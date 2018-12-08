@@ -51,7 +51,7 @@
                                     <th class="id_product">Product Id</th>
                                     <th class="supplier_name">Supplier Name</th>
                                     <th class="supplier_id">Supplier Id</th>
-                                     <th class="product_name">Item Name</th>
+                                    <th class="product_name">Item Name</th>
                                     <th class="product_code">Item Code</th>     
                                     <th class="price_item">Price Item</th>
                                     <th class="sell_price">Sales Price</th>
@@ -63,7 +63,8 @@
                                     <th class="description">Item Description</th>     
                                     <th class="status_item">Status</th>  
                                     <th class="create_date">Create Date</th> 
-                                    <th class="pic">Pic</th>      
+                                    <th class="pic">Pic</th>  
+                                    <th class="stock">Stock</th>  
                                     <th class="action_item">Action</th>  
                                 </tr>
                             </thead>
@@ -91,9 +92,8 @@
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
                             <li><a tabindex="0" href="#" class="glyphicon glyphicon-remove-sign"></a></li>
                             <li class="divider"></li>
-                            <li><a tabindex="0" href="#"  id="upload_users_details" name="upload_users_details" onclick="myFunctionUploadDataUser()">UPLOAD DATA</a></li>
-                            <li><a tabindex="0" href="#"  id="edit_users_details" name="edit_users_details">EDIT</a></li>
-                            <!--<li><a tabindex="0" href="#"  onclick="myFunction_report_excel_details()">Report Excel</a></li>-->
+                            <li><a tabindex="0" href="#"  id="approve_supp" name="approve_item" onclick="myFunctionUploadDataUser()">Approve</a></li>
+                            <li><a tabindex="0" href="#"  id="rejcet_supp" name="rejcet_item">Reject</a></li>
                         </ul>
                     </div>
                 </div>

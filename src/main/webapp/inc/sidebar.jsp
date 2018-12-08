@@ -116,9 +116,9 @@
                     <li class="has-spinner" >
                         <a href="index.jsp?url=item_layout&pages=list_categories" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> View Categories</a>
                     </li>
-                    <li class="has-spinner" >
+<!--                    <li class="has-spinner" >
                         <a href="index.jsp?url=item_layout&pages=list_stock_item" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> View Stock</a>
-                    </li>
+                    </li>-->
                 </ul>
                 <!-- /.nav-second-level -->
             </li>

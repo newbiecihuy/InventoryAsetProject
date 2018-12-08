@@ -66,8 +66,8 @@ public class EntityUsersFacade extends AbstractFacade<EntityUsers> implements En
 
     @Override
     public List<EntityUsers> getAllUsers(int max) {
-//        return em.createNamedQuery("EntityUsers.findAll").getResultList();
-        return em.createQuery("SELECT u FROM EntityUsers u").setMaxResults(max).getResultList();
+        return em.createNamedQuery("EntityUsers.findAll").setMaxResults(max).getResultList();
+//        return em.createQuery("SELECT u FROM EntityUsers u").setMaxResults(max).getResultList();
     }
 
     @Override

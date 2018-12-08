@@ -514,9 +514,8 @@ $(document).ready(function () {
             supplier_name: $("#supplier_name").val(),
             description: $("#description").val()
         };
-//        var data_add_pic = "[" + JSON.stringify($('#form_add_pic').serializeObject()) + "]";
-//        alert("isi data_create" + data_add_pic);
         console.log("isi data_add_item" + data_add_item);
+
         $.ajax({
             type: "POST",
             url: createDynamicURL() + "/itemServlet",
@@ -828,7 +827,7 @@ $(document).ready(function () {
 
                     $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order   " + "" + response.msg + "</b></p></div>");
                 } else if (response.RC === "2") {
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg+ "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "3") {
                     $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
                 }
@@ -1756,7 +1755,7 @@ function editPoFunc(data_form_po) {
     window.location = "index.jsp?url=purcahase_layout&pages=add_po&" + myParam; //decodeURI(myParam)
 }
 
-function editItemFunc(data_Items) {
+function editItemFunc(data_Items) { 
 //    alert(data_item.price_item);
     var param = "&supplier_name_item=" + escape(data_Items.supplier_name) + "&supplier_id_item=" + escape(data_Items.supplier_id) + "&item_name=" + escape(data_Items.product_name)
             + "&id_product=" + escape(data_Items.id_product) + "&action_edit_item=" + "EDIT" + "&product_code=" + escape(data_Items.product_code)
@@ -1766,6 +1765,11 @@ function editItemFunc(data_Items) {
 //    var isi_param = param.replace(/%20/g, "");
 
     window.location = "index.jsp?url=item_layout&pages=form_add_item" + param;//decodeURI(param)
+}
+function viewStockFunc(data_Items){
+     var param = "&id_product=" + escape(data_Items.id_product) +"&supplier_name_item=" + escape(data_Items.supplier_name)+ "&id_stock=" + escape(data_Items.id_stock);
+     
+      window.location = "index.jsp?url=item_layout&pages=list_stock_item" + param;//decodeURI(param)
 }
 function deleteUserFunc(data_users) {
 
@@ -1826,6 +1830,11 @@ function purchaseExcelReport(data_record_po) {
 
 }
 function suplierExcelReport(data_record_supplier) {
+//    var param = {supplier_id: +escape(data_record_supplier.supplier_id)};
+//    console.log("" + {JSONFile: param});
+//    return false;
+ var param = "supplier_id="+escape(data_record_supplier.supplier_id);
+    window.location = createDynamicURL() + "/excelItemsSuplierServlet?" +param;
 
 }
 //End Generate Excel
@@ -2014,7 +2023,7 @@ function item_supEmpty() {
     console.log(dataString);
     $.ajax({
         type: "POST",
-        url: createDynamicURL() + "/getItemSupplierServlet", //uploadDataExcelServlet
+        url: createDynamicURL() + "/getItemSupplierServlet", //
         data: {
             jsonfield: JSON.stringify(dataString) // look here!
         },
