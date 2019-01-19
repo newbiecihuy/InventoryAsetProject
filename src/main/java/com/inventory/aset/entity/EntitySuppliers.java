@@ -31,7 +31,8 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "EntitySuppliers.findAll", query = "SELECT s FROM EntitySuppliers s")
     , @NamedQuery(name = "EntitySuppliers.findBySupplierId", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierId = :supplierId")
-    , @NamedQuery(name = "EntitySuppliers.findBySupplierName", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierName = :supplierName")})
+    , @NamedQuery(name = "EntitySuppliers.findBySupplierName", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierName = :supplierName")
+    ,@NamedQuery(name = "EntitySuppliers.findByStatusActive", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierId = :supplierId And s.isActive = 1")})
 public class EntitySuppliers implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -238,7 +239,6 @@ public class EntitySuppliers implements Serializable {
         this.entityPurchases = entityPurchases;
     }
 
-   
     @Override
     public int hashCode() {
         int hash = 0;

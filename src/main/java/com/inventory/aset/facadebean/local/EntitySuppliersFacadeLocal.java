@@ -32,6 +32,8 @@ public interface EntitySuppliersFacadeLocal {
 
     List<EntitySuppliers> getSupplierCode(String supplierCode);
 
+    List<EntitySuppliers> findByStatusActive(Long supplier_id);
+
     List<EntitySuppliers> findBySupplierCode(String pramString);
 
     List<EntitySuppliers> findBySupplierName(String supplierName);

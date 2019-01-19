@@ -1755,7 +1755,7 @@ function editPoFunc(data_form_po) {
     window.location = "index.jsp?url=purcahase_layout&pages=add_po&" + myParam; //decodeURI(myParam)
 }
 
-function editItemFunc(data_Items) { 
+function editItemFunc(data_Items) {
 //    alert(data_item.price_item);
     var param = "&supplier_name_item=" + escape(data_Items.supplier_name) + "&supplier_id_item=" + escape(data_Items.supplier_id) + "&item_name=" + escape(data_Items.product_name)
             + "&id_product=" + escape(data_Items.id_product) + "&action_edit_item=" + "EDIT" + "&product_code=" + escape(data_Items.product_code)
@@ -1766,10 +1766,10 @@ function editItemFunc(data_Items) {
 
     window.location = "index.jsp?url=item_layout&pages=form_add_item" + param;//decodeURI(param)
 }
-function viewStockFunc(data_Items){
-     var param = "&id_product=" + escape(data_Items.id_product) +"&supplier_name_item=" + escape(data_Items.supplier_name)+ "&id_stock=" + escape(data_Items.id_stock);
-     
-      window.location = "index.jsp?url=item_layout&pages=list_stock_item" + param;//decodeURI(param)
+function viewStockFunc(data_Items) {
+    var param = "&id_product=" + escape(data_Items.id_product) + "&supplier_name_item=" + escape(data_Items.supplier_name) + "&id_stock=" + escape(data_Items.id_stock);
+
+    window.location = "index.jsp?url=item_layout&pages=list_stock_item" + param;//decodeURI(param)
 }
 function deleteUserFunc(data_users) {
 
@@ -1830,12 +1830,19 @@ function purchaseExcelReport(data_record_po) {
 
 }
 function suplierExcelReport(data_record_supplier) {
-//    var param = {supplier_id: +escape(data_record_supplier.supplier_id)};
-//    console.log("" + {JSONFile: param});
+//    alert("isi param 1" + data_record_supplier.supplier_id);
+//    var isi_supplier_id = escape(data_record_supplier.supplier_id);
+    var dataString = {
+        supplier_id: escape(data_record_supplier)
+    };
+//    alert("isi dataString " + dataString.supplier_id);
+    var param = "&jsonfield=" + JSON.stringify(dataString);
+    // look here!
+//    console.log("isi param" + param);
+//    alert("isi param" + param.supplier_id);
 //    return false;
- var param = "supplier_id="+escape(data_record_supplier.supplier_id);
-    window.location = createDynamicURL() + "/excelItemsSuplierServlet?" +param;
-
+// var param = "supplier_id="+escape(data_record_supplier.supplier_id);
+    window.location = createDynamicURL() + "excelItemsSuplierServlet?" + param;
 }
 //End Generate Excel
 //

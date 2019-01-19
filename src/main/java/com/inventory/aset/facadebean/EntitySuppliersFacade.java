@@ -73,6 +73,12 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     }
 
     @Override
+    public List<EntitySuppliers> findByStatusActive(Long supplier_id) {
+//        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierId  =  \"" + supplier_id + "\" AND enSuppliers.isActive=1").getResultList();
+        return em.createNamedQuery("EntitySuppliers.findByStatusActive").setParameter("supplierId", supplier_id).getResultList();
+    }
+
+    @Override
     public List<EntitySuppliers> findWithParam(String param1, String param2) {
         return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierName  =  \"" + param1 + "\" OR "
                 + " enSupplier.supplierCode =  \"" + param2 + "\"").getResultList();

@@ -44,6 +44,8 @@ public interface EntityProductsFacadeLocal {
 
     List<EntityProducts> findBySuplierIdItemId(Long paramSupId, Long paramId);
 
+    List<EntityProducts> listItemBySuplierId(Long paramSupId);
+
     List<EntityProducts> getItemDetails(Long paramLong, String paramString);
 
     EntityProducts find(Object paramObject);

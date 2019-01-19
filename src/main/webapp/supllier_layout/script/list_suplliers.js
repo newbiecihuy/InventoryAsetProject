@@ -55,12 +55,13 @@ $(document).ready(function () {
                 searchable: true,
                 mRender: function (data_supName, type_supName, row_supName) {
                     var va_supplier_id = row_supName["supplier_id"];
-                    var data_record_supplier = {
-                        supplier_id: va_supplier_id
-                    };
+//                    var data_record_supplier = {
+//                        supplier_id: va_supplier_id
+//                    };
                     if (row_supName['status_supp'] === 1) {
 //                        return "NActive";
-                        return"<a href='#' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
+//                        return"<a href='#' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
+                        return"<a href='#' onclick='javascript:suplierExcelReport(" + va_supplier_id + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
                     } else {
                         return data_supName.replace('&nbsp;', /%20/g);
                     }

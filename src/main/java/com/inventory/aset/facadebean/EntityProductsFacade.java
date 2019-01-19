@@ -109,6 +109,10 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
     public List<EntityProducts> findBySuplierIdItemId(Long paramSupId, Long paramId) {
         return em.createQuery("SELECT  ep   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramSupId + "\" AND " + "ep.idProduct =  \"" + paramId + "\"").getResultList();
     }
+     @Override
+    public List<EntityProducts> listItemBySuplierId(Long paramSupId) {
+        return em.createQuery("SELECT  ep   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramSupId + "\" AND " + "ep.status_item =  \"" + 1 + "\"").getResultList();
+    }
 
     @Override
     public List<EntityProducts> getItemDetails(Long paramLong, String paramString) {

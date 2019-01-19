@@ -31,7 +31,7 @@ public interface EntityStockFacadeLocal {
 
     List<EntityStock> getStock(int stock);
 
-    public List<EntityStock> findByIdProduct(Object idProduct);
+     List<EntityStock> findByIdProduct(Object idProduct);
 
     int count();
 
