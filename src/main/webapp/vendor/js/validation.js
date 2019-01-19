@@ -1831,9 +1831,9 @@ function purchaseExcelReport(data_record_po) {
 }
 function suplierExcelReport(data_record_supplier) {
 //    alert("isi param 1" + data_record_supplier.supplier_id);
-//    var isi_supplier_id = escape(data_record_supplier.supplier_id);
+    var isi_supplier_id = escape(data_record_supplier.supplier_id);
     var dataString = {
-        supplier_id: escape(data_record_supplier)
+        supplier_id: escape(isi_supplier_id)
     };
 //    alert("isi dataString " + dataString.supplier_id);
     var param = "&jsonfield=" + JSON.stringify(dataString);

@@ -13,6 +13,7 @@ import com.inventory.aset.facadebean.local.EntityCategoriesFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityProductsFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityStockFacadeLocal;
 import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;
+import com.inventory.aset.util.EncryptionUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -32,6 +33,7 @@ import jxl.Workbook;
 import jxl.write.Border;
 import jxl.write.BorderLineStyle;
 import jxl.write.Colour;
+import jxl.write.Formula;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
@@ -137,17 +139,30 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
             cellFormat.setBackground(Colour.GREY_25_PERCENT);
             cellFormat.setBorder(Border.ALL, BorderLineStyle.THIN);
 
-            sheet.addCell(new Label(0, 0, "No", cellFormat));
+            WritableFont cellFontRumus = new WritableFont(WritableFont.ARIAL, 12);
+            cellFontRumus.setColour(Colour.BLACK);
+            WritableCellFormat cellFormatRumus = new WritableCellFormat(cellFontRumus);
+
+            sheet.addCell(new Label(2, 1, "Supplier :", cellFormatRumus));
+            sheet.addCell(new Label(2, 2, "Suplier Code :", cellFormatRumus));
+            sheet.addCell(new Label(2, 3, "Address :", cellFormatRumus));
+//
+//            sheet.addCell(new Label(5, 1, "MACHCO"));
+//            sheet.addCell(new Label(5, 2, "True"));
+//            Formula sum = new Formula(5, 2, ""));
+//            sheet.addCell(sum);
+
+            sheet.addCell(new Label(0, 5, "No", cellFormat));
             sheet.setColumnView(1, 25);
-            sheet.addCell(new Label(1, 0, "Item Code", cellFormat));
+            sheet.addCell(new Label(1, 5, "Item Code", cellFormat));
             sheet.setColumnView(2, 40);
-            sheet.addCell(new Label(2, 0, "Item Name", cellFormat));
+            sheet.addCell(new Label(2, 5, "Item Name", cellFormat));
             sheet.setColumnView(3, 20);
-            sheet.addCell(new Label(3, 0, "Description", cellFormat));
+            sheet.addCell(new Label(3, 5, "Description", cellFormat));
             sheet.setColumnView(4, 20);
-            sheet.addCell(new Label(4, 0, "Stock", cellFormat));
+            sheet.addCell(new Label(4, 5, "Stock", cellFormat));
             sheet.setColumnView(5, 30);
-            sheet.addCell(new Label(5, 0, "Price", cellFormat));
+            sheet.addCell(new Label(5, 5, "Price", cellFormat));
 //            sheet.setColumnView(6, 30);
 //            sheet.addCell(new Label(6, 0, "MINOR", cellFormat));
 //            sheet.setColumnView(7, 30);
@@ -155,7 +170,7 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
 //            sheet.setColumnView(8, 30);
 //            sheet.addCell(new Label(8, 0, "Merchant Status", cellFormat));
 
-            int rowNum = 1;
+            int rowNum = 6;
 
             EntitySuppliers dataSupplier = new EntitySuppliers();
             EntityProducts dataProducts = new EntityProducts();
@@ -174,6 +189,9 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
 
 //                      List<EntityStock> dataStockList = entityStockDao.findByIdProduct(dataProducts.getIdProduct());
                         dataStock = entityStockDao.find(dataProducts.getIdProduct());
+                        sheet.addCell(new Label(3, 1,  EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getSupplierName())));
+                        sheet.addCell(new Label(3, 2,  EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getSupplierCode())));
+                        sheet.addCell(new Label(3, 3,  EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getAddress())));
                         sheet.addCell(new Label(0, rowNum, String.valueOf(rowNum)));
                         sheet.addCell(new Label(1, rowNum, dataProducts.getProductCode()));
                         sheet.addCell(new Label(2, rowNum, dataProducts.getProductName()));
