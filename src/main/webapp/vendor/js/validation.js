@@ -2039,18 +2039,6 @@ function item_supEmpty() {
         success: function (response) {
             //our country code was correct so we have some information to display
             if (response) {
-//                        var counters="";
-                //                        var jsonData = JSON.stringify(response)
-                //                        $("#ajaxResponse").html("<div><b>Merchant Name Valid!</b></div>");
-                //                        $("#ajaxResponse").html("");
-                //                        $("#ajaxResponse").html("<div><b>" + jsonData + "</b></div>");
-                //                        var jsonData = JSON.stringify(response);
-                //                        for (var i = 0; i < jsonData.length; i++) {
-                //                            counters = jsonData;
-                //                           console.log(counter.kota_merchant_dela);
-                //                            
-                //                        }
-                //                        $("#ajaxResponse").html("<div><b>" + jsonData.kota_merchant_del + "</b></div>");
                 console.log(response.item_name);
                 $("#item_name_po").val(response.item_name_po);
                 console.log(response.unit_price_po);

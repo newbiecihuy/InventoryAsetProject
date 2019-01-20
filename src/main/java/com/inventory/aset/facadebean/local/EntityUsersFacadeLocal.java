@@ -30,6 +30,8 @@ public interface EntityUsersFacadeLocal {
 
     List<EntityUsers> getAllUsers(int max);
 
+    List<EntityUsers> getUsers();
+
     List<EntityUsers> findByUsername(String username);
 
     public List<EntityUsers> findByRoleName(String varName);
