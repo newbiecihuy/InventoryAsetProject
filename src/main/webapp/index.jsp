@@ -1,6 +1,6 @@
 <%
-    String username = "admin";//admin
-    String rolename = "admin";
+    String username = "gudang";//admin
+    String rolename = "gudang";
     String dataCookies = "";
     String ip = request.getRemoteAddr();
     String hostname = request.getRemoteHost();

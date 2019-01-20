@@ -1,6 +1,10 @@
 
 /* global CryptoJS, Storage */
-
+$(function(){
+    $('a, button').click(function() {
+        $(this).toggleClass('active');
+    });
+});
 //function start() {
 //    showDataDashboard();
 //    myDahsboardReport();

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <input type="hidden" id="username" name="username" readonly="true" value="<%= username%>" size="8px"/>
-<input type="text" id="rolename" name="rolename"  readonly="true" value="<%= rolename%>" size="8px"/>
+<input type="hidden" id="rolename" name="rolename"  readonly="true" value="<%= rolename%>" size="8px"/>
 <!--<script>
     $(function () {
         $('.has-spinner').click(function () {
@@ -77,10 +77,10 @@
                 <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-dashboard fa-fw"></i>Dashboard<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level submenu">
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=dashboard_layout&pages=pie_chart" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Pie Chart</a>
+                        <a href="index.jsp?url=dashboard_layout&pages=pie_chart" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Pie Chart</a>
                     </li>
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=dashboard_layout&pages=bar_chart"  class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Bar Chart</a>
+                        <a href="index.jsp?url=dashboard_layout&pages=bar_chart"  class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Bar Chart</a>
                     </li>
                 </ul>
             </li>
@@ -89,10 +89,10 @@
                 <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Supplier Manager<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level submenu">
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=supllier_layout&pages=add_supllier_form" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Add Supplier</a>
+                        <a href="index.jsp?url=supllier_layout&pages=add_supllier_form" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Add Supplier</a>
                     </li>
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=supllier_layout&pages=list_suplliers" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> View Supplier</a>
+                        <a href="index.jsp?url=supllier_layout&pages=list_suplliers" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> View Supplier</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
@@ -102,19 +102,19 @@
                 <ul class="nav nav-second-level submenu">
 
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=item_layout&pages=form_add_item" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Add Item</a>
+                        <a href="index.jsp?url=item_layout&pages=form_add_item" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Add Item</a>
                     </li>
                     <!--                    <li>
                                             <a href="index.jsp?url=item_layout&pages=add_stock_item" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Add Stock</a>
                                         </li>-->
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=item_layout&pages=list_items" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> View Item</a>
+                        <a href="index.jsp?url=item_layout&pages=list_items" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> View Item</a>
                     </li>
                     <!--                    <li class="has-spinner" >
                                             <a href="index.jsp?url=item_layout&pages=add_category_form" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Add Categories</a>
                                         </li>-->
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=item_layout&pages=list_categories" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> View Categories</a>
+                        <a href="index.jsp?url=item_layout&pages=list_categories" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> View Categories</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
@@ -123,10 +123,10 @@
                 <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Stock Manager<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level submenu">
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=item_layout&pages=add_stock_item" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Add Stock</a>
+                        <a href="index.jsp?url=item_layout&pages=add_stock_item" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Add Stock</a>
                     </li>
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=item_layout&pages=list_stock_item" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> View Stock</a>
+                        <a href="index.jsp?url=item_layout&pages=list_stock_item" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> View Stock</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
@@ -138,7 +138,7 @@
                                             <a href="index.jsp?url=purcahase_layout&pages=form_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Create PO</a>
                                         </li>-->
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=purcahase_layout&pages=add_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Create PO</a>
+                        <a href="index.jsp?url=purcahase_layout&pages=add_po" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Create PO</a>
                     </li> 
                     <!--                    <li>
                                             <a href="index.jsp?url=purcahase_layout&pages=list_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> List PO</a>
