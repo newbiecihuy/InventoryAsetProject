@@ -1,6 +1,6 @@
 <%-- 
-    Document   : list_stock_item
-    Created on : Sep 13, 2018, 3:04:48 PM
+    Document   : add_stock_ready
+    Created on : Feb 9, 2019, 2:12:22 PM
     Author     : newbiecihuy
 --%>
 
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>List Stock !!</h1>
+        <h1>Hello World!</h1>
     </body>
 </html>

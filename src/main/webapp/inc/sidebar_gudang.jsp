@@ -123,10 +123,16 @@
                 <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Stock Manager<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level submenu">
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=item_layout&pages=add_stock_item" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Add Stock</a>
+                        <a href="index.jsp?url=item_layout&pages=add_stock_item" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Add Stock &#40; Raw Material &#41;</a>
                     </li>
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=item_layout&pages=list_stock_item" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> View Stock</a>
+                        <a href="index.jsp?url=item_layout&pages=list_stock_item" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> View Stock &#40; Raw Material &#41;</a>
+                    </li>
+                    <li class="has-spinner" >
+                        <a href="index.jsp?url=item_layout&pages=add_stock_ready" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Add Stock &#40; Ready &#41;</a>
+                    </li>
+                    <li class="has-spinner" >
+                        <a href="index.jsp?url=item_layout&pages=list_stock_ready" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> View Stock &#40; Ready &#41;</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
@@ -139,6 +145,21 @@
                                         </li>-->
                     <li class="has-spinner" >
                         <a href="index.jsp?url=purcahase_layout&pages=add_po" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Create PO</a>
+                    </li> 
+                    <!--                    <li>
+                                            <a href="index.jsp?url=purcahase_layout&pages=list_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> List PO</a>
+                                        </li>-->
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+            <li>
+                <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Salses Menu<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level submenu">
+                    <!--                    <li class="has-spinner" >
+                                            <a href="index.jsp?url=purcahase_layout&pages=form_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Create PO</a>
+                                        </li>-->
+                    <li class="has-spinner" >
+                        <a href="index.jsp?url=sales_layout&pages=add_sales" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Add Sales</a>
                     </li> 
                     <!--                    <li>
                                             <a href="index.jsp?url=purcahase_layout&pages=list_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> List PO</a>
