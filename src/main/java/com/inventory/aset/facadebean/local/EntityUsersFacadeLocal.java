@@ -31,6 +31,8 @@ public interface EntityUsersFacadeLocal {
     List<EntityUsers> getAllUsers(int max);
 
     List<EntityUsers> getUsers();
+    
+    List<EntityUsers> checkUsers(String userName, String passWord) ;
 
     List<EntityUsers> findByUsername(String username);
 
@@ -39,5 +41,7 @@ public interface EntityUsersFacadeLocal {
     EntityUsers find(Object paramObject);
 
     int count();
+
+   
 
 }

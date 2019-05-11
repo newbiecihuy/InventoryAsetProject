@@ -74,6 +74,13 @@ public class EntityUsersFacade extends AbstractFacade<EntityUsers> implements En
 //        return em.createNamedQuery("EntityUsers.findAll").setMaxResults(max).getResultList();
         return em.createQuery("SELECT u FROM EntityUsers u").getResultList();
     }
+    
+     @Override
+    public List<EntityUsers> checkUsers(String userName, String passWord) {
+        return em.createQuery("SELECT us.id FROM EntityUsers us WHERE us.userPass =\"" + passWord + "\" AND "
+                    + " us.userName =\"" + userName + "\" AND "
+                    + " us.isActive =\"" + "1" + "\" ").getResultList();
+    }
 
     @Override
     public List<EntityUsers> findByUsername(String username) {

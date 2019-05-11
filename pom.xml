@@ -22,11 +22,11 @@
     <dependencies>
 
         <!--https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server/9.4.10.v20180503-->
-        <dependency>
+        <!--        <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <version>${jetty.version}</version>
-        </dependency>
+        </dependency>-->
       
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
@@ -216,12 +216,13 @@
             <version>2.1.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
-        <dependency>
+        <!--        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.2.2.Final</version>
             <type>jar</type>
-        </dependency>
+        </dependency>-->
+       
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -235,7 +236,16 @@
             <version>8.0</version>
             <scope>provided</scope>
         </dependency>
-       
+       <!-- add depency
+            11 mei 2019
+         -->
+          <!-- https://mvnrepository.com/artifact/com.onelogin/java-saml -->
+        <dependency>
+            <groupId>com.onelogin</groupId>
+            <artifactId>java-saml</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <!-- end -->
     </dependencies>
     <build>
         <!--

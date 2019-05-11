@@ -105,6 +105,10 @@
         <servlet-name>ExcelItemsSuplierServlet</servlet-name>
         <servlet-class>com.inventory.aset.report.excel.ExcelItemsSuplierServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginAuthentication</servlet-name>
+        <servlet-class>com.inventory.aset.util.LoginAuthentication</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/userServlet</url-pattern>
@@ -200,6 +204,10 @@
     <servlet-mapping>
         <servlet-name>ExcelItemsSuplierServlet</servlet-name>
         <url-pattern>/excelItemsSuplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginAuthentication</servlet-name>
+        <url-pattern>/loginAuthentication</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
