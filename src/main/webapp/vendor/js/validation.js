@@ -1,7 +1,7 @@
 
 /* global CryptoJS, Storage */
-$(function(){
-    $('a, button').click(function() {
+$(function () {
+    $('a, button').click(function () {
         $(this).toggleClass('active');
     });
 });
@@ -982,6 +982,7 @@ $(document).ready(function () {
 //        scroll: true,
 //        source: createDynamicURL() + "/getItemPOServlet"
 //    }).autocomplete("option", "appendTo", "#form_create_po");
+
     $('body').on('click', '#item_name_po', function () {
         $(this).autocomplete({
             source: function (request, response) {
@@ -1014,6 +1015,7 @@ $(document).ready(function () {
             delay: 300
         }).autocomplete("option", "appendTo", "#form_create_po");
     });
+    
 //    $("#unit_price_po").change(discount);
 //    $("#unit_price_po").blur(format_rupiah);
 //    $("#qtty_po").change(discount);
@@ -1028,7 +1030,7 @@ $(document).ready(function () {
 //	});
 
 });
-
+/* end $(document).ready(function ()}); */
 function myFunction_reset_excel_service_details() {
     document.getElementById("form_report_excel_field_service_details").reset();
     $('#tgl_excel_service_details_start').css('background', '');
@@ -1051,16 +1053,6 @@ function myFunction_reset_form_upload() {
     return false;
 }
 
-//function myFunction_reset_form_upload_delegate() {
-//    document.getElementById("form_upload_delegate").reset();
-//    $('#excel_upload_delegate').css('background', '');
-//    return false;
-//}
-
-//function myFunction_reset_form_delegate() {
-//    document.getElementById("form_delegate").reset();
-//    return false;
-//}
 function myFunction_reset_formVersion() {
     document.getElementById("form_upload_version").reset();
     $('#fileApk').css('background', '');
@@ -1213,8 +1205,7 @@ function cekPass_email_config() {
     }
     return cekPass_email_config();
 }
-function isNumber()
-{
+function isNumber(){
     var x = $('#smtpPort').val();
     var regex = /^[0-9]+$/;
     if (x === "") {
@@ -1309,7 +1300,6 @@ function cekNumber() {
         return false;
     }
 }
-
 //
 function  myFunction_reset_form_create_delegate() {
     var button = document.getElementById("btn_form_create_delegate");
@@ -2109,10 +2099,10 @@ function type_po_empty() {
     });
 }
 
-
+var k = 1;
 function add_row() {
 //    alert("add_row");
-    var i = 1;
+//var k = 1;
     var target = document.getElementById("form_create_po");
     var itemlist = document.getElementById('itemlist');
     var remove_row = document.getElementById('remove_row');
@@ -2221,7 +2211,7 @@ function add_row() {
     e_button_2.id = "remove_row";
 //    var e_i = document.createElement('i');
 //    e_i.setAttribute('class', 'fa fa-minus-square');
-    if (i > 0) {
+    if (k > 0) {
 
         row.appendChild(td1);
         row.appendChild(td2);
@@ -2232,11 +2222,17 @@ function add_row() {
         row.appendChild(td7);
         row.appendChild(td8);
         td1.appendChild(e_item_name);
+        e_item_name.id = "item_name_po_" + k;
         td2.appendChild(e_qtty_po);
+        e_qtty_po.id = "qtty_po_" + k;
         td3.appendChild(e_unit_item_po);
+        e_unit_item_po.id = "unit_item_po_" + k;
         td4.appendChild(e_unit_price_po);
+        e_unit_price_po.id = "unit_price_po_" + k;
         td5.appendChild(e_discount_item_po);
+        e_discount_item_po.id = "discount_item_po_" + k;
         td6.appendChild(e_total_price_po);
+        e_total_price_po.id = "total_price_po" + k;
         td7.appendChild(e_id_product);
         td8.appendChild(e_button_2);
 //        e_item_name.onchange = function () {
@@ -2260,12 +2256,48 @@ function add_row() {
 
 //        e_button_2.appendChild(e_i);
 //        td7.appendChild(e_button_2);
-
+     
+     /* */
+     $('body').on('click', '#item_name_po'+k, function () {
+        $(this).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: createDynamicURL() + "/getItemPOServlet",
+                    dataType: "json",
+                    method: "GET",
+                    data: {
+                        term: request.term,
+                        idSupplier: $("#supplier_id_form_create_po").val()
+                    }, success: function (data) {
+                        response($.map(data, function (item) {
+                            var code = item.split("|");
+                            return {
+                                label: code[0],
+                                value: code[0],
+                                data: item
+                            };
+                        }));
+                    }
+                });
+            },
+//            autoFocus: true,
+            minLength: 1,
+            scroll: true,
+            select: function (event, ui) {
+//                var output = ui.item.data.split("|");
+//                $('#item_name_po').val(output[1]);
+            },
+            delay: 300
+        }).autocomplete("option", "appendTo", "#form_create_po");
+    });
+     /* */
+     
     }
+    k++;
     e_button_2.onclick = function () {
         row.parentNode.removeChild(row);
     };
-    i++;
+
 }
 function remove(id) {
     var ele = id + 'tr';

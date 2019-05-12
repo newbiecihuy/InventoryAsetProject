@@ -192,7 +192,7 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
                         sheet.addCell(new Label(3, 1,  EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getSupplierName())));
                         sheet.addCell(new Label(3, 2,  EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getSupplierCode())));
                         sheet.addCell(new Label(3, 3,  EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getAddress())));
-                        sheet.addCell(new Label(0, rowNum, String.valueOf(rowNum)));
+                        sheet.addCell(new Label(0, rowNum, String.valueOf(j + 1)));
                         sheet.addCell(new Label(1, rowNum, dataProducts.getProductCode()));
                         sheet.addCell(new Label(2, rowNum, dataProducts.getProductName()));
                         sheet.addCell(new Label(3, rowNum, dataProducts.getDescription()));

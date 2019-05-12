@@ -1,3 +1,8 @@
+<%-- 
+    Document   : index
+    Created on : Feb 23, 2019, 11:07:14 AM
+    Author     : newbiecihuy
+--%>
 <%
     String username = "gudang";//admin
     String rolename = "gudang";

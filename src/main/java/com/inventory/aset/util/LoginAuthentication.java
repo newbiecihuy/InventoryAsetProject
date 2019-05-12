@@ -5,12 +5,15 @@
  */
 package com.inventory.aset.util;
 
+import com.inventory.aset.controller.ItemServlet;
 import com.inventory.aset.entity.users.EntityUsers;
 import com.inventory.aset.facadebean.local.EntityCategoriesFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityUsersFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -88,7 +91,7 @@ public class LoginAuthentication extends HttpServlet {
 //        processRequest(request, response);
         PrintWriter print = response.getWriter();
 
-        EntityManager em = null;
+//        EntityManager em = null;
         System.out.println("Get Method POST IN");
         HttpSession session = request.getSession();
         try {
@@ -128,19 +131,16 @@ public class LoginAuthentication extends HttpServlet {
                     session.setAttribute("userRole", dataUsers.getRoleName());
                     jsonArray.add(jsonObjectUsers);
                 }
-                em.close();
+//                em.close();
                 response.sendRedirect("index.jsp");
                 print.print(jsonArray);
 
             }
 
-        } catch (Exception ex) {
-            System.out.println("ERROR: " + ex.getMessage());
-        } finally {
-            if ((em != null) && (em.isOpen())) {
-                em.close();
-            }
+        } catch (IOException ex) {
+         Logger.getLogger(LoginAuthentication.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**
