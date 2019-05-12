@@ -2232,7 +2232,7 @@ function add_row() {
         td5.appendChild(e_discount_item_po);
         e_discount_item_po.id = "discount_item_po_" + k;
         td6.appendChild(e_total_price_po);
-        e_total_price_po.id = "total_price_po" + k;
+        e_total_price_po.id = "total_price_po_" + k;
         td7.appendChild(e_id_product);
         td8.appendChild(e_button_2);
 //        e_item_name.onchange = function () {
@@ -2258,7 +2258,7 @@ function add_row() {
 //        td7.appendChild(e_button_2);
      
      /* */
-     $('body').on('click', '#item_name_po'+k, function () {
+     $('body').on('click', '#item_name_po_'+k, function () {
         $(this).autocomplete({
             source: function (request, response) {
                 $.ajax({
