@@ -15,7 +15,7 @@ $(function () {
 function createDynamicURL()
 {
 //The variable to be returned
-    var URL = "";
+    var URL = "/InventoryAsetProject/";
     //The variables containing the respective IDs
 //    var companyID=...
 //    var branchID=...
@@ -29,7 +29,7 @@ function createDynamicURL()
 //    URL+="/employee=";
 //    URL+=employeeID;
 //    URL+="/info";
-    URL = "/InventoryAsetProject/";
+//    URL = "/InventoryAsetProject/";
     return URL;
 }
 /*
@@ -968,25 +968,6 @@ $(document).ready(function () {
         source: createDynamicURL() + "/autoCompleteSupplierName"
     }).autocomplete("option", "appendTo", "#form_add_item");
 //            
-
-//    $("#form_add_pic").load(function () {
-//        alert(editUserFunc(this));
-//    });
-
-//    $("#item_name_po").click(function () {
-//        var idSupplier = $("#supplier_id_form_create_po").val();
-//        alert(idSupplier);
-////        item_supEmpty(idSupplier);
-//    });
-//    $("#item_name_po").autocomplete({
-//        var idSupplier = $("#supplier_id_form_create_po").val(),
-//        minLength: 1,
-//        cacheLength: 1,
-//        autoFocus: true,
-//        scroll: true,
-//        source: createDynamicURL() + "/getItemPOServlet"
-//    }).autocomplete("option", "appendTo", "#form_create_po");
-
     $('body').on('click', '#item_name_po', function () {
         $(this).autocomplete({
             source: function (request, response) {
@@ -2071,30 +2052,18 @@ function type_po_empty() {
         dataType: "json",
         //if received a response from the server
         success: function (response) {
-            //our country code was correct so we have some information to display
+            //some information to display
             if (response) {
-//                        var counters="";
-                //                        var jsonData = JSON.stringify(response)
-                //                        $("#ajaxResponse").html("<div><b>Merchant Name Valid!</b></div>");
-                //                        $("#ajaxResponse").html("");
-                //                        $("#ajaxResponse").html("<div><b>" + jsonData + "</b></div>");
-                //                        var jsonData = JSON.stringify(response);
-                //                        for (var i = 0; i < jsonData.length; i++) {
-                //                            counters = jsonData;
-                //                           console.log(counter.kota_merchant_dela);
-                //                            
-                //                        }
-                //                        $("#ajaxResponse").html("<div><b>" + jsonData.kota_merchant_del + "</b></div>");
+
                 console.log(response.po_type);
                 $("#po_type").val(response.po_type);
                 console.log(response.payment_term);
                 $("#payment_term").val(response.payment_term);
-            }else{
-                $("#payment_term").val('0');
             }
             //display error message
             else {
-                $("#ajaxResponse_form_add_po").html("<div><b>Type Po in Invalid!</b></div>");
+                $("#payment_term").val('0');
+//                $("#ajaxResponse_form_add_po").html("<div><b>Type Po in Invalid!</b></div>");
             }
         },
         //If there was no resonse from the server
