@@ -156,10 +156,10 @@
                 <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Salses Menu<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level submenu">
                     <!--                    <li class="has-spinner" >
-                                            <a href="index.jsp?url=purcahase_layout&pages=form_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Create PO</a>
+                                            <a href="index.jsp?url=purcahase_layout&pages=form_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> add Sales</a>
                                         </li>-->
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=sales_layout&pages=add_sales" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Add Sales</a>
+                        <a href="index.jsp?url=sales_layout&pages=add_sales" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span>Sales</a>
                     </li> 
                     <!--                    <li>
                                             <a href="index.jsp?url=purcahase_layout&pages=list_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> List PO</a>

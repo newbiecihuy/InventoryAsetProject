@@ -613,9 +613,13 @@ $(document).ready(function () {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
 
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order   " + supplier_name + " Has been Recorded" + "</b></p></div>");
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order   " + response.msg + "</b></p></div>");
                 } else if (response.RC === "2") {
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + supplier_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + response.msg+ "</b></p></div>").addClass('error').css({});
+                } else if (response.RC === "3") {
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
+                } else if (response.RC === "4") {
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
                 }
                 //display error message
                 else {
@@ -2085,6 +2089,8 @@ function type_po_empty() {
                 $("#po_type").val(response.po_type);
                 console.log(response.payment_term);
                 $("#payment_term").val(response.payment_term);
+            }else{
+                $("#payment_term").val('0');
             }
             //display error message
             else {

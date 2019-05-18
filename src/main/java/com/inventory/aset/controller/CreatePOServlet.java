@@ -396,7 +396,7 @@ public class CreatePOServlet extends HttpServlet {
                         tgl_input_po = now;
                     }
                     if (!object.getString("po_type").isEmpty()) {
-                        po_type = object.getString("po_type");
+                        po_type = object.getString("po_type").toLowerCase();
                     } else {
                         po_type = "";
                     }
@@ -515,6 +515,7 @@ public class CreatePOServlet extends HttpServlet {
                     msg = "Has been Recorded";
                     System.out.println("isi c" + dataPurchases);
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
+                    dataPurchases = entityPurchasesDao.getPurchases(purchase_id);
 
                     entitySuppliersDao.getSuppliers(supplier_id);
                     if (!object.getString("supplier_name_po").isEmpty()) {
@@ -541,7 +542,7 @@ public class CreatePOServlet extends HttpServlet {
                         tgl_input_po = now;
                     }
                     if (!object.getString("po_type").isEmpty()) {
-                        po_type = object.getString("po_type");
+                        po_type = object.getString("po_type").toLowerCase();
                     } else {
                         po_type = "";
                     }
@@ -646,19 +647,20 @@ public class CreatePOServlet extends HttpServlet {
 
                     entityPurchasesDao.updatePurchases(dataPurchases);
                     System.out.println("isi e" + dataPurchases);
-                    code = "3";
+                    code = "2";
                     msg = "Has been Updated";
                 } else if (action_edit.equalsIgnoreCase("Approve")) {
-                    entityPurchasesDao.getPurchases(purchase_id);
+                    dataPurchases = entityPurchasesDao.getPurchases(purchase_id);
                     dataPurchases.setIsApprove(1);
                     dataPurchases.setAppproveBy("Pak Yos");
                     dataPurchases.setDateEdit(now);
                     dataPurchases.setTimeEdit(time_now);
                     entityPurchasesDao.updatePurchases(dataPurchases);
                     System.out.println("isi a" + dataPurchases);
-                    code = "1";
+                    code = "3";
+                    msg = "Approved";
                 } else if (action_edit.equalsIgnoreCase("DELETE")) {
-                    entityPurchasesDao.getPurchases(purchase_id);
+                    dataPurchases = entityPurchasesDao.getPurchases(purchase_id);
                     dataPurchases.setIsDelete(false);
                     dataPurchases.setPic("PIC");
                     dataPurchases.setDateEdit(now);
