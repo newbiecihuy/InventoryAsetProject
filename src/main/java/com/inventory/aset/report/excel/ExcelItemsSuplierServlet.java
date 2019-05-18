@@ -105,13 +105,14 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
             Date now = new Date();
             String tgl = sdf.format(now);
             String supplierId = null;
+            String supplier_name = null;
             Long supplier_id = 0l;
 //            System.out.println("isi ->" + request.getParameter("jsonfield"));
 //            JSONArray array = (JSONArray) JSONSerializer.toJSON(request.getParameter("JSONFile"));
             JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(request.getParameter("jsonfield"));
-
+            supplier_name = jsonObject.getString("supplier_name").trim().replaceAll("['\";:<>\\[\\],-]", "");
             response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-Disposition", "attachment; filename=List_FieldService.xls");
+            response.setHeader("Content-Disposition", "attachment; filename=List_item_" + supplier_name+"_"+tgl + ".xls");
             WritableWorkbook workbook = Workbook.createWorkbook(response.getOutputStream());
             WritableSheet sheet = workbook.createSheet("Sheet1", 0);
 
@@ -185,13 +186,13 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
                 if (dataProductsList.size() > 0) {
                     for (int j = 0; j < dataProductsList.size(); j++) {
 
-                        dataProducts = entityProductsDao.find(dataProductsList.get(0).getIdProduct());
+                        dataProducts = entityProductsDao.find(dataProductsList.get(j).getIdProduct());
 
 //                      List<EntityStock> dataStockList = entityStockDao.findByIdProduct(dataProducts.getIdProduct());
                         dataStock = entityStockDao.find(dataProducts.getIdProduct());
-                        sheet.addCell(new Label(3, 1,  EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getSupplierName())));
-                        sheet.addCell(new Label(3, 2,  EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getSupplierCode())));
-                        sheet.addCell(new Label(3, 3,  EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getAddress())));
+                        sheet.addCell(new Label(3, 1, EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getSupplierName())));
+                        sheet.addCell(new Label(3, 2, EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getSupplierCode())));
+                        sheet.addCell(new Label(3, 3, EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getAddress())));
                         sheet.addCell(new Label(0, rowNum, String.valueOf(j + 1)));
                         sheet.addCell(new Label(1, rowNum, dataProducts.getProductCode()));
                         sheet.addCell(new Label(2, rowNum, dataProducts.getProductName()));

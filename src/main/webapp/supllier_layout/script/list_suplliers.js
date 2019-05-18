@@ -55,8 +55,10 @@ $(document).ready(function () {
                 searchable: true,
                 mRender: function (data_supName, type_supName, row_supName) {
                     var va_supplier_id = row_supName["supplier_id"];
+                    var va_supplier_name = row_supName["supplier_name"];
                     var data_record_supplier = {
-                        supplier_id: va_supplier_id
+                        supplier_id: va_supplier_id,
+                        supplier_name: va_supplier_name
                     };
                     if (row_supName['status_supp'] === 1) {
 //                        return "NActive";

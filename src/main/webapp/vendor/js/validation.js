@@ -615,7 +615,7 @@ $(document).ready(function () {
 
                     $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order   " + response.msg + "</b></p></div>");
                 } else if (response.RC === "2") {
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + response.msg+ "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + response.msg + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "3") {
                     $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "4") {
@@ -1000,7 +1000,7 @@ $(document).ready(function () {
             delay: 300
         }).autocomplete("option", "appendTo", "#form_create_po");
     });
-    
+
 //    $("#unit_price_po").change(discount);
 //    $("#unit_price_po").blur(format_rupiah);
 //    $("#qtty_po").change(discount);
@@ -1190,7 +1190,7 @@ function cekPass_email_config() {
     }
     return cekPass_email_config();
 }
-function isNumber(){
+function isNumber() {
     var x = $('#smtpPort').val();
     var regex = /^[0-9]+$/;
     if (x === "") {
@@ -1811,8 +1811,10 @@ function purchaseExcelReport(data_record_po) {
 function suplierExcelReport(data_record_supplier) {
 //    alert("isi param 1" + data_record_supplier.supplier_id);
     var isi_supplier_id = escape(data_record_supplier.supplier_id);
+    var isi_supplier_name = escape(data_record_supplier.supplier_name);
     var dataString = {
-        supplier_id: escape(isi_supplier_id)
+        supplier_id: escape(isi_supplier_id),
+        supplier_name: escape(isi_supplier_name)
     };
 //    alert("isi dataString " + dataString.supplier_id);
     var param = "&jsonfield=" + JSON.stringify(dataString);
@@ -2231,42 +2233,42 @@ function add_row() {
 
 //        e_button_2.appendChild(e_i);
 //        td7.appendChild(e_button_2);
-     
-     /* */
-     $('body').on('click', '#item_name_po_'+k, function () {
-        $(this).autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: createDynamicURL() + "/getItemPOServlet",
-                    dataType: "json",
-                    method: "GET",
-                    data: {
-                        term: request.term,
-                        idSupplier: $("#supplier_id_form_create_po").val()
-                    }, success: function (data) {
-                        response($.map(data, function (item) {
-                            var code = item.split("|");
-                            return {
-                                label: code[0],
-                                value: code[0],
-                                data: item
-                            };
-                        }));
-                    }
-                });
-            },
+
+        /* */
+        $('body').on('click', '#item_name_po_' + k, function () {
+            $(this).autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: createDynamicURL() + "/getItemPOServlet",
+                        dataType: "json",
+                        method: "GET",
+                        data: {
+                            term: request.term,
+                            idSupplier: $("#supplier_id_form_create_po").val()
+                        }, success: function (data) {
+                            response($.map(data, function (item) {
+                                var code = item.split("|");
+                                return {
+                                    label: code[0],
+                                    value: code[0],
+                                    data: item
+                                };
+                            }));
+                        }
+                    });
+                },
 //            autoFocus: true,
-            minLength: 1,
-            scroll: true,
-            select: function (event, ui) {
+                minLength: 1,
+                scroll: true,
+                select: function (event, ui) {
 //                var output = ui.item.data.split("|");
 //                $('#item_name_po').val(output[1]);
-            },
-            delay: 300
-        }).autocomplete("option", "appendTo", "#form_create_po");
-    });
-     /* */
-     
+                },
+                delay: 300
+            }).autocomplete("option", "appendTo", "#form_create_po");
+        });
+        /* */
+
     }
     k++;
     e_button_2.onclick = function () {
