@@ -143,12 +143,12 @@
                     <!--                    <li class="has-spinner" >
                                             <a href="index.jsp?url=purcahase_layout&pages=form_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> Create PO</a>
                                         </li>-->
-                    <li class="has-spinner" >
+<!--                    <li class="has-spinner" >
                         <a href="index.jsp?url=purcahase_layout&pages=add_po" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span> Create PO</a>
-                    </li> 
-                    <!--                    <li>
-                                            <a href="index.jsp?url=purcahase_layout&pages=list_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> List PO</a>
-                                        </li>-->
+                    </li> -->
+                   <li class="has-spinner" >
+                        <a href="index.jsp?url=purcahase_layout&pages=grid_form_po" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span>View list P&#8228;O&#8228;</a>
+                    </li>
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
