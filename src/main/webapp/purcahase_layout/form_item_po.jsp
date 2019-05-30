@@ -70,7 +70,7 @@
                     <input type="hidden" name="action_edit_item_po" id="action_edit_item_po" value="<% out.println(action_edit_item_po);%>"/>
                     <input type="hidden" name="tax_item_po" id="tax_item_po" value="<% out.println(tax_item_po);%>" /><!--onblur="taxfunc()"-->
                     <input type="text" name="tax_po_val" id="tax_po_val" placeholder="TAX" value="<% out.println(tax_po);%>" />
-                    <input type="text" name="val_tax_po" id="val_tax_po" class="form-control-static" placeholder="TAX" value="<% out.println(val_tax_po);%>" /></td>
+                    <input type="hidden" name="val_tax_po" id="val_tax_po" class="form-control-static" placeholder="TAX" value="<% out.println(val_tax_po);%>" /></td>
                     <input type="hidden" name="action_delete_item_po" id="action_delete_item_po"/>
 
                     <tr>
@@ -90,7 +90,7 @@
                         <td class="display"><input type="text" required="" name="unit_price_po" id="unit_price_po" class="form-control-static uppercase" placeholder="IDR" onblur="format_rupiah()" onchange="discount()"/></td>
                         <td class="display"><input type="number" min="0" value="0" name="discount_item_po" id="discount_item_po" class="form-control-static uppercase" placeholder="Discount" onchange="discount()"/></td>
                         <td class="display"><input type="text" name="price_po" id="price_po" class="form-control-static uppercase" placeholder="in IDR" ></td><!--onfocus="discount()"/-->
-                        <td class="display"><input type="hidden" required="" name="id_product" id="id_product" class="form-control-static uppercase"/></td>
+                        <td class="display"><input type="text" required="" name="id_product" id="id_product" class="form-control-static uppercase"/></td>
 
                         <td class="display"><button class="btn-primary"  onclick="add_row();"><i class="fa fa fa-plus-square"></i></button>&nbsp;
                             <!--<button class="btn-warning" onclick="remove(id)return false;" id="remove_row"><i class="fa fa-minus-square"></i></button>--></td>

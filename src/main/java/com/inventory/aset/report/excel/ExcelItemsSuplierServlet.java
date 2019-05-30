@@ -14,6 +14,7 @@ import com.inventory.aset.facadebean.local.EntityProductsFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityStockFacadeLocal;
 import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;
 import com.inventory.aset.util.EncryptionUtil;
+import groovy.json.StringEscapeUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -111,8 +112,9 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
 //            JSONArray array = (JSONArray) JSONSerializer.toJSON(request.getParameter("JSONFile"));
             JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(request.getParameter("jsonfield"));
             supplier_name = jsonObject.getString("supplier_name").trim().replaceAll("['\";:<>\\[\\],-]", "");
+
             response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-Disposition", "attachment; filename=List_item_" + supplier_name+"_"+tgl + ".xls");
+            response.setHeader("Content-Disposition", "attachment; filename=List_item_" + supplier_name.replaceAll("%20", " ") + "_" + tgl + ".xls");
             WritableWorkbook workbook = Workbook.createWorkbook(response.getOutputStream());
             WritableSheet sheet = workbook.createSheet("Sheet1", 0);
 

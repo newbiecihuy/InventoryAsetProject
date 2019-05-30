@@ -6,6 +6,7 @@
 package com.inventory.aset.facadebean.local;
 
 import com.inventory.aset.entity.EntityPurchases;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -28,7 +29,9 @@ public interface EntityPurchasesFacadeLocal {
 
     List<EntityPurchases> getAllPurchases(int max);
 
+    List<EntityPurchases> getAllDataPurchases(int max);
 //    List<EntityProductSell> getSellId(Object sellId);
+
     EntityPurchases find(Object paramObject);
 
     List<EntityPurchases> findByPOCode(String pramString);
@@ -40,6 +43,7 @@ public interface EntityPurchasesFacadeLocal {
     List<EntityPurchases> getByPOCode(String pramString);
 
 //    List<EntityPurchases> getByTypePO(String pramString);
+    List<EntityPurchases> findByNoPo(Date inputDate, String inputTime);
 
     int count();
 

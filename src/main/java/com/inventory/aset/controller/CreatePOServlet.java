@@ -272,17 +272,27 @@ public class CreatePOServlet extends HttpServlet {
                         noPo = sdfMonthPO.format(dataPO.getDate());
                         year = sdfYearNoPO.format(dataPO.getDate());
                         noPoVal = EncryptionUtil.setMonth(noPo);
+                        System.out.println("monthCompare :" + monthCompare);
+                        System.out.println("noPo :" + noPo);
+                        System.out.println("yearCompare :" + yearCompare);
+                        System.out.println("year :" + year);
 //                        int nilai = i + 1;
                         if (monthCompare.equals(noPo) && yearCompare.equals(year)) {
-                            nilai = i + 1;
+                            System.out.println("equals");
+                            nilai = dataPO.getNoPo().intValue() + 1;
                             PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+//                            dataPurchases.setPurchaseCode(PONumber);
+//                            dataPurchases.setNoPo(Long.valueOf(nilai));
+//                            entityPurchasesDao.updatePurchases(dataPurchases);
                         } else {
+                            System.out.println("!equals");
                             nilai = 1;
                             PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+//                             dataPurchases.setPurchaseCode(PONumber);
+//                            dataPurchases.setNoPo(Long.valueOf(nilai));
+//                            entityPurchasesDao.updatePurchases(dataPurchases);
                         }
 
-//                        dataPurchases.setPurchaseCode(PONumber);
-//                        entityPurchasesDao.updatePurchases(dataPurchases);
                     }
                     jsonArray.add(obj);
                 }
@@ -500,16 +510,26 @@ public class CreatePOServlet extends HttpServlet {
                     noPo = sdfMonthPO.format(tgl_input_po);
                     year = sdfYearNoPO.format(tgl_input_po);
                     noPoVal = EncryptionUtil.setMonth(noPo);
+                    System.out.println("monthCompare :" + monthCompare);
+                    System.out.println("noPo :" + noPo);
+                    System.out.println("yearCompare :" + yearCompare);
+                    System.out.println("year :" + year);
 //                        int nilai = i + 1;
                     if (monthCompare.equals(noPo) && yearCompare.equals(year)) {
-                        nilai = i + 1;
+                        System.out.println("equals");
+                        List<EntityPurchases> getNopo = entityPurchasesDao.findByNoPo(now, time_now);
+                        nilai = getNopo.get(0).getNoPo().intValue() + 1;
+                        System.out.println("equals nilai" + nilai);
                         PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+                        dataPurchases.setPurchaseCode(PONumber);
+                        dataPurchases.setNoPo(Long.valueOf(nilai));
                     } else {
+                        System.out.println("!equals");
                         nilai = 1;
                         PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+                        dataPurchases.setPurchaseCode(PONumber);
+                        dataPurchases.setNoPo(Long.valueOf(nilai));
                     }
-
-                    dataPurchases.setPurchaseCode(PONumber);
                     entityPurchasesDao.createPurchases(dataPurchases);
                     code = "1";
                     msg = "Has been Recorded";
@@ -638,12 +658,12 @@ public class CreatePOServlet extends HttpServlet {
                     if (monthCompare.equals(noPo) && yearCompare.equals(year)) {
                         nilai = i + 1;
                         PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+                        dataPurchases.setPurchaseCode(PONumber);
                     } else {
                         nilai = 1;
                         PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+                        dataPurchases.setPurchaseCode(PONumber);
                     }
-
-                    dataPurchases.setPurchaseCode(PONumber);
 
                     entityPurchasesDao.updatePurchases(dataPurchases);
                     System.out.println("isi e" + dataPurchases);

@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityPurchasesFacadeLocal;
+import java.util.Date;
 
 /**
  *
@@ -63,6 +64,11 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
     }
 
     @Override
+    public List<EntityPurchases> getAllDataPurchases(int max) {
+        return em.createNamedQuery("EntityPurchases.findAll").getResultList();
+    }
+
+    @Override
     public EntityPurchases find(Object purchaseId) {
         return (EntityPurchases) em.find(EntityPurchases.class, purchaseId);
     }
@@ -89,6 +95,15 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
     @Override
     public List<EntityPurchases> findByRfqNumber(String pramString) {
         return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.rfqNumber LIKE \"" + pramString + "%\" ").getResultList();
+    }
+
+//    @Override
+//    public List<EntityPurchases> findByNoPo(Date inputDate, String inputTime) {
+//        return em.createNamedQuery("EntityPurchases.findByNoPo").setParameter("inputDate", inputDate).setParameter("inputTime", inputTime).getResultList();
+//    }
+    @Override
+    public List<EntityPurchases> findByNoPo(Date inputDate, String inputTime) {
+        return em.createNamedQuery("EntityPurchases.findByNoPo").setParameter("inputDate", inputDate).setMaxResults(1).getResultList();
     }
 
     @Override

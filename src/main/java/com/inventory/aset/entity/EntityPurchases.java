@@ -30,9 +30,9 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_purchase")
 @NamedQueries({
-    @NamedQuery(name = "EntityPurchases.findAll", query = "SELECT c FROM EntityPurchases c")
-    ,
-    @NamedQuery(name = "EntityPurchases.findByPurchaseId", query = "SELECT c FROM EntityPurchases c WHERE c.purchaseId = :purchaseId")
+     @NamedQuery(name = "EntityPurchases.findAll", query = "SELECT c FROM EntityPurchases c")
+    ,@NamedQuery(name = "EntityPurchases.findByPurchaseId", query = "SELECT c FROM EntityPurchases c WHERE c.purchaseId = :purchaseId")
+    ,@NamedQuery(name = "EntityPurchases.findByNoPo", query = "SELECT c FROM EntityPurchases c WHERE c.inputDate = :inputDate order by  c.purchaseId desc")
 })
 public class EntityPurchases implements Serializable {
 
@@ -61,9 +61,9 @@ public class EntityPurchases implements Serializable {
     @Basic(optional = false)
     @Column(name = "quotation_number")
     private String quotationNumber;
-    
+
     @Column(name = "total_product_purchase_cost")
-    private String totalProductPurchaseCost="0";
+    private String totalProductPurchaseCost = "0";
 
     @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "purchaseId")
     private List<EntityProductPurchase> entityProductPurchase;
@@ -102,6 +102,10 @@ public class EntityPurchases implements Serializable {
     @Column(name = "time_edit")
     private String timeEdit;
 
+    @Basic(optional = false)
+    @Column(name = "no_po")
+    private Long NoPo;
+
 //    @Basic(optional = false)
 //    @Column(name = "po_type")
 //    private String poType;
@@ -109,7 +113,6 @@ public class EntityPurchases implements Serializable {
 //    @Basic(optional = false)
 //    @Column(name = "payment_term")
 //    private String paymentTerm;
-
     @Basic(optional = false)
     @Column(name = "delivery_term")
     private String deliveryTerm;
@@ -124,7 +127,6 @@ public class EntityPurchases implements Serializable {
 
 //    @Column(name = "is_approve")
 //    private boolean isApprove = false;
-    
     @Column(name = "is_approve")
     private int isApprove = 0;
 
@@ -144,7 +146,7 @@ public class EntityPurchases implements Serializable {
 
     }
 
-    public EntityPurchases(Long purchaseId, String purchaseCode, String purchaseDesc, String transportMode, String rfqNumber, String quotationNumber, List<EntityProductPurchase> entityProductPurchase, EntitySuppliers supplierId, EntityTypePO typePOId, Date date, String time, Date inputDate, String inputTime, Date dateEdit, String timeEdit, String deliveryTerm, String deliveryPoint, String invoiceTo, String appproveBy, String pic) {
+    public EntityPurchases(Long purchaseId, String purchaseCode, String purchaseDesc, String transportMode, String rfqNumber, String quotationNumber, List<EntityProductPurchase> entityProductPurchase, EntitySuppliers supplierId, EntityTypePO typePOId, Date date, String time, Date inputDate, String inputTime, Date dateEdit, String timeEdit, String deliveryTerm, Long NoPo, String deliveryPoint, String invoiceTo, String appproveBy, String pic) {
         this.purchaseId = purchaseId;
         this.purchaseCode = purchaseCode;
         this.purchaseDesc = purchaseDesc;
@@ -165,6 +167,7 @@ public class EntityPurchases implements Serializable {
         this.invoiceTo = invoiceTo;
         this.appproveBy = appproveBy;
         this.pic = pic;
+        this.NoPo = NoPo;
     }
 
     public Long getPurchaseId() {
@@ -359,7 +362,13 @@ public class EntityPurchases implements Serializable {
         this.pic = pic;
     }
 
-    
+    public Long getNoPo() {
+        return NoPo;
+    }
+
+    public void setNoPo(Long NoPo) {
+        this.NoPo = NoPo;
+    }
 
     @Override
     public int hashCode() {

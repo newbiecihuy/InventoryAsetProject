@@ -2119,14 +2119,15 @@ function add_row() {
     e_item_name.placeholder = "Like Sugar";
     e_item_name.setAttribute('required', '');
     e_item_name.setAttribute('class', 'form-control-static uppercase');
-    e_item_name.setAttribute("onchange", item_supEmpty);
+//    e_item_name.setAttribute("onchange", item_supEmpty_);
 //    e_item_name.setAttribute("onchange", function () {
 //        item_supEmpty();
 //    });
     var e_id_product = document.createElement('input');
-    e_id_product.type = "hidden";
+    e_id_product.type = "text";
     e_id_product.id = "id_product";
     e_id_product.name = "id_product";
+
     var e_qtty_po = document.createElement('input');
     e_qtty_po.type = "number";
     e_qtty_po.id = "qtty_po";
@@ -2135,20 +2136,19 @@ function add_row() {
     e_qtty_po.setAttribute('min', '1');
     e_qtty_po.setAttribute('value', '0');
     e_qtty_po.setAttribute("onchange", discount);
-//    e_qtty_po.addEventListener("onchange", discount);
     e_qtty_po.setAttribute('class', 'form-control-static uppercase');
     e_qtty_po.addEventListener('onchange', discount);
+
     var e_unit_item_po = document.createElement('input');
     e_unit_item_po.type = "text";
     e_unit_item_po.id = "unit_item_po";
     e_unit_item_po.name = "unit_item_po";
     e_unit_item_po.placeholder = "Unit";
     e_unit_item_po.setAttribute('required', '');
-//    e_unit_item_po.addEventListener("onblur", format_rupiah);
     e_unit_item_po.setAttribute('class', 'form-control-static uppercase');
     e_unit_item_po.addEventListener('onblur', format_rupiah);
+
     var e_unit_price_po = document.createElement('input');
-//    var element_unit_price_po = document.getElementById('unit_price_po');
     e_unit_price_po.type = "text";
     e_unit_price_po.id = "unit_price_po";
     e_unit_price_po.name = "unit_price_po";
@@ -2156,13 +2156,11 @@ function add_row() {
     e_unit_price_po.setAttribute('required', '');
     e_unit_price_po.setAttribute("onblur", format_rupiah);
     e_unit_price_po.setAttribute("onchange", discount);
-//    e_unit_price_po.addEventListener("onblur", format_rupiah);
-//    e_unit_price_po.addEventListener("onchange", discount);
     e_unit_price_po.setAttribute('class', 'form-control-static uppercase');
     e_unit_item_po.addEventListener('onblur', format_rupiah);
     e_unit_price_po.addEventListener("onchange", discount);
+
     var e_discount_item_po = document.createElement('input');
-//    var element_discount_item_po = document.getElementById('discount_item_po');
     e_discount_item_po.type = "number";
     e_discount_item_po.id = "discount_item_po";
     e_discount_item_po.name = "discount_item_po";
@@ -2200,6 +2198,7 @@ function add_row() {
         row.appendChild(td8);
         td1.appendChild(e_item_name);
         e_item_name.id = "item_name_po_" + k;
+        e_item_name.setAttribute("onchange", item_supEmpty_);
         td2.appendChild(e_qtty_po);
         e_qtty_po.id = "qtty_po_" + k;
         td3.appendChild(e_unit_item_po);
@@ -2211,28 +2210,8 @@ function add_row() {
         td6.appendChild(e_total_price_po);
         e_total_price_po.id = "total_price_po_" + k;
         td7.appendChild(e_id_product);
+        e_id_product.id = "id_product_" + k;
         td8.appendChild(e_button_2);
-//        e_item_name.onchange = function () {
-//            item_supEmpty();
-//        };
-//        e_qtty_po.onchange = function () {
-//            discount();
-//        };
-//        e_unit_item_po.onblur = function () {
-//            format_rupiah();
-//        };
-//        e_unit_price_po.onblur = function () {
-//            format_rupiah();
-//        };
-//        e_unit_price_po.onchange = function () {
-//            discount();
-//        };
-//        e_discount_item_po.onchange = function () {
-//            discount();
-//        };
-
-//        e_button_2.appendChild(e_i);
-//        td7.appendChild(e_button_2);
 
         /* */
         $('body').on('click', '#item_name_po_' + k, function () {
@@ -2268,7 +2247,78 @@ function add_row() {
             }).autocomplete("option", "appendTo", "#form_create_po");
         });
         /* */
+        function item_supEmpty_() {
+            var idSupplier = document.getElementById("supplier_id_form_create_po").value;
+            var item_name_po = document.getElementById("item_name_po_" + k).value;
+            var dataString = {
+                idSupplier: idSupplier,
+                item_name_po: item_name_po
+            };
+            alert("item_supEmpty_" + dataString);
+            $.ajax({
+                type: "POST",
+                url: createDynamicURL() + "/getItemSupplierServlet", //
+                data: {
+                    jsonfield: JSON.stringify(dataString) // look here!
+                },
+                dataType: "json",
+                //if received a response from the server
+                success: function (response) {
+                    //our country code was correct so we have some information to display
+                    if (response) {
+                        console.log(response.item_name);
+                        $("#item_name_po_" + k).val(response.item_name_po);
+                        console.log(response.unit_price_po);
+                        $("#unit_price_po_" + k).val(response.unit_price_po);
+                        console.log(response.product_id);
+                        $("#id_product_" + k).val(response.product_id);
+                    }
+                    //display error message
+                    else {
+                        $("#ajaxResponse_form_delegate").html("<div><b>Item Names in Invalid!</b></div>");
+                    }
+                },
+                //If there was no resonse from the server
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("Something really bad happened " + textStatus);
+                    $("#ajaxResponse_form_delegate").html(jqXHR.responseText);
+                }
+            });
+        }
+        /* */
+        function discount() {
+            var price = document.getElementById("unit_price_po_" + k).value;
+            var qtty = document.getElementById("qtty_po_" + k).value;
+            var pricedNew = price; //price.split('.').join("");
+            var i = document.getElementById("discount_item_po_" + k).value;
+            var nilai_unit = "";
+            var nilai_akhir = "";
+            var diskon = "";
+            if (qtty > 0 && pricedNew > 0) {
+                nilai_unit = pricedNew * qtty;
+                if (i > 0) {
+                    diskon = i * nilai_unit / 100;
+                    nilai_akhir = nilai_unit - diskon;
+                } else {
+                    nilai_akhir = nilai_unit;
+                }
 
+            } else {
+                nilai_akhir = pricedNew * 0;
+            }
+
+            var number_string = nilai_akhir.toString();
+            var sisa = number_string.length % 3;
+            var rupiah = number_string.substr(0, sisa);
+            var ribuan = number_string.substr(sisa).match(/\d{3}/g);
+//    if (ribuan) {
+//        var separator = sisa ? '.' : '';
+//        rupiah += separator + ribuan.join('.');
+//    }
+//    subTotal(rupiah);
+            subTotal(number_string);
+            return  document.getElementById("price_po").value = number_string;
+        }
     }
     k++;
     e_button_2.onclick = function () {
@@ -2281,18 +2331,18 @@ function remove(id) {
     var elem = document.getElementById(ele);
     return elem.parentNode.removeChild(elem);
 }
-//var element_unit_price_po = document.getElementById('unit_price_po');
-//var element_qtty_po = document.getElementById('qtty_po ');
-//var element_discount_item_po= document.getElementById('qtty_po ');
+/**/
 
-function  taxfunc() {
-    if (document.getElementById("tax_item_po").value === "1") {
-//        document.getElementById("tax_po").value = "10";
-    } else {
-//        document.getElementById("tax_po").value = "";
-    }
-}
-function format_rupiah() {
+/**/
+
+//function  taxfunc() {!used
+//    if (document.getElementById("tax_item_po").value === "1") {
+////        document.getElementById("tax_po").value = "10";
+//    } else {
+////        document.getElementById("tax_po").value = "";
+//    }
+//}
+function format_rupiah() {//used
     var number = document.getElementById("unit_price_po").value;
     var number_string = number.toString();
     var sisa = number_string.length % 3;
@@ -2304,8 +2354,8 @@ function format_rupiah() {
     }
     return  document.getElementById("unit_price_po").value = number_string; //rupiah;
 }
-function price_item_cek() {
-    var number = document.getElementById("price_item").value;
+//function price_item_cek() {!used
+//    var number = document.getElementById("price_item").value;
 //    var number_string = number.toString();
 //    var sisa = number_string.length % 3;
 //    var rupiah = number_string.substr(0, sisa);
@@ -2314,10 +2364,10 @@ function price_item_cek() {
 //        var separator = sisa ? '.' : '';
 //        rupiah += separator + ribuan.join('.');
 //    }
-    return  document.getElementById("price_item").value = number; //rupiah;
-}
+//    return  document.getElementById("price_item").value = number; //rupiah;
+//}
 
-function discount() {
+function discount() { // used
     var price = document.getElementById("unit_price_po").value;
     var qtty = document.getElementById("qtty_po").value;
     var pricedNew = price; //price.split('.').join("");
@@ -2338,7 +2388,6 @@ function discount() {
         nilai_akhir = pricedNew * 0;
     }
 
-//    
     var number_string = nilai_akhir.toString();
     var sisa = number_string.length % 3;
     var rupiah = number_string.substr(0, sisa);
@@ -2351,6 +2400,7 @@ function discount() {
     subTotal(number_string);
     return  document.getElementById("price_po").value = number_string;
 }
+
 function subTotal(Nrupiah) {
     var item_price = Nrupiah;
     var rupiah = 0;
@@ -2375,6 +2425,9 @@ function total(Ntotal) {
 //element_unit_price_po.onchange = discount;
 //element_qtty_po.onchange = discount; 
 
+
+
+//
 function add_input() {
 //mencari element dengan id "formku" (yaitu table)
     var target = document.getElementById("form_add_po");
