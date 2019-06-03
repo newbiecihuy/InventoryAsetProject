@@ -72,6 +72,11 @@ public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPur
     }
 
     @Override
+    public List<EntityProductPurchase> productPOlist(Long param) {
+        return em.createNamedQuery("EntityProductPurchase.findByProductPOlist").setParameter("purchaseId", param).getResultList();
+    }
+
+    @Override
     public int count() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

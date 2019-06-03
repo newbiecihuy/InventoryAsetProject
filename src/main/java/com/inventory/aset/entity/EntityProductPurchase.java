@@ -28,8 +28,8 @@ import javax.persistence.TemporalType;
 @Table(name = "tbl_product_purchase")
 @NamedQueries({
     @NamedQuery(name = "EntityProductPurchase.findAll", query = "SELECT c FROM EntityProductPurchase c")
-    ,
-    @NamedQuery(name = "EntityProductPurchase.findByidProductPurchase", query = "SELECT c FROM EntityProductPurchase c WHERE c.idProductPurchase = :idProductPurchase")
+    ,@NamedQuery(name = "EntityProductPurchase.findByidProductPurchase", query = "SELECT c FROM EntityProductPurchase c WHERE c.idProductPurchase = :idProductPurchase")
+    ,@NamedQuery(name = "EntityProductPurchase.findByProductPOlist", query = "SELECT c FROM EntityProductPurchase c WHERE c.purchaseId.purchaseId = :purchaseId")
 })
 public class EntityProductPurchase implements Serializable {
 
@@ -55,7 +55,7 @@ public class EntityProductPurchase implements Serializable {
     private int qtty;
 
     @Column(name = "price")
-    private int price=0;
+    private int price = 0;
 
     @Column(name = "total_product_purchase")
     private int totalProductPurchase;
@@ -80,7 +80,7 @@ public class EntityProductPurchase implements Serializable {
 
     @Column(name = "disconto")
     private Integer disconto;
-    
+
     @Column(name = "tax_status")
     private Integer tax_status;
 //    @Column(name = "tax_status")
@@ -250,7 +250,6 @@ public class EntityProductPurchase implements Serializable {
         this.updateTime = updateTime;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;

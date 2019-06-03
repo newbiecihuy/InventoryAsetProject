@@ -81,12 +81,16 @@
         <script type="text/javascript" src="vendor/js/hideshow.js" ></script>
         <script type="text/javascript" src="vendor/js/jquery.tablesorter.min.js"></script>
         <script type="text/javascript" src="vendor/js/jquery.equalHeight.js"></script>
-        <script type="text/javascript" src="vendor/js/validation.js"></script>
+        <!--        <script type="text/javascript" src="vendor/js/validation.js"></script>-->
+        <script type="text/javascript" src="vendor/js/validation_2.js"></script>
         <script type="text/javascript" src="vendor/js/contextMenu.js"></script>
         <script type="text/javascript" src="vendor/js/jquery.steps.js"></script>
         <script type="text/javascript" src="vendor/js/clock.js"></script>
         <script type="text/javascript" src="vendor/js/sha256.js"></script>
         <script type="text/javascript" src="vendor/js/md5.js"></script>
+        <!--         jquery confirm v3.3.2
+                <link rel="stylesheet" href="vendor/jquery_confirm_v_3_2_2/jquery-confirm.min.css">
+                <script src="vendor/jquery_confirm_v_3_2_2/jquery-confirm.min.js"></script>-->
         <!--<script type="text/javascript" src="vendor/js/crypto_js_v3.1.2/aes.js"></script>-->
         <!--        <script type="text/javascript">
                     if (!('console' in window) || !('firebug' in console)) {

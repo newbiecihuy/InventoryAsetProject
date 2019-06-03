@@ -159,7 +159,7 @@
                                             <a href="index.jsp?url=purcahase_layout&pages=form_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> add Sales</a>
                                         </li>-->
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=sales_layout&pages=add_sales" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span>Sales</a>
+                        <a href="index.jsp?url=sales_layout&pages=grid_add_sales" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i></span>View Sales Order</a>
                     </li> 
                     <!--                    <li>
                                             <a href="index.jsp?url=purcahase_layout&pages=list_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:red"></i> List PO</a>

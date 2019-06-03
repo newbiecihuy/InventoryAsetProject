@@ -19,4 +19,7 @@
 <script src="dist/js/sha256.js"></script>
 <script src="vendor/js/validation_footer.js"></script>
 <!--<script src="dist/js/menu.js"></script>-->
+<!-- jquery confirm v3.3.2
+<link rel="stylesheet" href="vendor/jquery_confirm_v_3_2_2/jquery-confirm.min.css">
+<script src="vendor/jquery_confirm_v_3_2_2/jquery-confirm.min.js"></script>-->
 

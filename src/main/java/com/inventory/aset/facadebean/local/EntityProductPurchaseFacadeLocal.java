@@ -34,6 +34,8 @@ public interface EntityProductPurchaseFacadeLocal {
 
     EntityProductPurchase find(Object paramObject);
 
+    List<EntityProductPurchase> productPOlist(Long param);
+
     int count();
 
 }

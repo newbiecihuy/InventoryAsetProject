@@ -109,6 +109,10 @@
         <servlet-name>LoginAuthentication</servlet-name>
         <servlet-class>com.inventory.aset.util.LoginAuthentication</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AutoCompleteProductByStock</servlet-name>
+        <servlet-class>com.inventory.aset.controller.autoComplete.AutoCompleteProductByStock</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/userServlet</url-pattern>
@@ -208,6 +212,10 @@
     <servlet-mapping>
         <servlet-name>LoginAuthentication</servlet-name>
         <url-pattern>/loginAuthentication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AutoCompleteProductByStock</servlet-name>
+        <url-pattern>/autoCompleteProductByStock</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

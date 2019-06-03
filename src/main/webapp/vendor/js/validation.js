@@ -1693,25 +1693,63 @@ function editCategoriesFunc(data_categories) {//, supplier_name, supplier_code, 
 
 function addPoItemFunc(data_form_po) {
     var tax_po_val = "";
-    if (data_form_po.supplier_tax === "1") {
-        if (confirm("This Supplier Have Tax PPN, You want Activated for this tractions ? \n\n") === true) {
-//            $("#tax_po").val("true");
-//            document.getElementById("tax_po").value = "true";
-            tax_po_val = "1";
-        } else {
-//            $("#tax_po").val("false");
-//            document.getElementById("tax_po").value = "false";
-            tax_po_val = "0";
-//            return false;
-
-        }
-    }
-    var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id)
-            + "&tax_item_po=" + escape(data_form_po.supplier_tax) + "&tax_po_val=" + escape(tax_po_val);
-
-    window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + myParam; // decodeURI(myParam)
-
+    var message = "This Supplier Have Tax PPN, You want Activated for this tractions ? ";
+//    if (data_form_po.supplier_tax === "1") {
+//        if (confirm("This Supplier Have Tax PPN, You want Activated for this tractions ? \n\n") === true) {
+//
+//            tax_po_val = "1";
+//        } else {
+//            tax_po_val = "0";
+//
+//        }
+//    }
+//var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id)
+//            + "&tax_item_po=" + escape(data_form_po.supplier_tax) + "&tax_po_val=" + escape(tax_po_val);
+//    window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + myParam; // decodeURI(myParam)
+    $('<div></div>').appendTo('body')
+            .html('<div><h5>' + message + '?</h5></div>')
+            .dialog({
+                modal: true,
+                title: '',
+                zIndex: 10000,
+                autoOpen: true,
+                width: 'auto',
+                resizable: false,
+                show: "blind",
+                class: "modaloverlay",
+                hide: "explode",
+                buttons: [{
+                        text: 'Yes',
+                        class: 'btn btn-primary',
+                        id: "btn_yes",
+                        click: function () {
+                            tax_po_val = "1";
+//                        $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+                            var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id)
+                                    + "&tax_item_po=" + escape(data_form_po.supplier_tax) + "&tax_po_val=" + escape(tax_po_val);
+                            window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + myParam; // decodeURI(myParam)
+                            $(this).dialog("close");
+                        }
+                    }, {
+                        text: 'No',
+                        class: 'btn btn-default',
+                        id: "btn_no",
+                        click: function () {
+                            tax_po_val = "0";
+//                        $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+                            var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id)
+                                    + "&tax_item_po=" + escape(data_form_po.supplier_tax) + "&tax_po_val=" + escape(tax_po_val);
+                            window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + myParam; // decodeURI(myParam)
+                            $(this).dialog("close");
+                        }
+                    }],
+                close: function (event, ui) {
+                    tax_po_val = "0";
+                    $(this).remove();
+                }
+            });
 }
+
 function listPoItemFunc(data_form_po) {
 //    alert(data_form_po.purchase_id);
     var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id);
@@ -2198,7 +2236,8 @@ function add_row() {
         row.appendChild(td8);
         td1.appendChild(e_item_name);
         e_item_name.id = "item_name_po_" + k;
-        e_item_name.setAttribute("onchange", item_supEmpty_);
+//        e_item_name.setAttribute("onchange", item_supEmpty_);
+//        e_item_name.onblur = item_supEmpty_();
         td2.appendChild(e_qtty_po);
         e_qtty_po.id = "qtty_po_" + k;
         td3.appendChild(e_unit_item_po);
@@ -2232,6 +2271,7 @@ function add_row() {
                                     value: code[0],
                                     data: item
                                 };
+
                             }));
                         }
                     });
@@ -2242,19 +2282,24 @@ function add_row() {
                 select: function (event, ui) {
 //                var output = ui.item.data.split("|");
 //                $('#item_name_po').val(output[1]);
+
                 },
                 delay: 300
             }).autocomplete("option", "appendTo", "#form_create_po");
+            e_item_name.onblur = item_supEmpty_();
         });
         /* */
         function item_supEmpty_() {
-            var idSupplier = document.getElementById("supplier_id_form_create_po").value;
-            var item_name_po = document.getElementById("item_name_po_" + k).value;
+//            var idSupplier = document.getElementById("supplier_id_form_create_po").value;
+//            var item_name_po = document.getElementById("item_name_po_" + k).value;
+            var idSupplier = $('#supplier_id_form_create_po').val();
+            var item_name_po = $('#item_name_po_' + k).val();
+            alert("item_name_po" + item_name_po + "idSupplier" + idSupplier);
             var dataString = {
                 idSupplier: idSupplier,
                 item_name_po: item_name_po
             };
-            alert("item_supEmpty_" + dataString);
+//            alert("item_supEmpty_" + dataString.idSupplier + ":" + dataString.item_name_po);
             $.ajax({
                 type: "POST",
                 url: createDynamicURL() + "/getItemSupplierServlet", //

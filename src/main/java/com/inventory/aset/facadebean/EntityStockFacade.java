@@ -83,6 +83,11 @@ public class EntityStockFacade extends AbstractFacade<EntityStock> implements En
     }
 
     @Override
+    public List<EntityStock> findProductByStock(String  param) {
+        return em.createNamedQuery("EntityStock.findProductByStock").setParameter("productName", param).getResultList();
+    }
+
+    @Override
     public int count() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

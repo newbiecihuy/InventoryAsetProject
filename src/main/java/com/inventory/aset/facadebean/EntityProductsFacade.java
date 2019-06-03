@@ -94,6 +94,8 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
     public List<EntityProducts> findByProductName(String paramString) {
         return em.createQuery("SELECT Distinct ep.productName  FROM EntityProducts ep WHERE ep.productName LIKE \"" + paramString + "%\" ").getResultList();
     }
+    
+    
 
     @Override
     public List<EntityProducts> findByProductCode(String paramString) {

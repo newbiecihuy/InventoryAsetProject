@@ -5,9 +5,11 @@
  */
 package com.inventory.aset.controller;
 
+import com.inventory.aset.entity.EntityProductPurchase;
 import com.inventory.aset.entity.EntityPurchases;
 import com.inventory.aset.entity.EntitySuppliers;
 import com.inventory.aset.entity.EntityTypePO;
+import com.inventory.aset.facadebean.local.EntityProductPurchaseFacadeLocal;
 import com.inventory.aset.util.EncryptionUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,11 +43,13 @@ public class CreatePOServlet extends HttpServlet {
 
     }
     @EJB
-    EntityPurchasesFacadeLocal entityPurchasesDao;
+    EntityPurchasesFacadeLocal entityPurchasesFacadeLocal;
     @EJB
-    EntitySuppliersFacadeLocal entitySuppliersDao;
+    EntityProductPurchaseFacadeLocal entityProductPurchaseFacadeLocal;
     @EJB
-    EntityTypePOFacadeLocal entityTypePODao;
+    EntitySuppliersFacadeLocal entitySuppliersFacadeLocal;
+    @EJB
+    EntityTypePOFacadeLocal entityTypePOFacadeLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -120,7 +124,7 @@ public class CreatePOServlet extends HttpServlet {
             Date tanggalMasuk = null;
             Date tanggalGaransi = null;
             JSONArray jsonArray = new JSONArray();
-            List<EntityPurchases> poList = entityPurchasesDao.getAllPurchases(Integer.parseInt(length));
+            List<EntityPurchases> poList = entityPurchasesFacadeLocal.getAllPurchases(Integer.parseInt(length));
             if (Integer.parseInt(length) <= poList.size()) {
                 totalCount = poList.size();
                 if (totalCount > 0) {
@@ -232,7 +236,14 @@ public class CreatePOServlet extends HttpServlet {
                     if (dataPO.getStatusPo() == null) {
                         obj.put("status_po", "");
                     } else {
-                        obj.put("status_po", EncryptionUtil.upperCaseFirst(dataPO.getStatusPo()));
+                        List<EntityProductPurchase> itemPurchaseList = entityProductPurchaseFacadeLocal.productPOlist(dataPO.getPurchaseId());
+                        System.out.println("itemPurchaseList == " + itemPurchaseList);
+                        if (itemPurchaseList.isEmpty()) {
+                            System.out.println("itemPurchaseList == " + null);
+                            obj.put("status_po", "No Item");
+                        } else {
+                            obj.put("status_po", EncryptionUtil.upperCaseFirst(dataPO.getStatusPo()));
+                        }
                     }
                     if (dataPO.getPic() == null) {
                         obj.put("pic", "");
@@ -262,7 +273,7 @@ public class CreatePOServlet extends HttpServlet {
                         obj.put("approve_by", EncryptionUtil.upperCaseFirst(dataPO.getAppproveBy()));
                     }
 
-                    EntityPurchases dataPurchases = entityPurchasesDao.getPurchases(dataPO.getPurchaseId());
+                    EntityPurchases dataPurchases = entityPurchasesFacadeLocal.getPurchases(dataPO.getPurchaseId());
                     if (dataPurchases != null) {
                         int nilai = 0;
                         String PONumber = null;
@@ -462,10 +473,10 @@ public class CreatePOServlet extends HttpServlet {
                         tax_po = "";
                     }
 
-                    List<EntityTypePO> cekTypePO = entityTypePODao.getByTypePO(po_type.toLowerCase());
+                    List<EntityTypePO> cekTypePO = entityTypePOFacadeLocal.getByTypePO(po_type.toLowerCase());
                     System.out.println("isi cekTypePO" + cekTypePO);
                     if (cekTypePO.size() > 0) {
-                        dataTypePO = entityTypePODao.getTypePO(cekTypePO.get(0).getTypePOId());
+                        dataTypePO = entityTypePOFacadeLocal.getTypePO(cekTypePO.get(0).getTypePOId());
                         dataPurchases.setTypePOId(dataTypePO);
                     } else {
                         dataTypePO.setTypePo(po_type.toLowerCase());
@@ -474,14 +485,14 @@ public class CreatePOServlet extends HttpServlet {
                         dataTypePO.setInputTime(time_now);
                         dataTypePO.setPic(("PIC").toLowerCase());
 
-                        entityTypePODao.createTypePO(dataTypePO);
+                        entityTypePOFacadeLocal.createTypePO(dataTypePO);
                         dataPurchases.setTypePOId(dataTypePO);
                     }
 
-                    List<EntitySuppliers> cekSuplierName = entitySuppliersDao.getSupplierName(supplier_name.toLowerCase());
+                    List<EntitySuppliers> cekSuplierName = entitySuppliersFacadeLocal.getSupplierName(supplier_name.toLowerCase());
                     System.out.println("isi cekSuplierName" + cekSuplierName);
                     if (cekSuplierName.size() > 0) {
-                        dataSupplier = entitySuppliersDao.getSuppliers(cekSuplierName.get(0).getSupplierId());
+                        dataSupplier = entitySuppliersFacadeLocal.getSuppliers(cekSuplierName.get(0).getSupplierId());
                         dataPurchases.setSupplierId(dataSupplier);
                     }
                     dataPurchases.setPic(("PIC").toLowerCase());
@@ -517,7 +528,7 @@ public class CreatePOServlet extends HttpServlet {
 //                        int nilai = i + 1;
                     if (monthCompare.equals(noPo) && yearCompare.equals(year)) {
                         System.out.println("equals");
-                        List<EntityPurchases> getNopo = entityPurchasesDao.findByNoPo(now, time_now);
+                        List<EntityPurchases> getNopo = entityPurchasesFacadeLocal.findByNoPo(now, time_now);
                         nilai = getNopo.get(0).getNoPo().intValue() + 1;
                         System.out.println("equals nilai" + nilai);
                         PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
@@ -530,14 +541,14 @@ public class CreatePOServlet extends HttpServlet {
                         dataPurchases.setPurchaseCode(PONumber);
                         dataPurchases.setNoPo(Long.valueOf(nilai));
                     }
-                    entityPurchasesDao.createPurchases(dataPurchases);
+                    entityPurchasesFacadeLocal.createPurchases(dataPurchases);
                     code = "1";
                     msg = "Has been Recorded";
                     System.out.println("isi c" + dataPurchases);
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
-                    dataPurchases = entityPurchasesDao.getPurchases(purchase_id);
+                    dataPurchases = entityPurchasesFacadeLocal.getPurchases(purchase_id);
 
-                    entitySuppliersDao.getSuppliers(supplier_id);
+                    entitySuppliersFacadeLocal.getSuppliers(supplier_id);
                     if (!object.getString("supplier_name_po").isEmpty()) {
                         supplier_name = object.getString("supplier_name_po");
                     } else {
@@ -611,10 +622,10 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         tax_po = "";
                     }
-                    List<EntityTypePO> cekTypePO = entityTypePODao.getByTypePO(po_type.toLowerCase());
+                    List<EntityTypePO> cekTypePO = entityTypePOFacadeLocal.getByTypePO(po_type.toLowerCase());
                     System.out.println("isi cekTypePO" + cekTypePO);
                     if (cekTypePO.size() > 0) {
-                        dataTypePO = entityTypePODao.getTypePO(cekTypePO.get(0).getTypePOId());
+                        dataTypePO = entityTypePOFacadeLocal.getTypePO(cekTypePO.get(0).getTypePOId());
                         dataPurchases.setTypePOId(dataTypePO);
                     } else {
                         dataTypePO.setTypePo(po_type.toLowerCase());
@@ -623,14 +634,14 @@ public class CreatePOServlet extends HttpServlet {
                         dataTypePO.setInputTime(time_now);
                         dataTypePO.setPic(("PIC").toLowerCase());
 
-                        entityTypePODao.createTypePO(dataTypePO);
+                        entityTypePOFacadeLocal.createTypePO(dataTypePO);
                         dataPurchases.setTypePOId(dataTypePO);
                     }
 
-                    List<EntitySuppliers> cekSuplierName = entitySuppliersDao.getSupplierName(supplier_name.toLowerCase());
+                    List<EntitySuppliers> cekSuplierName = entitySuppliersFacadeLocal.getSupplierName(supplier_name.toLowerCase());
                     System.out.println("isi cekSuplierName" + cekSuplierName);
                     if (cekSuplierName.size() > 0) {
-                        dataSupplier = entitySuppliersDao.getSuppliers(cekSuplierName.get(0).getSupplierId());
+                        dataSupplier = entitySuppliersFacadeLocal.getSuppliers(cekSuplierName.get(0).getSupplierId());
                         dataPurchases.setSupplierId(dataSupplier);
                     }
                     dataPurchases.setPic(("PIC").toLowerCase());
@@ -665,27 +676,27 @@ public class CreatePOServlet extends HttpServlet {
                         dataPurchases.setPurchaseCode(PONumber);
                     }
 
-                    entityPurchasesDao.updatePurchases(dataPurchases);
+                    entityPurchasesFacadeLocal.updatePurchases(dataPurchases);
                     System.out.println("isi e" + dataPurchases);
                     code = "2";
                     msg = "Has been Updated";
                 } else if (action_edit.equalsIgnoreCase("Approve")) {
-                    dataPurchases = entityPurchasesDao.getPurchases(purchase_id);
+                    dataPurchases = entityPurchasesFacadeLocal.getPurchases(purchase_id);
                     dataPurchases.setIsApprove(1);
                     dataPurchases.setAppproveBy("Pak Yos");
                     dataPurchases.setDateEdit(now);
                     dataPurchases.setTimeEdit(time_now);
-                    entityPurchasesDao.updatePurchases(dataPurchases);
+                    entityPurchasesFacadeLocal.updatePurchases(dataPurchases);
                     System.out.println("isi a" + dataPurchases);
                     code = "3";
                     msg = "Approved";
                 } else if (action_edit.equalsIgnoreCase("DELETE")) {
-                    dataPurchases = entityPurchasesDao.getPurchases(purchase_id);
+                    dataPurchases = entityPurchasesFacadeLocal.getPurchases(purchase_id);
                     dataPurchases.setIsDelete(false);
                     dataPurchases.setPic("PIC");
                     dataPurchases.setDateEdit(now);
                     dataPurchases.setTimeEdit(time_now);
-                    entityPurchasesDao.updatePurchases(dataPurchases);
+                    entityPurchasesFacadeLocal.updatePurchases(dataPurchases);
                     System.out.println("isi d" + dataPurchases);
                     code = "4";
                     msg = "Has been Deleted";

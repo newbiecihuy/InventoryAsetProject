@@ -5,7 +5,6 @@
  */
 package com.inventory.aset.entity;
 
-import com.inventory.aset.entity.users.EntityUsers;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -19,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,9 +29,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_stock")
 @NamedQueries({
-    @NamedQuery(name = "EntityStock.findAll", query = "SELECT p FROM EntityStock p")
-    ,
-    @NamedQuery(name = "EntityStock.findByIdStock", query = "SELECT p FROM EntityStock p WHERE p.idStock = :idStock"),})
+    @NamedQuery(name =  "EntityStock.findAll", query = "SELECT p FROM EntityStock p")
+    ,@NamedQuery(name = "EntityStock.findByIdStock", query = "SELECT p FROM EntityStock p WHERE p.idStock = :idStock")
+    ,@NamedQuery(name = "EntityStock.findProductByStock", query = "SELECT p FROM EntityStock p WHERE p.idProduct.productName = :productName")
+})
 public class EntityStock implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,9 +52,9 @@ public class EntityStock implements Serializable {
 
     @Column(name = "price")
     private int price;
-    
+
     @Column(name = "sell_price")
-    private String sellPrice="0";
+    private String sellPrice = "0";
 
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
@@ -155,8 +154,6 @@ public class EntityStock implements Serializable {
     public void setSellPrice(String sellPrice) {
         this.sellPrice = sellPrice;
     }
-
-   
 
     public Date getDate() {
         return date;
