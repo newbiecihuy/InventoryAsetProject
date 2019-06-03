@@ -75,17 +75,17 @@
                             </tbody>
                         </table>
                     </form>
-                    <div id="contextMenu" class="dropdown clearfix">
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
-                            <li><a tabindex="0" href="#" class="glyphicon glyphicon-remove-sign"></a></li>
-                            <li class="divider"></li>
-                            <li><a tabindex="0" href="#"  id="upload_users_details" name="upload_users_details" onclick="myFunctionUploadDataUser()">UPLOAD DATA</a></li>
-                            <li><a tabindex="0" href="#"  id="edit_users_details" name="edit_users_details">EDIT</a></li>
-                            <!--<li><a tabindex="0" href="#"  onclick="myFunction_report_excel_details()">Report Excel</a></li>-->
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div id="contextMenu" class="dropdown clearfix">
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+            <li><a tabindex="0" href="#" class="glyphicon glyphicon-remove-sign"></a></li>
+            <li class="divider"></li>
+            <li><a tabindex="0" href="#"  id="upload_users_details" name="upload_users_details" onclick="myFunctionUploadDataUser()">UPLOAD DATA</a></li>
+            <li><a tabindex="0" href="#"  id="edit_users_details" name="edit_users_details">EDIT</a></li>
+            <!--<li><a tabindex="0" href="#"  onclick="myFunction_report_excel_details()">Report Excel</a></li>-->
+        </ul>
     </div>
 </body>

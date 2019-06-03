@@ -28,20 +28,7 @@
                     <div class="clearfix"></div>  
                 </div>
                 <div class="table-responsive">    
-                    <!--                        <div id="introducerGrid_wrapper" class="dataTables_wrapper no-footer">
-                                                <div class="dataTables_length" id="introducerGrid_length"><label>Show 
-                                                        <select name="introducerGrid_length" aria-controls="introducerGrid" class="">
-                                                            <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100
-                                                            </option></select> entries</label></div>
-                                                <form>
-                                                    <table cellpadding="0" cellspacing="0" class="table">
-                                                        <div class="control-group">
-                                                            <td class="controls">
-                    
-                                                            </td>
-                                                        </div>
-                                                    </table>
-                                                </form>-->
+
                     <form  name="tbl_grid_supplier" id="tbl_grid_supplier" class="display" >
                         <table name="grid_supplier" id="grid_supplier" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
                             <thead>
@@ -60,36 +47,22 @@
 
                                 </tr>
                             </thead>
-                            <!--                                    <tfoot>
-                                                                    <tr>
-                                                                        <th>..</th>
-                                                                        <th>Id</th>
-                                                                        <th>Date Register</th>
-                                                                        <th>User Name</th>
-                                                                        <th>Gender</th>    
-                                                                        <th>IMEI</th>               
-                                                                        <th>Role Name</th>
-                                                                        <th>E-MAIL</th>                    
-                                                                        <th>Status</th>                    
-                                                                        <th>Last Login</th>
-                                                                        <th>--</th>
-                                                                        <th>--</th>
-                                                                    </tr>
-                                                                </tfoot>-->
+
                             <tbody>
                             </tbody>
                         </table>
                     </form>
-                    <div id="contextMenu" class="dropdown clearfix">
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
-                            <li><a tabindex="0" href="#" class="glyphicon glyphicon-remove-sign"></a></li>
-                            <li class="divider"></li>
-                            <li><a tabindex="0" href="#"  id="approve_supp" name="approve_supp" onclick="myFunctionUploadDataUser()">Approve</a></li>
-                            <li><a tabindex="0" href="#"  id="rejcet_supp" name="rejcet_supp">Reject</a></li>
-                        </ul>
-                    </div>
+
                 </div>
             </div>
         </div>
+    </div>
+    <div id="contextMenu" class="dropdown clearfix">
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+            <li><a tabindex="0" href="#" class="glyphicon glyphicon-remove-sign"></a></li>
+            <li class="divider"></li>
+            <li><a tabindex="0" href="#"  id="approve_supp" name="approve_supp" onclick="myFunctionUploadDataUser()">Approve</a></li>
+            <li><a tabindex="0" href="#"  id="rejcet_supp" name="rejcet_supp">Reject</a></li>
+        </ul>
     </div>
 </body>

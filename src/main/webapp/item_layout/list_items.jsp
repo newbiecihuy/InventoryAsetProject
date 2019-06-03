@@ -88,16 +88,16 @@
                             </tbody>
                         </table>
                     </form>
-                    <div id="contextMenu" class="dropdown clearfix">
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
-                            <li><a tabindex="0" href="#" class="glyphicon glyphicon-remove-sign"></a></li>
-                            <li class="divider"></li>
-                            <li><a tabindex="0" href="#"  id="approve_supp" name="approve_item" onclick="myFunctionUploadDataUser()">Approve</a></li>
-                            <li><a tabindex="0" href="#"  id="rejcet_supp" name="rejcet_item">Reject</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div id="contextMenu" class="dropdown clearfix">
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+            <li><a tabindex="0" href="#" class="glyphicon glyphicon-remove-sign"></a></li>
+            <li class="divider"></li>
+            <li><a tabindex="0" href="#"  id="approve_supp" name="approve_item" onclick="myFunctionUploadDataUser()">Approve</a></li>
+            <li><a tabindex="0" href="#"  id="rejcet_supp" name="rejcet_item">Reject</a></li>
+        </ul>
     </div>
 </body>
