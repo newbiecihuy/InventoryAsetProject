@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div id="contextMenu" class="dropdown clearfix">
+    <div id="contextMenu" class="dropdown clearfix"  for="grid_form_po">
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
             <li><a tabindex="0" href="#" class="glyphicon glyphicon-remove-sign"></a></li>
             <li class="divider"></li>

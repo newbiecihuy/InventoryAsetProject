@@ -81,8 +81,8 @@
         <script type="text/javascript" src="vendor/js/hideshow.js" ></script>
         <script type="text/javascript" src="vendor/js/jquery.tablesorter.min.js"></script>
         <script type="text/javascript" src="vendor/js/jquery.equalHeight.js"></script>
-        <!--        <script type="text/javascript" src="vendor/js/validation.js"></script>-->
-        <script type="text/javascript" src="vendor/js/validation_2.js"></script>
+                <script type="text/javascript" src="vendor/js/validation.js"></script>
+        <!--<script type="text/javascript" src="vendor/js/validation_2.js"></script>-->
         <script type="text/javascript" src="vendor/js/contextMenu.js"></script>
         <script type="text/javascript" src="vendor/js/jquery.steps.js"></script>
         <script type="text/javascript" src="vendor/js/clock.js"></script>

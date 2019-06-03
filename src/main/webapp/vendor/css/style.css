@@ -35,8 +35,12 @@ textarea {
 .font-log{color: #ffffff; }
 .font-header{color: #ffffff !important; font-weight: bold; 22px;}
 #contextMenu {
+    content: "some CSS title";
     position: absolute;
     display:none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
 }
 #clock {
     margin: 20px auto;
@@ -149,25 +153,25 @@ button:hover {
   https://codepen.io/Mestika/pres/XmvVmx
 */
 .spinner {
-  display: inline-block;
-  opacity: 0;
-  max-width: 0;
-  -webkit-transition: opacity 0.25s, max-width 0.45s;
-  -moz-transition: opacity 0.25s, max-width 0.45s;
-  -o-transition: opacity 0.25s, max-width 0.45s;
-  transition: opacity 0.25s, max-width 0.45s;
- 
-  /* Duration fixed since we animate additional hidden width */
+    display: inline-block;
+    opacity: 0;
+    max-width: 0;
+    -webkit-transition: opacity 0.25s, max-width 0.45s;
+    -moz-transition: opacity 0.25s, max-width 0.45s;
+    -o-transition: opacity 0.25s, max-width 0.45s;
+    transition: opacity 0.25s, max-width 0.45s;
+
+    /* Duration fixed since we animate additional hidden width */
 }
 
 .has-spinner.active {
-  cursor: progress;
- 
+    cursor: progress;
+
 }
 
 .has-spinner.active .spinner {
-  opacity: 1;
-  max-width: 50px;
-   color: red;
-  /* More than it will ever come, notice that this affects on animation duration */
+    opacity: 1;
+    max-width: 50px;
+    color: red;
+    /* More than it will ever come, notice that this affects on animation duration */
 }

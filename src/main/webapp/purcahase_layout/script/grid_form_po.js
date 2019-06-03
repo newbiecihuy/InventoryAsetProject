@@ -381,3 +381,9 @@ $(document).ready(function () {
 //        }
 //    })
 //}
+//$(function () {
+//    $('body').on('contextmenu', 'tr', function (e) {
+//        e.preventDefault();
+//        alert(this.id);
+//    });
+//});
