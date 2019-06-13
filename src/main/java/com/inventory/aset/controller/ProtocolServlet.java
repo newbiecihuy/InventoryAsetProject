@@ -72,7 +72,7 @@ public class ProtocolServlet extends HttpServlet {
             String tgl = sdf.format(now);
             
             String searchField = request.getParameter("searchField");
-            String searchString = request.getParameter("searchString");
+            String searchString = request.getParameter("search[value]"); 
             System.out.println("isi searchField: " + searchField);
             System.out.println("isi searchString: " + searchString);
             String status = request.getParameter("status");
