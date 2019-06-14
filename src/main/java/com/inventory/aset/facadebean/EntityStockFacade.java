@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityStockFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -58,9 +59,9 @@ public class EntityStockFacade extends AbstractFacade<EntityStock> implements En
     }
 
     @Override
-    public List<EntityStock> getAllStock(int max) {
+    public List<EntityStock> getAllStock(int max, int start) {
 //        return em.createNamedQuery("EntityStock.findAll").getResultList();
-        return em.createQuery("SELECT p FROM EntityStock p").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT p FROM EntityStock p").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
@@ -83,13 +84,14 @@ public class EntityStockFacade extends AbstractFacade<EntityStock> implements En
     }
 
     @Override
-    public List<EntityStock> findProductByStock(String  param) {
+    public List<EntityStock> findProductByStock(String param) {
         return em.createNamedQuery("EntityStock.findProductByStock").setParameter("productName", param).getResultList();
     }
 
     @Override
     public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query queryMax = em.createQuery("SELECT COUNT(ep) FROM EntityStock ep");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }

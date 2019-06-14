@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -57,9 +58,9 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     }
 
     @Override
-    public List<EntitySuppliers> getAllSuppliers(int max) {
+    public List<EntitySuppliers> getAllSuppliers(int max, int start) {
 //        return em.createNamedQuery("EntitySuppliers.findAll").getResultList();
-        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
@@ -101,7 +102,8 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 
     @Override
     public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          Query queryMax = em.createQuery("SELECT COUNT(es) FROM EntitySuppliers es");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }

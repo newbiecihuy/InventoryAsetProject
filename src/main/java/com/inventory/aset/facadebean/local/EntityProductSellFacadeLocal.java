@@ -26,7 +26,7 @@ public interface EntityProductSellFacadeLocal {
 
     EntityProductSell getProductSell(long idProductSell);
 
-    List<EntityProductSell> getAllProductSell();
+    List<EntityProductSell> getAllProductSell(int max,int start);
 
 //    List<EntityProductSell> getSellId(Object sellId);
 

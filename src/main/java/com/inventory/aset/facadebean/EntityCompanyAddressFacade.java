@@ -57,9 +57,9 @@ public class EntityCompanyAddressFacade extends AbstractFacade<EntityCompanyAddr
     }
 
     @Override
-    public List<EntityCompanyAddress> getAllCompanyAddress(int max) {
+    public List<EntityCompanyAddress> getAllCompanyAddress(int max,int start) {
 //        return em.createNamedQuery("EntityCompanyAddress.findAll").getResultList();
-        return em.createQuery("SELECT c FROM EntityCompanyAddress c ").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT c FROM EntityCompanyAddress c ").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override

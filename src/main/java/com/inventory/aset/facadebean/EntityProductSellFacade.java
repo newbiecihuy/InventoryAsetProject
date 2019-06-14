@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityProductSellFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -57,8 +58,8 @@ public class EntityProductSellFacade extends AbstractFacade<EntityProductSell> i
     }
 
     @Override
-    public List<EntityProductSell> getAllProductSell() {
-        return em.createNamedQuery("EntityProductSell.findAll").getResultList();
+    public List<EntityProductSell> getAllProductSell(int max,int start) {
+        return em.createNamedQuery("EntityProductSell.findAll").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
 //    @Override
@@ -72,7 +73,8 @@ public class EntityProductSellFacade extends AbstractFacade<EntityProductSell> i
 
     @Override
     public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Query queryMax = em.createQuery("SELECT COUNT(s) FROM EntityProductSell s");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }

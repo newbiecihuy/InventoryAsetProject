@@ -27,7 +27,7 @@ public interface EntityStockFacadeLocal {
 
     EntityStock getStock(long idStock);
 
-    List<EntityStock> getAllStock(int max);
+    List<EntityStock> getAllStock(int max, int start);
 
     List<EntityStock> getStock(int stock);
 

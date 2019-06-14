@@ -57,8 +57,8 @@ public class EntityCurrencyFacade extends AbstractFacade<EntityCurrency> impleme
     }
 
     @Override
-    public List<EntityCurrency> getAllCurrencies() {
-        return em.createNamedQuery("EntityCurrency.findAll").getResultList();
+    public List<EntityCurrency> getAllCurrencies(int max, int start) {
+        return em.createNamedQuery("EntityCurrency.findAll").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override

@@ -26,7 +26,7 @@ public interface EntityCurrencyFacadeLocal {
 
     EntityCurrency getCurrenciess(long paramLong);
 
-    List<EntityCurrency> getAllCurrencies();
+    List<EntityCurrency> getAllCurrencies(int max, int start);
 
     List<EntityCurrency> getCurrencyRate(String paramString);
 

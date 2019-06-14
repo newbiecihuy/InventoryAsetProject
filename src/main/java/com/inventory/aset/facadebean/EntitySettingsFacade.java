@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntitySettingsFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -57,9 +58,9 @@ public class EntitySettingsFacade extends AbstractFacade<EntitySettings> impleme
     }
 
     @Override
-    public List<EntitySettings> getAllSettings(int max) {
+    public List<EntitySettings> getAllSettings(int max, int start) {
 //        return em.createNamedQuery("EntitySettings.findAll").getResultList();
-        return em.createQuery("SELECT s FROM EntitySettings s").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT s FROM EntitySettings s").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
@@ -74,7 +75,8 @@ public class EntitySettingsFacade extends AbstractFacade<EntitySettings> impleme
 
     @Override
     public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query queryMax = em.createQuery("SELECT COUNT(s) FROM EntitySettings s");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }

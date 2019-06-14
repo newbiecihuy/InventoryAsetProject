@@ -26,7 +26,7 @@ public interface EntityUnitsFacadeLocal {
 
     EntityUnits getUnit(long unitId);
 
-    List<EntityUnits> getAllUnits(int max);
+    List<EntityUnits> getAllUnits(int max, int start);
 
     List<EntityUnits> getUnitName(String unitName);
 

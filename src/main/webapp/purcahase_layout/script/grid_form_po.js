@@ -18,7 +18,11 @@ $(document).ready(function () {
         select: true,
         scrollY: "240px",
         scrollCollapse: true,
+        aoColumnDefs:[
+            {bSortable:false, aTargets:["_all"]}
+        ],
         lengthMenu: [[100, 200, 300, 400, 500, -1], [100, 200, 300, 400, 500, "All"]],
+        pageLength:10,
         buttons: [
             'pageLength',
             {
@@ -39,8 +43,7 @@ $(document).ready(function () {
         },
         columns: [{
                 data: "no",
-                targets: "no",
-                bSortable: true
+                targets: "no"
             }, {
                 data: "purchase_id",
                 targets: "purchase_id",
@@ -256,7 +259,8 @@ $(document).ready(function () {
                     }
                 }
             }],
-        order: [[1, 'asc']]
+//        order: [[1, 'asc']]
+        asSorting: [[1, 'desc']]
     });
     tbl_grid_form_po.on('order.dt search.dt', function () {
         tbl_grid_form_po.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {

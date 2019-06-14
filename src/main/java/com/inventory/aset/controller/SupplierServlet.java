@@ -38,9 +38,9 @@ public class SupplierServlet extends HttpServlet {
     public SupplierServlet() {
     }
     @EJB
-    EntitySuppliersFacadeLocal entitySuppliersDao;
+    EntitySuppliersFacadeLocal entitySuppliersFacadeLocal;
     @EJB
-    EntitySettingsFacadeLocal entitySettingsDao;
+    EntitySettingsFacadeLocal entitySettingsFacadeLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -86,7 +86,7 @@ public class SupplierServlet extends HttpServlet {
             String tgl = sdf.format(now);
 
             String searchField = request.getParameter("searchField");
-            String searchString = request.getParameter("search[value]"); 
+            String searchString = request.getParameter("search[value]");
             System.out.println("isi searchField: " + searchField);
             System.out.println("isi searchString: " + searchString);
             String status = request.getParameter("status");
@@ -118,14 +118,16 @@ public class SupplierServlet extends HttpServlet {
 //            } else {
 //                totalPages = 0;
 //            }
+            int recordsFiltered = entitySuppliersFacadeLocal.count();
+            System.out.println("recordsFiltered " + recordsFiltered);
             Date d2 = sdf.parse(tgl);
             String relation = "";
             Date tanggalMasuk = null;
             Date tanggalGaransi = null;
 
             JSONArray jsonArray = new JSONArray();
-
-            List<EntitySuppliers> supplierList = entitySuppliersDao.getAllSuppliers(Integer.parseInt(length));
+            int no = Integer.parseInt(start) + 1;
+            List<EntitySuppliers> supplierList = entitySuppliersFacadeLocal.getAllSuppliers(Integer.parseInt(length), Integer.parseInt(start));
             if (Integer.parseInt(length) <= supplierList.size()) {
                 totalCount = supplierList.size();
                 if (totalCount > 0) {
@@ -151,7 +153,7 @@ public class SupplierServlet extends HttpServlet {
                         obj.put("action_supp", "");
                     } else {
                         obj.put("supplier_id", dataSuppliers.getSupplierId());
-                        obj.put("no", i + 1);
+                        obj.put("no", no++);
                         obj.put("action_supp", "");
                     }
                     if (dataSuppliers.getCreatedDate() == null) {
@@ -204,23 +206,24 @@ public class SupplierServlet extends HttpServlet {
 //                        } else {
 //                            obj.put("status_supp", dataSuppliers.getContactNum());
 //                        }
-                    List<EntitySettings> getSupllierCode = entitySettingsDao.findWithParamName("supplier_code");
+                    List<EntitySettings> getSupllierCode = entitySettingsFacadeLocal.findWithParamName("supplier_code");
                     if (getSupllierCode.size() > 0) {
-                        EntitySettings dataSetting = getSupllierCode.get(0);    
+                        EntitySettings dataSetting = getSupllierCode.get(0);
 
-                        EntitySuppliers updateData = entitySuppliersDao.getSuppliers(dataSuppliers.getSupplierId());
+                        EntitySuppliers updateData = entitySuppliersFacadeLocal.getSuppliers(dataSuppliers.getSupplierId());
                         updateData.setSupplierCode(dataSetting.getValue());
-                        entitySuppliersDao.updateSuppliers(updateData);
+                        entitySuppliersFacadeLocal.updateSuppliers(updateData);
                     }
 //                    }
                     jsonArray.add(obj);
                 }
             }
             JSONObject jsonobj = new JSONObject();
+            jsonobj.put("draw", request.getParameter("draw"));
             jsonobj.put("totalpages", totalPages);
             jsonobj.put("length", length);
             jsonobj.put("recordsTotal", supplierList.size());
-            jsonobj.put("recordsFiltered", supplierList.size());
+            jsonobj.put("recordsFiltered", recordsFiltered);
             jsonobj.put("rows", jsonArray);
             out.println(jsonobj);
 
@@ -323,7 +326,7 @@ public class SupplierServlet extends HttpServlet {
                     } else {
                         checkbox_value = "";
                     }
-                    List<EntitySuppliers> cekSupplierName = entitySuppliersDao.getSupplierName(supplier_name.toLowerCase());
+                    List<EntitySuppliers> cekSupplierName = entitySuppliersFacadeLocal.getSupplierName(supplier_name.toLowerCase());
                     System.out.println("isi cekSupplierName" + cekSupplierName);
                     if (cekSupplierName.size() > 0) {
                         code = "2";
@@ -335,7 +338,7 @@ public class SupplierServlet extends HttpServlet {
                         System.out.println(jsonobj.toString());
                         return;
                     }
-                    List<EntitySuppliers> cekSupplierCode = entitySuppliersDao.getSupplierCode(supplier_code.toLowerCase());
+                    List<EntitySuppliers> cekSupplierCode = entitySuppliersFacadeLocal.getSupplierCode(supplier_code.toLowerCase());
                     System.out.println("isi cekSupplierCode" + cekSupplierCode);
                     if (cekSupplierCode.size() > 0) {
                         code = "33";
@@ -362,12 +365,12 @@ public class SupplierServlet extends HttpServlet {
                     } else {
                         dataSupplier.setTax(false);
                     }
-                    entitySuppliersDao.createSuppliers(dataSupplier);
+                    entitySuppliersFacadeLocal.createSuppliers(dataSupplier);
 
                     code = "1";
                     msg = "Has been Recorded";
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
-                    dataSupplier = entitySuppliersDao.getSuppliers(supplier_id);
+                    dataSupplier = entitySuppliersFacadeLocal.getSuppliers(supplier_id);
                     if (!object.getString("supplier_name").isEmpty()) {
                         supplier_name = object.getString("supplier_name");
                     } else {
@@ -416,15 +419,15 @@ public class SupplierServlet extends HttpServlet {
                     } else {
                         dataSupplier.setTax(false);
                     }
-                    entitySuppliersDao.updateSuppliers(dataSupplier);
+                    entitySuppliersFacadeLocal.updateSuppliers(dataSupplier);
                     code = "3";
                     msg = "Has been Updated";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
-                    dataSupplier = entitySuppliersDao.getSuppliers(supplier_id);
+                    dataSupplier = entitySuppliersFacadeLocal.getSuppliers(supplier_id);
                     dataSupplier.setIsActive(0);
                     dataSupplier.setUpdatedDate(now);
                     dataSupplier.setUpdatedTime(time_now);
-                    entitySuppliersDao.deleteSuppliers(dataSupplier);
+                    entitySuppliersFacadeLocal.deleteSuppliers(dataSupplier);
                     code = "4";
                     msg = "Has been Deleted";
                 }

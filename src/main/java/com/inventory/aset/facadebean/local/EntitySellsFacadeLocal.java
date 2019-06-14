@@ -26,7 +26,7 @@ public interface EntitySellsFacadeLocal {
 
     EntitySells getSell(long sellId);
 
-    List<EntitySells> getAllSells(int max);
+    List<EntitySells> getAllSells(int max, int start);
 
 //    List<EntityProductSell> getSellId(Object sellId);
     EntitySells find(Object paramObject);

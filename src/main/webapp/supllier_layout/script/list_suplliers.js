@@ -172,7 +172,8 @@ $(document).ready(function () {
                     }
                 }
             }],
-        order: [[1, 'asc']]
+       //        order: [[1, 'asc']]
+        asSorting: [[1, 'desc']]
     });
     table_grid_supplier.on('order.dt search.dt', function () {
         table_grid_supplier.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {

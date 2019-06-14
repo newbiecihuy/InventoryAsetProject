@@ -26,7 +26,7 @@ public interface EntityCategoriesFacadeLocal {
 
     EntityCategories getCategories(long categoryId);
 
-    List<EntityCategories> getAllCategories(int max);
+    List<EntityCategories> getAllCategories(int max, int start);
 
     List<EntityCategories> getIdCategories(String paramString);
 
@@ -37,4 +37,5 @@ public interface EntityCategoriesFacadeLocal {
     EntityCategories find(Object paramObject);
 
     int count();
+
 }

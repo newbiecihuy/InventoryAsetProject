@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityPurchasesFacadeLocal;
 import java.util.Date;
+import javax.persistence.Query;
 
 /**
  *
@@ -56,17 +57,18 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
     public EntityPurchases getPurchases(long purchaseId) {
         return (EntityPurchases) em.find(EntityPurchases.class, purchaseId);
     }
+    
 
     @Override
-    public List<EntityPurchases> getAllPurchases(int max) {
+    public List<EntityPurchases> getAllPurchases(int max, int start) {
 //        return em.createNamedQuery("EntityPurchases.findAll").getResultList();
-        return em.createQuery("SELECT ep FROM EntityPurchases ep").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT ep FROM EntityPurchases ep").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
-    @Override
-    public List<EntityPurchases> getAllDataPurchases(int max) {
-        return em.createNamedQuery("EntityPurchases.findAll").getResultList();
-    }
+//    @Override
+//    public List<EntityPurchases> getAllDataPurchases(int max) {
+//        return em.createNamedQuery("EntityPurchases.findAll").setMaxResults(max).getResultList();
+//    }
 
     @Override
     public EntityPurchases find(Object purchaseId) {
@@ -108,7 +110,8 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
 
     @Override
     public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      Query queryMax = em.createQuery("SELECT COUNT(ep) FROM EntityPurchases ep");
+      return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }

@@ -26,12 +26,12 @@ public interface EntityCompanyAddressFacadeLocal {
 
     public EntityCompanyAddress getCompanyAddress(long paramLong);
 
-    public List<EntityCompanyAddress> getAllCompanyAddress(int max);
+    List<EntityCompanyAddress> getAllCompanyAddress(int max, int start);
 
     public List<EntityCompanyAddress> getIdCompanyAddress(String paramString);
 
     public List<EntityCompanyAddress> findWithCompanyAddress(String paramName);
 
     public List<EntityCompanyAddress> findByCompanyAddress(String varName);
-    
+
 }

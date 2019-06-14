@@ -28,7 +28,7 @@ public interface EntityUsersFacadeLocal {
 
     public Long getIdUser();
 
-    List<EntityUsers> getAllUsers(int max);
+    List<EntityUsers> getAllUsers(int max, int start);
 
     List<EntityUsers> getUsers();
     

@@ -33,12 +33,12 @@ import com.inventory.aset.facadebean.local.EntityProtocolFacadeLocal;
  */
 @WebServlet(name = "ProtocolServlet", urlPatterns = {"/protocolServlet"})
 public class ProtocolServlet extends HttpServlet {
-    
+
     public ProtocolServlet() {
-        
+
     }
     @EJB
-    EntityProtocolFacadeLocal entityProtocolDao;
+    EntityProtocolFacadeLocal entityProtocolFacadeLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,7 +50,7 @@ public class ProtocolServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,9 +70,9 @@ public class ProtocolServlet extends HttpServlet {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date now = new Date();
             String tgl = sdf.format(now);
-            
+
             String searchField = request.getParameter("searchField");
-            String searchString = request.getParameter("search[value]"); 
+            String searchString = request.getParameter("search[value]");
             System.out.println("isi searchField: " + searchField);
             System.out.println("isi searchString: " + searchString);
             String status = request.getParameter("status");
@@ -94,18 +94,21 @@ public class ProtocolServlet extends HttpServlet {
             draw = request.getParameter("draw");
             start = request.getParameter("start");
             length = request.getParameter("length");
-            
+
             System.out.println("length" + length);
 //            System.out.println("page" + page);
             int totalPages = 0;
             int totalCount = 0;
+            int recordsFiltered = entityProtocolFacadeLocal.count();
+            System.out.println("recordsFiltered " + recordsFiltered);
             Date d2 = sdf.parse(tgl);
             String relation = "";
             Date tanggalMasuk = null;
             Date tanggalGaransi = null;
-            
+
             JSONArray jsonArray = new JSONArray();
-            List<EntityProtocol> protocolList = entityProtocolDao.getAllProtocol(Integer.parseInt(length));
+            int no = Integer.parseInt(start) + 1;
+            List<EntityProtocol> protocolList = entityProtocolFacadeLocal.getAllProtocol(Integer.parseInt(length), Integer.parseInt(start));
             if (Integer.parseInt(length) <= protocolList.size()) {
                 totalCount = protocolList.size();
                 if (totalCount > 0) {
@@ -123,17 +126,17 @@ public class ProtocolServlet extends HttpServlet {
             if (protocolList.size() > 0) {
                 for (int i = 0; i < protocolList.size(); i++) {
                     System.out.println("protocolList.size() > 0");
-                    
+
                     JSONObject obj = new JSONObject();
                     EntityProtocol db = (EntityProtocol) protocolList.get(i);
-                    
+
                     if (db.getIdProtocol() == null) {
                         obj.put("idProtocol", "");
                         obj.put("no_protocol", "");
                         obj.put("action_email", "");
                     } else {
                         obj.put("idProtocol", db.getIdProtocol());
-                        obj.put("no_protocol", i + 1);
+                        obj.put("no_protocol", no++);
                         obj.put("action_email", "");
                     }
                     if (db.getSmtpHost() == null) {
@@ -175,13 +178,14 @@ public class ProtocolServlet extends HttpServlet {
                 }
             }
             JSONObject jsonobj = new JSONObject();
+            jsonobj.put("draw", request.getParameter("draw"));
             jsonobj.put("totalpages", totalPages);
             jsonobj.put("length", page);
             jsonobj.put("recordsTotal", protocolList.size());
-            jsonobj.put("recordsFiltered", protocolList.size());
+            jsonobj.put("recordsFiltered",recordsFiltered);
             jsonobj.put("rows", jsonArray);
             out.println(jsonobj);
-            
+
             out.close();
         } catch (ParseException ex) {
             Logger.getLogger(ProtocolServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,7 +212,7 @@ public class ProtocolServlet extends HttpServlet {
         try {
             System.out.println("METHON POST IN");
             JSONArray jsonArray = (JSONArray) JSONSerializer.toJSON(request.getParameter("JSONFile"));
-            
+
             System.out.println("isi jsonArray" + jsonArray);
 
 //            JPAResourceBean jpaResourceBean = new JPAResourceBean();
@@ -216,12 +220,12 @@ public class ProtocolServlet extends HttpServlet {
 //            System.out.println(emf.isOpen());
 //            em = emf.createEntityManager();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            
+
             Date now = new Date();
             String strDate = sdf.format(now);
             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             Date tgl = new Date();
-            
+
             String smtpHost = "";
             String smtpSocketFactoryPort = "";
             String smtpSocketFactoryClass = "";
@@ -233,10 +237,10 @@ public class ProtocolServlet extends HttpServlet {
             String isActive = "";
             for (int i = 0; i < jsonArray.size(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                
+
                 EntityProtocol emailProtocol = new EntityProtocol();
                 email_config_val = jsonObject.getString("email_config_val");
-                
+
                 if (email_config_val.equalsIgnoreCase("INPUT")) {
                     System.out.println("INPUT");
                     smtpHost = jsonObject.getString("smtpHost");
@@ -245,7 +249,7 @@ public class ProtocolServlet extends HttpServlet {
                     smtpPort = jsonObject.getString("smtpPort");
                     email_form_config = jsonObject.getString("email_form_config");
                     pass_email_config = jsonObject.getString("pass_email_config");
-                    
+
                     emailProtocol.setEmail(email_form_config);
                     emailProtocol.setEmailPass(pass_email_config);
                     emailProtocol.setSmtpHost(smtpHost);
@@ -254,7 +258,7 @@ public class ProtocolServlet extends HttpServlet {
                     emailProtocol.setSmtpPort(smtpPort);
                     emailProtocol.setIsActive(true);
                     try {
-                        entityProtocolDao.createProtocol(emailProtocol);
+                        entityProtocolFacadeLocal.createProtocol(emailProtocol);
                     } finally {
                         code = "1";
                     }
@@ -267,9 +271,9 @@ public class ProtocolServlet extends HttpServlet {
                     smtpPort = jsonObject.getString("smtpPort");
                     email_form_config = jsonObject.getString("email_form_config");
                     pass_email_config = jsonObject.getString("pass_email_config");
-                    
-                    EntityProtocol editEmailProtocol = entityProtocolDao.getProtocol(id_email_config);
-                    
+
+                    EntityProtocol editEmailProtocol = entityProtocolFacadeLocal.getProtocol(id_email_config);
+
                     editEmailProtocol.setEmail(email_form_config);
                     editEmailProtocol.setEmailPass(pass_email_config);
                     editEmailProtocol.setSmtpHost(smtpHost);
@@ -277,23 +281,23 @@ public class ProtocolServlet extends HttpServlet {
                     editEmailProtocol.setSmtpSocketFactoryClass(smtpSocketFactoryClass);
                     editEmailProtocol.setSmtpPort(smtpPort);
                     try {
-                        entityProtocolDao.updateProtocol(emailProtocol);
+                        entityProtocolFacadeLocal.updateProtocol(emailProtocol);
                     } finally {
                         code = "1xp";
                     }
                 } else if (email_config_val.equalsIgnoreCase("ENABLE")) {
                     System.out.println("enable/disable");
                     id_email_config = Long.parseLong(jsonObject.getString("id_email_config"));
-                    EntityProtocol enableProtocol = entityProtocolDao.getProtocol(id_email_config);//(EntityProtocol) em.find(EntityProtocol.class, id_email_config);
+                    EntityProtocol enableProtocol = entityProtocolFacadeLocal.getProtocol(id_email_config);//(EntityProtocol) em.find(EntityProtocol.class, id_email_config);
                     isActive = jsonObject.getString("isActive");
-                    
+
                     if (isActive.equalsIgnoreCase("ACTIVE")) {
                         enableProtocol.setIsActive(false);
                     } else {
                         enableProtocol.setIsActive(true);
                     }
                     try {
-                        entityProtocolDao.updateProtocol(emailProtocol);
+                        entityProtocolFacadeLocal.updateProtocol(emailProtocol);
                     } finally {
                         code = "1xpl";
                     }
@@ -302,7 +306,7 @@ public class ProtocolServlet extends HttpServlet {
                     id_email_config = Long.parseLong(jsonObject.getString("id_email_config"));
 //                    EntityProtocol deleteEmailProtocol = (EntityProtocol) em.find(EntityProtocol.class, id_email_config);
                     try {
-                        entityProtocolDao.updateProtocol(emailProtocol);
+                        entityProtocolFacadeLocal.updateProtocol(emailProtocol);
                     } finally {
                         code = "1xpld";
                     }
@@ -310,7 +314,7 @@ public class ProtocolServlet extends HttpServlet {
             }
 //            em.close();
             JSONObject jsonobj = new JSONObject();
-            
+
             jsonobj.put("RC", code);
             out.println(jsonobj.toString());
             out.close();

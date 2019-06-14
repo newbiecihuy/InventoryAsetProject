@@ -26,7 +26,7 @@ public interface EntityProductsFacadeLocal {
 
     EntityProducts getProducts(long paramName);
 
-    List<EntityProducts> getAllProducts(int max);
+    List<EntityProducts> getAllProducts(int max, int start);
 
     List<EntityProducts> getSku(long paramName);
 

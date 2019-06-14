@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityVerificationTokenFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -64,6 +65,11 @@ public class EntityVerificationTokenFacade extends AbstractFacade<EntityVerifica
     @Override
     public List<EntityVerificationToken> getIdCategories(String paramString) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+     @Override
+    public int count() {
+       Query queryMax = em.createQuery("SELECT COUNT(t) FROM EntityVerificationToken t");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }

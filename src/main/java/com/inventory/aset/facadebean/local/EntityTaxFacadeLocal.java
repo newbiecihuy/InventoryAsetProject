@@ -26,7 +26,7 @@ public interface EntityTaxFacadeLocal {
 
     EntityTax getTax(long paramId);
 
-    List<EntityTax> getAllTax(int max);
+    List<EntityTax> getAllTax(int max, int start);
 
     List<EntityTax> getTaxByType(String taxType);
     

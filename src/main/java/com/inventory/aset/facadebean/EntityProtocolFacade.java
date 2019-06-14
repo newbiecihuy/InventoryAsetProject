@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityProtocolFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -58,8 +59,8 @@ public class EntityProtocolFacade extends AbstractFacade<EntityProtocol> impleme
     }
 
     @Override
-    public List<EntityProtocol> getAllProtocol(int max) {
-        return em.createQuery("SELECT entityProtocol FROM EntityProtocol entityProtocol ").setMaxResults(max).getResultList();
+    public List<EntityProtocol> getAllProtocol(int max, int start) {
+        return em.createQuery("SELECT entityProtocol FROM EntityProtocol entityProtocol ").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
@@ -71,6 +72,12 @@ public class EntityProtocolFacade extends AbstractFacade<EntityProtocol> impleme
     @Override
     public List<EntityProtocol> findWithEmail(String paramString) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int count() {
+        Query queryMax = em.createQuery("SELECT COUNT(entityProtocol) FROM EntityProtocol entityProtocol");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }

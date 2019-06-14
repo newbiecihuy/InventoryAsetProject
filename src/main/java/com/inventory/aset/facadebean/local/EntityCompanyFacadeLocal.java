@@ -26,7 +26,7 @@ public interface EntityCompanyFacadeLocal {
 
     EntityCompany getCompany(long categoryId);
 
-    List<EntityCompany> getAllCompany(int max);
+    List<EntityCompany> getAllCompany(int max, int start);
 
     List<EntityCompany> getIdCompany(String paramString);
 

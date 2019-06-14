@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityProductPurchaseFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -56,9 +57,9 @@ public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPur
     }
 
     @Override
-    public List<EntityProductPurchase> getAllProductPurchase(int param, int max) {
+    public List<EntityProductPurchase> getAllProductPurchase(int param, int max,int start) {
 //        return em.createNamedQuery("EntityProductPurchase.findAll").getResultList();
-        return em.createQuery("SELECT l FROM EntityProductPurchase l where l.purchaseId.purchaseId=  \"" + param + "\"").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT l FROM EntityProductPurchase l where l.purchaseId.purchaseId=  \"" + param + "\"").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
@@ -78,7 +79,8 @@ public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPur
 
     @Override
     public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Query queryMax = em.createQuery("SELECT COUNT(l) FROM EntityProductPurchase l");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
     @Override

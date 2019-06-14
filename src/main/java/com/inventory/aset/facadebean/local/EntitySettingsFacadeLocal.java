@@ -26,7 +26,7 @@ public interface EntitySettingsFacadeLocal {
 
     EntitySettings getSetting(long settingId);
 
-    List<EntitySettings> getAllSettings(int max);
+    List<EntitySettings> getAllSettings(int max, int start);
 
     List<EntitySettings> findWithParamName(String paramName);
 

@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityCategoriesFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -59,9 +60,9 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     }
 
     @Override
-    public List<EntityCategories> getAllCategories(int max) {
+    public List<EntityCategories> getAllCategories(int max, int start) {
 //        return em.createNamedQuery("EntityCategories.findAll").getResultList();
-        return em.createQuery("SELECT c FROM EntityCategories c ").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT c FROM EntityCategories c ").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
@@ -84,7 +85,12 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
         return (EntityCategories) em.find(EntityCategories.class, categoryId);
     }
 
-  
+  @Override
+    public int count() {
+        Query queryMax = em.createQuery("SELECT COUNT(c) FROM EntityCategories c");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
+    }
+
 
 //    @Override
 //    protected EntityManager getEntityManager() {

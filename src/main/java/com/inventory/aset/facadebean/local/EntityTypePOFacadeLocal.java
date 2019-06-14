@@ -26,7 +26,7 @@ public interface EntityTypePOFacadeLocal {
 
     EntityTypePO getTypePO(long paramlong);
 
-    List<EntityTypePO> getAllTypePO(int max);
+    List<EntityTypePO> getAllTypePO(int max, int start);
 
     List<EntityTypePO> getByTypePO(String paramName);
 

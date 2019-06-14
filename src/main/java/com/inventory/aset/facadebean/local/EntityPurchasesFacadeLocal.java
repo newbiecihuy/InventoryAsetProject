@@ -27,11 +27,9 @@ public interface EntityPurchasesFacadeLocal {
 
     EntityPurchases getPurchases(long purchaseId);
 
-    List<EntityPurchases> getAllPurchases(int max);
+    List<EntityPurchases> getAllPurchases(int max, int start);
 
-    List<EntityPurchases> getAllDataPurchases(int max);
 //    List<EntityProductSell> getSellId(Object sellId);
-
     EntityPurchases find(Object paramObject);
 
     List<EntityPurchases> findByPOCode(String pramString);

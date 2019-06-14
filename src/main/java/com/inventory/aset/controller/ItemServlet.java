@@ -44,11 +44,11 @@ public class ItemServlet extends HttpServlet {
     }
 
     @EJB
-    EntityProductsFacadeLocal entityProductsDao;
+    EntityProductsFacadeLocal entityProductsFacadeLocal;
     @EJB
-    EntityCategoriesFacadeLocal entityCategoriesDao;
+    EntityCategoriesFacadeLocal entityCategoriesFacadeLocal;
     @EJB
-    EntitySuppliersFacadeLocal entitySuppliersDao;
+    EntitySuppliersFacadeLocal entitySuppliersFacadeLocal;
     @EJB
     EntityStockFacadeLocal entityStockDao;
 
@@ -84,7 +84,7 @@ public class ItemServlet extends HttpServlet {
             String tgl = sdf.format(now);
 
             String searchField = request.getParameter("searchField");
-            String searchString = request.getParameter("search[value]"); 
+            String searchString = request.getParameter("search[value]");
             System.out.println("isi searchField: " + searchField);
             System.out.println("isi searchString: " + searchString);
             String status = request.getParameter("status");
@@ -116,6 +116,8 @@ public class ItemServlet extends HttpServlet {
 //            } else {
 //                totalPages = 0;
 //            }
+            int recordsFiltered = entityProductsFacadeLocal.count();
+            System.out.println("recordsFiltered " + recordsFiltered);
             Date d2 = sdf.parse(tgl);
             String relation = "";
             Date dateBefore_val = null;
@@ -123,7 +125,8 @@ public class ItemServlet extends HttpServlet {
             Date tanggalMasuk = null;
             Date tanggalGaransi = null;
             JSONArray jsonArray = new JSONArray();
-            List<EntityProducts> productList = entityProductsDao.getAllProducts(Integer.parseInt(length));
+            int no = Integer.parseInt(start) + 1;
+            List<EntityProducts> productList = entityProductsFacadeLocal.getAllProducts(Integer.parseInt(length), Integer.parseInt(start));
             if (Integer.parseInt(length) <= productList.size()) {
                 totalCount = productList.size();
                 if (totalCount > 0) {
@@ -150,7 +153,7 @@ public class ItemServlet extends HttpServlet {
                         obj.put("action_item", "");
                     } else {
                         obj.put("id_product", dataProduct.getIdProduct());
-                        obj.put("no", i + 1);
+                        obj.put("no", no++);
                         obj.put("action_item", "");
                     }
                     if (dataProduct.getProductCode() == null) {
@@ -268,10 +271,11 @@ public class ItemServlet extends HttpServlet {
                 }
             }
             JSONObject jsonobj = new JSONObject();
+            jsonobj.put("draw", request.getParameter("draw"));
             jsonobj.put("totalpages", totalPages);
             jsonobj.put("length", length);
             jsonobj.put("recordsTotal", productList.size());
-            jsonobj.put("recordsFiltered", productList.size());
+            jsonobj.put("recordsFiltered", recordsFiltered);
             jsonobj.put("rows", jsonArray);
 //            jsonobj.put("data", jsonArray);
             out.println(jsonobj);
@@ -415,13 +419,13 @@ public class ItemServlet extends HttpServlet {
 //                    } else {
 //                        isi_status = true;
 //                    }
-//                    List<EntityProducts> cekItemName = entityProductsDao.findWithProductName(item_name.toLowerCase());
+//                    List<EntityProducts> cekItemName = entityProductsFacadeLocal.findWithProductName(item_name.toLowerCase());
 //                    System.out.println("isi cekItemName" + cekItemName);
 //                    if (cekItemName.size() > 0) {
 //                        code = "2";
 //                        return;
 //                    }
-                    List<EntityProducts> cekItemName = entityProductsDao.findWithProductNameSuplier(item_name.toLowerCase(), supplier_id);
+                    List<EntityProducts> cekItemName = entityProductsFacadeLocal.findWithProductNameSuplier(item_name.toLowerCase(), supplier_id);
                     System.out.println("isi cekItemName" + cekItemName);
                     if (cekItemName.size() > 0) {
                         code = "2";
@@ -433,7 +437,7 @@ public class ItemServlet extends HttpServlet {
                         System.out.println(jsonobj.toString());
                         return;
                     }
-                    List<EntityProducts> cekProductCode = entityProductsDao.findByProductCode(product_code.toLowerCase());
+                    List<EntityProducts> cekProductCode = entityProductsFacadeLocal.findByProductCode(product_code.toLowerCase());
                     System.out.println("isi cekProductCode.size" + cekProductCode.size());
                     if (cekProductCode.size() > 0) {
                         code = "33";
@@ -446,7 +450,7 @@ public class ItemServlet extends HttpServlet {
                         System.out.println(jsonobj.toString());
                         return;
                     }
-                    dataSuppplier = entitySuppliersDao.find(supplier_id);
+                    dataSuppplier = entitySuppliersFacadeLocal.find(supplier_id);
                     System.out.println("isi dataSuppplier" + dataSuppplier);
                     if (dataSuppplier == null) {
                         code = "44";
@@ -466,10 +470,10 @@ public class ItemServlet extends HttpServlet {
                     dataProducts.setCreatedAtTime(time_now);
                     dataProducts.setPic("PIC");
                     System.out.println("categories_name ==>" + categories_name);
-                    List<EntityCategories> cekCategoryName = entityCategoriesDao.findWithCategoriesName(categories_name.toLowerCase());
+                    List<EntityCategories> cekCategoryName = entityCategoriesFacadeLocal.findWithCategoriesName(categories_name.toLowerCase());
                     if (cekCategoryName.size() > 0) {
                         System.out.println("isi cekCategoryName" + cekCategoryName);
-                        dataCategory = entityCategoriesDao.getCategories(cekCategoryName.get(0).getCategoryId());
+                        dataCategory = entityCategoriesFacadeLocal.getCategories(cekCategoryName.get(0).getCategoryId());
                         dataProducts.setCategoryId(dataCategory);
                     } else {
                         System.out.println("isi categories_name" + categories_name.toLowerCase());
@@ -479,10 +483,10 @@ public class ItemServlet extends HttpServlet {
                         dataCategory.setCreatedTime(time_now);
                         dataCategory.setPic(("PIC").toLowerCase());
                         dataCategory.setIsDelete(false);
-                        entityCategoriesDao.createCategories(dataCategory);
+                        entityCategoriesFacadeLocal.createCategories(dataCategory);
                         dataProducts.setCategoryId(dataCategory);
                     }
-//                  dataCategory = entityCategoriesDao.getCategories(categori_id);
+//                  dataCategory = entityCategoriesFacadeLocal.getCategories(categori_id);
 //                  dataProducts.setCategoryId(dataCategory);
 //                  dataProducts.setStatus_item(isi_status);
                     dataProducts.setDescription(description.toLowerCase());
@@ -492,7 +496,7 @@ public class ItemServlet extends HttpServlet {
                     dataProducts.setPict_path("");
 
                     dataProducts.setEntityStock(dataStock);
-//                    entityProductsDao.createProducts(dataProducts);
+//                    entityProductsFacadeLocal.createProducts(dataProducts);
                     dataStock.setIdProduct(dataProducts);
                     dataStock.setBuyPrice(price_item);
 
@@ -506,13 +510,13 @@ public class ItemServlet extends HttpServlet {
                     } catch (ParseException ex) {
                         Logger.getLogger(ItemServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    entityProductsDao.createProducts(dataProducts);
+                    entityProductsFacadeLocal.createProducts(dataProducts);
                     entityStockDao.updateStock(dataStock);
                     code = "1";
                     msg = "Has been Recorded";
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
 
-                    dataProducts = entityProductsDao.getProducts(id_product);
+                    dataProducts = entityProductsFacadeLocal.getProducts(id_product);
                     dataStock = entityStockDao.getStock(id_stock);
                     if (!object.getString("item_name").isEmpty()) {
                         item_name = object.getString("item_name");
@@ -569,7 +573,7 @@ public class ItemServlet extends HttpServlet {
                         estemated_date_after = null;
                     }
 
-                    dataSuppplier = entitySuppliersDao.find(supplier_id);
+                    dataSuppplier = entitySuppliersFacadeLocal.find(supplier_id);
                     System.out.println("isi dataSuppplier" + dataSuppplier);
                     if (dataSuppplier == null) {
                         code = "44";
@@ -581,10 +585,10 @@ public class ItemServlet extends HttpServlet {
                     dataProducts.setCreatedAt(now);
                     dataProducts.setCreatedAtTime(time_now);
                     dataProducts.setPic("PIC");
-                    List<EntityCategories> cekCategoryName = entityCategoriesDao.findWithCategoriesName(categories_name.toLowerCase());
+                    List<EntityCategories> cekCategoryName = entityCategoriesFacadeLocal.findWithCategoriesName(categories_name.toLowerCase());
                     System.out.println("isi cekCategoryName" + cekCategoryName);
                     if (cekCategoryName.size() > 0) {
-                        dataCategory = entityCategoriesDao.getCategories(cekCategoryName.get(0).getCategoryId());
+                        dataCategory = entityCategoriesFacadeLocal.getCategories(cekCategoryName.get(0).getCategoryId());
                         dataProducts.setCategoryId(dataCategory);
                     } else {
                         dataCategory.setCategoriesName(categories_name.toLowerCase());
@@ -593,10 +597,10 @@ public class ItemServlet extends HttpServlet {
                         dataCategory.setCreatedTime(time_now);
                         dataCategory.setPic(("PIC").toLowerCase());
                         dataCategory.setIsDelete(false);
-                        entityCategoriesDao.createCategories(dataCategory);
+                        entityCategoriesFacadeLocal.createCategories(dataCategory);
                         dataProducts.setCategoryId(dataCategory);
                     }
-//                  dataCategory = entityCategoriesDao.getCategories(categori_id);
+//                  dataCategory = entityCategoriesFacadeLocal.getCategories(categori_id);
 //                  dataProducts.setCategoryId(dataCategory);
                     dataProducts.setStatus_item(0);
                     dataProducts.setDescription(description.toLowerCase());
@@ -605,7 +609,7 @@ public class ItemServlet extends HttpServlet {
                     dataProducts.setPict_path("");
                     dataProducts.setUpdatedAt(now);
                     dataProducts.setUpdatedAtTime(time_now);
-                    entityProductsDao.updateProducts(dataProducts);
+                    entityProductsFacadeLocal.updateProducts(dataProducts);
                     dataStock.setIdProduct(dataProducts);
                     dataStock.setBuyPrice(price_item);
                     dataStock.setSellPrice("0");
@@ -624,12 +628,12 @@ public class ItemServlet extends HttpServlet {
                     code = "3";
                     msg = "Has been Updated";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
-                    dataProducts = entityProductsDao.getProducts(id_product);
+                    dataProducts = entityProductsFacadeLocal.getProducts(id_product);
                     dataProducts.setStatus_item(2);
 
                     dataProducts.setUpdatedAt(now);
                     dataProducts.setUpdatedAtTime(time_now);
-                    entityProductsDao.updateProducts(dataProducts);
+                    entityProductsFacadeLocal.updateProducts(dataProducts);
                     code = "5";
                 }
 

@@ -11,6 +11,7 @@ import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityTypePOFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -57,9 +58,9 @@ public class EntityTypePOFacade extends AbstractFacade<EntityTypePO> implements 
     }
 
     @Override
-    public List<EntityTypePO> getAllTypePO(int max) {
+    public List<EntityTypePO> getAllTypePO(int max, int start) {
 //        return em.createNamedQuery("EntityTypePO.findAll").getResultList();
-        return em.createQuery("SELECT c FROM EntityTypePO c").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT c FROM EntityTypePO c").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
@@ -84,6 +85,7 @@ public class EntityTypePOFacade extends AbstractFacade<EntityTypePO> implements 
 
     @Override
     public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query queryMax = em.createQuery("SELECT COUNT(c) FROM EntityTypePO c");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 }

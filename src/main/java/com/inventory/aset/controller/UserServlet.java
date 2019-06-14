@@ -41,13 +41,13 @@ public class UserServlet extends HttpServlet {
     public UserServlet() {
     }
     @EJB
-    private EntityUsersFacadeLocal usersDao;
+    private EntityUsersFacadeLocal entityUsersFacadeLocal;
 
     @EJB
-    private EntityUserRolesPKFacadeLocal userRolesDaoPk;
+    private EntityUserRolesPKFacadeLocal entityUserRolesPKFacadeLocal;
 
     @EJB
-    private EntityUserRolesFacadeLocal userRolesDao;
+    private EntityUserRolesFacadeLocal entityUserRolesFacadeLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -82,7 +82,7 @@ public class UserServlet extends HttpServlet {
             String tgl = sdf.format(now);
 
             String searchField = request.getParameter("searchField");
-            String searchString = request.getParameter("search[value]"); 
+            String searchString = request.getParameter("search[value]");
             System.out.println("isi searchField: " + searchField);
             System.out.println("isi searchString: " + searchString);
             String status = request.getParameter("status");
@@ -114,14 +114,16 @@ public class UserServlet extends HttpServlet {
 //            } else {
 //                totalPages = 0;
 //            }
+            int recordsFiltered = entityUsersFacadeLocal.count();
+            System.out.println("recordsFiltered " + recordsFiltered);
             Date d2 = sdf.parse(tgl);
             String relation = "";
             Date tanggalMasuk = null;
             Date tanggalGaransi = null;
             int numbering = 1;
             JSONArray jsonArray = new JSONArray();
-
-            List<EntityUsers> usersList = usersDao.getAllUsers(Integer.parseInt(length));
+            int no = Integer.parseInt(start) + 1;
+            List<EntityUsers> usersList = entityUsersFacadeLocal.getAllUsers(Integer.parseInt(length), Integer.parseInt(start));
             if (Integer.parseInt(length) <= usersList.size()) {
                 totalCount = usersList.size();
                 if (totalCount > 0) {
@@ -150,7 +152,7 @@ public class UserServlet extends HttpServlet {
                             obj.put("action_user", "");
                         } else {
                             obj.put("id_user", dataUsers.getUserId());
-                            obj.put("no", i + 1);
+                            obj.put("no", no++);
                             obj.put("action_user", "");
                         }
 
@@ -224,10 +226,11 @@ public class UserServlet extends HttpServlet {
             }
 
             JSONObject jsonobj = new JSONObject();
+            jsonobj.put("draw", request.getParameter("draw"));
             jsonobj.put("totalpages", totalPages);
             jsonobj.put("length", length);
             jsonobj.put("recordsTotal", usersList.size());
-            jsonobj.put("recordsFiltered", usersList.size());
+            jsonobj.put("recordsFiltered", recordsFiltered);
             jsonobj.put("rows", jsonArray);
             out.println(jsonobj);
 
@@ -349,7 +352,7 @@ public class UserServlet extends HttpServlet {
 
 //                    EntityUserRolesPK userRolesPK = new EntityUserRolesPK();
 //                  EntityUserRoles dataUserRoles = new EntityUserRoles();
-                    List<EntityUsers> cekUserName = usersDao.findByUsername(userName.toLowerCase());
+                    List<EntityUsers> cekUserName = entityUsersFacadeLocal.findByUsername(userName.toLowerCase());
                     System.out.println("isi cekUserName" + cekUserName);
                     if (cekUserName.size() > 0) {
                         code = "2";
@@ -375,17 +378,17 @@ public class UserServlet extends HttpServlet {
                                 dataUser.setGender(EntityUsers.Gender.F);
                         }
                     }
-                    usersDao.createUser(dataUser);
+                    entityUsersFacadeLocal.createUser(dataUser);
                     System.out.println("Persist OK");
 
-                    Long isi_id = usersDao.getIdUser();
+                    Long isi_id = entityUsersFacadeLocal.getIdUser();
                     System.out.println("isi_id OK" + isi_id);
                     userRolesPK.setId(isi_id);
                     userRolesPK.setRoleName(roleName.toLowerCase());
                     userRolesPK.setUserName(userName.toLowerCase());
-                    EntityUserRoles userRole = userRolesDao.find(userRolesPK);
+                    EntityUserRoles userRole = entityUserRolesFacadeLocal.find(userRolesPK);
 //                    EntityUserRoles userRole = (EntityUserRoles) em.find(EntityUserRoles.class, userRolesPK);
-//                    userRolesDaoPk.getUserRoles(userRolesPK);
+//                    entityUserRolesFacadeLocalPk.getUserRoles(userRolesPK);
 
                     if (userRole != null) {
                         System.out.println("User sudah terdaftar");
@@ -400,7 +403,7 @@ public class UserServlet extends HttpServlet {
                     try {
 //                        em.getTransaction().begin();
                         userRole.setUser_roles_pk(userRolesPK);
-                        userRolesDao.createUserRoles(userRole);
+                        entityUserRolesFacadeLocal.createUserRoles(userRole);
 
                         System.out.println("Persist OK");
 //                        code = "1";
@@ -412,7 +415,7 @@ public class UserServlet extends HttpServlet {
                     code = "1";
                     msg = "Has been Recorded";
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
-                    dataUser = usersDao.find(idUsers);
+                    dataUser = entityUsersFacadeLocal.find(idUsers);
                     if (!object.getString("userName").isEmpty()) {
                         userName = object.getString("userName").trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
@@ -474,13 +477,13 @@ public class UserServlet extends HttpServlet {
                     dataUser.setAddress(address.toLowerCase());
                     dataUser.setPhone(phone);
                     dataUser.setNomorIMEI(nomorIMEI);
-                    usersDao.updateUser(dataUser);
+                    entityUsersFacadeLocal.updateUser(dataUser);
                     Long isi_id = idUsers;
                     System.out.println("isi_id" + isi_id);
 //                    userRolesPK.setId(isi_id);
 //                    userRolesPK.setRoleName(roleName.toLowerCase());
 //                    userRolesPK.setUserName(userName.toLowerCase());
-//                    EntityUserRoles userRole = userRolesDao.find(userRolesPK);
+//                    EntityUserRoles userRole = entityUserRolesFacadeLocal.find(userRolesPK);
 ////                    if (userRole != null) {
 ////                        System.out.println("User sudah terdaftar");
 //////
@@ -494,7 +497,7 @@ public class UserServlet extends HttpServlet {
 //                    try {
 ////                        em.getTransaction().begin();
 //                        userRole.setUser_roles_pk(userRolesPK);
-//                        userRolesDao.createUserRoles(userRole);
+//                        entityUserRolesFacadeLocal.createUserRoles(userRole);
 //
 //                        System.out.println("Merge OK");
 ////                        code = "1";
@@ -506,11 +509,11 @@ public class UserServlet extends HttpServlet {
                     code = "3";
                     msg = "Has been Updated";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
-                    dataUser = usersDao.find(idUsers);
+                    dataUser = entityUsersFacadeLocal.find(idUsers);
                     dataUser.setStatusUsers(false);//delete
                     dataUser.setUpdatedDate(now);
                     dataUser.setUpdatedTime(time_now);
-                    usersDao.deleteUser(dataUser);
+                    entityUsersFacadeLocal.deleteUser(dataUser);
                     code = "4";
                     msg = "Has been Deleted";
                 }

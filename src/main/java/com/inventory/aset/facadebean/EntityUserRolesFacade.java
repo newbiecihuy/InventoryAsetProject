@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityUserRolesFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -79,7 +80,8 @@ public class EntityUserRolesFacade extends AbstractFacade<EntityUserRoles> imple
 
     @Override
     public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query queryMax = em.createQuery("SELECT COUNT(r) FROM EntityUserRoles r");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }

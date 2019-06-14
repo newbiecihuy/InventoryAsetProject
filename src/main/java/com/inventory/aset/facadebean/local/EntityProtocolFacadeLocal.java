@@ -26,7 +26,7 @@ public interface EntityProtocolFacadeLocal {
 
     EntityProtocol getProtocol(long paramLong);
 
-    List<EntityProtocol> getAllProtocol(int max);
+    List<EntityProtocol> getAllProtocol(int max, int start);
 
     List<EntityProtocol> getEmail(String paramString);
 

@@ -36,7 +36,7 @@ public class CategoryServlet extends HttpServlet {
     public CategoryServlet() {
     }
     @EJB
-    private EntityCategoriesFacadeLocal entityCategoriesDao;
+    private EntityCategoriesFacadeLocal entityCategoriesFacadeLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -82,7 +82,7 @@ public class CategoryServlet extends HttpServlet {
             String tgl = sdf.format(now);
 
             String searchField = request.getParameter("searchField");
-            String searchString = request.getParameter("search[value]");            
+            String searchString = request.getParameter("search[value]");
             System.out.println("isi searchField: " + searchField);
             System.out.println("isi searchString: " + searchString);
             String status = request.getParameter("status");
@@ -114,13 +114,16 @@ public class CategoryServlet extends HttpServlet {
 //            } else {
 //                totalPages = 0;
 //            }
+            int recordsFiltered = entityCategoriesFacadeLocal.count();
+            System.out.println("recordsFiltered " + recordsFiltered);
             Date d2 = sdf.parse(tgl);
             String relation = "";
             Date tanggalMasuk = null;
             Date tanggalGaransi = null;
             int numbering = 1;
             JSONArray jsonArray = new JSONArray();
-            List<EntityCategories> categoriesList = entityCategoriesDao.getAllCategories(Integer.parseInt(length));
+            int no = Integer.parseInt(start) + 1;
+            List<EntityCategories> categoriesList = entityCategoriesFacadeLocal.getAllCategories(Integer.parseInt(length), Integer.parseInt(start));
             if (Integer.parseInt(length) <= categoriesList.size()) {
                 totalCount = categoriesList.size();
                 if (totalCount > 0) {
@@ -145,7 +148,7 @@ public class CategoryServlet extends HttpServlet {
                         obj.put("action_category", "");
                     } else {
                         obj.put("category_id", dataCategories.getCategoryId());
-                        obj.put("no", i + 1);
+                        obj.put("no", no++);
                         obj.put("action_category", "");
                     }
                     if (dataCategories.getCategoriesName() == null) {
@@ -178,10 +181,11 @@ public class CategoryServlet extends HttpServlet {
             }
 
             JSONObject jsonobj = new JSONObject();
+            jsonobj.put("draw", request.getParameter("draw"));
             jsonobj.put("totalpages", totalPages);
             jsonobj.put("length", length);
             jsonobj.put("recordsTotal", categoriesList.size());
-            jsonobj.put("recordsFiltered", categoriesList.size());
+            jsonobj.put("recordsFiltered", recordsFiltered);
             jsonobj.put("rows", jsonArray);
             out.println(jsonobj);
 
@@ -252,7 +256,7 @@ public class CategoryServlet extends HttpServlet {
                     } else {
                         category_desc = "";
                     }
-                    List<EntityCategories> cekCategoryName = entityCategoriesDao.findWithCategoriesName(category_name.toLowerCase());
+                    List<EntityCategories> cekCategoryName = entityCategoriesFacadeLocal.findWithCategoriesName(category_name.toLowerCase());
                     System.out.println("isi cekCategoryName" + cekCategoryName);
                     if (cekCategoryName.size() > 0) {
                         code = "2";
@@ -263,10 +267,10 @@ public class CategoryServlet extends HttpServlet {
                     dataCatageroies.setCreatedTime(time_now);
                     dataCatageroies.setPic(("PIC").toLowerCase());
                     dataCatageroies.setCategoryDesc(category_desc.toLowerCase());
-                    entityCategoriesDao.createCategories(dataCatageroies);
+                    entityCategoriesFacadeLocal.createCategories(dataCatageroies);
                     code = "1";
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
-                    dataCatageroies = entityCategoriesDao.getCategories(category_id);
+                    dataCatageroies = entityCategoriesFacadeLocal.getCategories(category_id);
 
                     if (!object.getString("category_name").isEmpty()) {
                         category_name = object.getString("category_name").trim().replaceAll("['\":<>\\[\\],-]", "");
@@ -284,15 +288,15 @@ public class CategoryServlet extends HttpServlet {
                     dataCatageroies.setUpdatedTime(time_now);
                     dataCatageroies.setPic(("PIC").toLowerCase());
                     dataCatageroies.setCategoryDesc(category_desc);
-                    entityCategoriesDao.updateCategories(dataCatageroies);
+                    entityCategoriesFacadeLocal.updateCategories(dataCatageroies);
                     code = "1";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
-                    dataCatageroies = entityCategoriesDao.getCategories(category_id);
+                    dataCatageroies = entityCategoriesFacadeLocal.getCategories(category_id);
                     dataCatageroies.setUpdatedDate(now);
                     dataCatageroies.setUpdatedTime(time_now);
                     dataCatageroies.setPic("PIC");
                     dataCatageroies.setIsDelete(true);
-                    entityCategoriesDao.updateCategories(dataCatageroies);
+                    entityCategoriesFacadeLocal.updateCategories(dataCatageroies);
                     code = "1";
                 }
             }

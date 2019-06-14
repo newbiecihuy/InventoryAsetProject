@@ -46,7 +46,7 @@ public class CreatePOItemServlet extends HttpServlet {
 
     }
     @EJB
-    EntityPurchasesFacadeLocal entityPurchasesDao;
+    EntityPurchasesFacadeLocal entityPurchasesFacadeLocal;
     @EJB
     EntityProductPurchaseFacadeLocal entityProductPurchaseDao;
     @EJB
@@ -91,7 +91,7 @@ public class CreatePOItemServlet extends HttpServlet {
             Date now = new Date();
             String tgl = sdf.format(now);
             String searchField = request.getParameter("searchField");
-            String searchString = request.getParameter("search[value]"); 
+            String searchString = request.getParameter("search[value]");
             System.out.println("isi searchField: " + searchField);
             System.out.println("isi searchString: " + searchString);
             String status = request.getParameter("status");
@@ -114,7 +114,8 @@ public class CreatePOItemServlet extends HttpServlet {
             //            System.out.println("page" + page);
             int totalPages = 0;
             int totalCount = 0;
-
+            int recordsFiltered = entityProductPurchaseDao.count();
+            System.out.println("recordsFiltered " + recordsFiltered);
             Date d2 = sdf.parse(tgl);
             String relation = "";
             Date dateBefore_val = null;
@@ -122,7 +123,8 @@ public class CreatePOItemServlet extends HttpServlet {
             Date tanggalMasuk = null;
             Date tanggalGaransi = null;
             JSONArray jsonArray = new JSONArray();
-            List<EntityProductPurchase> itemList = entityProductPurchaseDao.getAllProductPurchase(Integer.parseInt(idPurcase), Integer.parseInt(length));
+            int no = Integer.parseInt(start) + 1;
+            List<EntityProductPurchase> itemList = entityProductPurchaseDao.getAllProductPurchase(Integer.parseInt(idPurcase), Integer.parseInt(length), Integer.parseInt(start));
             if (Integer.parseInt(length) <= itemList.size()) {
                 totalCount = itemList.size();
                 if (totalCount > 0) {
@@ -150,7 +152,7 @@ public class CreatePOItemServlet extends HttpServlet {
                         obj.put("action_item_po", "");
                     } else {
                         obj.put("id_product_po", dataProductPurchase.getIdProductPurchase());
-                        obj.put("no_itemPo", i + 1);
+                        obj.put("no_itemPo", no++);
                         obj.put("action_item_po", "");
                     }
                     if (dataProductPurchase.getPurchaseId().getPurchaseId() == null) {
@@ -178,7 +180,7 @@ public class CreatePOItemServlet extends HttpServlet {
                     } else {
                         obj.put("supplier_code_po", dataProductPurchase.getPurchaseId().getSupplierId().getSupplierCode());
                     }
-                    if (dataProductPurchase.getTax_status()== 0) {
+                    if (dataProductPurchase.getTax_status() == 0) {
                         obj.put("supplier_tax_po", "0");
                     } else {
                         obj.put("supplier_tax_po", dataProductPurchase.getTax_status());
@@ -223,10 +225,11 @@ public class CreatePOItemServlet extends HttpServlet {
                 }
             }
             JSONObject jsonobj = new JSONObject();
+            jsonobj.put("draw", request.getParameter("draw"));
             jsonobj.put("totalpages", totalPages);
             jsonobj.put("length", length);
             jsonobj.put("recordsTotal", itemList.size());
-            jsonobj.put("recordsFiltered", itemList.size());
+            jsonobj.put("recordsFiltered", recordsFiltered);
             jsonobj.put("rows", jsonArray);
             //            jsonobj.put("data", jsonArray);
             out.println(jsonobj);
@@ -316,7 +319,7 @@ public class CreatePOItemServlet extends HttpServlet {
 
                 if (id_product_purchase == 0l) {
 
-                    dataPurcahse = entityPurchasesDao.find(purchase_id);
+                    dataPurcahse = entityPurchasesFacadeLocal.find(purchase_id);
 
                     if (!object.getString("supplier_id_form_create_po").isEmpty()) {
                         supplier_id_form_create_po = Long.parseLong(object.getString("supplier_id_form_create_po").trim().replaceAll("['\":<>\\[\\],-]", ""));
@@ -549,7 +552,7 @@ public class CreatePOItemServlet extends HttpServlet {
                         entityProductPurchaseDao.createProductPurchase(dataProductPurchase);
                         dataPurcahse.setStatusPo("need approval");
                         dataPurcahse.setTotalProductPurchaseCost(total_price_po);
-                        entityPurchasesDao.updatePurchases(dataPurcahse);
+                        entityPurchasesFacadeLocal.updatePurchases(dataPurcahse);
                         code = "1";
                         msg = "succes added item po";
                     }
@@ -595,7 +598,7 @@ public class CreatePOItemServlet extends HttpServlet {
 //                        total_price_po = "";
 //                    }
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
-                    dataPurcahse = entityPurchasesDao.find(purchase_id);
+                    dataPurcahse = entityPurchasesFacadeLocal.find(purchase_id);
                     if (!object.getString("supplier_id_form_create_po").isEmpty()) {
                         supplier_id_form_create_po = Long.parseLong(object.getString("supplier_id_form_create_po").trim().replaceAll("['\":<>\\[\\],-]", ""));
                     } else {

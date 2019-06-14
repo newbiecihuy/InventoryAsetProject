@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityUsersFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -65,8 +66,8 @@ public class EntityUsersFacade extends AbstractFacade<EntityUsers> implements En
     }
 
     @Override
-    public List<EntityUsers> getAllUsers(int max) {
-        return em.createNamedQuery("EntityUsers.findAll").setMaxResults(max).getResultList();
+    public List<EntityUsers> getAllUsers(int max, int start) {
+        return em.createNamedQuery("EntityUsers.findAll").setMaxResults(max).setFirstResult(start).getResultList();
 //        return em.createQuery("SELECT u FROM EntityUsers u").setMaxResults(max).getResultList();
     }
     @Override
@@ -99,7 +100,8 @@ public class EntityUsersFacade extends AbstractFacade<EntityUsers> implements En
 
     @Override
     public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Query queryMax = em.createQuery("SELECT COUNT(us) FROM EntityUsers us");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }

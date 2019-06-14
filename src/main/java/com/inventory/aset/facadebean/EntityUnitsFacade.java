@@ -64,9 +64,9 @@ public class EntityUnitsFacade extends AbstractFacade<EntityUnits> implements En
     }
 
     @Override
-    public List<EntityUnits> getAllUnits(int max) {
+    public List<EntityUnits> getAllUnits(int max, int start) {
 //       return em.createNamedQuery("EntityUnits.findAll").getResultList();
-        return em.createQuery("SELECT u FROM EntityUnits u").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT u FROM EntityUnits u").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override

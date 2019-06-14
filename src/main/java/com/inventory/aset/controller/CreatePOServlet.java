@@ -31,6 +31,7 @@ import net.sf.json.JSONSerializer;
 import com.inventory.aset.facadebean.local.EntityPurchasesFacadeLocal;
 import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityTypePOFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -82,7 +83,7 @@ public class CreatePOServlet extends HttpServlet {
             String tgl = sdf.format(now);
 
             String searchField = request.getParameter("searchField");
-            String searchString = request.getParameter("search[value]"); 
+            String searchString = request.getParameter("search[value]");
             System.out.println("isi searchField: " + searchField);
             System.out.println("isi searchString: " + searchString);
             String status = request.getParameter("status");
@@ -119,12 +120,16 @@ public class CreatePOServlet extends HttpServlet {
 //            } else {
 //                totalPages = 0;
 //            }
+            int recordsFiltered = entityPurchasesFacadeLocal.count();
+            System.out.println("recordsFiltered " + recordsFiltered);
+//             
             Date d2 = sdf.parse(tgl);
             String relation = "";
             Date tanggalMasuk = null;
             Date tanggalGaransi = null;
             JSONArray jsonArray = new JSONArray();
-            List<EntityPurchases> poList = entityPurchasesFacadeLocal.getAllPurchases(Integer.parseInt(length));
+            int no = Integer.parseInt(start) + 1;
+            List<EntityPurchases> poList = entityPurchasesFacadeLocal.getAllPurchases(Integer.parseInt(length),Integer.parseInt(start));
             if (Integer.parseInt(length) <= poList.size()) {
                 totalCount = poList.size();
                 if (totalCount > 0) {
@@ -150,7 +155,7 @@ public class CreatePOServlet extends HttpServlet {
                         obj.put("action_po", "");
                     } else {
                         obj.put("purchase_id", dataPO.getPurchaseId());
-                        obj.put("no", i + 1);
+                        obj.put("no", no++);
                         obj.put("action_po", "");
                     }
                     if (dataPO.getPurchaseCode() == null) {
@@ -309,10 +314,11 @@ public class CreatePOServlet extends HttpServlet {
                 }
             }
             JSONObject jsonobj = new JSONObject();
+            jsonobj.put("draw", request.getParameter("draw"));
             jsonobj.put("totalpages", totalPages);
             jsonobj.put("length", length);
             jsonobj.put("recordsTotal", poList.size());
-            jsonobj.put("recordsFiltered", poList.size());
+            jsonobj.put("recordsFiltered", recordsFiltered);
             jsonobj.put("rows", jsonArray);
             out.println(jsonobj);
 

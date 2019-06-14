@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityTaxFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -57,9 +58,9 @@ public class EntityTaxFacade extends AbstractFacade<EntityTax> implements Entity
     }
 
     @Override
-    public List<EntityTax> getAllTax(int max) {
+    public List<EntityTax> getAllTax(int max, int start) {
 //        return em.createNamedQuery("EntityTax.findAll").getResultList();
-        return em.createQuery("SELECT t FROM EntityTax t").setMaxResults(max).getResultList();
+        return em.createQuery("SELECT t FROM EntityTax t").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
@@ -75,7 +76,8 @@ public class EntityTaxFacade extends AbstractFacade<EntityTax> implements Entity
 
     @Override
     public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Query queryMax = em.createQuery("SELECT COUNT(t) FROM EntityTax t");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }
