@@ -6,7 +6,7 @@
 package com.inventory.aset.controller;
 
 import com.inventory.aset.entity.EntityTypePO;
-import com.inventory.aset.util.EncryptionUtil;
+import com.inventory.aset.controller.util.EncryptionUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.inventory.aset.controller;
+package com.inventory.aset.controller.util;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,9 +56,9 @@ public class LogoutServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().invalidate();
+        response.sendRedirect(request.getContextPath() + "/home/index.jsp");
     }
 
     /**

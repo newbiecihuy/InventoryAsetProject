@@ -15,7 +15,7 @@
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>com.inventory.aset.controller.LogoutServlet</servlet-class>
+        <servlet-class>com.inventory.aset.controller.util.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SupplierServlet</servlet-name>
@@ -107,7 +107,7 @@
     </servlet>
     <servlet>
         <servlet-name>LoginAuthentication</servlet-name>
-        <servlet-class>com.inventory.aset.util.LoginAuthentication</servlet-class>
+        <servlet-class>com.inventory.aset.controller.util.LoginAuthentication</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AutoCompleteProductByStock</servlet-name>

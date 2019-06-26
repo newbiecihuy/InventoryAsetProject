@@ -1,4 +1,4 @@
-package com.inventory.aset.util;
+package com.inventory.aset.controller.util;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;

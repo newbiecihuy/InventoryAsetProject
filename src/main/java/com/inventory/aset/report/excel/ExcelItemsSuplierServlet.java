@@ -13,7 +13,7 @@ import com.inventory.aset.facadebean.local.EntityCategoriesFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityProductsFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityStockFacadeLocal;
 import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;
-import com.inventory.aset.util.EncryptionUtil;
+import com.inventory.aset.controller.util.EncryptionUtil;
 import groovy.json.StringEscapeUtils;
 import java.io.IOException;
 import java.io.PrintWriter;

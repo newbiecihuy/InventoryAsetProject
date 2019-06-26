@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.inventory.aset.util;
+package com.inventory.aset.controller.util;
 
 import com.inventory.aset.controller.ItemServlet;
 import com.inventory.aset.entity.users.EntityUsers;
@@ -98,12 +98,14 @@ public class LoginAuthentication extends HttpServlet {
 //            JPAResourceBean jpaResourceBean = new JPAResourceBean();
 //            EntityManagerFactory emf = jpaResourceBean.getEMF();
 //            em = emf.createEntityManager();
-            String username = request.getParameter("j_username");
-            String password = request.getParameter("j_password");
-
+            String username = request.getParameter("j_username").toLowerCase();
+            String password = EncryptionUtil.setMD5(request.getParameter("j_password"));
+            System.out.println("isi password :" + password);
             String url = "j_security_check?j_username=" + username + "&j_password=" + password;
+            System.out.println("isi username" + username + "isi j_password" + password);
+            String redirectUrl = response.encodeRedirectURL(url);
             String isi_pasword = EncryptionUtil.setSHA256(password);
-            List<EntityUsers> cekUser = entityUsersFacadeLocal.checkUsers(username,isi_pasword);
+            List<EntityUsers> cekUser = entityUsersFacadeLocal.checkUsers(username, isi_pasword);
 //            String queryStmntImei = "SELECT us.id FROM EntityUsers us WHERE us.userPass =\"" + isi_pasword + "\" AND "
 //                    + " us.userName =\"" + username + "\" AND "
 //                    + " us.isActive =\"" + "1" + "\" ";
@@ -132,15 +134,16 @@ public class LoginAuthentication extends HttpServlet {
                     jsonArray.add(jsonObjectUsers);
                 }
 //                em.close();
-                response.sendRedirect("index.jsp");
+//                response.sendRedirect("index.jsp");
                 print.print(jsonArray);
+                response.sendRedirect(redirectUrl);
 
             }
 
         } catch (IOException ex) {
-         Logger.getLogger(LoginAuthentication.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginAuthentication.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
@@ -154,4 +157,3 @@ public class LoginAuthentication extends HttpServlet {
     }// </editor-fold>
 
 }
-
