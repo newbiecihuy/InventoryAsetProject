@@ -123,7 +123,13 @@ public class CategoryServlet extends HttpServlet {
             int numbering = 1;
             JSONArray jsonArray = new JSONArray();
             int no = Integer.parseInt(start) + 1;
-            List<EntityCategories> categoriesList = entityCategoriesFacadeLocal.getAllCategories(Integer.parseInt(length), Integer.parseInt(start));
+            List<EntityCategories> categoriesList = null;
+            if (searchString.isEmpty()) {
+                categoriesList = entityCategoriesFacadeLocal.getAllCategories(Integer.parseInt(length), Integer.parseInt(start));
+            } else {
+                categoriesList = entityCategoriesFacadeLocal.searchCategories(searchString.toLowerCase(), Integer.parseInt(length), Integer.parseInt(start));
+            }
+
             if (Integer.parseInt(length) <= categoriesList.size()) {
                 totalCount = categoriesList.size();
                 if (totalCount > 0) {

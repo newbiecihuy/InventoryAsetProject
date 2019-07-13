@@ -126,7 +126,14 @@ public class ItemServlet extends HttpServlet {
             Date tanggalGaransi = null;
             JSONArray jsonArray = new JSONArray();
             int no = Integer.parseInt(start) + 1;
-            List<EntityProducts> productList = entityProductsFacadeLocal.getAllProducts(Integer.parseInt(length), Integer.parseInt(start));
+            List<EntityProducts> productList = null;
+            
+            if (searchString.isEmpty()) {
+                productList = entityProductsFacadeLocal.getAllProducts(Integer.parseInt(length), Integer.parseInt(start));
+            } else {
+                productList = entityProductsFacadeLocal.serachProducts(searchString.toLowerCase(), Integer.parseInt(length), Integer.parseInt(start));
+            }
+
             if (Integer.parseInt(length) <= productList.size()) {
                 totalCount = productList.size();
                 if (totalCount > 0) {

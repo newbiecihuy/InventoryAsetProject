@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.EncryptionUtil;
 import com.inventory.aset.entity.EntityProducts;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -67,6 +68,16 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
     }
 
     @Override
+    public List<EntityProducts> serachProducts(String search, int max, int start) {
+        return em.createQuery("SELECT ep FROM EntityProducts ep "
+                + " WHERE (ep.productName Like \'" + search.toLowerCase() + "%\' "
+                + " OR ep.productCode Like \'" + search.toLowerCase() + "%\' "
+                + " OR ep.supplierId.supplierName Like \'" + search.toLowerCase() + "%\' "
+                + " OR ep.categoryId.categoriesName Like \'" + search.toLowerCase() + "%\' "
+                + " ) ").setMaxResults(max).setFirstResult(start).getResultList();
+    }
+
+    @Override
     public List<EntityProducts> getSku(long idProduct) {
         return em.createQuery("SELECT ep  FROM EntityProducts ep  WHERE ep.idProduct =  \"" + idProduct + "\"").getResultList();
     }
@@ -95,8 +106,6 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
     public List<EntityProducts> findByProductName(String paramString) {
         return em.createQuery("SELECT Distinct ep.productName  FROM EntityProducts ep WHERE ep.productName LIKE \"" + paramString + "%\" ").getResultList();
     }
-    
-    
 
     @Override
     public List<EntityProducts> findByProductCode(String paramString) {
@@ -112,7 +121,8 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
     public List<EntityProducts> findBySuplierIdItemId(Long paramSupId, Long paramId) {
         return em.createQuery("SELECT  ep   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramSupId + "\" AND " + "ep.idProduct =  \"" + paramId + "\"").getResultList();
     }
-     @Override
+
+    @Override
     public List<EntityProducts> listItemBySuplierId(Long paramSupId) {
         return em.createQuery("SELECT  ep   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramSupId + "\" AND " + "ep.status_item =  \"" + 1 + "\"").getResultList();
     }
@@ -125,7 +135,7 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
 
     @Override
     public int count() {
-       Query queryMax = em.createQuery("SELECT COUNT(ep) FROM EntityProducts ep");
+        Query queryMax = em.createQuery("SELECT COUNT(ep) FROM EntityProducts ep");
         return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 

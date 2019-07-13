@@ -124,7 +124,7 @@ $(document).ready(function () {
                         supplier_id: va_supplier_id
                     };
                     if (data_sup === 0) {
-                        return "NotApproved";
+                        return "Not Approved";
                     }
                     if (data_sup === 1) {
                         return "Approved";

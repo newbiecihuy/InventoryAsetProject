@@ -28,6 +28,8 @@ public interface EntityProductsFacadeLocal {
 
     List<EntityProducts> getAllProducts(int max, int start);
 
+    List<EntityProducts> serachProducts(String search, int max, int start);
+
     List<EntityProducts> getSku(long paramName);
 
     List<EntityProducts> findByProductName(String pramString);

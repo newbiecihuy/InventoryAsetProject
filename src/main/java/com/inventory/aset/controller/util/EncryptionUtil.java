@@ -172,4 +172,17 @@ public class EncryptionUtil {
         return isiParam;
 
     }
+     public static String getStatus(String param) {
+         String value=null;
+         if(param.equalsIgnoreCase("not approved")||param.equalsIgnoreCase("notapproved")){
+             value ="0";
+         }
+         if(param.equalsIgnoreCase("approved") || param.equalsIgnoreCase("appr")){
+             value ="1";
+         }
+         if(param.equalsIgnoreCase("rejected")||param.equalsIgnoreCase("reject")){
+             value ="2";
+         }
+         return value;
+     }
 }

@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.EncryptionUtil;
 import com.inventory.aset.entity.EntitySuppliers;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -63,6 +64,26 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
         return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
+//    @Override
+//    public List<EntitySuppliers> searchSuppliers(String search, int max, int start) {
+//
+//        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers "
+//                + " WHERE (enSuppliers.supplierName Like \'" + search.toLowerCase() + "%\' "
+//                + " OR enSuppliers.supplierCode Like \'" + search.toLowerCase() + "%\' "
+//                + " OR enSuppliers.contactName Like \'" + search.toLowerCase() + "%\' "
+//                + " OR enSuppliers.isActive  \'" + EncryptionUtil.getStatus(search.toLowerCase()) + "\' "
+//                + " )").setMaxResults(max).setFirstResult(start).getResultList();
+//    }
+     @Override
+    public List<EntitySuppliers> searchSuppliers(String search, int max, int start) {
+
+        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers "
+                + " WHERE (enSuppliers.supplierName Like \'" + search.toLowerCase() + "%\' "
+                + " OR enSuppliers.supplierCode Like \'" + search.toLowerCase() + "%\' "
+                + " OR enSuppliers.contactName Like \'" + search.toLowerCase() + "%\' "
+                + " )").setMaxResults(max).setFirstResult(start).getResultList();
+    }
+
     @Override
     public List<EntitySuppliers> getSupplierName(String supplierName) {
         return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierName  =  \"" + supplierName + "\"").getResultList();
@@ -102,7 +123,7 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 
     @Override
     public int count() {
-          Query queryMax = em.createQuery("SELECT COUNT(es) FROM EntitySuppliers es");
+        Query queryMax = em.createQuery("SELECT COUNT(es) FROM EntitySuppliers es");
         return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 

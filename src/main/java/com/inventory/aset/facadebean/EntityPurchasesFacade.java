@@ -57,7 +57,6 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
     public EntityPurchases getPurchases(long purchaseId) {
         return (EntityPurchases) em.find(EntityPurchases.class, purchaseId);
     }
-    
 
     @Override
     public List<EntityPurchases> getAllPurchases(int max, int start) {
@@ -65,11 +64,21 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
         return em.createQuery("SELECT ep FROM EntityPurchases ep").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
+    @Override
+    public List<EntityPurchases> searchPurchases(String search, int max, int start) {
+
+        return em.createQuery("SELECT ep FROM EntityPurchases ep "
+                + " WHERE(ep.purchaseCode Like \'%" + search.toLowerCase() + "%\' "
+                + " OR ep.supplierId.supplierName Like \'" + search.toLowerCase() + "%\' "
+                + " OR ep.typePOId.typePo Like \'" + search.toLowerCase() + "%\' "
+                + " OR ep.invoiceTo Like \'" + search.toLowerCase() + "%\' "
+                + " OR ep.deliveryPoint Like \'" + search.toLowerCase() + "%\'  ) ").setMaxResults(max).setFirstResult(start).getResultList();
+    }
+
 //    @Override
 //    public List<EntityPurchases> getAllDataPurchases(int max) {
 //        return em.createNamedQuery("EntityPurchases.findAll").setMaxResults(max).getResultList();
 //    }
-
     @Override
     public EntityPurchases find(Object purchaseId) {
         return (EntityPurchases) em.find(EntityPurchases.class, purchaseId);
@@ -110,8 +119,8 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
 
     @Override
     public int count() {
-      Query queryMax = em.createQuery("SELECT COUNT(ep) FROM EntityPurchases ep");
-      return Integer.parseInt(queryMax.getSingleResult().toString());
+        Query queryMax = em.createQuery("SELECT COUNT(ep) FROM EntityPurchases ep");
+        return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 
 }

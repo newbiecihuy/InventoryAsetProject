@@ -129,7 +129,13 @@ public class CreatePOServlet extends HttpServlet {
             Date tanggalGaransi = null;
             JSONArray jsonArray = new JSONArray();
             int no = Integer.parseInt(start) + 1;
-            List<EntityPurchases> poList = entityPurchasesFacadeLocal.getAllPurchases(Integer.parseInt(length),Integer.parseInt(start));
+            List<EntityPurchases> poList = null;
+            if (searchString.isEmpty()) {
+                poList = entityPurchasesFacadeLocal.getAllPurchases(Integer.parseInt(length), Integer.parseInt(start));
+            } else {
+                poList = entityPurchasesFacadeLocal.searchPurchases(searchString.toLowerCase(), Integer.parseInt(length), Integer.parseInt(start));
+            }
+
             if (Integer.parseInt(length) <= poList.size()) {
                 totalCount = poList.size();
                 if (totalCount > 0) {

@@ -66,6 +66,13 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     }
 
     @Override
+    public List<EntityCategories> searchCategories(String search, int max, int start) {
+        return em.createQuery("SELECT c FROM EntityCategories c "
+                + " WHERE(c.categoriesName Like \'" + search.toLowerCase() + "%\' "
+                + " ) ").setMaxResults(max).setFirstResult(start).getResultList();
+    }
+
+    @Override
     public List<EntityCategories> getIdCategories(String paramString) {
         return em.createNamedQuery("EntityCategories.findBycategoryId").getResultList();
     }
@@ -85,12 +92,11 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
         return (EntityCategories) em.find(EntityCategories.class, categoryId);
     }
 
-  @Override
+    @Override
     public int count() {
         Query queryMax = em.createQuery("SELECT COUNT(c) FROM EntityCategories c");
         return Integer.parseInt(queryMax.getSingleResult().toString());
     }
-
 
 //    @Override
 //    protected EntityManager getEntityManager() {

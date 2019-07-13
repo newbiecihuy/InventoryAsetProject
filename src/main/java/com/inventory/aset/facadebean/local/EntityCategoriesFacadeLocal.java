@@ -28,6 +28,8 @@ public interface EntityCategoriesFacadeLocal {
 
     List<EntityCategories> getAllCategories(int max, int start);
 
+    List<EntityCategories> searchCategories(String search, int max, int start);
+
     List<EntityCategories> getIdCategories(String paramString);
 
     List<EntityCategories> findWithCategoriesName(String categoriesName);

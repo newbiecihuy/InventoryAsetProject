@@ -127,7 +127,13 @@ public class SupplierServlet extends HttpServlet {
 
             JSONArray jsonArray = new JSONArray();
             int no = Integer.parseInt(start) + 1;
-            List<EntitySuppliers> supplierList = entitySuppliersFacadeLocal.getAllSuppliers(Integer.parseInt(length), Integer.parseInt(start));
+            List<EntitySuppliers> supplierList = null;
+            if (searchString.isEmpty()) {
+                supplierList = entitySuppliersFacadeLocal.getAllSuppliers(Integer.parseInt(length), Integer.parseInt(start));
+            } else {
+                supplierList = entitySuppliersFacadeLocal.searchSuppliers(searchString, Integer.parseInt(length), Integer.parseInt(start));
+            }
+
             if (Integer.parseInt(length) <= supplierList.size()) {
                 totalCount = supplierList.size();
                 if (totalCount > 0) {
@@ -142,6 +148,7 @@ public class SupplierServlet extends HttpServlet {
             } else {
                 totalPages = 0;
             }
+
             if (supplierList.size() > 0) {
                 for (int i = 0; i < supplierList.size(); i++) {
                     EntitySuppliers dataSuppliers = (EntitySuppliers) supplierList.get(i);

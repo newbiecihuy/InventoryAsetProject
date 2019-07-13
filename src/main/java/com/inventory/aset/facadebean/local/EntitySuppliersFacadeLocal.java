@@ -27,6 +27,8 @@ public interface EntitySuppliersFacadeLocal {
     EntitySuppliers getSuppliers(long supplierId);
 
     List<EntitySuppliers> getAllSuppliers(int max, int start);
+    
+    List<EntitySuppliers> searchSuppliers(String search,int max, int start);
 
     List<EntitySuppliers> getSupplierName(String supplierName);
 
