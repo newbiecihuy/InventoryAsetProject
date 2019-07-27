@@ -1,5 +1,5 @@
 <%-- 
-    Document   : list_po
+    Document   : form_item_po
     Created on : Sep 20, 2018, 3:00:04 PM
     Author     : newbiecihuy
 --%>
@@ -87,10 +87,10 @@
 
                         <td class="display"><input type="number" required="" min="1" value="0" name="qtty_po" id="qtty_po" class="form-control-static uppercase" placeholder="Qty" onchange="discount()"/></td>
                         <td class="display"><input type="text" required="" name="unit_item_po" id="unit_item_po" class="form-control-static uppercase" placeholder="Unit"/></td>
-                        <td class="display"><input type="text" required="" name="unit_price_po" id="unit_price_po" class="form-control-static uppercase" placeholder="IDR" onblur="format_rupiah()" onchange="discount()"/></td>
+                        <td class="display"><input type="text" readonly required="" name="unit_price_po" id="unit_price_po" class="form-control-static uppercase" placeholder="IDR" onblur="format_rupiah()" onchange="discount()"/></td>
                         <td class="display"><input type="number" min="0" value="0" name="discount_item_po" id="discount_item_po" class="form-control-static uppercase" placeholder="Discount" onchange="discount()"/></td>
-                        <td class="display"><input type="text" name="price_po" id="price_po" class="form-control-static uppercase" placeholder="in IDR" ></td><!--onfocus="discount()"/-->
-                        <td class="display"><input type="text" required="" name="id_product" id="id_product" class="form-control-static uppercase"/></td>
+                        <td class="display"><input type="text" readonly name="total_price_po" id="total_price_po" class="form-control-static uppercase" placeholder="in IDR" ></td><!--onfocus="discount()"/-->
+                        <td class="display"><input type="text" readonly required="" name="id_product" id="id_product" class="form-control-static uppercase"/></td>
 
                         <td class="display"><button class="btn-primary"  onclick="add_row();"><i class="fa fa fa-plus-square"></i></button>&nbsp;
                             <!--<button class="btn-warning" onclick="remove(id)return false;" id="remove_row"><i class="fa fa-minus-square"></i></button>--></td>
@@ -99,13 +99,13 @@
                     <tbody id="itemlist">
                     </tbody>
                     <tr >
-                        <td class="control-label"  align="left"> <input type="text" required="" name="sub_total" id="sub_total" class="form-control-static"  placeholder="SubTotal"/></td>
+                        <td class="control-label"  align="left"> <input type="text" readonly required="" name="sub_total" id="sub_total" class="form-control-static"  placeholder="SubTotal"/></td>
                     </tr>
                     <!--                    <tr >
                                             <td class="control-label"  align="left"><input type="text" name="tax_po" id="tax_po" class="form-control-static" placeholder="TAX"/></td>
                                         </tr>-->
                     <tr >
-                        <td class="control-label"  align="left"><input type="text" required="" name="total_price_po" id="total_price_po" class="form-control-static" placeholder="IDR"/>
+                        <td class="control-label"  align="left"><input type="text" readonly required="" name="total_price_po" id="total_price_po" class="form-control-static" placeholder="IDR"/>
                     </tr>
                 </table>
                 <button type="submit" id="btn_form_create_po" class="btn btn-primary">Submit</button>

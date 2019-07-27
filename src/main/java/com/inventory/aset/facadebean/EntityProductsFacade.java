@@ -7,6 +7,7 @@ package com.inventory.aset.facadebean;
 
 import com.inventory.aset.controller.util.EncryptionUtil;
 import com.inventory.aset.entity.EntityProducts;
+import com.inventory.aset.entity.EntityStock;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -94,43 +95,67 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
 
     @Override
     public List<EntityProducts> findWithProductName(String paramName) {
-        return em.createQuery("SELECT ep FROM EntityProducts ep WHERE ep.productName =  \"" + paramName + "\"").getResultList();
+        return em.createQuery("SELECT ep FROM EntityProducts ep "
+                + " WHERE ep.productName =  \"" + paramName + "\"").getResultList();
     }
 
     @Override
     public List<EntityProducts> findWithProductNameSuplier(String paramName, long paramLong) {
-        return em.createQuery("SELECT ep FROM EntityProducts ep WHERE ep.productName =  \"" + paramName + "\" AND " + "ep.supplierId.supplierId =  \"" + paramLong + "\" ").getResultList();
+        return em.createQuery("SELECT ep FROM EntityProducts ep WHERE "
+                + " ep.productName =  \"" + paramName + "\" "
+                + " AND " + "ep.supplierId.supplierId =  \"" + paramLong + "\" ").getResultList();
     }
 
     @Override
     public List<EntityProducts> findByProductName(String paramString) {
-        return em.createQuery("SELECT Distinct ep.productName  FROM EntityProducts ep WHERE ep.productName LIKE \"" + paramString + "%\" ").getResultList();
+        return em.createQuery("SELECT Distinct ep.productName  FROM EntityProducts ep WHERE "
+                + " ep.productName LIKE \"" + paramString + "%\" ").getResultList();
     }
 
     @Override
     public List<EntityProducts> findByProductCode(String paramString) {
-        return em.createQuery("SELECT Distinct ep.productCode  FROM EntityProducts ep WHERE ep.productCode LIKE \"" + paramString + "%\" ").getResultList();
+        return em.createQuery("SELECT Distinct ep.productCode  FROM EntityProducts ep WHERE "
+                + " ep.productCode LIKE \"" + paramString + "%\" ").getResultList();
     }
 
     @Override
     public List<EntityProducts> findBySuplierId(Long paramLong) {
-        return em.createQuery("SELECT Distinct ep.productName   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramLong + "\" AND " + " ep.status_item =  \"" + 1 + "\"").getResultList();
+        return em.createQuery("SELECT Distinct ep.productName  FROM EntityProducts ep WHERE "
+                + " ep.supplierId.supplierId =  \"" + paramLong + "\" "
+                + " AND " + " ep.status_item =  \"" + 1 + "\"").getResultList();
+    }
+
+//    @Override
+//    public List<EntityProducts> findBySuplierId2(Long paramLong) {
+//        return em.createQuery("SELECT ep Distinct FROM EntityProducts left join ep.EntityStock es WHERE "
+//                + "ep.supplierId.supplierId =  \"" + paramLong + "\" "
+//                + " AND " + " ep.status_item =  \"" + 1 + "\" ").getResultList();
+//    }
+    @Override
+    public List<EntityStock> getBuyPrice(String paramString) {
+        return em.createQuery("SELECT es.buyPrice  FROM EntityStock es  WHERE "
+                + " es.idProduct.productName LIKE \"" + paramString + "%\" ").getResultList();
     }
 
     @Override
     public List<EntityProducts> findBySuplierIdItemId(Long paramSupId, Long paramId) {
-        return em.createQuery("SELECT  ep   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramSupId + "\" AND " + "ep.idProduct =  \"" + paramId + "\"").getResultList();
+        return em.createQuery("SELECT  ep   FROM EntityProducts ep WHERE "
+                + " ep.supplierId.supplierId =  \"" + paramSupId + "\" "
+                + " AND " + "ep.idProduct =  \"" + paramId + "\"").getResultList();
     }
 
     @Override
     public List<EntityProducts> listItemBySuplierId(Long paramSupId) {
-        return em.createQuery("SELECT  ep   FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramSupId + "\" AND " + "ep.status_item =  \"" + 1 + "\"").getResultList();
+        return em.createQuery("SELECT  ep   FROM EntityProducts ep WHERE "
+                + " ep.supplierId.supplierId =  \"" + paramSupId + "\" "
+                + " AND " + "ep.status_item =  \"" + 1 + "\"").getResultList();
     }
 
     @Override
     public List<EntityProducts> getItemDetails(Long paramLong, String paramString) {
-        return em.createQuery("SELECT  ep  FROM EntityProducts ep WHERE ep.supplierId.supplierId =  \"" + paramLong + "\" "
-                + "AND ep.productName=  \"" + paramString + "\"").getResultList();
+        return em.createQuery("SELECT  ep  FROM EntityProducts ep WHERE "
+                + " ep.supplierId.supplierId =  \"" + paramLong + "\" "
+                + " AND ep.productName=  \"" + paramString + "\"").getResultList();
     }
 
     @Override

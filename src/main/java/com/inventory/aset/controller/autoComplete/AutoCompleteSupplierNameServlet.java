@@ -69,7 +69,7 @@ public class AutoCompleteSupplierNameServlet extends HttpServlet {
             Enumeration<String> paramNames = request.getParameterNames();
             String paramName = "";
             String value = "";
-
+            System.out.println("doGet AutoCompleteSupplierNameServlet");
             String varName = request.getParameter("term").toLowerCase();
             System.out.println("Entered");
             System.out.println("varName" + varName);

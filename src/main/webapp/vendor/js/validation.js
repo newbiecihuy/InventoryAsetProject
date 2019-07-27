@@ -1715,16 +1715,16 @@ function addPoItemFunc(data_form_po) {
                 autoOpen: true,
                 width: 'auto',
                 resizable: false,
-                show: "blind",
-                class: "modaloverlay",
-                hide: "explode",
+                show: "clip",
+                class: "toggler",
+                hide: "slide",
                 buttons: [{
                         text: 'Yes',
                         class: 'btn btn-primary',
                         id: "btn_yes",
                         click: function () {
                             tax_po_val = "1";
-//                        $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+//                          $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
                             var myParam = "purchase_id=" + escape(data_form_po.purchase_id) + "&supplier_id_form_create_po=" + escape(data_form_po.supplier_id)
                                     + "&tax_item_po=" + escape(data_form_po.supplier_tax) + "&tax_po_val=" + escape(tax_po_val);
                             window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + myParam; // decodeURI(myParam)
@@ -2114,8 +2114,13 @@ function type_po_empty() {
     });
 }
 
-var k = 1;
+
+var j = 1;
 function add_row() {
+
+    var k = 0;
+
+    var item_name_po = "";
 //    alert("add_row");
 //var k = 1;
     var target = document.getElementById("form_create_po");
@@ -2165,6 +2170,7 @@ function add_row() {
     e_id_product.type = "text";
     e_id_product.id = "id_product";
     e_id_product.name = "id_product";
+    e_id_product.readOnly = true;
 
     var e_qtty_po = document.createElement('input');
     e_qtty_po.type = "number";
@@ -2191,6 +2197,7 @@ function add_row() {
     e_unit_price_po.id = "unit_price_po";
     e_unit_price_po.name = "unit_price_po";
     e_unit_price_po.placeholder = "In IDR";
+    e_unit_price_po.readOnly = true;
     e_unit_price_po.setAttribute('required', '');
     e_unit_price_po.setAttribute("onblur", format_rupiah);
     e_unit_price_po.setAttribute("onchange", discount);
@@ -2213,6 +2220,7 @@ function add_row() {
     e_total_price_po.type = "text";
     e_total_price_po.id = "total_price_po";
     e_total_price_po.name = "total_price_po";
+    e_total_price_po.readOnly = true;
     e_total_price_po.placeholder = "IDR";
     e_total_price_po.setAttribute('class', 'form-control-static uppercase');
 //    var e_button_1 = document.createElement('button');
@@ -2224,8 +2232,8 @@ function add_row() {
     e_button_2.id = "remove_row";
 //    var e_i = document.createElement('i');
 //    e_i.setAttribute('class', 'fa fa-minus-square');
-    if (k > 0) {
-
+    if (j > 0) {
+        k = j;
         row.appendChild(td1);
         row.appendChild(td2);
         row.appendChild(td3);
@@ -2253,11 +2261,11 @@ function add_row() {
         td8.appendChild(e_button_2);
 
         /* */
-        $('body').on('click', '#item_name_po_' + k, function () {
+        $('body').on('focus', '#item_name_po_' + k, function () {
             $(this).autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: createDynamicURL() + "/getItemPOServlet",
+                        url: createDynamicURL() + "/getItemPOServlet", //getItemPOPrice
                         dataType: "json",
                         method: "GET",
                         data: {
@@ -2274,62 +2282,31 @@ function add_row() {
 
                             }));
                         }
+
                     });
                 },
-//            autoFocus: true,
+//             autoFocus: true,
                 minLength: 1,
                 scroll: true,
                 select: function (event, ui) {
 //                var output = ui.item.data.split("|");
-//                $('#item_name_po').val(output[1]);
-
+//                $('#item_name_po_' + k).val(output[1]);
+//                item_supEmpty_($('#item_name_po_' + k).val());
+//                    alert("isi ui"+ui.item.data);
+//                    item_name_po = ui.item.data;
+                    e_item_name.onload = item_supEmpty_(k, ui.item.data);
                 },
                 delay: 300
             }).autocomplete("option", "appendTo", "#form_create_po");
-            e_item_name.onblur = item_supEmpty_();
+
+//            e_item_name.onblur = item_supEmpty_(k, item_name_po);
         });
+//        e_item_name.onload = item_supEmpty_(k, item_name_po);
+
         /* */
-        function item_supEmpty_() {
-//            var idSupplier = document.getElementById("supplier_id_form_create_po").value;
-//            var item_name_po = document.getElementById("item_name_po_" + k).value;
-            var idSupplier = $('#supplier_id_form_create_po').val();
-            var item_name_po = $('#item_name_po_' + k).val();
-            alert("item_name_po" + item_name_po + "idSupplier" + idSupplier);
-            var dataString = {
-                idSupplier: idSupplier,
-                item_name_po: item_name_po
-            };
-//            alert("item_supEmpty_" + dataString.idSupplier + ":" + dataString.item_name_po);
-            $.ajax({
-                type: "POST",
-                url: createDynamicURL() + "/getItemSupplierServlet", //
-                data: {
-                    jsonfield: JSON.stringify(dataString) // look here!
-                },
-                dataType: "json",
-                //if received a response from the server
-                success: function (response) {
-                    //our country code was correct so we have some information to display
-                    if (response) {
-                        console.log(response.item_name);
-                        $("#item_name_po_" + k).val(response.item_name_po);
-                        console.log(response.unit_price_po);
-                        $("#unit_price_po_" + k).val(response.unit_price_po);
-                        console.log(response.product_id);
-                        $("#id_product_" + k).val(response.product_id);
-                    }
-                    //display error message
-                    else {
-                        $("#ajaxResponse_form_delegate").html("<div><b>Item Names in Invalid!</b></div>");
-                    }
-                },
-                //If there was no resonse from the server
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("Something really bad happened " + textStatus);
-                    $("#ajaxResponse_form_delegate").html(jqXHR.responseText);
-                }
-            });
-        }
+//        function item_supTwo(k, item_name_po)) {
+//            alert("k" + k + "item_name_po" + item_name_po);
+//        }
         /* */
         function discount() {
             var price = document.getElementById("unit_price_po_" + k).value;
@@ -2364,14 +2341,64 @@ function add_row() {
             subTotal(number_string);
             return  document.getElementById("price_po").value = number_string;
         }
+        j++;
+
     }
-    k++;
+
     e_button_2.onclick = function () {
+        j = j - 1;
+        k = j;
         row.parentNode.removeChild(row);
     };
 
 }
+//
+function item_supEmpty_(k, item_name_po) {
+
+    var idSupplier = $('#supplier_id_form_create_po').val();
+//            item_name_po = $('#item_name_po_' + k).val();
+    var isi_item_po = "";
+//    alert("isi k" + k + ",item_name_po_ 2" + item_name_po);
+
+    if (item_name_po !== "") {
+        var dataString = {
+            idSupplier: idSupplier,
+            item_name_po: item_name_po
+        };
+        $.ajax({
+            type: "POST",
+            url: createDynamicURL() + "/getItemSupplierServlet", //
+            data: {
+                jsonfield: JSON.stringify(dataString) // look here!
+            },
+            dataType: "json",
+            //if received a response from the server
+            success: function (response) {
+                //our country code was correct so we have some information to display
+                if (response) {
+                    console.log(response.item_name);
+                    $("#item_name_po_" + k).val(response.item_name_po);
+                    console.log(response.unit_price_po);
+                    $("#unit_price_po_" + k).val(response.unit_price_po);
+                    console.log(response.product_id);
+                    $("#id_product_" + k).val(response.product_id);
+                }
+
+                //display error message
+                else {
+                    $("#ajaxResponse_form_delegate").html("<div><b>Item Names in Invalid!</b></div>");
+                }
+            },
+            //If there was no resonse from the server
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Something really bad happened " + textStatus);
+                $("#ajaxResponse_form_delegate").html(jqXHR.responseText);
+            }
+        });
+    }
+}
 function remove(id) {
+//    alert("id"+id);
     var ele = id + 'tr';
     var elem = document.getElementById(ele);
     return elem.parentNode.removeChild(elem);
@@ -2380,24 +2407,31 @@ function remove(id) {
 
 /**/
 
-//function  taxfunc() {!used
-//    if (document.getElementById("tax_item_po").value === "1") {
-////        document.getElementById("tax_po").value = "10";
-//    } else {
-////        document.getElementById("tax_po").value = "";
-//    }
-//}
-function format_rupiah() {//used
-    var number = document.getElementById("unit_price_po").value;
-    var number_string = number.toString();
-    var sisa = number_string.length % 3;
-    var rupiah = number_string.substr(0, sisa);
-    var ribuan = number_string.substr(sisa).match(/\d{3}/g);
-    if (ribuan) {
-        var separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
+function format_rupiah(k) {//used
+    if (k === "0") {
+        var number = document.getElementById("unit_price_po").value;
+        var number_string = number.toString();
+        var sisa = number_string.length % 3;
+        var rupiah = number_string.substr(0, sisa);
+        var ribuan = number_string.substr(sisa).match(/\d{3}/g);
+        if (ribuan) {
+            var separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        return  document.getElementById("unit_price_po").value = number_string; //rupiah;
+
+    } else {
+        var number = document.getElementById("unit_price_po_" + k).value;
+        var number_string = number.toString();
+        var sisa = number_string.length % 3;
+        var rupiah = number_string.substr(0, sisa);
+        var ribuan = number_string.substr(sisa).match(/\d{3}/g);
+        if (ribuan) {
+            var separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        return  document.getElementById("unit_price_po_" + k).value = number_string; //rupiah;
     }
-    return  document.getElementById("unit_price_po").value = number_string; //rupiah;
 }
 //function price_item_cek() {!used
 //    var number = document.getElementById("price_item").value;

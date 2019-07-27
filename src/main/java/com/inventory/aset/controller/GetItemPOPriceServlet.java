@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.inventory.aset.controller.autoComplete;
+package com.inventory.aset.controller;
 
 import com.google.gson.Gson;
+import com.inventory.aset.controller.util.EncryptionUtil;
+import com.inventory.aset.entity.EntityProducts;
 import com.inventory.aset.entity.EntityStock;
-import com.inventory.aset.facadebean.local.EntityStockFacadeLocal;
+import com.inventory.aset.facadebean.local.EntityProductsFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -27,14 +29,15 @@ import net.sf.json.JSONObject;
  *
  * @author newbiecihuy
  */
-@WebServlet(name = "AutoCompleteProductByStock", urlPatterns = {"/autoCompleteProductByStock"})
-public class AutoCompleteProductByStock extends HttpServlet {
+@WebServlet(name = "GetItemPOPriceServlet", urlPatterns = {"/getItemPOPrice"})
+public class GetItemPOPriceServlet extends HttpServlet {
 
-    public AutoCompleteProductByStock() {
+    public GetItemPOPriceServlet() {
 
     }
+
     @EJB
-    EntityStockFacadeLocal entityStockFacadeLocal;
+    EntityProductsFacadeLocal entityProductsFacadeLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,10 +55,10 @@ public class AutoCompleteProductByStock extends HttpServlet {
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet AutoCompleteProductByStock</title>");            
+//            out.println("<title>Servlet GetItemPOPriceServlet</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet AutoCompleteProductByStock at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet GetItemPOPriceServlet at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
@@ -81,29 +84,41 @@ public class AutoCompleteProductByStock extends HttpServlet {
             Enumeration<String> paramNames = request.getParameterNames();
             String paramName = "";
             String value = "";
-            System.out.println("doGet AutoCompleteProductByStock");
+            int result = 0;
             String varName = request.getParameter("term").toLowerCase();
-            System.out.println("Entered");
             System.out.println("varName" + varName);
+            Long varlong = Long.parseLong(request.getParameter("idSupplier").trim().replaceAll("['\":<>\\[\\],-]", ""));
+            System.out.println("varlong" + varlong);
+            System.out.println("Entered");
+            System.out.println("Entered");
+            System.out.println("doGet GetItemPOPriceServlet");
             String json = "";
-            
-             List<EntityStock> isi_productName = entityStockFacadeLocal.findProductByStock(varName);
-              System.out.println("isi isi_productName.getResultList()" + isi_productName);
-              JSONArray array = new JSONArray();
-//      
-            if (isi_productName != null) {
-                json = new Gson().toJson(isi_productName);
+            List<EntityProducts> dataItem = entityProductsFacadeLocal.findBySuplierId(varlong);
+            System.out.println("isi dataItem.getResultList()" + dataItem);
+            JSONArray array = new JSONArray();
+            JSONObject obj = new JSONObject();
+            if (!dataItem.isEmpty()) {
+//                json = new Gson().toString();
+//                result = dataItem.size();
+                List<EntityStock> price = entityProductsFacadeLocal.getBuyPrice(dataItem.toString());
+                System.out.println("isi price" + price);
+                obj.put("unit_price_po", price);
+                obj.put("item_name_po", dataItem);
+                result = dataItem.size();
             } else {
-                json = varName;
+                obj.put("unit_price_po", "");
+                obj.put("item_name_po", "");
+                result = 1;
             }
-            response.getWriter().write(json);
 
-            JSONObject rows = new JSONObject();
-            rows.put("results", isi_productName.size());
-            rows.put("rows", array);
-
+//            response.getWriter().write(EncryptionUtil.upperCaseFirst(obj));
+            array.add(obj);
+//            org.json.simple.JSONObject rows = new org.json.simple.JSONObject();
+//            rows.put("results", result);
+//            rows.put("rows", array);
+            out.print(obj.toString());
+            System.out.println("isi obj =>" + obj.toString());
             response.getWriter().close();
-
 
         } catch (IOException ex) {
             System.out.println("ERROR: " + ex.getMessage());
@@ -121,8 +136,9 @@ public class AutoCompleteProductByStock extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**

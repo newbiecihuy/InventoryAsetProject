@@ -34,7 +34,7 @@ public class GetPaymentTermServlet extends HttpServlet {
 
     }
     @EJB
-    EntityTypePOFacadeLocal entityTypePODao;
+    EntityTypePOFacadeLocal entityTypePOFacadeLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -106,6 +106,7 @@ public class GetPaymentTermServlet extends HttpServlet {
             String param2 = "null";
             System.out.println("supplier_name: " + po_type);
             String supplier_code = null;
+             System.out.println("doPost GetPaymentTermServlet");
 //            if (jsonObject.containsKey("supplier_code")) {
 //                supplier_code = jsonObject.getString("supplier_code");
 //                param2 = supplier_code;
@@ -115,7 +116,7 @@ public class GetPaymentTermServlet extends HttpServlet {
                 param = po_type;
             }
 //            System.out.println("supplier_code: " + supplier_code);
-            List<EntityTypePO> dataTypePo = entityTypePODao.getByTypePO(param.toLowerCase());//null;
+            List<EntityTypePO> dataTypePo = entityTypePOFacadeLocal.getByTypePO(param.toLowerCase());//null;
             JSONArray jsonArray = new JSONArray();
             JSONObject obj = new JSONObject();
             if (dataTypePo.size() > 0) {

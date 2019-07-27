@@ -70,6 +70,7 @@ public class AutoCompleteCategoryName extends HttpServlet {
             Enumeration<String> paramNames = request.getParameterNames();
             String paramName = "";
             String value = "";
+            System.out.println("doGet AutoCompleteCategoryName");
             int result = 0;
             String varName = request.getParameter("term").toLowerCase();
             System.out.println("Entered");

@@ -6,6 +6,7 @@
 package com.inventory.aset.facadebean.local;
 
 import com.inventory.aset.entity.EntityProducts;
+import com.inventory.aset.entity.EntityStock;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -44,6 +45,9 @@ public interface EntityProductsFacadeLocal {
 
     List<EntityProducts> findBySuplierId(Long paramLong);
 
+//    List<EntityProducts> findBySuplierId2(Long paramLong);
+     List<EntityStock> getBuyPrice(String paramString);
+
     List<EntityProducts> findBySuplierIdItemId(Long paramSupId, Long paramId);
 
     List<EntityProducts> listItemBySuplierId(Long paramSupId);
@@ -53,5 +57,7 @@ public interface EntityProductsFacadeLocal {
     EntityProducts find(Object paramObject);
 
     int count();
+
+
 
 }

@@ -37,9 +37,9 @@ public class GetItemSupplierServlet extends HttpServlet {
 
     }
     @EJB
-    EntityProductsFacadeLocal entityProductsDao;
+    EntityProductsFacadeLocal entityProductsFacadeLocal;
     @EJB
-    EntityStockFacadeLocal entityStockDao;
+    EntityStockFacadeLocal entityStockFacadeLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -110,6 +110,7 @@ public class GetItemSupplierServlet extends HttpServlet {
             String item_name_po = "";
             System.out.println("supplier_name: " + supplier_name);
             Long idSupplier = null;
+            System.out.println("doPost GetItemSupplierServlet");
 //            if (jsonObject.containsKey("supplier_code")) {
 //                supplier_code = jsonObject.getString("supplier_code");
 //                param2 = supplier_code;
@@ -120,13 +121,13 @@ public class GetItemSupplierServlet extends HttpServlet {
             if (!jsonObject.getString("idSupplier").isEmpty() && jsonObject.getString("idSupplier") != null) {
                 idSupplier = Long.parseLong(jsonObject.getString("idSupplier").trim().replaceAll("['\":<>\\[\\],-]", ""));
             }
-            List<EntityProducts> dataItem = entityProductsDao.getItemDetails(idSupplier, item_name_po);//null;
+            List<EntityProducts> dataItem = entityProductsFacadeLocal.getItemDetails(idSupplier, item_name_po);//null;
 
             JSONArray jsonArray = new JSONArray();
             JSONObject obj = new JSONObject();
             for (int i = 0; i < dataItem.size(); i++) {
                 EntityProducts entityProducts = (EntityProducts) dataItem.get(i);
-                EntityStock dataStock = entityStockDao.find(entityProducts.getIdProduct());
+                EntityStock dataStock = entityStockFacadeLocal.find(entityProducts.getIdProduct());
                 if (entityProducts.getIdProduct() == null) {
                     obj.put("product_id", "");
                 } else {

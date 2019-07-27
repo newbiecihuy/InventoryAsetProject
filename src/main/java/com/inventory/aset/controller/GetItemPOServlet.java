@@ -37,7 +37,7 @@ public class GetItemPOServlet extends HttpServlet {
     }
 
     @EJB
-    EntityProductsFacadeLocal entityProductsDao;
+    EntityProductsFacadeLocal entityProductsFacadeLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -90,8 +90,10 @@ public class GetItemPOServlet extends HttpServlet {
             Long varlong = Long.parseLong(request.getParameter("idSupplier").trim().replaceAll("['\":<>\\[\\],-]", ""));
             System.out.println("varlong" + varlong);
             System.out.println("Entered");
+            System.out.println("Entered");
+            System.out.println("doGet GetItemPOServlet");
             String json = "";
-            List<EntityProducts> dataItem = entityProductsDao.findBySuplierId(varlong);
+            List<EntityProducts> dataItem = entityProductsFacadeLocal.findBySuplierId(varlong);
             System.out.println("isi dataItem.getResultList()" + dataItem);
             org.json.simple.JSONArray array = new org.json.simple.JSONArray();
             if (!dataItem.isEmpty()) {

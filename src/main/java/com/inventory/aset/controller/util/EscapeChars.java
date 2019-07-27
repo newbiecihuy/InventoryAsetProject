@@ -14,7 +14,8 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author newbiecihuy http://www.javapractices.com/topic/TopicAction.do?Id=96
+ * @author newbiecihuy
+ * source http://www.javapractices.com/topic/TopicAction.do?Id=96
  */
 public class EscapeChars {
 

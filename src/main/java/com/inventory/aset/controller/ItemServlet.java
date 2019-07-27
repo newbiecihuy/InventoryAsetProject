@@ -50,7 +50,7 @@ public class ItemServlet extends HttpServlet {
     @EJB
     EntitySuppliersFacadeLocal entitySuppliersFacadeLocal;
     @EJB
-    EntityStockFacadeLocal entityStockDao;
+    EntityStockFacadeLocal entityStockFacadeLocal;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -127,7 +127,7 @@ public class ItemServlet extends HttpServlet {
             JSONArray jsonArray = new JSONArray();
             int no = Integer.parseInt(start) + 1;
             List<EntityProducts> productList = null;
-            
+
             if (searchString.isEmpty()) {
                 productList = entityProductsFacadeLocal.getAllProducts(Integer.parseInt(length), Integer.parseInt(start));
             } else {
@@ -152,7 +152,7 @@ public class ItemServlet extends HttpServlet {
                 for (int i = 0; i < productList.size(); i++) {
                     EntityProducts dataProduct = (EntityProducts) productList.get(i);
 //                    EntityStock dataStock = (EntityStock) productList.get(i);
-                    EntityStock dataStock = entityStockDao.find(dataProduct.getIdProduct());
+                    EntityStock dataStock = entityStockFacadeLocal.find(dataProduct.getIdProduct());
                     JSONObject obj = new JSONObject();
                     if (dataProduct.getIdProduct() == null) {
                         obj.put("id_product", "");
@@ -518,13 +518,13 @@ public class ItemServlet extends HttpServlet {
                         Logger.getLogger(ItemServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     entityProductsFacadeLocal.createProducts(dataProducts);
-                    entityStockDao.updateStock(dataStock);
+                    entityStockFacadeLocal.updateStock(dataStock);
                     code = "1";
                     msg = "Has been Recorded";
                 } else if (action_edit.equalsIgnoreCase("EDIT")) {
 
                     dataProducts = entityProductsFacadeLocal.getProducts(id_product);
-                    dataStock = entityStockDao.getStock(id_stock);
+                    dataStock = entityStockFacadeLocal.getStock(id_stock);
                     if (!object.getString("item_name").isEmpty()) {
                         item_name = object.getString("item_name");
                     } else {
@@ -630,7 +630,7 @@ public class ItemServlet extends HttpServlet {
                     } catch (ParseException ex) {
                         Logger.getLogger(ItemServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    entityStockDao.updateStock(dataStock);
+                    entityStockFacadeLocal.updateStock(dataStock);
 
                     code = "3";
                     msg = "Has been Updated";
