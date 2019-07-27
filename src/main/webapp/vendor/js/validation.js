@@ -2216,13 +2216,13 @@ function add_row() {
     e_discount_item_po.setAttribute('class', 'form-control-static uppercase');
 //    e_discount_item_po.addEventListener("onchange", discount, true);
     e_discount_item_po.setAttribute("onchange", discount);
-    var e_total_price_po = document.createElement('input');
-    e_total_price_po.type = "text";
-    e_total_price_po.id = "total_price_po";
-    e_total_price_po.name = "total_price_po";
-    e_total_price_po.readOnly = true;
-    e_total_price_po.placeholder = "IDR";
-    e_total_price_po.setAttribute('class', 'form-control-static uppercase');
+    var e_price_po= document.createElement('input');
+    e_price_po.type = "text";
+    e_price_po.id = "price_po";
+    e_price_po.name = "price_po";
+    e_price_po.readOnly = true;
+    e_price_po.placeholder = "IDR";
+    e_price_po.setAttribute('class', 'form-control-static uppercase');
 //    var e_button_1 = document.createElement('button');
 //    e_button_1.setAttribute('class', 'btn-primary');
 //
@@ -2254,8 +2254,8 @@ function add_row() {
         e_unit_price_po.id = "unit_price_po_" + k;
         td5.appendChild(e_discount_item_po);
         e_discount_item_po.id = "discount_item_po_" + k;
-        td6.appendChild(e_total_price_po);
-        e_total_price_po.id = "total_price_po_" + k;
+        td6.appendChild(e_price_po);
+        e_price_po.id = "price_po_" + k;
         td7.appendChild(e_id_product);
         e_id_product.id = "id_product_" + k;
         td8.appendChild(e_button_2);

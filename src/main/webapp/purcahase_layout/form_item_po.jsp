@@ -89,7 +89,7 @@
                         <td class="display"><input type="text" required="" name="unit_item_po" id="unit_item_po" class="form-control-static uppercase" placeholder="Unit"/></td>
                         <td class="display"><input type="text" readonly required="" name="unit_price_po" id="unit_price_po" class="form-control-static uppercase" placeholder="IDR" onblur="format_rupiah()" onchange="discount()"/></td>
                         <td class="display"><input type="number" min="0" value="0" name="discount_item_po" id="discount_item_po" class="form-control-static uppercase" placeholder="Discount" onchange="discount()"/></td>
-                        <td class="display"><input type="text" readonly name="total_price_po" id="total_price_po" class="form-control-static uppercase" placeholder="in IDR" ></td><!--onfocus="discount()"/-->
+                        <td class="display"><input type="text" readonly name="price_po" id="price_po" class="form-control-static uppercase" placeholder="in IDR" ></td><!--onfocus="discount()"/-->
                         <td class="display"><input type="text" readonly required="" name="id_product" id="id_product" class="form-control-static uppercase"/></td>
 
                         <td class="display"><button class="btn-primary"  onclick="add_row();"><i class="fa fa fa-plus-square"></i></button>&nbsp;
