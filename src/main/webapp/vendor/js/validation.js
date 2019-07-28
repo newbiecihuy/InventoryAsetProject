@@ -2346,8 +2346,8 @@ function add_row() {
     }
 
     e_button_2.onclick = function () {
-        j = j - 1;
-        k = j;
+//        j = j - 1;
+//        j = k+1;
         row.parentNode.removeChild(row);
     };
 
@@ -2358,7 +2358,7 @@ function item_supEmpty_(k, item_name_po) {
     var idSupplier = $('#supplier_id_form_create_po').val();
 //            item_name_po = $('#item_name_po_' + k).val();
     var isi_item_po = "";
-//    alert("isi k" + k + ",item_name_po_ 2" + item_name_po);
+    alert("isi k" + k + ",item_name_po_ 2" + item_name_po);
 
     if (item_name_po !== "") {
         var dataString = {
