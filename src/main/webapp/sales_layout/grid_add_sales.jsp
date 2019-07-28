@@ -11,7 +11,7 @@
     <section class="content-header">
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Purchase Order</li>
+            <li class="active">Sales Order</li>
             <li class="active">add</li>
         </ol>
     </section>

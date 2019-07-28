@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="tab">
-                        <h3>Date PO</h3>
+                        <h3>Date P&#8228;O&#8228;</h3>
                         <div class="form-group">
                             <label for="tgl_input_po">Date &nbsp;:</label>
                             <input type="text" class="form-control datePick" id="tgl_input_po"  placeholder="dd/MM/yyyy" name="tgl_input_po" value="">
