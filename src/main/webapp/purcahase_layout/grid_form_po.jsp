@@ -31,7 +31,7 @@
                 <div class="table-responsive">    
 
                     <form  name="tbl_grid_form_po" id="tbl_grid_form_po" class="display" >
-                        <table name="grid_form_po" id="grid_form_po" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
+                        <table name="grid_form_po" id="grid_form_po" class="table display dataTable no-footer table-hover table-bordered dt-responsive display nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th class="no">No.</th>

@@ -30,7 +30,7 @@
                 <div class="table-responsive">    
 
                     <form  name="tbl_grid_company" id="tbl_grid_company" class="display" >
-                        <table name="grid_company" id="grid_company" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
+                        <table name="grid_company" id="grid_company" class="table display dataTable no-footer table-hover table-bordered dt-responsive display nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th class="noCompany">No.</th>

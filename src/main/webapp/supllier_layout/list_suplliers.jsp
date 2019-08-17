@@ -30,8 +30,8 @@
                 <div class="table-responsive">    
 
                     <form  name="tbl_grid_supplier" id="tbl_grid_supplier" class="display" >
-                        <table name="grid_supplier" id="grid_supplier" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
-                            <thead>
+                        <table name="grid_supplier" id="grid_supplier" class="table display dataTable no-footer table-hover table-bordered dt-responsive display nowrap" cellspacing="0" width="100%">
+                            <thead class='thead'>
                                 <tr>
                                     <th class="no">No.</th>
                                     <th class="supplier_id">Id</th>

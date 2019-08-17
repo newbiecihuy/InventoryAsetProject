@@ -40,7 +40,7 @@
                                                         </table>
                                                     </form>-->
                         <form  name="tbl_grid_email_config" id="tbl_grid_email_config" class="display" >
-                            <table name="grid_email_config" id="grid_email_config" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
+                            <table name="grid_email_config" id="grid_email_config" class="table display dataTable no-footer table-hover table-bordered dt-responsive display nowrap" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th class="no_protocol">No.</th>

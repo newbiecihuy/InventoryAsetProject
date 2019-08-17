@@ -30,7 +30,7 @@
                 <div class="table-responsive">    
 
                     <form  name="tbl_grid_list_item_po" id="tbl_grid_list_item_po" class="display" >
-                        <table name="grid_list_item_po" id="grid_list_item_po" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
+                        <table name="grid_list_item_po" id="grid_list_item_po" class="table display dataTable no-footer table-hover table-bordered dt-responsive display nowrap" cellspacing="0" width="100%">
                             <input type="hidden" name="purchase_id" id="purchase_id" value=""/>
                             <input type="hidden" name="supplier_id_form_create_po" id="supplier_id_form_create_po" value=""/>
                             <thead>
