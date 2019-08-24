@@ -7,11 +7,8 @@
 var editor; // use a global for the submit and return data rendering in the examples
 $(document).ready(function () {
     var tbl_grid_form_po = $("#grid_form_po").DataTable({
-        processing: true,
         serverSide: true,
-        colReorder: true,
-        bJQueryUI: false,
-        bStateSave: true,
+        processing: true,
         autoFill: true,
         paging: true,
         dom: 'Bfrtip',
@@ -22,7 +19,10 @@ $(document).ready(function () {
             {bSortable:false, aTargets:["_all"]}
         ],
         lengthMenu: [[100, 200, 300, 400, 500, -1], [100, 200, 300, 400, 500, "All"]],
-        pageLength:10,
+        pageLength:100,
+        language: {
+         processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"  style="color:#3399ff"></i>'
+        },
         buttons: [
             'pageLength',
             {

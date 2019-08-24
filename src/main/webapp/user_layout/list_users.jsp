@@ -44,7 +44,7 @@
                                                 </form>-->
                     <form  name="tbl_grid_users" id="tbl_grid_users" class="display" >
                         <table name="grid_users" id="grid_users" class="table display dataTable no-footer table-hover table-bordered dt-responsive display nowrap" cellspacing="0" width="100%">
-                            <thead>
+                            <thead class="thc">
                                 <tr>
                                     <th class="no">No.</th>
                                     <th class="id_user">Id</th>                                          

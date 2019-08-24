@@ -19,6 +19,10 @@ $(document).ready(function () {
         scrollY: "240px",
         scrollCollapse: true,
         lengthMenu: [[100, 200, 300, 400, 500, -1], [100, 200, 300, 400, 500, "All"]],
+        pageLength: 100,
+        language: {
+            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"  style="color:#3399ff"></i>'
+        },
         buttons: [
             'pageLength',
             {
@@ -218,22 +222,22 @@ $(document).ready(function () {
                             description: va_description,
                             id_stock: va_id_stock,
                             status_item: va_status_item,
-                            stock : va_stock
+                            stock: va_stock
                         };
-                        if (va_stock !== 0){
+                        if (va_stock !== 0) {
                             return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
-                                 <a href='#' onclick='javascript:viewStockFunc("+ JSON.stringify(data_Items) + ")'><i class='fa fa fa-shopping-basket' title='view-stock'></i></a>\n\
+                                 <a href='#' onclick='javascript:viewStockFunc(" + JSON.stringify(data_Items) + ")'><i class='fa fa fa-shopping-basket' title='view-stock'></i></a>\n\
                                  <a id='updateDataItem' href='#' onclick='javascript:editItemFunc(" + JSON.stringify(data_Items) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
                                  <a href='#'><i class='fa fa-trash ' title='Delete'></i></a>";
 //                      return "<a href='" + data_pict_1 + " 'target='_blank' class='btn btn-info'>" + "<font color='#f2f2f2' size='2em'>" + "Display" + "</font>" + "</a>";
-                    } else {
-                        return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
+                        } else {
+                            return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                <a href='#'><i class='fa fa fa-shopping-basket' style='color:#e0e0d1;' title='empty'></i></a>\n\
                                <a id='updateDataItem' href='#' onclick='javascript:editItemFunc(" + JSON.stringify(data_Items) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
                                <a href='#'><i class='fa fa-trash ' title='Delete'></i></a>";
+                        }
                     }
                 }
-            }
             }],
         order: [[1, 'asc']]
     });

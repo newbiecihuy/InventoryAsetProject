@@ -12,7 +12,7 @@
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Purchase Order</li>
-            <li class="active">add</li>
+            <li class="active">List P&#8228;O</li>
         </ol>
     </section>
     <div class="row mar-left-space">
@@ -32,7 +32,7 @@
 
                     <form  name="tbl_grid_form_po" id="tbl_grid_form_po" class="display" >
                         <table name="grid_form_po" id="grid_form_po" class="table display dataTable no-footer table-hover table-bordered dt-responsive display nowrap" cellspacing="0" width="100%">
-                            <thead>
+                           <thead class="thc">
                                 <tr>
                                     <th class="no">No.</th>
                                     <th class="purchase_id">Id</th>

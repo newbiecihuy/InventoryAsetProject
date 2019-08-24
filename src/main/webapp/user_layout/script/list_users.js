@@ -19,6 +19,10 @@ $(document).ready(function () {
         scrollY: "240px",
         scrollCollapse: true,
         lengthMenu: [[100, 200, 300, 400, 500, -1], [100, 200, 300, 400, 500, "All"]],
+        pageLength: 100,
+        language: {
+            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"  style="color:#3399ff"></i>'
+        },
         buttons: [
             'pageLength',
             {

@@ -2259,7 +2259,6 @@ function add_row() {
 
         td5.appendChild(e_discount_item_po);
         e_discount_item_po.id = "discount_item_po_" + k;
-//        e_qtty_po.onchange = discount(k);
         td6.appendChild(e_price_po);
         e_price_po.id = "price_po_" + k;
         td7.appendChild(e_id_product);
@@ -2291,7 +2290,6 @@ function add_row() {
 
                     });
                 },
-//             autoFocus: true,
                 minLength: 1,
                 scroll: true,
                 select: function (event, ui) {
@@ -2301,13 +2299,10 @@ function add_row() {
 //                    alert("isi ui"+ui.item.data);
 //                    item_name_po = ui.item.data;
                     e_item_name.onload = item_supEmpty_(k, ui.item.data);
-//                    
+//                   
                     e_unit_price_po.onblur = format_rupiah(k);
                     e_unit_price_po.onchange = discount(k);
                     e_qtty_po.onchange = discount(k);
-//    $("#unit_price_po_" + k).live('blur',format_rupiah(k));
-//    $("#unit_price_po_" + k).live('onchange'.discount(k));
-//    $("#qtty_po_" + k).on.live('onchange'.discount(k));
                 },
                 delay: 300
             }).autocomplete("option", "appendTo", "#form_create_po");
@@ -2409,7 +2404,7 @@ function item_supEmpty_(k, item_name_po) {
             }
         });
     }
-    
+
 }
 function remove(id) {
 //    alert("id"+id);
@@ -2468,14 +2463,25 @@ function format_rupiah(k) {//used
 
 function discount(k) { // used
     var nilai_b = 0;
+    var price = "";
+    var qtty = "";
+    var pricedNew = "";
+    var i = "";
+    var nilai_unit = "";
+    var nilai_akhir = "";
+    var diskon = "";
+    var number_string = "";
+    var sisa = "";
+    var rupiah="";
+    var ribuan = "";
     if (k === 0) {
-        var price = document.getElementById("unit_price_po").value;
-        var qtty = document.getElementById("qtty_po").value;
-        var pricedNew = price; //price.split('.').join("");
-        var i = document.getElementById("discount_item_po").value;
-        var nilai_unit = "";
-        var nilai_akhir = "";
-        var diskon = "";
+        price = document.getElementById("unit_price_po").value;
+        qtty = document.getElementById("qtty_po").value;
+        pricedNew = price; //price.split('.').join("");
+        i = document.getElementById("discount_item_po").value;
+        nilai_unit = "";
+        nilai_akhir = "";
+        diskon = "";
         if (qtty > 0 && pricedNew > 0) {
             nilai_unit = pricedNew * qtty;
             if (i > 0) {
@@ -2489,24 +2495,22 @@ function discount(k) { // used
             nilai_akhir = pricedNew * 0;
         }
 
-        var number_string = nilai_akhir.toString();
-        var sisa = number_string.length % 3;
-        var rupiah = number_string.substr(0, sisa);
-        var ribuan = number_string.substr(sisa).match(/\d{3}/g);
-//    subTotal(rupiah);
+        number_string = nilai_akhir.toString();
+        sisa = number_string.length % 3;
+        rupiah = number_string.substr(0, sisa);
+        ribuan = number_string.substr(sisa).match(/\d{3}/g);
         subTotal(number_string);
-        // return  document.getElementById("price_po_"+k).value = number_string;
         nilai_b = document.getElementById("price_po");
         nilai_b.value = number_string;
 //        nilai_b = document.getElementById("price_po_" + k).value;
     } else {
-        var price = document.getElementById("unit_price_po_" + k).value;
-        var qtty = document.getElementById("qtty_po_" + k).value;
-        var pricedNew = price; //price.split('.').join("");
-        var i = document.getElementById("discount_item_po_" + k).value;
-        var nilai_unit = "";
-        var nilai_akhir = "";
-        var diskon = "";
+        price = document.getElementById("unit_price_po_" + k).value;
+        qtty = document.getElementById("qtty_po_" + k).value;
+        pricedNew = price;
+        i = document.getElementById("discount_item_po_" + k).value;
+        nilai_unit = "";
+        nilai_akhir = "";
+        diskon = "";
         if (qtty > 0 && pricedNew > 0) {
             nilai_unit = pricedNew * qtty;
             if (i > 0) {
@@ -2520,18 +2524,17 @@ function discount(k) { // used
             nilai_akhir = pricedNew * 0;
         }
 
-        var number_string = nilai_akhir.toString();
-        var sisa = number_string.length % 3;
-        var rupiah = number_string.substr(0, sisa);
-        var ribuan = number_string.substr(sisa).match(/\d{3}/g);
-
-//    subTotal(rupiah);
+        number_string = nilai_akhir.toString();
+        sisa = number_string.length % 3;
+        rupiah = number_string.substr(0, sisa);
+        ribuan = number_string.substr(sisa).match(/\d{3}/g);
         subTotal(number_string);
-        // return  document.getElementById("price_po_"+k).value = number_string;
         nilai_b = document.getElementById("price_po_" + k);
         nilai_b.value = number_string;
-
-//        nilai_b = document.getElementById("price_po_" + k).value;
+        alert("isi number_string"+number_string);
+//        if (number_string !== "") {
+//            document.getElementById("price_po_" + k).value = number_string ;
+//        }
     }
 
     return nilai_b;
