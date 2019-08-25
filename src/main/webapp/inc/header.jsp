@@ -22,9 +22,12 @@
         <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!-- Style CSS -->
         <link href="vendor/css/style.css" rel="stylesheet" type="text/css">
+
         <!-- Jquery UI css-->
-        <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/jquery-ui.css" type="text/css" />
-        <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.css" type="text/css" />
+        <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/jquery-ui.js" type="text/css" />
+        <!--<link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.css" type="text/css" />-->
+        <script type="text/javascript" src="vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
         <script src="vendor/jquery/jquery.min.js"></script>
         <!-- ### -->
 
@@ -46,12 +49,13 @@
         <script type="text/javascript" src="vendor/jquery_dataTables/2.1.0/js/responsive.bootstrap.min.js"></script>
         <script type="text/javascript" src="vendor/jquery_dataTables/1.2.0/js/dataTables.select.min.js"></script>
         <script type="text/javascript" src="vendor/jquery_dataTables/1.2.2/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
         <!-- Jquery UI js-->
-        <script type="text/javascript" src="vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+
+        <script src="vendor/jquery-ui-1.12.1.custom/jquery-1.12.4.js"></script>
+
 
         <!--end--> 
-
-        <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
         <!-- MetisMenu CSS -->
         <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -81,7 +85,7 @@
         <script type="text/javascript" src="vendor/js/hideshow.js" ></script>
         <script type="text/javascript" src="vendor/js/jquery.tablesorter.min.js"></script>
         <script type="text/javascript" src="vendor/js/jquery.equalHeight.js"></script>
-                <script type="text/javascript" src="vendor/js/validation.js"></script>
+        <script type="text/javascript" src="vendor/js/validation.js"></script>
         <!--<script type="text/javascript" src="vendor/js/validation_2.js"></script>-->
         <script type="text/javascript" src="vendor/js/contextMenu.js"></script>
         <script type="text/javascript" src="vendor/js/jquery.steps.js"></script>

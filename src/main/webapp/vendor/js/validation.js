@@ -2300,57 +2300,23 @@ function add_row() {
 //                    item_name_po = ui.item.data;
                     e_item_name.onload = item_supEmpty_(k, ui.item.data);
 //                   
-                    e_unit_price_po.onblur = format_rupiah(k);
-                    e_unit_price_po.onchange = discount(k);
-                    e_qtty_po.onchange = discount(k);
+
                 },
                 delay: 300
             }).autocomplete("option", "appendTo", "#form_create_po");
 
-//            e_item_name.onblur = item_supEmpty_(k, item_name_po);
+//         
+
         });
-//        e_item_name.onload = item_supEmpty_(k, item_name_po);
-
-        /* */
-//        function item_supTwo(k, item_name_po)) {
-//            alert("k" + k + "item_name_po" + item_name_po);
-//        }
-        /* */
-//        function discount() {
-//            var price = document.getElementById("unit_price_po_" + k).value;
-//            var qtty = document.getElementById("qtty_po_" + k).value;
-//            var pricedNew = price; //price.split('.').join("");
-//            var i = document.getElementById("discount_item_po_" + k).value;
-//            var nilai_unit = "";
-//            var nilai_akhir = "";
-//            var diskon = "";
-//            if (qtty > 0 && pricedNew > 0) {
-//                nilai_unit = pricedNew * qtty;
-//                if (i > 0) {
-//                    diskon = i * nilai_unit / 100;
-//                    nilai_akhir = nilai_unit - diskon;
-//                } else {
-//                    nilai_akhir = nilai_unit;
-//                }
-//
-//            } else {
-//                nilai_akhir = pricedNew * 0;
-//            }
-//
-//            var number_string = nilai_akhir.toString();
-//            var sisa = number_string.length % 3;
-//            var rupiah = number_string.substr(0, sisa);
-//            var ribuan = number_string.substr(sisa).match(/\d{3}/g);
-////    if (ribuan) {
-////        var separator = sisa ? '.' : '';
-////        rupiah += separator + ribuan.join('.');
-////    }
-////    subTotal(rupiah);
-//            subTotal(number_string);
-//            return  document.getElementById("price_po").value = number_string;
-//        }
+        $('body').on('onchange', '#qtty_po' + k, function () {
+            discount(k);
+        });
         j++;
-
+//        if (e_qtty_po.value !== "") {
+//            e_unit_price_po.onblur = format_rupiah(k);
+//            e_unit_price_po.onchange = discount(k);
+//            e_qtty_po.onchange = discount(k);
+//        }
     }
 
     e_button_2.onclick = function () {
@@ -2472,7 +2438,7 @@ function discount(k) { // used
     var diskon = "";
     var number_string = "";
     var sisa = "";
-    var rupiah="";
+    var rupiah = "";
     var ribuan = "";
     if (k === 0) {
         price = document.getElementById("unit_price_po").value;
@@ -2504,37 +2470,39 @@ function discount(k) { // used
         nilai_b.value = number_string;
 //        nilai_b = document.getElementById("price_po_" + k).value;
     } else {
-        price = document.getElementById("unit_price_po_" + k).value;
-        qtty = document.getElementById("qtty_po_" + k).value;
-        pricedNew = price;
-        i = document.getElementById("discount_item_po_" + k).value;
-        nilai_unit = "";
-        nilai_akhir = "";
-        diskon = "";
-        if (qtty > 0 && pricedNew > 0) {
-            nilai_unit = pricedNew * qtty;
-            if (i > 0) {
-                diskon = i * nilai_unit / 100;
-                nilai_akhir = nilai_unit - diskon;
+        if (document.getElementById("qtty_po_" + k).value !== "") {
+            price = document.getElementById("unit_price_po_" + k).value;
+            qtty = document.getElementById("qtty_po_" + k).value;
+            pricedNew = price;
+            i = document.getElementById("discount_item_po_" + k).value;
+            nilai_unit = "";
+            nilai_akhir = "";
+            diskon = "";
+            if (qtty > 0 && pricedNew > 0) {
+                nilai_unit = pricedNew * qtty;
+                if (i > 0) {
+                    diskon = i * nilai_unit / 100;
+                    nilai_akhir = nilai_unit - diskon;
+                } else {
+                    nilai_akhir = nilai_unit;
+                }
+
             } else {
-                nilai_akhir = nilai_unit;
+                nilai_akhir = pricedNew * 0;
             }
 
-        } else {
-            nilai_akhir = pricedNew * 0;
-        }
-
-        number_string = nilai_akhir.toString();
-        sisa = number_string.length % 3;
-        rupiah = number_string.substr(0, sisa);
-        ribuan = number_string.substr(sisa).match(/\d{3}/g);
-        subTotal(number_string);
-        nilai_b = document.getElementById("price_po_" + k);
-        nilai_b.value = number_string;
-        alert("isi number_string"+number_string);
+            number_string = nilai_akhir.toString();
+            sisa = number_string.length % 3;
+            rupiah = number_string.substr(0, sisa);
+            ribuan = number_string.substr(sisa).match(/\d{3}/g);
+            subTotal(number_string);
+            nilai_b = document.getElementById("price_po_" + k);
+            nilai_b.value = number_string;
+//        alert("isi number_string" + number_string);
 //        if (number_string !== "") {
 //            document.getElementById("price_po_" + k).value = number_string ;
 //        }
+        }
     }
 
     return nilai_b;
