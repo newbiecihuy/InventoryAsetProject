@@ -2285,9 +2285,18 @@ function add_row() {
 //         
 
         });
-        $('body').on('focus', '#qtty_po_' + k, function () {
+        $('body').on('change', '#qtty_po_' + k, function () {
+            discount(k);
+
+        });
+        $('body').on('blur', '#unit_price_po_' + k, function () {
+            discount(k);
+            format_rupiah(k);
+        });
+        $('body').on('change', '#discount_item_po_' + k, function () {
             discount(k);
         });
+
 //        $("#qtty_po_" + k).focus(function () {
 //            discount(k);
 //        });
@@ -2308,9 +2317,8 @@ function add_row() {
 function item_supEmpty_(k, item_name_po) {
 
     var idSupplier = $('#supplier_id_form_create_po').val();
-//            item_name_po = $('#item_name_po_' + k).val();
     var isi_item_po = "";
-    alert("isi k" + k + ",item_name_po_ 2" + item_name_po);
+//    alert("isi k" + k + ",item_name_po_ 2" + item_name_po);
 
     if (item_name_po !== "") {
         var dataString = {
