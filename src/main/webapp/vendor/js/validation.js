@@ -2162,7 +2162,7 @@ function add_row() {
     e_qtty_po.setAttribute('min', '1');
     e_qtty_po.setAttribute('value', '0');
     e_qtty_po.setAttribute('class', 'form-control-static uppercase');
-//    e_qtty_po.setAttribute("onchange", discount);
+    e_qtty_po.setAttribute("onchange", discount);
 //    e_qtty_po.addEventListener('onchange', discount);
 
     var e_unit_item_po = document.createElement('input');
@@ -2222,8 +2222,8 @@ function add_row() {
         row.appendChild(td6);
         row.appendChild(td7);
         row.appendChild(td8);
-        td1.appendChild(e_item_name);
 
+        td1.appendChild(e_item_name);
         e_item_name.id = "item_name_po_" + k;
 //        e_item_name.setAttribute("onchange", item_supEmpty_);
 //        e_item_name.onblur = item_supEmpty_();
@@ -2233,9 +2233,6 @@ function add_row() {
         e_unit_item_po.id = "unit_item_po_" + k;
         td4.appendChild(e_unit_price_po);
         e_unit_price_po.id = "unit_price_po_" + k;
-//        e_unit_item_po.addEventListener('onblur', format_rupiah);
-//        e_unit_price_po.onblur = format_rupiah(k);
-//        e_unit_price_po.onchange = discount(k);
 
         td5.appendChild(e_discount_item_po);
         e_discount_item_po.id = "discount_item_po_" + k;
@@ -2288,10 +2285,12 @@ function add_row() {
 //         
 
         });
-        $('body').on('focus', '#qtty_po' + k, function () {
-
+        $('body').on('focus', '#qtty_po_' + k, function () {
             discount(k);
         });
+//        $("#qtty_po_" + k).focus(function () {
+//            discount(k);
+//        });
         j++;
 //        if (e_qtty_po.value !== "") {
 //            e_unit_price_po.onblur = format_rupiah(k);
@@ -2449,7 +2448,7 @@ function discount(k) { // used
         nilai_b.value = number_string;
 //        nilai_b = document.getElementById("price_po_" + k).value;
     } else {
-        alert("masuk sini" + k);
+//        alert("masuk sini" + k);
         if (document.getElementById("qtty_po_" + k).value !== "") {
             price = document.getElementById("unit_price_po_" + k).value;
             qtty = document.getElementById("qtty_po_" + k).value;
