@@ -85,7 +85,6 @@
                     </tr>
                     <tr>
                         <td class="display"><input type="text" required="" name="item_name_po" id="item_name_po" class="form-control-static uppercase" placeholder="Like Sugar"  onchange="item_supEmpty()"/></td>
-
                         <td class="display"><input type="number" required="" min="1" value="0" name="qtty_po" id="qtty_po" class="form-control-static uppercase" placeholder="Qty" onchange="discount(0)"/></td>
                         <td class="display"><input type="text" required="" name="unit_item_po" id="unit_item_po" class="form-control-static uppercase" placeholder="Unit"/></td>
                         <td class="display"><input type="text" readonly required="" name="unit_price_po" id="unit_price_po" class="form-control-static uppercase" placeholder="IDR" onblur="format_rupiah(0)" onchange="discount(0)"/></td>

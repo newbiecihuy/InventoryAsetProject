@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/jquery-ui.js" type="text/css" />
         <!--<link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.css" type="text/css" />-->
-        <script type="text/javascript" src="vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+        <!--<script src="vendor/jquery-ui-1.12.1.custom/jquery-1.12.4.js"></script>-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <!-- ### -->
 
@@ -51,8 +51,7 @@
         <script type="text/javascript" src="vendor/jquery_dataTables/1.2.2/js/dataTables.buttons.min.js"></script>
         <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
         <!-- Jquery UI js-->
-
-        <script src="vendor/jquery-ui-1.12.1.custom/jquery-1.12.4.js"></script>
+        <script src="vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 
 
         <!--end--> 

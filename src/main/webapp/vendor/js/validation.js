@@ -2167,7 +2167,7 @@ function add_row() {
 //        item_supEmpty();
 //    });
     var e_id_product = document.createElement('input');
-    e_id_product.type = "text";
+    e_id_product.type = "hidden";
     e_id_product.id = "id_product";
     e_id_product.name = "id_product";
     e_id_product.readOnly = true;
@@ -2180,8 +2180,8 @@ function add_row() {
     e_qtty_po.setAttribute('min', '1');
     e_qtty_po.setAttribute('value', '0');
     e_qtty_po.setAttribute('class', 'form-control-static uppercase');
-    e_qtty_po.setAttribute("onchange", discount);
-    e_qtty_po.addEventListener('onchange', discount);
+//    e_qtty_po.setAttribute("onchange", discount);
+//    e_qtty_po.addEventListener('onchange', discount);
 
     var e_unit_item_po = document.createElement('input');
     e_unit_item_po.type = "text";
@@ -2308,7 +2308,7 @@ function add_row() {
 //         
 
         });
-        $('body').on('onchange', '#qtty_po' + k, function () {
+        $('body').on('focus', '#qtty_po' + k, function () {
             discount(k);
         });
         j++;
@@ -2470,6 +2470,7 @@ function discount(k) { // used
         nilai_b.value = number_string;
 //        nilai_b = document.getElementById("price_po_" + k).value;
     } else {
+        alert("masuk sini"+k);
         if (document.getElementById("qtty_po_" + k).value !== "") {
             price = document.getElementById("unit_price_po_" + k).value;
             qtty = document.getElementById("qtty_po_" + k).value;
