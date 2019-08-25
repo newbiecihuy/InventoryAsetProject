@@ -35,7 +35,8 @@
                 </table>
             </form>
             <form id="form_add_categories" name="form_add_categories" method="POST" action="">
-                <div id="form_add_categories_response" class="resp"></div>
+                <!--<div id="form_add_categories_response" class="resp"></div>-->
+                <div id="form_add_categories_response"></div>
                 <div class="box-body">
                     <div class="form-group">
                         <label for="categories" class="req">Category Name &nbsp;:</label>

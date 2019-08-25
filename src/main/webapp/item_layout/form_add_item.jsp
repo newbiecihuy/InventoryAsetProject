@@ -77,7 +77,8 @@
                     </table>
                 </form>
                 <form id="form_add_item" name="form_add_item" method="POST" action="">
-                    <div id="ajaxResponse_form_add_item" class="resp"></div>
+                    <!--<div id="ajaxResponse_form_add_item" class="resp"></div>-->
+                    <div id="ajaxResponse_form_add_item"></div>
                     <div class="box-body">
 
                         <div class="form-group">

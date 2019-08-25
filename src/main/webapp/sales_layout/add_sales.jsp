@@ -25,7 +25,7 @@
                 </table>
             </form>
             <form id="form_add_po" name="form_add_po" class=" " method="POST" action="">
-                <div id="ajaxResponse_form_add_po" class="resp"></div>
+                <div id="ajaxResponse_form_add_sales" class="resp"></div>
                 <div class="box-body">
 
                     <div class="tab">

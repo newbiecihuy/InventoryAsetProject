@@ -62,7 +62,8 @@
             <form id="form_create_po"  name="form_create_po" class="form-horizontal" method="POST" action="" class="display" >
                 <!--<p id="content_form_delegate" class="message success" ></p>-->
                 <legend class="display ui-widget ui-widget-header ui-corner-all">Add Item Purcahse</legend>
-                <div id="ajaxResponse_form_add_po" class="resp"></div>
+                <!--                <div id="ajaxResponse_form_create_po" class="resp"></div>-->
+                <div id="ajaxResponse_form_create_po"></div>
                 <table  name="data_table" id="data_table" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
                     <input type="hidden" readonly="readonly"  name="purchase_id" id="purchase_id" value="<% out.println(purchase_id);%>"/>
                     <input type="hidden" readonly="readonly" name="supplier_id_form_create_po" id="supplier_id_form_create_po" value="<% out.println(supplier_id_form_create_po);%>"/>
@@ -93,7 +94,7 @@
                         <td class="display"><input type="hidden" readonly required="" name="id_product" id="id_product" class="form-control-static uppercase"/></td>
 
                         <td class="display"><button class="btn-primary"  onclick="add_row();"><i class="fa fa fa-plus-square"></i></button>&nbsp;</td>
-                            <!--<button class="btn-warning" onclick="remove(id)return false;" id="remove_row"><i class="fa fa-minus-square"></i></button>-->
+                        <!--<button class="btn-warning" onclick="remove(id)return false;" id="remove_row"><i class="fa fa-minus-square"></i></button>-->
 
                     </tr>
                     <tbody id="itemlist">

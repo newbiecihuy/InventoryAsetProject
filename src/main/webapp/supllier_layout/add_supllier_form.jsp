@@ -26,7 +26,8 @@
                 </table>
             </form>
             <form id="form_add_supplier" name="form_add_supplier" method="POST" action="">
-                <div id="form_add_supplier_response" class="resp"></div>
+                  <!--<div id="form_add_supplier_response" class="resp "></div>-->
+                <div id="form_add_supplier_response"></div>
                 <div class="box-body">
                     <div class="form-group">
                         <label for="supplier_name" class="req">Supplier Name &nbsp;:</label>

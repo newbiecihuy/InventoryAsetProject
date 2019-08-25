@@ -15,7 +15,7 @@
     });
 </script>-->
 
-<div class="navbar-default  bg-cl sidebar" style="min-height: 1000px;" role="navigation">
+<div class="navbar-default  bg-cl sidebar" style="min-height: 1000px;min-width:80px;" role="navigation">
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
             <li class="sidebar-search">
@@ -116,9 +116,9 @@
                     <li class="has-spinner" >
                         <a href="index.jsp?url=item_layout&pages=list_categories" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> View Categories</a>
                     </li>
-<!--                    <li class="has-spinner" >
-                        <a href="index.jsp?url=item_layout&pages=list_stock_item" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i> View Stock</a>
-                    </li>-->
+                    <!--                    <li class="has-spinner" >
+                                            <a href="index.jsp?url=item_layout&pages=list_stock_item" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i> View Stock</a>
+                                        </li>-->
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
@@ -160,27 +160,27 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
-<!--            <li> on Progress
-                <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Sales Order Menu<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level submenu">
-                    <li class="has-spinner" >
-                        <a href="index.jsp?url=sales_layout&pages=sales" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i> Create SO</a>
-                    </li>
-                                        <li>
-                                            <a href="index.jsp?url=sales_layout&pages=list_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i> List SO</a>
-                                        </li>
-                </ul>
-                 /.nav-second-level 
-            </li>
-            <li>
-                <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Sales Report<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level submenu">
-                    <li class="has-spinner" >
-                        <a href="index.jsp?url=sales_layout&pages=sales" class="font-cl">View Sales</a>
-                    </li>
-                </ul>
-                 /.nav-second-level 
-            </li>-->
+            <!--            <li> on Progress
+                            <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Sales Order Menu<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level submenu">
+                                <li class="has-spinner" >
+                                    <a href="index.jsp?url=sales_layout&pages=sales" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i> Create SO</a>
+                                </li>
+                                                    <li>
+                                                        <a href="index.jsp?url=sales_layout&pages=list_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i> List SO</a>
+                                                    </li>
+                            </ul>
+                             /.nav-second-level 
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Sales Report<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level submenu">
+                                <li class="has-spinner" >
+                                    <a href="index.jsp?url=sales_layout&pages=sales" class="font-cl">View Sales</a>
+                                </li>
+                            </ul>
+                             /.nav-second-level 
+                        </li>-->
             <li>
                 <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-users fa-fw"></i>User Manager<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level submenu">

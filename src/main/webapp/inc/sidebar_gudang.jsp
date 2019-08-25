@@ -15,7 +15,7 @@
     });
 </script>-->
 
-<div class="navbar-default  bg-cl sidebar" style="min-height: 1000px;" role="navigation">
+<div class="navbar-default  bg-cl sidebar" style="min-height: 1000px; min-width:80px;" role="navigation">
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
             <li class="sidebar-search">

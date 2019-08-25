@@ -366,19 +366,19 @@ $(document).ready(function () {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
 
-                    $("#form_add_supplier_response").html("<div><p><b>" + "Supplier  " + supplier_name + response.msg + "</b></p></div>");
+                    $("#form_add_supplier_response").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier  " + supplier_name + response.msg + "</b></p></div>");
 //                    $('#btn_add_supplier').prop('disabled', true);
                 } else if (response.RC === "2") {
-                    $("#form_add_supplier_response").html("<div><p><b>" + "Supplier " + supplier_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
+                    $("#form_add_supplier_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier " + supplier_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "3") {
-                    $("#form_add_supplier_response").html("<div><p><b>" + "Supplier " + supplier_name + response.msg + "</b></p></div>").addClass('error').css({});
+                    $("#form_add_supplier_response").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier " + supplier_name + response.msg + "</b></p></div>").addClass('error').css({});
                     $('#btn_add_supplier').prop('disabled', true);
                 } else if (response.RC === "33") {
-                    $("#form_add_supplier_response").html("<div><p><b>" + "Supplier code" + supplier_code + response.msg + "</b></p></div>").addClass('error').css({});
+                    $("#form_add_supplier_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier code" + supplier_code + response.msg + "</b></p></div>").addClass('error').css({});
                 }
                 //display error message
                 else {
-                    $("#form_add_supplier_response").html("<div><p><b>Invalid!</b></p></div>").addClass('error').css({});
+                    $("#form_add_supplier_response").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>Invalid!</b></p></div>").addClass('error').css({});
                 }
             },
             //If there was no resonse from the server
@@ -435,12 +435,12 @@ $(document).ready(function () {
             success: function (response) {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
-                    $("#form_add_categories_response").html("<div><p><b>" + "Category  " + category_name + " Has been Recorded" + "</b></p></div>");
+                    $("#form_add_categories_response").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Category  " + category_name + " Has been Recorded" + "</b></p></div>");
                 } else if (response.RC === "2") {
-                    $("#form_add_categories_response").html("<div><p><b>" + "Category " + category_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
+                    $("#form_add_categories_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Category " + category_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
                 } else {
 
-                    $("#form_add_categories_response").html("<div><p><b>Invalid!</b></p></div>").addClass('error').css({});
+                    $("#form_add_categories_response").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>Invalid!</b></p></div>").addClass('error').css({});
                 }
             },
             //If there was no resonse from the server
@@ -498,20 +498,7 @@ $(document).ready(function () {
             $('#description').css('background', '');
             return false;
         }
-//        var b = 0;
-//        var chk = document.getElementsByName("status_item");
-//        for (j = 0; j < chk.length; j++) {
-//            if (chk.item(j).checked === false) {
-//                b++;
-//            }
-//            if (chk.item(j).checked === true) {
-//
-//
-//            }
-//
-//        }
-//        var pesan = $("#content_status_item");
-////        var data_add_pic = $("#form_add_pic").serialize();
+
         var data_add_item = {
             item_name: $("#item_name").val(),
             categori_name: $("#categori_name").val(),
@@ -528,19 +515,19 @@ $(document).ready(function () {
             success: function (response) {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
-                    $("#ajaxResponse_form_add_item").html("<div><p><b>" + "Item  " + item_name + response.msg + "</b></p></div>");
+                    $("#ajaxResponse_form_add_item").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item  " + item_name + response.msg + "</b></p></div>");
                 } else if (response.RC === "2") {
-                    $("#ajaxResponse_form_add_item").html("<div><p><b>" + "Item " + item_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_item").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item " + item_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "3") {
-                    $("#ajaxResponse_form_add_item").html("<div><p><b>" + "Item " + item_name + response.msg + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_item").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item " + item_name + response.msg + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "33") {
-                    $("#ajaxResponse_form_add_item").html("<div><p><b>" + product_code + response.msg + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_item").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + product_code + response.msg + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "44") {
-                    $("#ajaxResponse_form_add_item").html("<div><p><b>" + "Item " + item_name + " Supplier Not found" + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_item").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item " + item_name + " Supplier Not found" + "</b></p></div>").addClass('error').css({});
                 }
                 //display error message
                 else {
-                    $("#ajaxResponse_form_add_item").html("<div><p><b>Invalid!</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_item").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>Invalid!</b></p></div>").addClass('error').css({});
                 }
             },
             //If there was no resonse from the server
@@ -554,6 +541,7 @@ $(document).ready(function () {
 //        $('#form_add_item')[0].reset();
 //        return;
     });
+
     $("#form_add_po").submit(function () {
         var supplier_name = $("#supplier_name_po").val();
         var date = $("#tgl_input_po").val();
@@ -613,17 +601,17 @@ $(document).ready(function () {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
 
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order   " + response.msg + "</b></p></div>");
+                    $("#ajaxResponse_form_add_po").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order   " + response.msg + "</b></p></div>");
                 } else if (response.RC === "2") {
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + response.msg + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_po").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + response.msg + "</b></p></div>");
                 } else if (response.RC === "3") {
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_po").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "4") {
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_po").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
                 }
                 //display error message
                 else {
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>Invalid!</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_add_po").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>Invalid!</b></p></div>");
                 }
             },
             //If there was no resonse from the server
@@ -722,12 +710,12 @@ $(document).ready(function () {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
 
-                    $("#ajaxResponse_form_email_config").html("<div><p><b>" + "SUCCES" + "</b></p></div>");
+                    $("#ajaxResponse_form_email_config").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "SUCCES" + "</b></p></div>");
                     $('#btn_ubmit_form_email_config').prop('disabled', true);
                 }
                 //display error message
                 else {
-                    $("#ajaxResponse_form_email_config").html("<div><p><b>Invalid!</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_email_config").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>Invalid!</b></p></div>").addClass('error').css({});
                 }
             },
             //If there was no resonse from the server
@@ -768,15 +756,15 @@ $(document).ready(function () {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1pers") {
 
-                    $("#ajaxResponse_form_submit_company").html("<div><p><b>" + "SUCCES" + "</b></p></div>");
+                    $("#ajaxResponse_form_submit_company").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "SUCCES" + "</b></p></div>");
                     $('#btn_submit_form_company').prop('disabled', true);
                 } else if (response.RC === "1persD") {
-                    $("#ajaxResponse_form_submit_company").html("<div><p><b>" + "Data Duplicate" + "</b></p></div>");
+                    $("#ajaxResponse_form_submit_company").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Data Duplicate" + "</b></p></div>");
                     $('#btn_submit_form_company').prop('disabled', true);
                 }
                 //display error message
                 else {
-                    $("#ajaxResponse_form_submit_company").html("<div><p><b>Invalid!</b></p></div>");
+                    $("#ajaxResponse_form_submit_company").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>Invalid!</b></p></div>");
                 }
             },
             //If there was no resonse from the server
@@ -801,15 +789,15 @@ $(document).ready(function () {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
 
-                    $("#form_add_param_response").html("<div><p><b>" + "SUCCES" + "</b></p></div>");
+                    $("#form_add_param_response").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "SUCCES" + "</b></p></div>");
                     $('#btn_daftar_param').prop('disabled', true);
                 } else if (response.RC === "2") {
-                    $("#form_add_param_response").html("<div><p><b>" + "Data Duplicate" + "</b></p></div>");
+                    $("#form_add_param_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Data Duplicate" + "</b></p></div>");
 //                    $('#btn_submit_form_company').prop('disabled', true);
                 }
                 //display error message
                 else {
-                    $("#form_add_param_response").html("<div><p><b>Invalid!</b></p></div>");
+                    $("#form_add_param_response").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>Invalid!</b></p></div>");
                 }
             },
             //If there was no resonse from the server
@@ -833,11 +821,11 @@ $(document).ready(function () {
                 //our country code was correct so we have some information to display
                 if (response.RC === "1") {
 
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order   " + "" + response.msg + "</b></p></div>");
+                    $("#ajaxResponse_form_create_po").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order   " + "" + response.msg + "</b></p></div>");
                 } else if (response.RC === "2") {
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_create_po").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>");
                 } else if (response.RC === "3") {
-                    $("#ajaxResponse_form_add_po").html("<div><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>").addClass('error').css({});
+                    $("#ajaxResponse_form_create_po").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>");
                 }
                 //display error message
                 else {
@@ -2122,14 +2110,12 @@ function add_row() {
 
     var item_name_po = "";
 //    alert("add_row");
-//var k = 1;
+//    var k = 1;
     var target = document.getElementById("form_create_po");
     var itemlist = document.getElementById('itemlist');
     var remove_row = document.getElementById('remove_row');
 //      create element
     var row = document.createElement('tr');
-//    var td = document.createElement('td');
-//    row.setAttribute('class', 'form-group');
 
     var td1 = document.createElement('td');
     td1.setAttribute('class', 'display');
@@ -2147,8 +2133,7 @@ function add_row() {
     td7.setAttribute('class', 'display');
     var td8 = document.createElement('td');
     td8.setAttribute('class', 'display');
-//    td2.setAttribute('width', '50px');
-//      append element
+
     itemlist.appendChild(row);
     itemlist.appendChild(td1);
 //    row.appendChild(td1);
@@ -2162,10 +2147,7 @@ function add_row() {
     e_item_name.placeholder = "Like Sugar";
     e_item_name.setAttribute('required', '');
     e_item_name.setAttribute('class', 'form-control-static uppercase');
-//    e_item_name.setAttribute("onchange", item_supEmpty_);
-//    e_item_name.setAttribute("onchange", function () {
-//        item_supEmpty();
-//    });
+
     var e_id_product = document.createElement('input');
     e_id_product.type = "hidden";
     e_id_product.id = "id_product";
@@ -2210,9 +2192,7 @@ function add_row() {
     e_discount_item_po.placeholder = "Discount";
     e_discount_item_po.setAttribute('min', '0');
     e_discount_item_po.setAttribute('value', '0');
-//    e_discount_item_po.addEventListener("onchange", discount);
     e_discount_item_po.setAttribute('class', 'form-control-static uppercase');
-//    e_discount_item_po.addEventListener("onchange", discount, true);
     e_discount_item_po.setAttribute("onchange", discount);
     e_qtty_po.addEventListener('onchange', discount);
 
@@ -2309,6 +2289,7 @@ function add_row() {
 
         });
         $('body').on('focus', '#qtty_po' + k, function () {
+
             discount(k);
         });
         j++;
@@ -2320,8 +2301,6 @@ function add_row() {
     }
 
     e_button_2.onclick = function () {
-//        j = j - 1;
-//        j = k+1;
         row.parentNode.removeChild(row);
     };
 
@@ -2470,7 +2449,7 @@ function discount(k) { // used
         nilai_b.value = number_string;
 //        nilai_b = document.getElementById("price_po_" + k).value;
     } else {
-        alert("masuk sini"+k);
+        alert("masuk sini" + k);
         if (document.getElementById("qtty_po_" + k).value !== "") {
             price = document.getElementById("unit_price_po_" + k).value;
             qtty = document.getElementById("qtty_po_" + k).value;

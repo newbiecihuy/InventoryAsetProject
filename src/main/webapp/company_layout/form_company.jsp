@@ -84,7 +84,8 @@
         </table>
     </form>
     <form  name="form_submit_company" id="form_submit_company" method="POST" class="form-horizontal" action="">
-        <div id="ajaxResponse_form_submit_company" class="resp"></div>
+<!--        <div id="ajaxResponse_form_submit_company" class="resp"></div>-->
+<div id="ajaxResponse_form_submit_company" class="resp"></div>
         <table id="tbl_submit_company" name="tbl_submit_company" cellpadding="0" cellspacing="0" class="table">
             <tr class="form-group">
                 <td class="control-label">Company&nbsp;:</td>
