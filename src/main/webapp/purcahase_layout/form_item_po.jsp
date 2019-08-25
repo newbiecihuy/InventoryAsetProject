@@ -64,7 +64,7 @@
                 <legend class="display ui-widget ui-widget-header ui-corner-all">Add Item Purcahse</legend>
                 <!--                <div id="ajaxResponse_form_create_po" class="resp"></div>-->
                 <div id="ajaxResponse_form_create_po"></div>
-                <table  name="data_table" id="data_table" class="table display dataTable no-footer table-hover dt-responsive display nowrap" cellspacing="0" width="100%">
+                <table  name="data_table" id="data_table" class="table display dataTable no-footer table-hover dt-responsive nowrap" cellspacing="0" width="100%">
                     <input type="hidden" readonly="readonly"  name="purchase_id" id="purchase_id" value="<% out.println(purchase_id);%>"/>
                     <input type="hidden" readonly="readonly" name="supplier_id_form_create_po" id="supplier_id_form_create_po" value="<% out.println(supplier_id_form_create_po);%>"/>
                     <input type="hidden" readonly="readonly" name="id_add_item_po" id="id_add_item_po" value="<% out.println(id_add_item_po);%>"/>

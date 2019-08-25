@@ -24,10 +24,10 @@
         <link href="vendor/css/style.css" rel="stylesheet" type="text/css">
 
         <!-- Jquery UI css-->
-        <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/themes/smoothness/jquery-ui.css">
-        <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/jquery-ui.js" type="text/css" />
+        <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/themes/smoothness/jquery-ui.css">        
         <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.css" type="text/css" />
-        <!--<script src="vendor/jquery-ui-1.12.1.custom/jquery-1.12.4.js"></script>-->
+        <script src="vendor/jquery-ui-1.12.1.custom/jquery-1.12.4.js"></script>
+<!--        <script src="vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <!-- ### -->
 

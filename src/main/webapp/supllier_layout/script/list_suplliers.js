@@ -66,7 +66,7 @@ $(document).ready(function () {
                     };
                     if (row_supName['status_supp'] === 1) {
 //                        return "NActive";
-                        return"<a href='#' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
+                        return"<a href='#' style='text-decoration: none;' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
 //                        return"<a href='#' onclick='javascript:suplierExcelReport(" + va_supplier_id + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
                     } else {
                         return data_supName.replace('&nbsp;', /%20/g);
