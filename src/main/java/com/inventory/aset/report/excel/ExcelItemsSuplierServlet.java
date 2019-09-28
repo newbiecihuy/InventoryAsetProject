@@ -99,8 +99,10 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        processRequest(request, response);
+//        response.setContentType("application/json");
+//        response.setHeader("cache-control", "no-cache");
 //        PrintWriter out = response.getWriter();
+
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date now = new Date();
@@ -181,9 +183,23 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
             supplierId = jsonObject.getString("supplier_id").trim().replaceAll("['\";:<>\\[\\],-]", "");
             System.out.println("isi supplierId ->" + supplierId);
             List<EntitySuppliers> dataSupplierList = entitySuppliersDao.findByStatusActive(Long.parseLong(supplierId));
+            if (0 == dataSupplierList.size() || dataSupplierList.isEmpty()) {
+                response.setContentType("application/json");
+                response.setHeader("cache-control", "no-cache");
+                PrintWriter out = response.getWriter();
+                String code = "xx0";
+                String msg = "item not registered";
+                JSONObject jsonobj = new JSONObject();
+                jsonobj.put("RC", code);
+                jsonobj.put("msg", msg);
+                out.println(jsonobj.toString());
+                System.out.println(jsonobj.toString());
+                return;
+            }
             System.out.println("isi dataSupplierList.get(0).getSupplierId() ->" + dataSupplierList.get(0).getSupplierId());
             if (dataSupplierList.size() > 0) {
                 List<EntityProducts> dataProductsList = entityProductsDao.listItemBySuplierId(dataSupplierList.get(0).getSupplierId());
+
                 System.out.println("isi dataProductsList.get(0).getIdProduct() ->" + dataProductsList.get(0).getIdProduct());
                 if (dataProductsList.size() > 0) {
                     for (int j = 0; j < dataProductsList.size(); j++) {

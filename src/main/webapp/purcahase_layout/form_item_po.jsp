@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 
 <body>
-    <%
+    <%--
         String purchase_id = "";
         if (request.getParameter("purchase_id") != null) {
             purchase_id = request.getParameter("purchase_id");
@@ -41,7 +41,7 @@
         if (request.getParameter("val_tax_po") != null) {
             val_tax_po = request.getParameter("val_tax_po");
         }
-    %>  
+    --%>  
     <section class="content-header">
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -54,7 +54,7 @@
             <form>
                 <table cellpadding="0" cellspacing="0"  style="border: 0px">
                     <td class="controls">
-                        <a href="index.jsp?url=purcahase_layout&pages=grid_form_po" class="btn btn-success" role="button" aria-pressed="true"><font color='#b6c5cd' size='2em'>View list P&#8228;O&#8228;</font></a>
+                        <a href="index.jsp?url=purcahase_layout&pages=grid_form_po" class="btn btn-success" role="button" aria-pressed="true"><font color='#f2f2f2' size='2em'>View list P&#8228;O&#8228;</font></a>
                     </td>
                 </table>
             </form>
@@ -65,14 +65,14 @@
                 <!--                <div id="ajaxResponse_form_create_po" class="resp"></div>-->
                 <div id="ajaxResponse_form_create_po"></div>
                 <table  name="data_table" id="data_table" class="table display dataTable no-footer table-hover dt-responsive nowrap" cellspacing="0" width="100%">
-                    <input type="hidden" readonly="readonly"  name="purchase_id" id="purchase_id" value="<% out.println(purchase_id);%>"/>
-                    <input type="hidden" readonly="readonly" name="supplier_id_form_create_po" id="supplier_id_form_create_po" value="<% out.println(supplier_id_form_create_po);%>"/>
-                    <input type="hidden" readonly="readonly" name="id_add_item_po" id="id_add_item_po" value="<% out.println(id_add_item_po);%>"/>
-                    <input type="hidden" name="id_product_purchase" id="id_product_purchase" value="<% out.println(id_product_purchase);%>"/>
-                    <input type="hidden" name="action_edit_item_po" id="action_edit_item_po" value="<% out.println(action_edit_item_po);%>"/>
-                    <input type="hidden" name="tax_item_po" id="tax_item_po" value="<% out.println(tax_item_po);%>" /><!--onblur="taxfunc()"-->
-                    <input type="hidden" name="tax_po_val" id="tax_po_val" placeholder="TAX" value="<% out.println(tax_po);%>" />
-                    <input type="hidden" name="val_tax_po" id="val_tax_po" class="form-control-static" placeholder="TAX" value="<% out.println(val_tax_po);%>" /></td>
+                    <input type="hidden" readonly="readonly"  name="purchase_id" id="purchase_id"/>
+                    <input type="hidden" readonly="readonly" name="supplier_id_form_create_po" id="supplier_id_form_create_po" />
+                    <input type="hidden" readonly="readonly" name="id_add_item_po" id="id_add_item_po"/>
+                    <input type="hidden" name="id_product_purchase" id="id_product_purchase">
+                    <input type="hidden" name="action_edit_item_po" id="action_edit_item_po"/>
+                    <input type="hidden" name="tax_item_po" id="tax_item_po" /><!--onblur="taxfunc()"-->
+                    <input type="hidden" name="tax_po_val" id="tax_po_val" placeholder="TAX" />
+                    <input type="hidden" name="val_tax_po" id="val_tax_po" class="form-control-static" placeholder="TAX"/></td>
                     <input type="hidden" name="action_delete_item_po" id="action_delete_item_po"/>
 
                     <tr>
@@ -112,4 +112,90 @@
             </form>
         </div>
     </div>
+    <script type="text/javascript" >
+        var purchase_id = getUrlQueryString('purchase_id').replace("\n", "").replace("\r", "");
+        if (purchase_id !== "") {
+            $("#purchase_id").val(purchase_id);
+        } else {
+            $("#purchase_id").val("");
+        }
+        var supplier_id_form_create_po = getUrlQueryString('supplier_id_form_create_po').replace("\n", "").replace("\r", "");
+        if (supplier_id_form_create_po !== "") {
+            $("#supplier_id_form_create_po").val(supplier_id_form_create_po);
+        } else {
+            $("#supplier_id_form_create_po").val("");
+        }
+        var id_add_item_po = getUrlQueryString('id_add_item_po').replace("\n", "").replace("\r", "");
+        if (id_add_item_po !== "") {
+            $("#id_add_item_po").val(id_add_item_po);
+        } else {
+            $("#id_add_item_po").val("");
+        }
+        var action_edit_item_po = getUrlQueryString('action_edit_item_po').replace("\n", "").replace("\r", "");
+        if (action_edit_item_po !== "") {
+            $("#action_edit_item_po").val(action_edit_item_po);
+        } else {
+            $("#action_edit_item_po").val("");
+        }
+        var tax_item_po = getUrlQueryString('tax_item_po').replace("\n", "").replace("\r", "");
+        if (tax_item_po !== "") {
+            $("#tax_item_po").val(tax_item_po);
+        } else {
+            $("#tax_item_po").val("");
+        }
+        var tax_po = getUrlQueryString('tax_po_val');
+        if (tax_po !== "") {
+            $("#tax_po_val").val(tax_po);
+        } else {
+            $("#tax_po_val").val("");
+        }
+        var id_product_purchase =  getUrlQueryString('id_product_purchase').replace("\n", "").replace("\r", "");
+        if (id_product_purchase !== "") {
+            $("#id_product_purchase").val(id_product_purchase);
+        } else {
+            $("#id_product_purchase").val("0");
+        }
+         var val_tax_po =  getUrlQueryString('val_tax_po').replace("\n", "").replace("\r", "");
+       if (val_tax_po !== "") {
+            $("#val_tax_po").val(val_tax_po);
+        } else {
+            $("#val_tax_po").val("");
+        }
+//         String val_tax_po = "";
+//        if (request.getParameter("val_tax_po") != null) {
+//            val_tax_po = request.getParameter("val_tax_po");
+//        }
+//         String purchase_id = "";
+//        if (request.getParameter("purchase_id") != null) {
+//            purchase_id = request.getParameter("purchase_id");
+//        }
+//        String supplier_id_form_create_po = "";
+//        if (request.getParameter("supplier_id_form_create_po") != null) {
+//        supplier_id_form_create_po = request.getParameter("supplier_id_form_create_po");
+//        }
+//        String id_add_item_po = "";
+//        if (request.getParameter("id_add_item_po") != null) {
+//        id_add_item_po = request.getParameter("id_add_item_po");
+//        }
+//        String action_edit_item_po = "";
+//        if (request.getParameter("action_edit_item_po") != null) {
+//        action_edit_item_po = request.getParameter("action_edit_item_po");
+//        }
+//        String tax_item_po = "";
+//        if (request.getParameter("tax_item_po") != null) {
+//        tax_item_po = request.getParameter("tax_item_po");
+//        }
+//        String tax_po = "";
+//        if (request.getParameter("tax_po_val") != null) {
+//        tax_po = request.getParameter("tax_po_val");
+//        }
+//        int id_product_purchase = 0;
+//        if (request.getParameter("id_product_purchase") != null) {
+//        id_product_purchase = Integer.parseInt(request.getParameter("id_product_purchase"));
+//        }
+//        String val_tax_po = "";
+//        if (request.getParameter("val_tax_po") != null) {
+//            val_tax_po = request.getParameter("val_tax_po");
+//        }
+    </script>
 </body>

@@ -107,6 +107,13 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
     }
 
     @Override
+    public List<EntityProducts> findByProductActiveBySup(Long supplier_id) {
+//        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierId  =  \"" + supplier_id + "\" AND enSuppliers.isActive=1").getResultList();
+        return em.createNamedQuery("EntityProducts.findByProductActiveBySup").setParameter("supplierId", supplier_id).getResultList();
+    }
+
+    
+    @Override
     public List<EntityProducts> findByProductName(String paramString) {
         return em.createQuery("SELECT Distinct ep.productName  FROM EntityProducts ep WHERE "
                 + " ep.productName LIKE \"" + paramString + "%\" ").getResultList();

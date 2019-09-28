@@ -17,44 +17,21 @@
         <%-- <meta http-equiv="refresh" content="0;url=index.jsp">--%>
         <title>.: PT Tanata Prima Jaya :.</title>
         <!--<link rel="Shortcut icon" href="https://www.codester.com/static/favicon.ico" />-->
-        <link rel="Shortcut icon" href="https://png.icons8.com/nolan/2x/general-electrics.png"/>
-        <!-- Bootstrap Core CSS -->
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="Shortcut icon" href="https://png.icons8.com/nolan/2x/general-electrics.png"/>        
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
         <!-- Style CSS -->
         <link href="vendor/css/style.css" rel="stylesheet" type="text/css">
-
-        <!-- Jquery UI css-->
-        <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/themes/smoothness/jquery-ui.css">        
-        <!--<link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.css" type="text/css" />-->
-        <script src="vendor/jquery-ui-1.12.1.custom/jquery-1.12.4.js"></script>
-<!--        <script src="vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <!-- ### -->
-
+        <!-- Bootstrap Core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="vendor/bootstrap_v3.3.6/css/bootstrap.min.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="vendor/bootstrap_v3.3.6/css/bootstrap-theme.min.css" type="text/css" media="screen" />
 
         <link rel="stylesheet" href="vendor/jquery_dataTables/1.10.12/css/dataTables.bootstrap.min.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="vendor/jquery_dataTables/2.1.0/css/responsive.dataTables.min.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="vendor/jquery_dataTables/2.1.0/css/responsive.bootstrap.min.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="vendor/jquery_dataTables/css/jquery.dataTables.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="vendor/jquery_dataTables/css/jquery.dataTables.min.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="vendor/jquery_dataTables/1.2.0/css/select.dataTables.min.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="vendor/jquery_dataTables/1.2.2/buttons.dataTables.min.css" type="text/css" media="screen" />
-        <!-- -->
-        <script type="text/javascript" src="vendor/jquery_dataTables/1.12.3/jquery-1.12.3.js"></script>
-        <script type="text/javascript" src="vendor/js/jquery.json-2.6.0.min.js"></script>
-        <script type="text/javascript" src="vendor/jquery_dataTables/1.10.12/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="vendor/jquery_dataTables/2.1.0/js/dataTables.responsive.min.js"></script>
-        <script type="text/javascript" src="vendor/jquery_dataTables/2.1.0/js/responsive.bootstrap.min.js"></script>
-        <script type="text/javascript" src="vendor/jquery_dataTables/1.2.0/js/dataTables.select.min.js"></script>
-        <script type="text/javascript" src="vendor/jquery_dataTables/1.2.2/js/dataTables.buttons.min.js"></script>
-        <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
-        <!-- Jquery UI js-->
-        <script src="vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
-
-
-        <!--end--> 
+        <link rel="stylesheet" href="vendor/jquery_dataTables/2.1.0/css/responsive.bootstrap.min.css" type="text/css" media="screen" />       
+        <!-- Jquery UI css-->
+        <link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/themes/smoothness/jquery-ui.css">        
+        <!--<link rel="stylesheet" href="vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.css" type="text/css" />-->
 
         <!-- MetisMenu CSS -->
         <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -67,7 +44,34 @@
         <!-- Custom Fonts -->
         <!-- use font-awesome-4.7.0-->
         <link href="vendor/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="vendor/jquery_dataTables/css/jquery.dataTables.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="vendor/jquery_dataTables/css/jquery.dataTables.min.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="vendor/jquery_dataTables/1.2.0/css/select.dataTables.min.css" type="text/css" media="screen" />
+
+        <!--<script src="vendor/jquery-ui-1.12.1.custom/jquery-1.12.4.js"></script>-->
+        <!--<script src="vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+          <script type="text/javascript" src="vendor/js/jquery.json-2.6.0.min.js"></script>
+        <!-- ### -->
+        
+        <link rel="stylesheet" href="vendor/jquery_dataTables/1.2.2/buttons.dataTables.min.css" type="text/css" media="screen" />
+        <!-- -->
+        <script type="text/javascript" src="vendor/jquery_dataTables/1.12.3/jquery-1.12.3.js"></script>
+      
+        <script type="text/javascript" src="vendor/jquery_dataTables/1.10.12/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="vendor/jquery_dataTables/2.1.0/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript" src="vendor/jquery_dataTables/2.1.0/js/responsive.bootstrap.min.js"></script>
+        <script type="text/javascript" src="vendor/jquery_dataTables/1.2.0/js/dataTables.select.min.js"></script>
+        <script type="text/javascript" src="vendor/jquery_dataTables/1.2.2/js/dataTables.buttons.min.js"></script>
+
+        <!-- Jquery UI js-->
+        <script src="vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+        <!--bootstrap -->
+        <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+        <!--end--> 
+
+
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

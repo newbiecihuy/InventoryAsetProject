@@ -1681,7 +1681,7 @@ function editCategoriesFunc(data_categories) {//, supplier_name, supplier_code, 
 
 function addPoItemFunc(data_form_po) {
     var tax_po_val = "";
-    var message = "This Supplier Have Tax PPN, You want Activated for this tractions ? ";
+    var message = "This Supplier Have Tax PPN, You want Activated for this tractions &#63;";
 //    if (data_form_po.supplier_tax === "1") {
 //        if (confirm("This Supplier Have Tax PPN, You want Activated for this tractions ? \n\n") === true) {
 //
@@ -1695,7 +1695,7 @@ function addPoItemFunc(data_form_po) {
 //            + "&tax_item_po=" + escape(data_form_po.supplier_tax) + "&tax_po_val=" + escape(tax_po_val);
 //    window.location = "index.jsp?url=purcahase_layout&pages=form_item_po&" + myParam; // decodeURI(myParam)
     $('<div></div>').appendTo('body')
-            .html('<div><h5>' + message + '?</h5></div>')
+            .html('<div><h5>' + message + '</h5></div>')
             .dialog({
                 modal: true,
                 title: '',
@@ -1850,6 +1850,9 @@ function suplierExcelReport(data_record_supplier) {
 //    return false;
 // var param = "supplier_id="+escape(data_record_supplier.supplier_id);
     window.location = createDynamicURL() + "excelItemsSuplierServlet?" + param;
+//    $.ajax({
+//         url: createDynamicURL() + "excelItemsSuplierServlet?" + param;
+//    });
 }
 //End Generate Excel
 //

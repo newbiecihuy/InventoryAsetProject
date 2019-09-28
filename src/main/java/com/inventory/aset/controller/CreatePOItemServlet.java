@@ -281,7 +281,7 @@ public class CreatePOItemServlet extends HttpServlet {
 //            int qtty_po = 0;
             String tax_po_val = "";
 //            String  tax_po_val;
-            String item_name_po[], qtty_po[], unit_item_po[], id_product[], unit_price_po[], discount_item_po[], price_po[], sub_total, total_price_po = null;
+            String item_name_po[] = null, qtty_po[] = null, unit_item_po[] = null, id_product[] = null, unit_price_po[] = null, discount_item_po[] = null, price_po[] = null, sub_total, total_price_po = null;
             String isi_item_name, isi_qtty_po, isi_unit_item_po, isi_id_product, isi_unit_price_po, isi_discount_item_po, isi_price_po = null;
             Object node_item_name, node_unit_item_po, node_unit_price_po, node_id_product, node_discount_item_po, node_price_po, node_qtty_po = null;
             JSONArray arr_item_name = null;
@@ -303,16 +303,16 @@ public class CreatePOItemServlet extends HttpServlet {
             for (int i = 0; i < array.size(); i++) {
                 JSONObject object = array.getJSONObject(0);
                 object = array.getJSONObject(i);
-                action_edit = object.getString("action_edit_item_po").trim().replaceAll("['\":<>\\[\\],-]", "");
-                action_delete = object.getString("action_delete_item_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                action_edit = object.getString("action_edit_item_po").trim().replaceAll("['\":<>\\[\\]\\r\\n,-]", "");
+                action_delete = object.getString("action_delete_item_po").trim().replaceAll("['\":<>\\[\\]\\r\\n,-]", "");
 
                 if (!"".equals(object.getString("purchase_id")) && !object.getString("purchase_id").isEmpty()) {
-                    purchase_id = Long.parseLong(object.getString("purchase_id").trim().replaceAll("['\":<>\\[\\],-]", ""));
+                    purchase_id = Long.parseLong(object.getString("purchase_id").trim().replaceAll("['\":<>\\[\\]\\r\\n,-]", ""));
                 } else {
                     purchase_id = 0l;
                 }
                 if (!"".equals(object.getString("id_product_purchase")) && !object.getString("id_product_purchase").isEmpty()) {
-                    id_product_purchase = Long.parseLong(object.getString("id_product_purchase").trim().replaceAll("['\":<>\\[\\],-]", ""));
+                    id_product_purchase = Long.parseLong(object.getString("id_product_purchase").trim().replaceAll("['\":<>\\[\\]\\r\\n,-]", ""));
                 } else {
                     id_product_purchase = 0l;
                 }
@@ -322,150 +322,190 @@ public class CreatePOItemServlet extends HttpServlet {
                     dataPurcahse = entityPurchasesFacadeLocal.find(purchase_id);
 
                     if (!object.getString("supplier_id_form_create_po").isEmpty()) {
-                        supplier_id_form_create_po = Long.parseLong(object.getString("supplier_id_form_create_po").trim().replaceAll("['\":<>\\[\\],-]", ""));
+                        supplier_id_form_create_po = Long.parseLong(object.getString("supplier_id_form_create_po").trim().replaceAll("['\":<>\\[\\]\\r\\n,-]", ""));
+                        System.out.println("supplier_id_form_create_po " + supplier_id_form_create_po);
                     } else {
                         supplier_id_form_create_po = 0l;
                     }
                     if (!object.getString("id_product").isEmpty()) {
-                        node_id_product = object.getString("id_product").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        node_id_product = object.getString("id_product").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
                     } else {
                         node_id_product = "";
                     }
                     if (!object.getString("item_name_po").isEmpty()) {
-                        node_item_name = object.getString("item_name_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        node_item_name = object.getString("item_name_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        System.out.println("node_item_name " + node_item_name);
                     } else {
                         node_item_name = "";
                     }
-                    if (object.getInt("qtty_po") != 0) {
-                        node_qtty_po = object.getInt("qtty_po");
+                    if (object.getString("qtty_po") != null || object.getInt("qtty_po") != 0) {//object.getInt("qtty_po") !=0
+                        node_qtty_po = object.getString("qtty_po");//object.getInt("qtty_po");
+                        System.out.println("node_qtty_po " + node_qtty_po);
                     } else {
                         node_qtty_po = 0;
                     }
                     if (!object.getString("unit_item_po").isEmpty()) {
-                        node_unit_item_po = object.getString("unit_item_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        node_unit_item_po = object.getString("unit_item_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        System.out.println("node_unit_item_po " + node_unit_item_po);
                     } else {
                         node_unit_item_po = "";
                     }
                     if (!object.getString("unit_price_po").isEmpty()) {
-                        node_unit_price_po = object.getString("unit_price_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        node_unit_price_po = object.getString("unit_price_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        System.out.println("node_unit_item_po " + node_unit_price_po);
                     } else {
                         node_unit_price_po = "";
                     }
                     if (!object.getString("discount_item_po").isEmpty()) {
-                        node_discount_item_po = object.getString("discount_item_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        node_discount_item_po = object.getString("discount_item_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        System.out.println("node_unit_item_po " + node_discount_item_po);
                     } else {
                         node_discount_item_po = "";
                     }
                     if (!object.getString("price_po").isEmpty()) {
-                        node_price_po = object.getString("price_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        node_price_po = object.getString("price_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        System.out.println("node_price_po " + node_price_po);
                     } else {
                         node_price_po = "";
                     }
                     if (!object.getString("sub_total").isEmpty()) {
-                        sub_total = object.getString("sub_total").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        sub_total = object.getString("sub_total").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        System.out.println("sub_total " + sub_total);
                     } else {
                         sub_total = "";
                     }
                     if (!object.getString("total_price_po").isEmpty()) {
-                        total_price_po = object.getString("total_price_po").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        total_price_po = object.getString("total_price_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        System.out.println("total_price_po " + total_price_po);
                     } else {
                         total_price_po = "";
                     }
 //                    if (object.getBoolean("tax_po_val")) {
-                    tax_po_val = object.getString("tax_po_val").trim().replaceAll("['\":<>\\[\\],-]", "");
+                    tax_po_val = object.getString("tax_po_val").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                    System.out.println("tax_po_val " + tax_po_val);
 //                    } else {
 //                        tax_po_val = false;
 //                    }
 
-                    if ((node_item_name instanceof JSONArray)) {
-                        System.out.println("isi node_item_name: " + node_item_name);
-                        arr_item_name = object.getJSONArray("item_name");
-                        item_name_po = new String[arr_item_name.size()];
-                    } else {
-                        item_name_po = new String[1];
+                    String[] data_node_item = node_item_name.toString().split(",");
+                    for (int j = 0; j < data_node_item.length; j++) {
+                        String part = data_node_item[j];
+                        System.out.println("@Check Part " + i + " :" + part);
                     }
-                    if ((node_qtty_po instanceof JSONArray)) {
-                        System.out.println("isi qtty_po: " + node_qtty_po);
-                        arr_qtty_po = object.getJSONArray("qtty_po");
-                        qtty_po = new String[arr_qtty_po.size()];
-                    } else {
-                        qtty_po = new String[1];
+                    String[] data_node_qtty = node_qtty_po.toString().split(",");
+                    for (int k = 0; k < data_node_qtty.length; k++) {
+                        String part = data_node_qtty[k];
+                        System.out.println("@Check Part " + k + " :" + part);
                     }
-                    if ((node_unit_item_po instanceof JSONArray)) {
-                        System.out.println("isi node_unit_item_po: " + node_unit_item_po);
-                        arr_unit_item_po = object.getJSONArray("unit_item_po");
-                        unit_item_po = new String[arr_unit_item_po.size()];
-                    } else {
-                        unit_item_po = new String[1];
+                    String[] data_node_unit_item = node_unit_item_po.toString().split(",");
+                    for (int l = 0; l < data_node_unit_item.length; l++) {
+                        String part = data_node_unit_item[l];
+                        System.out.println("@Check Part " + l + " :" + part);
                     }
-
-                    if ((node_id_product instanceof JSONArray)) {
-                        System.out.println("isi node_id_product: " + node_id_product);
-                        arr_id_product = object.getJSONArray("id_product");
-                        id_product = new String[arr_id_product.size()];
-                    } else {
-                        id_product = new String[1];
+                    String[] data_node_unit_price_po = node_unit_price_po.toString().split(",");
+                    for (int m = 0; m < data_node_unit_price_po.length; m++) {
+                        String part = data_node_unit_price_po[m];
+                        System.out.println("@Check Part " + m + " :" + part);
                     }
-                    if ((node_unit_price_po instanceof JSONArray)) {
-                        System.out.println("isi node_unit_price_po: " + node_unit_price_po);
-                        arr_unit_price_po = object.getJSONArray("unit_price_po");
-                        unit_price_po = new String[arr_unit_price_po.size()];
-                    } else {
-                        unit_price_po = new String[1];
+                    String[] data_node_discount_item_po = node_discount_item_po.toString().split(",");
+                    for (int n = 0; n < data_node_discount_item_po.length; n++) {
+                        String part = data_node_discount_item_po[n];
+                        System.out.println("@Check Part " + n + " :" + part);
                     }
-
-                    if ((node_discount_item_po instanceof JSONArray)) {
-                        System.out.println("isi node_unit_price_po: " + node_unit_price_po);
-                        arr_discount_item_po = object.getJSONArray("discount_item_po");
-                        discount_item_po = new String[arr_discount_item_po.size()];
-                    } else {
-                        discount_item_po = new String[1];
+                    String[] data_node_price_po = node_price_po.toString().split(",");
+                    for (int o = 0; o < data_node_price_po.length; o++) {
+                        String part = data_node_price_po[o];
+                        System.out.println("@Check Part " + o + " :" + part);
                     }
-
-                    if ((node_price_po instanceof JSONArray)) {
-                        System.out.println("isi price_po: " + node_price_po);
-                        arr_price_po = object.getJSONArray("price_po");
-                        price_po = new String[arr_price_po.size()];
-                    } else {
-                        price_po = new String[1];
-                    }
+//                    if ((node_item_name instanceof JSONArray)) {
+//                        System.out.println("isi node_item_name: " + node_item_name);
+//                        arr_item_name = object.getJSONArray("item_name");
+//                        item_name_po = new String[arr_item_name.size()];
+//                    } else {
+//                        item_name_po = new String[1];
+//                    }
+//                    if ((node_qtty_po instanceof JSONArray)) {
+//                        System.out.println("isi qtty_po: " + node_qtty_po);
+//                        arr_qtty_po = object.getJSONArray("qtty_po");
+//                        qtty_po = new String[arr_qtty_po.size()];
+//                    } else {
+//                        qtty_po = new String[1];
+//                    }
+//                    if ((node_unit_item_po instanceof JSONArray)) {
+//                        System.out.println("isi node_unit_item_po: " + node_unit_item_po);
+//                        arr_unit_item_po = object.getJSONArray("unit_item_po");
+//                        unit_item_po = new String[arr_unit_item_po.size()];
+//                    } else {
+//                        unit_item_po = new String[1];
+//                    }
+//
+//                    if ((node_id_product instanceof JSONArray)) {
+//                        System.out.println("isi node_id_product: " + node_id_product);
+//                        arr_id_product = object.getJSONArray("id_product");
+//                        id_product = new String[arr_id_product.size()];
+//                    } else {
+//                        id_product = new String[1];
+//                    }
+//                    if ((node_unit_price_po instanceof JSONArray)) {
+//                        System.out.println("isi node_unit_price_po: " + node_unit_price_po);
+//                        arr_unit_price_po = object.getJSONArray("unit_price_po");
+//                        unit_price_po = new String[arr_unit_price_po.size()];
+//                    } else {
+//                        unit_price_po = new String[1];
+//                    }
+//
+//                    if ((node_discount_item_po instanceof JSONArray)) {
+//                        System.out.println("isi node_unit_price_po: " + node_unit_price_po);
+//                        arr_discount_item_po = object.getJSONArray("discount_item_po");
+//                        discount_item_po = new String[arr_discount_item_po.size()];
+//                    } else {
+//                        discount_item_po = new String[1];
+//                    }
+//
+//                    if ((node_price_po instanceof JSONArray)) {
+//                        System.out.println("isi price_po: " + node_price_po);
+//                        arr_price_po = object.getJSONArray("price_po");
+//                        price_po = new String[arr_price_po.size()];
+//                    } else {
+//                        price_po = new String[1];
+//                    }
 
                     for (int j = 0; j < item_name_po.length; j++) {
 
                         if (item_name_po.length == 1) {
                             isi_item_name = node_item_name.toString().replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_item_name = arr_item_name.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_item_name = arr_item_name.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
                         }
                         if (qtty_po.length == 1) {
                             isi_qtty_po = node_qtty_po.toString().replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_qtty_po = arr_qtty_po.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_qtty_po = arr_qtty_po.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
                         }
                         if (unit_item_po.length == 1) {
                             isi_unit_item_po = node_unit_item_po.toString().replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_unit_item_po = arr_unit_item_po.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_unit_item_po = arr_unit_item_po.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
                         }
                         if (id_product.length == 1) {
                             isi_id_product = node_id_product.toString().replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_id_product = arr_id_product.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_id_product = arr_id_product.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
                         }
                         if (unit_price_po.length == 1) {
                             isi_unit_price_po = node_unit_price_po.toString().replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_unit_price_po = arr_unit_price_po.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_unit_price_po = arr_unit_price_po.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
                         }
                         if (discount_item_po.length == 1) {
                             isi_discount_item_po = node_discount_item_po.toString().replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_discount_item_po = arr_discount_item_po.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_discount_item_po = arr_discount_item_po.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
                         }
                         if (price_po.length == 1) {
                             isi_price_po = node_price_po.toString().replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_price_po = arr_price_po.getString(j).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_price_po = arr_price_po.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
                         }
 
                         List<EntityUnits> cekUnitName = entityUnitsDao.getUnitName(isi_unit_item_po);

@@ -64,7 +64,7 @@ $(document).ready(function () {
                         supplier_id: va_supplier_id,
                         supplier_name: va_supplier_name
                     };
-                    if (row_supName['status_supp'] === 1) {
+                    if (row_supName['status_supp'] === 1 && row_supName['listItem']==='1') {
 //                        return "NActive";
                         return"<a href='#' style='text-decoration: none;' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
 //                        return"<a href='#' onclick='javascript:suplierExcelReport(" + va_supplier_id + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
@@ -146,6 +146,12 @@ $(document).ready(function () {
                 visible: true,
                 searchable: true
             }, {
+                data: "listItem",
+                targets: "listItem",
+                bAutoWidth: true,
+                visible: false,
+                searchable: false
+            },{
                 data: "action_supp",
                 targets: "action_supp",
                 mRender: function (data_app, type_app, row_app) {

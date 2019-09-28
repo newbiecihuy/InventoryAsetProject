@@ -43,10 +43,12 @@ public interface EntityProductsFacadeLocal {
 
     List<EntityProducts> findWithProductNameSuplier(String paramName, long paramLong);
 
+    List<EntityProducts> findByProductActiveBySup(Long supplier_id);
+
     List<EntityProducts> findBySuplierId(Long paramLong);
 
 //    List<EntityProducts> findBySuplierId2(Long paramLong);
-     List<EntityStock> getBuyPrice(String paramString);
+    List<EntityStock> getBuyPrice(String paramString);
 
     List<EntityProducts> findBySuplierIdItemId(Long paramSupId, Long paramId);
 
@@ -57,7 +59,5 @@ public interface EntityProductsFacadeLocal {
     EntityProducts find(Object paramObject);
 
     int count();
-
-
 
 }

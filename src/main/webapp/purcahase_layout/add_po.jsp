@@ -19,7 +19,7 @@
             <form>
                 <table cellpadding="0" cellspacing="0"  style="border: 0px">
                     <td class="controls">
-                        <a href="index.jsp?url=purcahase_layout&pages=grid_form_po" class="btn btn-success" role="button" aria-pressed="true"><font color='#b6c5cd' size='2em'>View list P&#8228;O&#8228;</font></a>
+                        <a href="index.jsp?url=purcahase_layout&pages=grid_form_po" class="btn btn-success" role="button" aria-pressed="true"><font color='#f2f2f2' size='2em'>View list P&#8228;O&#8228;</font></a>
                     </td>
                 </table>
             </form>
@@ -134,79 +134,79 @@
         </div>
     </div>
     <script type="text/javascript" >
-        var purchase_id = getUrlQueryString('purchase_id');
+        var purchase_id = getUrlQueryString('purchase_id').replace("\n", "").replace("\r", "");
         if (purchase_id !== "") {
             $("#purchase_id").val(purchase_id);
         } else {
             $("#purchase_id").val("");
         }
-        var supplier_name_po = getUrlQueryString('supplier_name_po');
+        var supplier_name_po = getUrlQueryString('supplier_name_po').replace("\n", "").replace("\r", "");
         if (supplier_name_po !== "") {
             $("#supplier_name_po").val(supplier_name_po);
         } else {
             $("#supplier_name_po").val("");
         }
-        var supplier_code_po  = getUrlQueryString('supplier_code_po');
+        var supplier_code_po  = getUrlQueryString('supplier_code_po').replace("\n", "").replace("\r", "");
         if (supplier_code_po !== "") {
             $("#supplier_code_po").val(supplier_code_po);
         } else {
             $("#supplier_code_po").val("");
         }
-        var supplier_id_po = getUrlQueryString('supplier_id_po');
+        var supplier_id_po = getUrlQueryString('supplier_id_po').replace("\n", "").replace("\r", "");
         if (supplier_id_po !== "") {
             $("#supplier_id_po").val(supplier_id_po);
         } else {
             $("#supplier_id_po").val("");
         }
-        var action_edit_po = getUrlQueryString('action_edit_po');
+        var action_edit_po = getUrlQueryString('action_edit_po').replace("\n", "").replace("\r", "");
         if (action_edit_po !== "") {
             $("#action_edit_po").val(action_edit_po);
         } else {
             $("#action_edit_po").val("");
         }
-        var tax_po = getUrlQueryString('tax_po');
+        var tax_po = getUrlQueryString('tax_po').replace("\n", "").replace("\r", "");
         if (tax_po !== "") {
             $("#tax_po").val(tax_po);
         } else {
             $("#tax_po").val("");
         }
-        var tgl_input_po = getUrlQueryString('tgl_input_po');
+        var tgl_input_po = getUrlQueryString('tgl_input_po').replace("\n", "").replace("\r", "");
         if (tgl_input_po !== "") {
             $("#tgl_input_po").val(tgl_input_po);
         } else {
             $("#tgl_input_po").val("");
         }
-        var po_type = getUrlQueryString('po_type');
+        var po_type = getUrlQueryString('po_type').replace("\n", "").replace("\r", "");
         if (po_type !== "") {
             $("#po_type").val(po_type);
         } else {
             $("#po_type").val("");
         }
-        var payment_term = getUrlQueryString('payment_term');
+        var payment_term = getUrlQueryString('payment_term').replace("\n", "").replace("\r", "");
         if (payment_term !== "") {
             $("#payment_term").val(payment_term);
         } else {
             $("#payment_term").val("");
         }
-        var delivery_term = getUrlQueryString('delivery_term');
+        var delivery_term = getUrlQueryString('delivery_term').replace("\n", "").replace("\r", "");
         if (delivery_term !== "") {
             $("#delivery_term").val(delivery_term);
         } else {
             $("#delivery_term").val("");
         }
-        var transport_mode = getUrlQueryString('transport_mode');
+        var transport_mode = getUrlQueryString('transport_mode').replace("\n", "").replace("\r", "");
         if (transport_mode !== "") {
             $("#transport_mode").val(transport_mode);
         } else {
             $("#transport_mode").val("");
         }
-        var quotation_number = getUrlQueryString('quotation_number');
+        var quotation_number = getUrlQueryString('quotation_number').replace("\n", "").replace("\r", "");
         if (quotation_number !== "") {
             $("#quotation_number").val(quotation_number);
         } else {
             $("#quotation_number").val("");
         }
-        var rfq_number = getUrlQueryString('rfq_number');
+        var rfq_number = getUrlQueryString('rfq_number').replace("\n", "").replace("\r", "");
         if (rfq_number !== "") {
             $("#rfq_number").val(rfq_number);
         } else {
@@ -214,19 +214,19 @@
         }
         //        var id_po_type = getUrlQueryString('id_po_type');
 
-        var purchase_desc = getUrlQueryString('purchase_desc');
+        var purchase_desc = getUrlQueryString('purchase_desc').replace("\n", "").replace("\r", "");
         if (purchase_desc !== "") {
             $("#purchase_desc").val(purchase_desc);
         } else {
             $("#purchase_desc").val("");
         }
-        var invoice_to = getUrlQueryString('invoice_to');
+        var invoice_to = getUrlQueryString('invoice_to').replace("\n", "").replace("\r", "");
         if (invoice_to !== "") {
             $("#invoice_to").val(invoice_to);
         } else {
             $("#invoice_to").val("");
         }
-        var dlvr_point = getUrlQueryString('dlvr_point');
+        var dlvr_point = getUrlQueryString('dlvr_point').replace("\n", "").replace("\r", "");
         if (dlvr_point !== "") {
             $("#dlvr_point").val(dlvr_point);
         } else {

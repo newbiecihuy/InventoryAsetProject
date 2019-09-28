@@ -21,7 +21,7 @@
                     <div>
                         <span class="panel-title">Manage Item P&#8228;O&#8228;</span>
                         <span class="right-float">
-                            <span class="right-float"><a href="index.jsp?ref=purcahase_layout&pages=grid_form_po"  class="btn btn-info" role="button" aria-pressed="true"><font color='#f2f2f2' size='2em'>Manage&#45;P&#8228;O&#8228;</font></a></span>
+                            <span class="right-float"><a href="index.jsp?url=purcahase_layout&pages=grid_form_po" class="btn btn-success" role="button" aria-pressed="true"><font color='#f2f2f2' size='2em'>View list P&#8228;O&#8228;</font></a></span>
                         </span>
                     </div>
 

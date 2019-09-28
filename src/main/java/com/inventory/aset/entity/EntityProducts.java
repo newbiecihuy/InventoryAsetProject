@@ -39,7 +39,8 @@ import javax.persistence.TemporalType;
     , @NamedQuery(name = "EntityProducts.findByCategoryId", query = "SELECT p FROM EntityProducts p WHERE p.categoryId = :categoryId")
     , @NamedQuery(name = "EntityProducts.findByMinimumStock", query = "SELECT p FROM EntityProducts p WHERE p.minimumStock = :minimumStock")
     , @NamedQuery(name = "EntityProducts.findByCreatedAt", query = "SELECT p FROM EntityProducts p WHERE p.createdAt = :createdAt")
-    , @NamedQuery(name = "EntityProducts.findByUpdatedAt", query = "SELECT p FROM EntityProducts p WHERE p.updatedAt = :updatedAt")})
+    , @NamedQuery(name = "EntityProducts.findByUpdatedAt", query = "SELECT p FROM EntityProducts p WHERE p.updatedAt = :updatedAt")
+    , @NamedQuery(name = "EntityProducts.findByProductActiveBySup", query = "SELECT p FROM EntityProducts p WHERE p.supplierId.supplierId = :supplierId And p.status_item = 1")})
 public class EntityProducts implements Serializable {
 
     private static final long serialVersionUID = 1L;

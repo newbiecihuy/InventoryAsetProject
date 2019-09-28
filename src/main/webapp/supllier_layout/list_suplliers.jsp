@@ -43,6 +43,7 @@
                                     <th class="tax">tax</th> 
                                     <th class="status_supp">Status</th>     
                                     <th class="created_date">Added Date</th>
+                                    <th class="listItem">List Item</th>     
                                     <th class="action_supp">Action</th>     
 
                                 </tr>
