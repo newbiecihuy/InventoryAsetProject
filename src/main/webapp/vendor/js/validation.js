@@ -824,9 +824,12 @@ $(document).ready(function () {
                     $("#ajaxResponse_form_create_po").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order   " + "" + response.msg + "</b></p></div>");
                 } else if (response.RC === "2") {
                     $("#ajaxResponse_form_create_po").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>");
+                } else if (response.RC === "xx0") {
+                    $("#ajaxResponse_form_create_po").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>");
                 } else if (response.RC === "3") {
                     $("#ajaxResponse_form_create_po").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>");
                 }
+
                 //display error message
                 else {
                     $("#ajaxResponse_form_add_po").html("<div><p><b>Invalid!</b></p></div>").addClass('error').css({});

@@ -81,17 +81,32 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
 //    }
     @Override
     public EntityPurchases find(Object purchaseId) {
-        return (EntityPurchases) em.find(EntityPurchases.class, purchaseId);
+        try {
+            return (EntityPurchases) em.find(EntityPurchases.class, purchaseId);
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntityPurchases> findByPOCode(String pramString) {
-        return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.purchaseCode LIKE \"" + pramString + "%\" ").getResultList();
+        try {
+            return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.purchaseCode LIKE \"" + pramString + "%\" ").getResultList();
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntityPurchases> getByPOCode(String pramString) {
-        return em.createQuery("SELECT Distinct ep.purchaseCode  FROM EntityPurchases ep WHERE ep.purchaseCode LIKE \"" + pramString + "%\" ").getResultList();
+        try {
+            return em.createQuery("SELECT Distinct ep.purchaseCode  FROM EntityPurchases ep WHERE ep.purchaseCode LIKE \"" + pramString + "%\" ").getResultList();
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 //    @Override
 //    public List<EntityPurchases> getByTypePO(String pramString) {
@@ -99,13 +114,25 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
 //    }
 
     @Override
-    public List<EntityPurchases> findByTransportMode(String pramString) {
-        return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.transportMode LIKE \"" + pramString + "%\" ").getResultList();
+    public List<EntityPurchases> findByTransportMode(String pramString
+    ) {
+        try {
+            return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.transportMode LIKE \"" + pramString + "%\" ").getResultList();
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
-    public List<EntityPurchases> findByRfqNumber(String pramString) {
-        return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.rfqNumber LIKE \"" + pramString + "%\" ").getResultList();
+    public List<EntityPurchases> findByRfqNumber(String pramString
+    ) {
+        try {
+            return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.rfqNumber LIKE \"" + pramString + "%\" ").getResultList();
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
 //    @Override
@@ -114,13 +141,22 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
 //    }
     @Override
     public List<EntityPurchases> findByNoPo(Date inputDate, String inputTime) {
-        return em.createNamedQuery("EntityPurchases.findByNoPo").setParameter("inputDate", inputDate).setMaxResults(1).getResultList();
+        try {
+            return em.createNamedQuery("EntityPurchases.findByNoPo").setParameter("inputDate", inputDate).setMaxResults(1).getResultList();
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
     public int count() {
-        Query queryMax = em.createQuery("SELECT COUNT(ep) FROM EntityPurchases ep");
-        return Integer.parseInt(queryMax.getSingleResult().toString());
+        try {
+            Query queryMax = em.createQuery("SELECT COUNT(ep) FROM EntityPurchases ep");
+            return Integer.parseInt(queryMax.getSingleResult().toString());
+        } catch (NumberFormatException e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return 0;
     }
-
 }

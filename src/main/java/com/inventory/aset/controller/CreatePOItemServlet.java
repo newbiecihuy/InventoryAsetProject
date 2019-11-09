@@ -284,14 +284,14 @@ public class CreatePOItemServlet extends HttpServlet {
             String item_name_po[] = null, qtty_po[] = null, unit_item_po[] = null, id_product[] = null, unit_price_po[] = null, discount_item_po[] = null, price_po[] = null, sub_total, total_price_po = null;
             String isi_item_name, isi_qtty_po, isi_unit_item_po, isi_id_product, isi_unit_price_po, isi_discount_item_po, isi_price_po = null;
             Object node_item_name, node_unit_item_po, node_unit_price_po, node_id_product, node_discount_item_po, node_price_po, node_qtty_po = null;
-            JSONArray arr_item_name = null;
-            JSONArray arr_unit_item_po = null;
-            JSONArray arr_id_product = null;
-            JSONArray arr_unit_price_po = null;
-            JSONArray arr_discount_item_po = null;
-            JSONArray arr_price_po = null;
+//            JSONArray arr_item_name = null;
+//            JSONArray arr_unit_item_po = null;
+//            JSONArray arr_id_product = null;
+//            JSONArray arr_unit_price_po = null;
+//            JSONArray arr_discount_item_po = null;
+//            JSONArray arr_price_po = null;
 //            JSONArray arr_total_price_po = null;
-            JSONArray arr_qtty_po = null;
+//            JSONArray arr_qtty_po = null;
 //            JSONArray arrMid = null;
             EntityPurchases dataPurcahse = new EntityPurchases();
             EntityProducts dataProducts = new EntityProducts();
@@ -328,12 +328,12 @@ public class CreatePOItemServlet extends HttpServlet {
                         supplier_id_form_create_po = 0l;
                     }
                     if (!object.getString("id_product").isEmpty()) {
-                        node_id_product = object.getString("id_product").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        node_id_product = object.getString("id_product");//.trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
                     } else {
                         node_id_product = "";
                     }
                     if (!object.getString("item_name_po").isEmpty()) {
-                        node_item_name = object.getString("item_name_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        node_item_name = object.getString("item_name_po");//.trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
                         System.out.println("node_item_name " + node_item_name);
                     } else {
                         node_item_name = "";
@@ -345,43 +345,43 @@ public class CreatePOItemServlet extends HttpServlet {
                         node_qtty_po = 0;
                     }
                     if (!object.getString("unit_item_po").isEmpty()) {
-                        node_unit_item_po = object.getString("unit_item_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        node_unit_item_po = object.getString("unit_item_po");//.trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
                         System.out.println("node_unit_item_po " + node_unit_item_po);
                     } else {
                         node_unit_item_po = "";
                     }
                     if (!object.getString("unit_price_po").isEmpty()) {
-                        node_unit_price_po = object.getString("unit_price_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        node_unit_price_po = object.getString("unit_price_po");//.trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
                         System.out.println("node_unit_item_po " + node_unit_price_po);
                     } else {
                         node_unit_price_po = "";
                     }
                     if (!object.getString("discount_item_po").isEmpty()) {
-                        node_discount_item_po = object.getString("discount_item_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        node_discount_item_po = object.getString("discount_item_po");//.trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
                         System.out.println("node_unit_item_po " + node_discount_item_po);
                     } else {
                         node_discount_item_po = "";
                     }
                     if (!object.getString("price_po").isEmpty()) {
-                        node_price_po = object.getString("price_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        node_price_po = object.getString("price_po");//.trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
                         System.out.println("node_price_po " + node_price_po);
                     } else {
                         node_price_po = "";
                     }
                     if (!object.getString("sub_total").isEmpty()) {
-                        sub_total = object.getString("sub_total").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        sub_total = object.getString("sub_total");//.trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
                         System.out.println("sub_total " + sub_total);
                     } else {
                         sub_total = "";
                     }
                     if (!object.getString("total_price_po").isEmpty()) {
-                        total_price_po = object.getString("total_price_po").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                        total_price_po = object.getString("total_price_po");//.trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
                         System.out.println("total_price_po " + total_price_po);
                     } else {
                         total_price_po = "";
                     }
 //                    if (object.getBoolean("tax_po_val")) {
-                    tax_po_val = object.getString("tax_po_val").trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
+                    tax_po_val = object.getString("tax_po_val");//.trim().replaceAll("['\":<>\\[\\]\\r\\n-]", "");
                     System.out.println("tax_po_val " + tax_po_val);
 //                    } else {
 //                        tax_po_val = false;
@@ -390,32 +390,37 @@ public class CreatePOItemServlet extends HttpServlet {
                     String[] data_node_item = node_item_name.toString().split(",");
                     for (int j = 0; j < data_node_item.length; j++) {
                         String part = data_node_item[j];
-                        System.out.println("@Check Part " + i + " :" + part);
+                        System.out.println("@Check data_node_item_Part " + j + " :" + part);
                     }
                     String[] data_node_qtty = node_qtty_po.toString().split(",");
                     for (int k = 0; k < data_node_qtty.length; k++) {
                         String part = data_node_qtty[k];
-                        System.out.println("@Check Part " + k + " :" + part);
+                        System.out.println("@Check data_node_qtty_Part " + k + " :" + part);
                     }
                     String[] data_node_unit_item = node_unit_item_po.toString().split(",");
                     for (int l = 0; l < data_node_unit_item.length; l++) {
                         String part = data_node_unit_item[l];
-                        System.out.println("@Check Part " + l + " :" + part);
+                        System.out.println("@Check data_node_unit_item_Part " + l + " :" + part);
                     }
                     String[] data_node_unit_price_po = node_unit_price_po.toString().split(",");
                     for (int m = 0; m < data_node_unit_price_po.length; m++) {
                         String part = data_node_unit_price_po[m];
-                        System.out.println("@Check Part " + m + " :" + part);
+                        System.out.println("@Check data_node_unit_price_po_Part " + m + " :" + part);
                     }
                     String[] data_node_discount_item_po = node_discount_item_po.toString().split(",");
                     for (int n = 0; n < data_node_discount_item_po.length; n++) {
                         String part = data_node_discount_item_po[n];
-                        System.out.println("@Check Part " + n + " :" + part);
+                        System.out.println("@Check data_node_discount_item_po_Part " + n + " :" + part);
                     }
                     String[] data_node_price_po = node_price_po.toString().split(",");
                     for (int o = 0; o < data_node_price_po.length; o++) {
                         String part = data_node_price_po[o];
-                        System.out.println("@Check Part " + o + " :" + part);
+                        System.out.println("@Check data_node_price_po_Part " + o + " :" + part);
+                    }
+                    String[] data_node_id_product = node_id_product.toString().split(",");
+                    for (int p = 0; p < data_node_price_po.length; p++) {
+                        String part = data_node_id_product[p];
+                        System.out.println("@Check data_node_id_product_Part " + p + " :" + part);
                     }
 //                    if ((node_item_name instanceof JSONArray)) {
 //                        System.out.println("isi node_item_name: " + node_item_name);
@@ -470,42 +475,42 @@ public class CreatePOItemServlet extends HttpServlet {
 //                        price_po = new String[1];
 //                    }
 
-                    for (int j = 0; j < item_name_po.length; j++) {
+                    for (int j = 0; j < data_node_item.length; j++) {
 
-                        if (item_name_po.length == 1) {
-                            isi_item_name = node_item_name.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        if (data_node_item.length == 1) {
+                            isi_item_name = data_node_item[j].replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_item_name = arr_item_name.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_item_name = data_node_item[j].replaceAll("['\":<>\\[\\],-]", "");
                         }
-                        if (qtty_po.length == 1) {
-                            isi_qtty_po = node_qtty_po.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        if (data_node_qtty.length == 1) {
+                            isi_qtty_po = data_node_qtty[j].replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_qtty_po = arr_qtty_po.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_qtty_po = data_node_qtty[j].trim().replaceAll("['\":<>\\[\\],-]", "");
                         }
-                        if (unit_item_po.length == 1) {
-                            isi_unit_item_po = node_unit_item_po.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        if (data_node_unit_item.length == 1) {
+                            isi_unit_item_po = data_node_unit_item[j].replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_unit_item_po = arr_unit_item_po.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_unit_item_po = data_node_unit_item[j].replaceAll("['\":<>\\[\\],-]", "");
                         }
-                        if (id_product.length == 1) {
-                            isi_id_product = node_id_product.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        if (data_node_id_product.length == 1) {
+                            isi_id_product = data_node_id_product[j].replaceAll("['\":<>\\[\\]-]", "");
                         } else {
-                            isi_id_product = arr_id_product.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_id_product = data_node_id_product[j].replaceAll("['\":<>\\[\\]-]", "");
                         }
-                        if (unit_price_po.length == 1) {
-                            isi_unit_price_po = node_unit_price_po.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        if (data_node_unit_price_po.length == 1) {
+                            isi_unit_price_po = data_node_unit_price_po[j].replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_unit_price_po = arr_unit_price_po.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_unit_price_po = data_node_unit_price_po[j].replaceAll("['\":<>\\[\\],-]", "");
                         }
-                        if (discount_item_po.length == 1) {
-                            isi_discount_item_po = node_discount_item_po.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        if (data_node_discount_item_po.length == 1) {
+                            isi_discount_item_po = data_node_discount_item_po[j].toString().replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_discount_item_po = arr_discount_item_po.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_discount_item_po = data_node_discount_item_po[j].replaceAll("['\":<>\\[\\],-]", "");
                         }
-                        if (price_po.length == 1) {
-                            isi_price_po = node_price_po.toString().replaceAll("['\":<>\\[\\],-]", "");
+                        if (data_node_price_po.length == 1) {
+                            isi_price_po = data_node_price_po[i].replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_price_po = arr_price_po.getString(0).trim().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_price_po = data_node_price_po[i].replaceAll("['\":<>\\[\\],-]", "");
                         }
 
                         List<EntityUnits> cekUnitName = entityUnitsDao.getUnitName(isi_unit_item_po);
@@ -521,7 +526,8 @@ public class CreatePOItemServlet extends HttpServlet {
                             dataProductPurchase.setUnitId(dataUnit);
 
                         }
-//                        List<EntityProducts> cekItemName = entityProductsDao.findWithProductName(isi_item_name.toLowerCase());
+//                        List<EntityProducts> cekItemName = entityProductsDao.findWithProductName(isi_item_name.toLowerCase());    
+                        System.out.println("supplier_id_form_create_po :" + supplier_id_form_create_po + " isi_id_product :" + isi_id_product);
                         List<EntityProducts> cekItemName = entityProductsDao.findBySuplierIdItemId(supplier_id_form_create_po, Long.parseLong(isi_id_product));
                         System.out.println("isi cekItemName" + cekItemName);
                         if (cekItemName.size() > 0) {

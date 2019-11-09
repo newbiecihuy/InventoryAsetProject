@@ -31,6 +31,10 @@ import net.sf.json.JSONSerializer;
 import com.inventory.aset.facadebean.local.EntityPurchasesFacadeLocal;
 import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityTypePOFacadeLocal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Locale;
 import javax.persistence.Query;
 
 /**
@@ -364,6 +368,8 @@ public class CreatePOServlet extends HttpServlet {
 //            }
             JSONArray array = (JSONArray) JSONSerializer.toJSON(request.getParameter("JSONFile"));
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdfa = new SimpleDateFormat("yyyy/MM/dd");
+//            SimpleDateFormat sdfc = new SimpleDateFormat("yyyy/MM/dd");
             SimpleDateFormat sdfMonthPO = new SimpleDateFormat("MM");
             SimpleDateFormat sdfYearNoPO = new SimpleDateFormat("yyyy");
             SimpleDateFormat jamFormat = new SimpleDateFormat("HH:mm:ss");
@@ -379,6 +385,8 @@ public class CreatePOServlet extends HttpServlet {
             String action_insert = "";
             String action_edit = "";
             String action_delete = "";
+            String tgl_1 = "";
+            Date cek_tanggal = null;
             long purchase_id = 0l;
             long supplier_id = 0l;
             Date tgl_input_po = null;
@@ -540,12 +548,26 @@ public class CreatePOServlet extends HttpServlet {
 //                        int nilai = i + 1;
                     if (monthCompare.equals(noPo) && yearCompare.equals(year)) {
                         System.out.println("equals");
-                        List<EntityPurchases> getNopo = entityPurchasesFacadeLocal.findByNoPo(now, time_now);
-                        nilai = getNopo.get(0).getNoPo().intValue() + 1;
-                        System.out.println("equals nilai" + nilai);
-                        PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
-                        dataPurchases.setPurchaseCode(PONumber);
-                        dataPurchases.setNoPo(Long.valueOf(nilai));
+                        System.out.println("now :" + now);
+                        tgl_1 = sdfa.format(now);
+                        cek_tanggal = sdfa.parse(tgl_1);
+                        System.out.println("cek_tanggal :" + cek_tanggal);
+                        System.out.println("time_now :" + time_now);
+                        List<EntityPurchases> getNopo = entityPurchasesFacadeLocal.findByNoPo(cek_tanggal, time_now);
+                        if (getNopo.size() > 0) {
+                            System.out.println("getNopo.size()" + getNopo.size());
+                            nilai = getNopo.get(0).getNoPo().intValue() + 1;
+                            System.out.println("equals nilai" + nilai);
+                            PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+                            dataPurchases.setPurchaseCode(PONumber);
+                            dataPurchases.setNoPo(Long.valueOf(nilai));
+                        } else {
+                            System.out.println("empty");
+                            nilai = 1;
+                            PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
+                            dataPurchases.setPurchaseCode(PONumber);
+                            dataPurchases.setNoPo(Long.valueOf(nilai));
+                        }
                     } else {
                         System.out.println("!equals");
                         nilai = 1;
@@ -721,7 +743,7 @@ public class CreatePOServlet extends HttpServlet {
             out.println(jsonobj.toString());
             out.flush();
             System.out.println(jsonobj.toString());
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             Logger.getLogger(CreatePOServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
