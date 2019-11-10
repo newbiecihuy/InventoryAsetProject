@@ -508,9 +508,9 @@ public class CreatePOItemServlet extends HttpServlet {
                             isi_discount_item_po = data_node_discount_item_po[j].replaceAll("['\":<>\\[\\],-]", "");
                         }
                         if (data_node_price_po.length == 1) {
-                            isi_price_po = data_node_price_po[i].replaceAll("['\":<>\\[\\],-]", "");
+                            isi_price_po = data_node_price_po[j].replaceAll("['\":<>\\[\\],-]", "");
                         } else {
-                            isi_price_po = data_node_price_po[i].replaceAll("['\":<>\\[\\],-]", "");
+                            isi_price_po = data_node_price_po[j].replaceAll("['\":<>\\[\\],-]", "");
                         }
 
                         List<EntityUnits> cekUnitName = entityUnitsDao.getUnitName(isi_unit_item_po);

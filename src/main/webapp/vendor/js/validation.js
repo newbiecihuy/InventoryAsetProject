@@ -371,7 +371,7 @@ $(document).ready(function () {
                 } else if (response.RC === "2") {
                     $("#form_add_supplier_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier " + supplier_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "3") {
-                    $("#form_add_supplier_response").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier " + supplier_name + response.msg + "</b></p></div>").addClass('error').css({});
+                    $("#form_add_supplier_response").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier " + supplier_name + response.msg + "</b></p></div>").addClass('error').css({});
                     $('#btn_add_supplier').prop('disabled', true);
                 } else if (response.RC === "33") {
                     $("#form_add_supplier_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier code" + supplier_code + response.msg + "</b></p></div>").addClass('error').css({});
