@@ -37,30 +37,61 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
 
     @Override
     public EntityProducts createProducts(EntityProducts dataProducts) {
-        em.persist(dataProducts);
-        em.flush();
+        try {
+            em.persist(dataProducts);
+            em.flush();
 
-        return dataProducts;
+            return dataProducts;
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public void updateProducts(EntityProducts dataProducts) {
-        em.merge(dataProducts);
+        try {
+            em.merge(dataProducts);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+
     }
 
     @Override
     public void deleteProducts(EntityProducts dataProducts) {
-        em.merge(dataProducts);
+        try {
+            em.merge(dataProducts);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+
     }
 
     @Override
     public void removeProducts(long paramLong) {
-        em.remove(getProducts(paramLong));
+
+        try {
+            em.remove(getProducts(paramLong));
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+
     }
 
     @Override
     public EntityProducts getProducts(long idProduct) {
-        return (EntityProducts) em.find(EntityProducts.class, idProduct);
+        try {
+            return (EntityProducts) em.find(EntityProducts.class, idProduct);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override

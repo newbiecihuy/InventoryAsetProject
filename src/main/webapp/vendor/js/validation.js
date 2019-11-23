@@ -1855,7 +1855,41 @@ function deleteSupplierFunc(data_supplier) {
     });
 }
 function deleteCategoriesFunc(data_categories) {
+    var data_delete_categories = {
+        category_id: escape(data_categories.category_id),
+        action_insert_category: "",
+        action_edit_category: "",
+        action_delete_category: "DELETE"
+    };
+    $.ajax({
+        type: "POST",
+        url: createDynamicURL() + "/categoryServlet",
+        data: {JSONFile: "[" + JSON.stringify(data_delete_categories) + "]"}, // look here!
 
+        success: function (response) {
+            //our country code was correct so we have some information to display
+            if (response.RC === "4") {
+                $("#grid_categories_response").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "categories  " + response.msg + "</b></p></div>");
+//                    $('#btn_add_supplier').prop('disabled', true);
+            } else if (response.RC === "2") {
+                $("#grid_categories_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "categories " + response.msg + "</b></p></div>").addClass('error').css({});
+            } else if (response.RC === "3") {
+                $("#grid_categories_response").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "categories " + response.msg + "</b></p></div>").addClass('error').css({});
+            } else if (response.RC === "33") {
+                $("#grid_categories_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "categories code" + response.msg + "</b></p></div>").addClass('error').css({});
+            }
+            //display error message
+            else {
+                $("#grid_categories_response").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>Invalid!</b></p></div>").addClass('error').css({});
+            }
+        },
+        //If there was no resonse from the server
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("Something really bad happened " + textStatus);
+            $("#grid_categories_response").html(jqXHR.responseText);
+        }
+
+    });
 }
 function deleteItemFunc(data_Item) {
     var data_delete_Item = {

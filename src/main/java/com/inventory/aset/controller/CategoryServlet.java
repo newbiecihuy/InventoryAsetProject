@@ -224,6 +224,7 @@ public class CategoryServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
 
             String code = "0";
+            String msg = null;
             System.out.println(request.getParameter("JSONFile"));
             JSONArray array = (JSONArray) JSONSerializer.toJSON(request.getParameter("JSONFile"));
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -303,12 +304,14 @@ public class CategoryServlet extends HttpServlet {
                     dataCatageroies.setPic("PIC");
                     dataCatageroies.setIsDelete(true);
                     entityCategoriesFacadeLocal.updateCategories(dataCatageroies);
-                    code = "1";
+                    code = "4";
+                    msg = "Has been Deleted";
                 }
             }
 
             JSONObject jsonobj = new JSONObject();
             jsonobj.put("RC", code);
+            jsonobj.put("msg", msg);
             out.println(jsonobj.toString());
             out.flush();
             System.out.println(jsonobj.toString());

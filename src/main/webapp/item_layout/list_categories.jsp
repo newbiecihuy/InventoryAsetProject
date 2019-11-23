@@ -28,20 +28,7 @@
                     <div class="clearfix"></div>  
                 </div>
                 <div class="table-responsive">    
-                    <!--                        <div id="introducerGrid_wrapper" class="dataTables_wrapper no-footer">
-                                                <div class="dataTables_length" id="introducerGrid_length"><label>Show 
-                                                        <select name="introducerGrid_length" aria-controls="introducerGrid" class="">
-                                                            <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100
-                                                            </option></select> entries</label></div>
-                                                <form>
-                                                    <table cellpadding="0" cellspacing="0" class="table">
-                                                        <div class="control-group">
-                                                            <td class="controls">
-                    
-                                                            </td>
-                                                        </div>
-                                                    </table>
-                                                </form>-->
+                 <div id="grid_categories_response"></div>
                     <form  name="tbl_grid_categories" id="tbl_grid_categories" class="display" >
                         <table name="grid_categories" id="grid_categories" class="table display dataTable no-footer table-hover table-bordered dt-responsive display nowrap" cellspacing="0" width="100%">
                             <thead class="thc">

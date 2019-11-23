@@ -19,7 +19,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div>
-                        <span class="panel-title">Manage Category</span>
+                        <span class="panel-title">Company</span>
                         <span class="right-float">
                             <span class="right-float"><a href="index.jsp?ref=config&pages=form_company"  class="btn btn-info" role="button" aria-pressed="true"><font color='#f2f2f2' size='2em'>Manage&#45;Company Profile</font></a></span>
                         </span>

@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.LogSystem;
 import com.inventory.aset.entity.EntityCategories;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -34,62 +35,126 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
 
     @Override
     public EntityCategories createCategories(EntityCategories dataCategories) {
-        em.persist(dataCategories);
-        em.flush();
-        return dataCategories;
+        try {
+            em.persist(dataCategories);
+            em.flush();
+            return dataCategories;
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public void updateCategories(EntityCategories dataCategories) {
-        em.merge(dataCategories);
+        try {
+
+            em.merge(dataCategories);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
     }
 
     @Override
     public void deleteCategories(EntityCategories dataCategories) {
-        em.merge(dataCategories);
+        try {
+            em.merge(dataCategories);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
     }
 
     @Override
     public void removeCategories(long paramLong) {
-        em.remove(getCategories(paramLong));
+        try {
+            em.remove(getCategories(paramLong));
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
     }
 
     @Override
     public EntityCategories getCategories(long categoryId) {
-        return (EntityCategories) em.find(EntityCategories.class, categoryId);
+        try {
+            return (EntityCategories) em.find(EntityCategories.class, categoryId);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntityCategories> getAllCategories(int max, int start) {
 //        return em.createNamedQuery("EntityCategories.findAll").getResultList();
-        return em.createQuery("SELECT c FROM EntityCategories c ").setMaxResults(max).setFirstResult(start).getResultList();
+        try {
+            return em.createQuery("SELECT c FROM EntityCategories c Where c.isDelete=" + false + "").setMaxResults(max).setFirstResult(start).getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntityCategories> searchCategories(String search, int max, int start) {
-        return em.createQuery("SELECT c FROM EntityCategories c "
-                + " WHERE(c.categoriesName Like \'" + search.toLowerCase() + "%\' "
-                + " ) ").setMaxResults(max).setFirstResult(start).getResultList();
+        try {
+            return em.createQuery("SELECT c FROM EntityCategories c "
+                    + " WHERE(c.categoriesName Like \'" + search.toLowerCase() + "%\' "
+                    + " ) ").setMaxResults(max).setFirstResult(start).getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntityCategories> getIdCategories(String paramString) {
-        return em.createNamedQuery("EntityCategories.findBycategoryId").getResultList();
+        try {
+            return em.createNamedQuery("EntityCategories.findBycategoryId").getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntityCategories> findWithCategoriesName(String categoriesName) {
-        return em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getResultList();
+        try {
+            return em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntityCategories> findByCategoriesName(String varName) {
-        return em.createQuery("SELECT Distinct c.categoriesName  FROM EntityCategories c WHERE c.categoriesName LIKE \"" + varName + "%\" ").getResultList();
+        try {
+            return em.createQuery("SELECT Distinct c.categoriesName  FROM EntityCategories c WHERE c.categoriesName LIKE \"" + varName + "%\" ").getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public EntityCategories find(Object categoryId) {
-        return (EntityCategories) em.find(EntityCategories.class, categoryId);
+        try {
+            return (EntityCategories) em.find(EntityCategories.class, categoryId);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
