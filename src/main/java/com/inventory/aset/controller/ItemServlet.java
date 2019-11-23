@@ -348,11 +348,15 @@ public class ItemServlet extends HttpServlet {
                 action_edit = object.getString("action_edit_item").trim().replaceAll("['\":<>\\[\\],-]", "");
                 action_delete = object.getString("action_delete_item").trim().replaceAll("['\":<>\\[\\],-]", "");
 
-                if (!"".equals(object.getString("id_product")) && !object.getString("id_product").isEmpty()) {
-                    id_product = object.getLong("id_product");
+                if (object.containsKey("id_product")) {
+                    if (!"".equals(object.getString("id_product")) && !object.getString("id_product").isEmpty()) {
+                        id_product = object.getLong("id_product");
+                    }
                 }
-                if (!"".equals(object.getString("id_stock")) && !object.getString("id_stock").isEmpty()) {
-                    id_stock = object.getLong("id_stock");
+                if (object.containsKey("id_stock")) {
+                    if (!"".equals(object.getString("id_stock")) && !object.getString("id_stock").isEmpty()) {
+                        id_stock = object.getLong("id_stock");
+                    }
                 }
 
                 if (id_product == 0l) {//action_insert.equalsIgnoreCase("INSERT")
@@ -636,12 +640,34 @@ public class ItemServlet extends HttpServlet {
                     msg = "Has been Updated";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
                     dataProducts = entityProductsFacadeLocal.getProducts(id_product);
+                    dataStock = entityStockFacadeLocal.find(id_product);
                     dataProducts.setStatus_item(2);
-
+                    dataProducts.setIsDelete(true);
+                    dataProducts.setUpdatedAt(now);
+                    dataProducts.setUpdatedAtTime(time_now);
+                    dataStock.setIsDelete(true);
+                    entityProductsFacadeLocal.updateProducts(dataProducts);
+                    entityStockFacadeLocal.updateStock(dataStock);
+                    code = "4";
+                    msg = "Has been Deleted";
+                } else if (action_delete.equalsIgnoreCase("Approve")) {
+                    dataProducts = entityProductsFacadeLocal.getProducts(id_product);
+                    dataProducts.setStatus_item(1);
+                    dataProducts.setIsDelete(false);
                     dataProducts.setUpdatedAt(now);
                     dataProducts.setUpdatedAtTime(time_now);
                     entityProductsFacadeLocal.updateProducts(dataProducts);
-                    code = "5";
+                    code = "4";
+                    msg = "Has been Approved";
+                } else if (action_delete.equalsIgnoreCase("reject")) {
+                    dataProducts = entityProductsFacadeLocal.getProducts(id_product);
+                    dataProducts.setStatus_item(2);
+                    dataProducts.setIsDelete(false);
+                    dataProducts.setUpdatedAt(now);
+                    dataProducts.setUpdatedAtTime(time_now);
+                    entityProductsFacadeLocal.updateProducts(dataProducts);
+                    code = "4";
+                    msg = "Has been rejected";
                 }
 
             }

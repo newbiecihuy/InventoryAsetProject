@@ -64,7 +64,7 @@ $(document).ready(function () {
                         supplier_id: va_supplier_id,
                         supplier_name: va_supplier_name
                     };
-                    if (row_supName['status_supp'] === 1 && row_supName['listItem']==='1') {
+                    if (row_supName['status_supp'] === 1 && row_supName['listItem'] === '1') {
 //                        return "NActive";
                         return"<a href='#' style='text-decoration: none;' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
 //                        return"<a href='#' onclick='javascript:suplierExcelReport(" + va_supplier_id + ")' >" + data_supName.replace('&nbsp;', /%20/g) + "</a>";
@@ -151,7 +151,7 @@ $(document).ready(function () {
                 bAutoWidth: true,
                 visible: false,
                 searchable: false
-            },{
+            }, {
                 data: "action_supp",
                 targets: "action_supp",
                 mRender: function (data_app, type_app, row_app) {
@@ -177,7 +177,7 @@ $(document).ready(function () {
                         };
                         return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                <a id='updateDataSupp' href='#' onclick='javascript:editSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
-                               <a href='#' onclick='javascript:deleteSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-trash ' title='Delete'></i></a>";
+                               <a id='deleteDataSupp' href='#' onclick='javascript:deleteSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-trash ' title='Delete'></i></a>";
 //                      return "<a href='" + data_pict_1 + " 'target='_blank' class='btn btn-info'>" + "<font color='#f2f2f2' size='2em'>" + "Display" + "</font>" + "</a>";
                     }
                 }
@@ -192,99 +192,85 @@ $(document).ready(function () {
     }).draw();
     $('#grid_supplier tbody').on('click', 'tr', function (item) {
         var data = table_grid_supplier.row(this).data();
-//        $('#edit_users_details').click(function () {
-//
-//            console.log("Insert myFunction_edit");
-//            var ids = $.map(table_grid_supplier.rows('.selected').data(), function (item) {
-//                return item[0];
-//            });
-//            console.log(ids);
-//            if (table_grid_users.rows('.selected').data().length === 0) {
-//                alert(' row(s) selected');
-//                return;
-//            }
-//
-//        });
+//        alert(data.supplier_id);
+//        if (data.supplier_id !== null) {
+//            alert("data.supplier_id");
+//        }else{
+//            alert("selected rows");
+//        }
+//        var id = this.id;
+//        var index = $.inArray(id, selected);
+//        alert(id);
+//        alert(index);
+//        if (index === -1) {
+//            selected.push(id);
+//        } else {
+//            selected.splice(index, 1);
+//        }
+//        $(this).toggleClass('selected');
 
     });
-//    $('#updateDataSupp').on('click', function () {
-//
-//        window.location = "index.jsp?url=supllier_layout&pages=add_supllier_form";
-//    });
-//function myFunc(supplier_id) {//, supplier_name, supplier_code, address, contact_name, contact_num, status_supp
-//
-////    alert(supplier_id);
-//        var myParam = "msupplierid=" + supplier_id;
-//        window.location = "index.jsp?url=supllier_layout&pages=add_supllier_form&" + encodeURIComponent(myParam);
-////    $("#supplier_id").value(supplier_id);
-//    }
+
 });
-//function editSupplierFunc(data_supplier) {//, supplier_name, supplier_code, address, contact_name, contact_num, status_supp
+
+
+//function myFunctionUploadDataUser() {
+//    console.log("Insert myFunctionUploadDataUser");
+//    $("#form_upload_excel_user").dialog().dialog("open");
+//    $(".hidden_upload_excel_user").removeClass("hidden_upload_excel_user");
+//    //     $("#pic_delegate").autocomplete("autocompleteTechnicianServlet");
+//    $('#form_upload_excel_user').dialog("widget").position({
+//        my: 'left top',
+//        at: 'left bottom'
+//    });
+//    $("#form_upload_excel_user").dialog({
+//        autoOpen: false,
+//        title: "Upload Data Users",
+//        show: "blind",
+//        hide: "explode",
+//        modal: true,
+//        width: 350,
+//        zIndex: 1,
+//        buttons: [{
+//                text: 'Upload',
+//                class: 'btn btn-primary',
+//                click: function () {
+//                    console.log("@ here");
+//                    var data_upload_excel_user = new FormData($('#grid_supplier')[0]);
+//                    console.log("data_upload_delegate" + data_upload_excel_user);
+//                    $.ajax({
+//                        type: "POST",
+//                        url: createDynamicURL() + "/supplierServlet",
+//                        data: data_upload_excel_user,
+//                        cache: false,
+//                        processData: false, // Do'nt process the files
+//                        contentType: false, // Set content type to false as jQuery will tell the server its a query string request                       
+//                        success: function (response) {
+//                            if (response.RC === "1") {
+//                                alert("Success");
+//                            } else if (response.RC === "x0s") {
 //
-//    alert(data_supplier.supplier_code);
-////    var myParam = "msupplierid=" + supplier_id;
-////    window.location = "index.jsp?url=supllier_layout&pages=add_supllier_form&" + encodeURIComponent(myParam);
-////    $("#supplier_id").value(supplier_id);
+//                                alert("No File Found");
+//                            } else {
+//                                alert("Fail Upload");
+//                            }
+//                        }, error: function (jqXHR, textStatus, errorThrown) {
+//                            alert("Something really bad happened " + textStatus);
+//                        }
+//                    });
+//                }
+//            }, {
+//                text: 'Clear',
+//                class: 'btn btn-primary',
+//                click: function () {
+//
+//                    document.getElementById("form_upload_excel_user").reset();
+//                    $('#excel_upload_users').css('background', '');
+////                    $('#pic_delegate').css('background', '');
+//
+////                    return;
+//                }
+//            }]
+//    });
 //}
-
-
-function myFunctionUploadDataUser() {
-    console.log("Insert myFunctionUploadDataUser");
-    $("#form_upload_excel_user").dialog().dialog("open");
-    $(".hidden_upload_excel_user").removeClass("hidden_upload_excel_user");
-    //     $("#pic_delegate").autocomplete("autocompleteTechnicianServlet");
-    $('#form_upload_excel_user').dialog("widget").position({
-        my: 'left top',
-        at: 'left bottom'
-    });
-    $("#form_upload_excel_user").dialog({
-        autoOpen: false,
-        title: "Upload Data Users",
-        show: "blind",
-        hide: "explode",
-        modal: true,
-        width: 350,
-        zIndex: 1,
-        buttons: [{
-                text: 'Upload',
-                class: 'btn btn-primary',
-                click: function () {
-                    console.log("@ here");
-                    var data_upload_excel_user = new FormData($('#form_upload_excel_user')[0]);
-                    console.log("data_upload_delegate" + data_upload_excel_user);
-                    $.ajax({
-                        type: "POST",
-                        url: "/FieldServiceSolution/uploadDataUsersServlet", //uploadDataUsersServlet
-                        data: data_upload_excel_user,
-                        cache: false,
-                        processData: false, // Do'nt process the files
-                        contentType: false, // Set content type to false as jQuery will tell the server its a query string request                       
-                        success: function (response) {
-                            if (response.RC === "1") {
-                                alert("Success");
-                            } else if (response.RC === "x0s") {
-
-                                alert("No File Found");
-                            } else {
-                                alert("Fail Upload");
-                            }
-                        }, error: function (jqXHR, textStatus, errorThrown) {
-                            alert("Something really bad happened " + textStatus);
-                        }
-                    });
-                }
-            }, {
-                text: 'Clear',
-                class: 'btn btn-primary',
-                click: function () {
-
-                    document.getElementById("form_upload_excel_user").reset();
-                    $('#excel_upload_users').css('background', '');
-//                    $('#pic_delegate').css('background', '');
-
-//                    return;
-                }
-            }]
-    });
-}
 

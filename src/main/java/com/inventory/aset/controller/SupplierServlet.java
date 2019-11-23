@@ -441,12 +441,32 @@ public class SupplierServlet extends HttpServlet {
                     msg = "Has been Updated";
                 } else if (action_delete.equalsIgnoreCase("DELETE")) {
                     dataSupplier = entitySuppliersFacadeLocal.getSuppliers(supplier_id);
-                    dataSupplier.setIsActive(0);
+                    dataSupplier.setIsActive(2);
+                    dataSupplier.setIsDelete(true);
                     dataSupplier.setUpdatedDate(now);
                     dataSupplier.setUpdatedTime(time_now);
                     entitySuppliersFacadeLocal.deleteSuppliers(dataSupplier);
                     code = "4";
                     msg = "Has been Deleted";
+                } else if (action_delete.equalsIgnoreCase("Approve")) {
+                    dataSupplier = entitySuppliersFacadeLocal.getSuppliers(supplier_id);
+                    dataSupplier.setIsActive(1);
+                    dataSupplier.setIsDelete(false);
+                    dataSupplier.setUpdatedDate(now);
+                    dataSupplier.setUpdatedTime(time_now);
+                    entitySuppliersFacadeLocal.deleteSuppliers(dataSupplier);
+                    code = "4";
+                    msg = "Has been Approved";
+
+                } else if (action_delete.equalsIgnoreCase("reject")) {
+                    dataSupplier = entitySuppliersFacadeLocal.getSuppliers(supplier_id);
+                    dataSupplier.setIsActive(2);
+                    dataSupplier.setIsDelete(false);
+                    dataSupplier.setUpdatedDate(now);
+                    dataSupplier.setUpdatedTime(time_now);
+                    entitySuppliersFacadeLocal.deleteSuppliers(dataSupplier);
+                    code = "4";
+                    msg = "Has been rejected";
                 }
 
             }

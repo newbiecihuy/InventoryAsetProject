@@ -28,7 +28,7 @@
                     <div class="clearfix"></div>  
                 </div>
                 <div class="table-responsive">    
-
+                     <div id="grid_supplier_response"></div>
                     <form  name="tbl_grid_supplier" id="tbl_grid_supplier" class="display" >
                         <table name="grid_supplier" id="grid_supplier" class="table display dataTable no-footer table-hover table-bordered dt-responsive display nowrap" cellspacing="0" width="100%">
                             <thead class="thc">
@@ -62,7 +62,7 @@
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
             <li><a tabindex="0" href="#" class="glyphicon glyphicon-remove-sign"></a></li>
             <li class="divider"></li>
-            <li><a tabindex="0" href="#"  id="approve_supp" name="approve_supp" onclick="myFunctionUploadDataUser()">Approve</a></li>
+            <li><a tabindex="0" href="#"  id="approve_supp" name="approve_supp" onclick="myapproveSupFunc()">Approve</a></li>
             <li><a tabindex="0" href="#"  id="rejcet_supp" name="rejcet_supp">Reject</a></li>
         </ul>
     </div>

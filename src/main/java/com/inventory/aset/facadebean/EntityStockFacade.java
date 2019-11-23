@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.LogSystem;
 import com.inventory.aset.entity.EntityProducts;
 import com.inventory.aset.entity.EntityStock;
 import java.util.List;
@@ -61,7 +62,13 @@ public class EntityStockFacade extends AbstractFacade<EntityStock> implements En
     @Override
     public List<EntityStock> getAllStock(int max, int start) {
 //        return em.createNamedQuery("EntityStock.findAll").getResultList();
-        return em.createQuery("SELECT p FROM EntityStock p").setMaxResults(max).setFirstResult(start).getResultList();
+        try {
+            return em.createQuery("SELECT p FROM EntityStock p").setMaxResults(max).setFirstResult(start).getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
@@ -71,7 +78,13 @@ public class EntityStockFacade extends AbstractFacade<EntityStock> implements En
 
     @Override
     public EntityStock find(Object paramObject) {
-        return (EntityStock) em.find(EntityStock.class, paramObject);
+        try {
+            return (EntityStock) em.find(EntityStock.class, paramObject);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
 //    @Override
@@ -80,12 +93,24 @@ public class EntityStockFacade extends AbstractFacade<EntityStock> implements En
 //    }
     @Override
     public List<EntityStock> findByIdProduct(Object idProduct) {
-        return em.createQuery("SELECT ep  FROM EntityStock ep  WHERE ep.idProduct.idProduct =  \"" + idProduct + "\"").getResultList();
+        try {
+            return em.createQuery("SELECT ep  FROM EntityStock ep  WHERE ep.idProduct.idProduct =  \"" + idProduct + "\"").getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntityStock> findProductByStock(String param) {
-        return em.createNamedQuery("EntityStock.findProductByStock").setParameter("productName", param).getResultList();
+        try {
+            return em.createNamedQuery("EntityStock.findProductByStock").setParameter("productName", param).getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override

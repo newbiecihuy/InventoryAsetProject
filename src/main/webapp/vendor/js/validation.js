@@ -486,7 +486,7 @@ $(document).ready(function () {
         if (confirm("Data Item \n\n"
                 + "Name    :" + item_name + "\n\n"
                 + "Category    :" + categori_name + "\n\n"
-                + "Supplier    :" + description + "\n\n"
+                + "Description    :" + description + "\n\n"
                 ) === true) {
             $('#item_name').css('background', '');
             $('#categori_name').css('background', '');
@@ -1814,18 +1814,90 @@ function deleteUserFunc(data_users) {
     });
 }
 function deleteSupplierFunc(data_supplier) {
+//      alert(data_supplier.supplier_id);
     var data_delete_supplier = {
-        id_user: data_supplier.id_user,
-        action_insert: $("#action_insert").val(),
-        action_edit: $("#action_edit").val(),
-        action_delete: "DELETE"
+        supplier_id: escape(data_supplier.supplier_id),
+        action_insert_supp: "",
+        action_edit_supp: "",
+        action_delete_supp: "DELETE"
     };
+//    var data_delete_supplier = "id_user:" + escape(data_supplier.supplier_id) +",action_insert_supp:"+""+",action_edit_supp:"+""
+//            +",action_delete:"+"DELETE";
+//    alert(data_delete_supplier);
+    $.ajax({
+        type: "POST",
+        url: createDynamicURL() + "/supplierServlet",
+        data: {JSONFile: "[" + JSON.stringify(data_delete_supplier) + "]"}, // look here!
+
+        success: function (response) {
+            //our country code was correct so we have some information to display
+            if (response.RC === "4") {
+                $("#grid_supplier_response").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier  " + response.msg + "</b></p></div>");
+//                    $('#btn_add_supplier').prop('disabled', true);
+            } else if (response.RC === "2") {
+                $("#grid_supplier_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier " + response.msg + "</b></p></div>").addClass('error').css({});
+            } else if (response.RC === "3") {
+                $("#grid_supplier_response").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier " + response.msg + "</b></p></div>").addClass('error').css({});
+            } else if (response.RC === "33") {
+                $("#grid_supplier_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Supplier code" + response.msg + "</b></p></div>").addClass('error').css({});
+            }
+            //display error message
+            else {
+                $("#grid_supplier_response").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>Invalid!</b></p></div>").addClass('error').css({});
+            }
+        },
+        //If there was no resonse from the server
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("Something really bad happened " + textStatus);
+            $("#grid_supplier_response").html(jqXHR.responseText);
+        }
+
+    });
 }
 function deleteCategoriesFunc(data_categories) {
 
 }
 function deleteItemFunc(data_Item) {
+    var data_delete_Item = {
+        id_product: escape(data_Item.id_product),
+        id_stock: escape(data_Item.id_product),
+        action_insert_item: "",
+        action_edit_item: "",
+        action_delete_item: "DELETE"
+    };
+    $.ajax({
+        type: "POST",
+        url: createDynamicURL() + "/itemServlet",
+        data: {JSONFile: "[" + JSON.stringify(data_delete_Item) + "]"}, // look here!
 
+        success: function (response) {
+            //our country code was correct so we have some information to display
+            if (response.RC === "4") {
+                $("#grid_items_response").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item  " + response.msg + "</b></p></div>");
+//                    $('#btn_add_supplier').prop('disabled', true);
+            } else if (response.RC === "2") {
+                $("#grid_items_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item " + response.msg + "</b></p></div>").addClass('error').css({});
+            } else if (response.RC === "3") {
+                $("#grid_items_response").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item " + response.msg + "</b></p></div>").addClass('error').css({});
+            } else if (response.RC === "33") {
+                $("#grid_items_response").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item code" + response.msg + "</b></p></div>").addClass('error').css({});
+            }
+            //display error message
+            else {
+                $("#grid_items_response").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>Invalid!</b></p></div>").addClass('error').css({});
+            }
+        },
+        //If there was no resonse from the server
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("Something really bad happened " + textStatus);
+            $("#grid_items_response").html(jqXHR.responseText);
+        }
+
+    });
+}
+//
+function myFunctionUploadDataUser() {
+    alert("Hi there");
 }
 //Generate PDF
 function purchasePdfReport(data_record_po) {

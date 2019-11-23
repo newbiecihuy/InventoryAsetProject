@@ -29,23 +29,10 @@
                     <div class="clearfix"></div>  
                 </div>
                 <div class="table-responsive">    
-                    <!--                        <div id="introducerGrid_wrapper" class="dataTables_wrapper no-footer">
-                                                <div class="dataTables_length" id="introducerGrid_length"><label>Show 
-                                                        <select name="introducerGrid_length" aria-controls="introducerGrid" class="">
-                                                            <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100
-                                                            </option></select> entries</label></div>
-                                                <form>
-                                                    <table cellpadding="0" cellspacing="0" class="table">
-                                                        <div class="control-group">
-                                                            <td class="controls">
-                    
-                                                            </td>
-                                                        </div>
-                                                    </table>
-                                                </form>-->
+                    <div id="grid_items_response"></div>
                     <form  name="tbl_grid_items" id="tbl_grid_items" class="display" >
                         <table name="grid_items" id="grid_items" class="table display dataTable no-footer table-hover table-bordered dt-responsive display nowrap" cellspacing="0" width="100%">
-                             <thead class="thc">
+                            <thead class="thc">
                                 <tr>
                                     <th class="no">No.</th>
                                     <th class="id_product">Product Id</th>

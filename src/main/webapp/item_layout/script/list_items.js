@@ -228,13 +228,13 @@ $(document).ready(function () {
                             return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                  <a href='#' onclick='javascript:viewStockFunc(" + JSON.stringify(data_Items) + ")'><i class='fa fa fa-shopping-basket' title='view-stock'></i></a>\n\
                                  <a id='updateDataItem' href='#' onclick='javascript:editItemFunc(" + JSON.stringify(data_Items) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
-                                 <a href='#'><i class='fa fa-trash ' title='Delete'></i></a>";
+                                 <a href='#'><i class='fa fa-trash' title='Delete'></i></a>";
 //                      return "<a href='" + data_pict_1 + " 'target='_blank' class='btn btn-info'>" + "<font color='#f2f2f2' size='2em'>" + "Display" + "</font>" + "</a>";
                         } else {
                             return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                <a href='#'><i class='fa fa fa-shopping-basket' style='color:#e0e0d1;' title='empty'></i></a>\n\
                                <a id='updateDataItem' href='#' onclick='javascript:editItemFunc(" + JSON.stringify(data_Items) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
-                               <a href='#'><i class='fa fa-trash ' title='Delete'></i></a>";
+                               <a href='#' onclick='javascript:deleteItemFunc(" + JSON.stringify(data_Items) + ")'><i class='fa fa-trash' title='Delete'></i></a>";
                         }
                     }
                 }

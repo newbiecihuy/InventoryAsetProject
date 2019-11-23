@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
-import com.inventory.aset.controller.util.EncryptionUtil;
+import com.inventory.aset.controller.util.LogSystem;
 import com.inventory.aset.entity.EntitySuppliers;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -45,23 +45,41 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 
     @Override
     public void deleteSuppliers(EntitySuppliers dataSupplier) {
-        em.merge(dataSupplier);
+        try {
+            em.merge(dataSupplier);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
     }
 
     @Override
     public void removeSuppliers(long paramLong) {
+
         em.remove(getSuppliers(paramLong));
     }
 
     @Override
     public EntitySuppliers getSuppliers(long supplierId) {
-        return (EntitySuppliers) em.find(EntitySuppliers.class, supplierId);
+        try {
+            return (EntitySuppliers) em.find(EntitySuppliers.class, supplierId);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntitySuppliers> getAllSuppliers(int max, int start) {
 //        return em.createNamedQuery("EntitySuppliers.findAll").getResultList();
-        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers").setMaxResults(max).setFirstResult(start).getResultList();
+        try {
+            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers where enSuppliers.isDelete =" + false + "").setMaxResults(max).setFirstResult(start).getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
 //    @Override
@@ -74,51 +92,98 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 //                + " OR enSuppliers.isActive  \'" + EncryptionUtil.getStatus(search.toLowerCase()) + "\' "
 //                + " )").setMaxResults(max).setFirstResult(start).getResultList();
 //    }
-     @Override
+    @Override
     public List<EntitySuppliers> searchSuppliers(String search, int max, int start) {
-
-        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers "
-                + " WHERE (enSuppliers.supplierName Like \'" + search.toLowerCase() + "%\' "
-                + " OR enSuppliers.supplierCode Like \'" + search.toLowerCase() + "%\' "
-                + " OR enSuppliers.contactName Like \'" + search.toLowerCase() + "%\' "
-                + " )").setMaxResults(max).setFirstResult(start).getResultList();
+        try {
+            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers "
+                    + " WHERE (enSuppliers.supplierName Like \'" + search.toLowerCase() + "%\' "
+                    + " OR enSuppliers.supplierCode Like \'" + search.toLowerCase() + "%\' "
+                    + " OR enSuppliers.contactName Like \'" + search.toLowerCase() + "%\' "
+                    + " )").setMaxResults(max).setFirstResult(start).getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntitySuppliers> getSupplierName(String supplierName) {
-        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierName  =  \"" + supplierName + "\"").getResultList();
+        try {
+            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierName  =  \"" + supplierName + "\"").getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntitySuppliers> getSupplierCode(String supplierCode) {
-        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierCode  =  \"" + supplierCode + "\"").getResultList();
+        try {
+            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierCode  =  \"" + supplierCode + "\"").getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntitySuppliers> findByStatusActive(Long supplier_id) {
+        try {
 //        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierId  =  \"" + supplier_id + "\" AND enSuppliers.isActive=1").getResultList();
-        return em.createNamedQuery("EntitySuppliers.findByStatusActive").setParameter("supplierId", supplier_id).getResultList();
+            return em.createNamedQuery("EntitySuppliers.findByStatusActive").setParameter("supplierId", supplier_id).getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntitySuppliers> findWithParam(String param1, String param2) {
-        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierName  =  \"" + param1 + "\" OR "
-                + " enSupplier.supplierCode =  \"" + param2 + "\"").getResultList();
+        try {
+            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierName  =  \"" + param1 + "\" OR "
+                    + " enSupplier.supplierCode =  \"" + param2 + "\"").getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public EntitySuppliers find(Object paramObject) {
-        return (EntitySuppliers) em.find(EntitySuppliers.class, paramObject);
+        try {
+            return (EntitySuppliers) em.find(EntitySuppliers.class, paramObject);
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntitySuppliers> findBySupplierCode(String pramString) {
-        return em.createQuery("SELECT Distinct es.supplierCode  FROM EntitySuppliers es WHERE es.supplierCode LIKE \"" + pramString + "%\" ").getResultList();
+        try {
+            return em.createQuery("SELECT Distinct es.supplierCode  FROM EntitySuppliers es WHERE es.supplierCode LIKE \"" + pramString + "%\" ").getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntitySuppliers> findBySupplierName(String supplierName) {
-        return em.createQuery("SELECT Distinct es.supplierName  FROM EntitySuppliers es WHERE es.supplierName LIKE \"" + supplierName + "%\" AND es.isActive =  \"" + 1 + "\"").getResultList();
+        try {
+            return em.createQuery("SELECT Distinct es.supplierName  FROM EntitySuppliers es WHERE es.supplierName LIKE \"" + supplierName + "%\" AND es.isActive =  \"" + 1 + "\"").getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     @Override

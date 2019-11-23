@@ -144,8 +144,8 @@ $(document).ready(function () {
 
 
 
-function myFunctionUploadDataUser() {
-    console.log("Insert myFunctionUploadDataUser");
+function myapproveSupFunc() {
+    console.log("Insert myapproveSupFunc");
     $("#form_upload_excel_user").dialog().dialog("open");
     $(".hidden_upload_excel_user").removeClass("hidden_upload_excel_user");
     //     $("#pic_delegate").autocomplete("autocompleteTechnicianServlet");
