@@ -67,7 +67,7 @@ public class EntityCurrencyFacade extends AbstractFacade<EntityCurrency> impleme
     }
 
     @Override
-    public List<EntityCurrency> findWithCurrencyName(String paramString) {
+    public EntityCurrency findWithCurrencyName(String paramString) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

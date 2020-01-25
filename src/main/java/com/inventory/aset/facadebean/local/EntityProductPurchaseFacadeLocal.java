@@ -26,11 +26,11 @@ public interface EntityProductPurchaseFacadeLocal {
 
     EntityProductPurchase getProductPurchase(long paramLong);
 
-    List<EntityProductPurchase> getAllProductPurchase(int param, int max,int start);
+    List<EntityProductPurchase> getAllProductPurchase(int param, int max, int start);
 
 //    List<EntityProductPurchase> getIdProductPurchase(long paramLong);
 //    List<EntityProductPurchase> findWithPrice(String price);
-    public List<EntityProductPurchase> findByPOCode(String price);
+    EntityProductPurchase findByPOCode(String price);
 
     EntityProductPurchase find(Object paramObject);
 

@@ -74,7 +74,7 @@
             </li>   
             <li>
                 <!-- <a href="#" class="dropdown-toggle"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>-->
-                <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-dashboard fa-fw"></i>Dashboard<span class="fa arrow"></span></a>
+<!--                <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-dashboard fa-fw"></i>Dashboard<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level submenu">
                     <li class="has-spinner" >
                         <a href="index.jsp?url=dashboard_layout&pages=pie_chart" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> Pie Chart</a>
@@ -83,7 +83,7 @@
                         <a href="index.jsp?url=dashboard_layout&pages=bar_chart"  class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> Bar Chart</a>
                     </li>
                 </ul>
-            </li>
+            </li>-->
 
             <li>
                 <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Supplier Manager<span class="fa arrow"></span></a>
@@ -129,10 +129,10 @@
                         <a href="index.jsp?url=item_layout&pages=list_stock_item" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> View Stock &#40; Raw Material &#41;</a>
                     </li>
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=item_layout&pages=add_stock_ready" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> Add Stock &#40; Ready &#41;</a>
+                        <a href="index.jsp?url=item_layout&pages=add_stock_ready" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> Manufacturing</a>
                     </li>
                     <li class="has-spinner" >
-                        <a href="index.jsp?url=item_layout&pages=list_stock_ready" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> View Stock &#40; Ready &#41;</a>
+                        <a href="index.jsp?url=item_layout&pages=list_stock_ready" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> List &nbsp; Manufacturing</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
@@ -143,10 +143,10 @@
                     <!--                    <li class="has-spinner" >
                                             <a href="index.jsp?url=purcahase_layout&pages=form_po" class="font-cl"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i> Create PO</a>
                                         </li>-->
-<!--                    <li class="has-spinner" >
-                        <a href="index.jsp?url=purcahase_layout&pages=add_po" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> Create PO</a>
-                    </li> -->
-                   <li class="has-spinner" >
+                    <!--                    <li class="has-spinner" >
+                                            <a href="index.jsp?url=purcahase_layout&pages=add_po" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> Create PO</a>
+                                        </li> -->
+                    <li class="has-spinner" >
                         <a href="index.jsp?url=purcahase_layout&pages=grid_form_po" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span>View list P&#8228;O&#8228;</a>
                     </li>
                 </ul>

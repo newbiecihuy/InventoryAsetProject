@@ -27,7 +27,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_company_address")
 @NamedQueries({
-    @javax.persistence.NamedQuery(name = "EntityCompanyAddress.findAll", query = "SELECT e from EntityCompanyAddress e")})
+    @javax.persistence.NamedQuery(name = "EntityCompanyAddress.findAll", query = "SELECT e from EntityCompanyAddress e"),
+})
 public class EntityCompanyAddress implements Serializable {
 
     private static final long serialVersionUID = 1L;

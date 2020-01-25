@@ -28,10 +28,10 @@ public interface EntityCompanyAddressFacadeLocal {
 
     List<EntityCompanyAddress> getAllCompanyAddress(int max, int start);
 
-    public List<EntityCompanyAddress> getIdCompanyAddress(String paramString);
+    EntityCompanyAddress getIdCompanyAddress(String paramString);
 
-    public List<EntityCompanyAddress> findWithCompanyAddress(String paramName);
+    EntityCompanyAddress findWithCompanyAddress(String paramName);
 
-    public List<EntityCompanyAddress> findByCompanyAddress(String varName);
+    List<EntityCompanyAddress> findByCompanyAddress(String varName);
 
 }

@@ -57,14 +57,14 @@ public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPur
     }
 
     @Override
-    public List<EntityProductPurchase> getAllProductPurchase(int param, int max,int start) {
+    public List<EntityProductPurchase> getAllProductPurchase(int param, int max, int start) {
 //        return em.createNamedQuery("EntityProductPurchase.findAll").getResultList();
         return em.createQuery("SELECT l FROM EntityProductPurchase l where l.purchaseId.purchaseId=  \"" + param + "\"").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
-    public List<EntityProductPurchase> findByPOCode(String param) {
-        return em.createQuery("SELECT l FROM EntityProductPurchase l WHERE l.purchaseId.purchaseCode =  \"" + param + "\"").getResultList();
+    public EntityProductPurchase findByPOCode(String param) {
+        return (EntityProductPurchase) em.createQuery("SELECT l FROM EntityProductPurchase l WHERE l.purchaseId.purchaseCode =  \"" + param + "\"").getSingleResult();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPur
 
     @Override
     public int count() {
-       Query queryMax = em.createQuery("SELECT COUNT(l) FROM EntityProductPurchase l");
+        Query queryMax = em.createQuery("SELECT COUNT(l) FROM EntityProductPurchase l");
         return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 

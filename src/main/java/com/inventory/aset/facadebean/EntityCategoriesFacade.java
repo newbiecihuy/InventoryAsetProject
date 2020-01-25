@@ -114,9 +114,9 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     }
 
     @Override
-    public List<EntityCategories> getIdCategories(String paramString) {
+    public EntityCategories getIdCategories(String paramString) {
         try {
-            return em.createNamedQuery("EntityCategories.findBycategoryId").getResultList();
+            return (EntityCategories) em.createNamedQuery("EntityCategories.findBycategoryId").getSingleResult();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -167,4 +167,14 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
 //    protected EntityManager getEntityManager() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
+    @Override
+    public EntityCategories findCategoriesName(String categoriesName) {
+        try {
+            return (EntityCategories) em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getSingleResult();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
+    }
 }

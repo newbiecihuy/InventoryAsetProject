@@ -263,9 +263,9 @@ public class CategoryServlet extends HttpServlet {
                     } else {
                         category_desc = "";
                     }
-                    List<EntityCategories> cekCategoryName = entityCategoriesFacadeLocal.findWithCategoriesName(category_name.toLowerCase());
+                    EntityCategories cekCategoryName = entityCategoriesFacadeLocal.findCategoriesName(category_name.toLowerCase());
                     System.out.println("isi cekCategoryName" + cekCategoryName);
-                    if (cekCategoryName.size() > 0) {
+                    if (cekCategoryName != null) {
                         code = "2";
                         return;
                     }

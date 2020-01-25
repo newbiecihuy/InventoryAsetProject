@@ -114,8 +114,7 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
 //    }
 
     @Override
-    public List<EntityPurchases> findByTransportMode(String pramString
-    ) {
+    public List<EntityPurchases> findByTransportMode(String pramString) {
         try {
             return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.transportMode LIKE \"" + pramString + "%\" ").getResultList();
         } catch (Exception e) {
@@ -125,8 +124,7 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
     }
 
     @Override
-    public List<EntityPurchases> findByRfqNumber(String pramString
-    ) {
+    public List<EntityPurchases> findByRfqNumber(String pramString) {
         try {
             return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.rfqNumber LIKE \"" + pramString + "%\" ").getResultList();
         } catch (Exception e) {
@@ -140,9 +138,9 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
 //        return em.createNamedQuery("EntityPurchases.findByNoPo").setParameter("inputDate", inputDate).setParameter("inputTime", inputTime).getResultList();
 //    }
     @Override
-    public List<EntityPurchases> findByNoPo(Date inputDate, String inputTime) {
+    public EntityPurchases findByNoPo(Date inputDate, String inputTime) {
         try {
-            return em.createNamedQuery("EntityPurchases.findByNoPo").setParameter("inputDate", inputDate).setMaxResults(1).getResultList();
+            return (EntityPurchases) em.createNamedQuery("EntityPurchases.findByNoPo").setParameter("inputDate", inputDate).setMaxResults(1).getResultList();
         } catch (Exception e) {
             System.out.println("Something went wrong :" + e.getMessage());
         }

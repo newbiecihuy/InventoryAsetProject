@@ -59,19 +59,19 @@ public class EntityCompanyFacade extends AbstractFacade<EntityCompany> implement
     }
 
     @Override
-    public List<EntityCompany> getAllCompany(int max,int start) {
+    public List<EntityCompany> getAllCompany(int max, int start) {
 //        return em.createNamedQuery("EntityCompany.findAll").getResultList();
         return em.createQuery("SELECT c FROM EntityCompany c ").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
-    public List<EntityCompany> getIdCompany(String paramString) {
-        return em.createNamedQuery("EntityCompany.findByIdCompany").getResultList();
+    public EntityCompany getIdCompany(String paramString) {
+        return (EntityCompany) em.createNamedQuery("EntityCompany.findByIdCompany").getResultList();
     }
 
     @Override
-    public List<EntityCompany> findWithCompanyName(String paramName) {
-        return em.createQuery("SELECT c FROM EntityCompany c WHERE c.companyName =  \"" + paramName + "\"").getResultList();
+    public EntityCompany findWithCompanyName(String paramName) {
+        return (EntityCompany) em.createQuery("SELECT c FROM EntityCompany c WHERE c.companyName =  \"" + paramName + "\"").getSingleResult();
     }
 
     @Override
@@ -86,9 +86,8 @@ public class EntityCompanyFacade extends AbstractFacade<EntityCompany> implement
 
     @Override
     public int count() {
-       Query queryMax = em.createQuery("SELECT COUNT(c) FROM EntityCompany c");
+        Query queryMax = em.createQuery("SELECT COUNT(c) FROM EntityCompany c");
         return Integer.parseInt(queryMax.getSingleResult().toString());
     }
-
 
 }

@@ -30,7 +30,7 @@ public interface EntityCurrencyFacadeLocal {
 
     List<EntityCurrency> getCurrencyRate(String paramString);
 
-    List<EntityCurrency> findWithCurrencyName(String paramString);
+    EntityCurrency findWithCurrencyName(String paramString);
 
     EntityCurrency find(Object paramObject);
 

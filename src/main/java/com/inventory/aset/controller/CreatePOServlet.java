@@ -553,10 +553,10 @@ public class CreatePOServlet extends HttpServlet {
                         cek_tanggal = sdfa.parse(tgl_1);
                         System.out.println("cek_tanggal :" + cek_tanggal);
                         System.out.println("time_now :" + time_now);
-                        List<EntityPurchases> getNopo = entityPurchasesFacadeLocal.findByNoPo(cek_tanggal, time_now);
-                        if (getNopo.size() > 0) {
-                            System.out.println("getNopo.size()" + getNopo.size());
-                            nilai = getNopo.get(0).getNoPo().intValue() + 1;
+                        EntityPurchases getNopo = entityPurchasesFacadeLocal.findByNoPo(cek_tanggal, time_now);
+                        if (getNopo !=null ) {
+                            System.out.println("getNopo.size()" + getNopo);
+                            nilai = getNopo.getNoPo().intValue() + 1;
                             System.out.println("equals nilai" + nilai);
                             PONumber = EncryptionUtil.setNumber(String.valueOf(nilai)) + "/" + "PO" + "/" + "TNT" + "/" + noPoVal + "/" + year;
                             dataPurchases.setPurchaseCode(PONumber);

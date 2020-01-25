@@ -57,19 +57,19 @@ public class EntityCompanyAddressFacade extends AbstractFacade<EntityCompanyAddr
     }
 
     @Override
-    public List<EntityCompanyAddress> getAllCompanyAddress(int max,int start) {
+    public List<EntityCompanyAddress> getAllCompanyAddress(int max, int start) {
 //        return em.createNamedQuery("EntityCompanyAddress.findAll").getResultList();
         return em.createQuery("SELECT c FROM EntityCompanyAddress c ").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
-    public List<EntityCompanyAddress> getIdCompanyAddress(String paramString) {
-        return em.createNamedQuery("EntityCompanyAddress.findByIdCompanyAdress").getResultList();
+    public EntityCompanyAddress getIdCompanyAddress(String paramString) {
+        return (EntityCompanyAddress) em.createNamedQuery("EntityCompanyAddress.findByIdCompanyAdress").getSingleResult();
     }
 
     @Override
-    public List<EntityCompanyAddress> findWithCompanyAddress(String paramName) {
-        return em.createQuery("SELECT c FROM EntityCompanyAddress c WHERE c.address =  \"" + paramName + "\"").getResultList();
+    public EntityCompanyAddress findWithCompanyAddress(String paramName) {
+        return (EntityCompanyAddress) em.createQuery("SELECT c FROM EntityCompanyAddress c WHERE c.address =  \"" + paramName + "\"").getSingleResult();
     }
 
     @Override

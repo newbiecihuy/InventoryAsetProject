@@ -481,10 +481,10 @@ public class ItemServlet extends HttpServlet {
                     dataProducts.setCreatedAtTime(time_now);
                     dataProducts.setPic("PIC");
                     System.out.println("categories_name ==>" + categories_name);
-                    List<EntityCategories> cekCategoryName = entityCategoriesFacadeLocal.findWithCategoriesName(categories_name.toLowerCase());
-                    if (cekCategoryName.size() > 0) {
+                    EntityCategories cekCategoryName = entityCategoriesFacadeLocal.findCategoriesName(categories_name.toLowerCase());
+                    if (cekCategoryName != null) {
                         System.out.println("isi cekCategoryName" + cekCategoryName);
-                        dataCategory = entityCategoriesFacadeLocal.getCategories(cekCategoryName.get(0).getCategoryId());
+                        dataCategory = entityCategoriesFacadeLocal.getCategories(cekCategoryName.getCategoryId());
                         dataProducts.setCategoryId(dataCategory);
                     } else {
                         System.out.println("isi categories_name" + categories_name.toLowerCase());
@@ -596,10 +596,10 @@ public class ItemServlet extends HttpServlet {
                     dataProducts.setCreatedAt(now);
                     dataProducts.setCreatedAtTime(time_now);
                     dataProducts.setPic("PIC");
-                    List<EntityCategories> cekCategoryName = entityCategoriesFacadeLocal.findWithCategoriesName(categories_name.toLowerCase());
+                    EntityCategories cekCategoryName = entityCategoriesFacadeLocal.findCategoriesName(categories_name.toLowerCase());
                     System.out.println("isi cekCategoryName" + cekCategoryName);
-                    if (cekCategoryName.size() > 0) {
-                        dataCategory = entityCategoriesFacadeLocal.getCategories(cekCategoryName.get(0).getCategoryId());
+                    if (cekCategoryName != null) {
+                        dataCategory = entityCategoriesFacadeLocal.getCategories(cekCategoryName.getCategoryId());
                         dataProducts.setCategoryId(dataCategory);
                     } else {
                         dataCategory.setCategoriesName(categories_name.toLowerCase());

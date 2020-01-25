@@ -28,9 +28,9 @@ public interface EntityCompanyFacadeLocal {
 
     List<EntityCompany> getAllCompany(int max, int start);
 
-    List<EntityCompany> getIdCompany(String paramString);
+    EntityCompany getIdCompany(String paramString);
 
-    List<EntityCompany> findWithCompanyName(String categoriesName);
+    EntityCompany findWithCompanyName(String categoriesName);
 
     List<EntityCompany> findByCompanyName(String varName);
 

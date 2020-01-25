@@ -43,7 +43,7 @@ public interface EntityPurchasesFacadeLocal {
     List<EntityPurchases> getByPOCode(String pramString);
 
 //    List<EntityPurchases> getByTypePO(String pramString);
-    List<EntityPurchases> findByNoPo(Date inputDate, String inputTime);
+  EntityPurchases findByNoPo(Date inputDate, String inputTime);
 
     int count();
 
