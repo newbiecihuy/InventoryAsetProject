@@ -7,18 +7,14 @@ package com.inventory.aset.controller.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.security.cert.CertificateException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +27,7 @@ public class CreateLog {
 
     }
 
-    public static void createText(Object object, String namaFile) {
+    public static void createJson(Object object, String namaFile) {
 //        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd_MM_yyyy");
         DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("dd_MM_yyyy");
         DateTimeFormatter lineDateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");

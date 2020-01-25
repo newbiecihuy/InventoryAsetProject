@@ -71,7 +71,7 @@ public class EncryptionUtil {
     public static String getTokenString() {
         String SALTCHARS = "abcdefghijklmnopqrstuvwxyz1234567890";
         StringBuilder salt = new StringBuilder();
-        Random rnd = new Random();
+        Random rnd = new Random(3);
         while (salt.length() < 3) {
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
@@ -84,7 +84,7 @@ public class EncryptionUtil {
 //        String SALTCHARS = "abcdefghijklmnopqrstuvwxyz1234567890";
         String SALTCHARS = "abcdefghijklmnopqrstuvwxyz1234567890";
         StringBuilder salt = new StringBuilder();
-        Random rnd = new Random();
+        Random rnd = new Random(5);
         while (salt.length() < 5) {
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
