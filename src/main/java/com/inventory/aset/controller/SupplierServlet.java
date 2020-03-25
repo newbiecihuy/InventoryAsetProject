@@ -5,9 +5,9 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.entity.EntitySuppliers;
+import com.inventory.aset.model.EntitySuppliers;
 import com.inventory.aset.controller.util.EncryptionUtil;
-import com.inventory.aset.entity.EntityProducts;
+import com.inventory.aset.model.EntityProducts;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
-import com.inventory.aset.entity.EntitySettings;
+import com.inventory.aset.model.EntitySettings;
 import com.inventory.aset.facadebean.local.EntityProductsFacadeLocal;
 import com.inventory.aset.facadebean.local.EntitySettingsFacadeLocal;
 import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;

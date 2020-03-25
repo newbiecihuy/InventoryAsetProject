@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.facadebean.local;
 
-import com.inventory.aset.entity.EntityCompanyAddress;
+import com.inventory.aset.model.EntityCompanyAddress;
 import java.util.List;
 import javax.ejb.Local;
 

@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.entity.EntityCategories;
+import com.inventory.aset.model.EntityCategories;
 import com.inventory.aset.controller.util.EncryptionUtil;
 import java.io.IOException;
 import java.io.PrintWriter;

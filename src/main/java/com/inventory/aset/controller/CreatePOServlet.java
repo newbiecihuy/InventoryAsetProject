@@ -5,10 +5,10 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.entity.EntityProductPurchase;
-import com.inventory.aset.entity.EntityPurchases;
-import com.inventory.aset.entity.EntitySuppliers;
-import com.inventory.aset.entity.EntityTypePO;
+import com.inventory.aset.model.EntityProductPurchase;
+import com.inventory.aset.model.EntityPurchases;
+import com.inventory.aset.model.EntitySuppliers;
+import com.inventory.aset.model.EntityTypePO;
 import com.inventory.aset.facadebean.local.EntityProductPurchaseFacadeLocal;
 import com.inventory.aset.controller.util.EncryptionUtil;
 import java.io.IOException;
@@ -109,7 +109,7 @@ public class CreatePOServlet extends HttpServlet {
             draw = request.getParameter("draw");
             start = request.getParameter("start");
             length = request.getParameter("length");
-
+            int is_approve = 0;
             System.out.println("length " + length);
 //            System.out.println("page" + page);
             int totalPages = 0;
@@ -248,6 +248,12 @@ public class CreatePOServlet extends HttpServlet {
                     } else {
                         obj.put("purchase_desc", EncryptionUtil.upperCaseFirst(dataPO.getPurchaseDesc()));
                     }
+                    if (dataPO.getIsApprove() == 0) {
+                        obj.put("is_approve", 0);
+                    } else {
+                        obj.put("is_approve", dataPO.getIsApprove());
+                        is_approve = dataPO.getIsApprove();
+                    }
                     if (dataPO.getStatusPo() == null) {
                         obj.put("status_po", "");
                     } else {
@@ -257,7 +263,15 @@ public class CreatePOServlet extends HttpServlet {
                             System.out.println("itemPurchaseList == " + null);
                             obj.put("status_po", "No Item");
                         } else {
-                            obj.put("status_po", EncryptionUtil.upperCaseFirst(dataPO.getStatusPo()));
+                            if (is_approve == 0) {
+                                obj.put("status_po", EncryptionUtil.upperCaseFirst(dataPO.getStatusPo()));
+                            }
+                            if (is_approve == 1) {
+                                obj.put("status_po", EncryptionUtil.upperCaseFirst("Approved"));
+                            }
+                            if (is_approve == 2) {
+                                obj.put("status_po", EncryptionUtil.upperCaseFirst("Rejected"));
+                            }
                         }
                     }
                     if (dataPO.getPic() == null) {
@@ -270,11 +284,6 @@ public class CreatePOServlet extends HttpServlet {
 //                    } else {
 //                        obj.put("is_approve", "1");
 //                    }
-                    if (dataPO.getIsApprove() == 0) {
-                        obj.put("is_approve", 0);
-                    } else {
-                        obj.put("is_approve", dataPO.getIsApprove());
-                    }
 
                     if (!dataPO.isIsDelete()) {
                         obj.put("is_delete", "0");
@@ -554,7 +563,7 @@ public class CreatePOServlet extends HttpServlet {
                         System.out.println("cek_tanggal :" + cek_tanggal);
                         System.out.println("time_now :" + time_now);
                         EntityPurchases getNopo = entityPurchasesFacadeLocal.findByNoPo(cek_tanggal, time_now);
-                        if (getNopo !=null ) {
+                        if (getNopo != null) {
                             System.out.println("getNopo.size()" + getNopo);
                             nilai = getNopo.getNoPo().intValue() + 1;
                             System.out.println("equals nilai" + nilai);

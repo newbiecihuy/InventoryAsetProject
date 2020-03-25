@@ -6,7 +6,7 @@
 package com.inventory.aset.facadebean;
 
 import com.inventory.aset.controller.util.LogSystem;
-import com.inventory.aset.entity.EntityCategories;
+import com.inventory.aset.model.EntityCategories;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -6,9 +6,9 @@
 package com.inventory.aset.report.excel;
 
 import com.inventory.aset.controller.CreatePOServlet;
-import com.inventory.aset.entity.EntityProducts;
-import com.inventory.aset.entity.EntityStock;
-import com.inventory.aset.entity.EntitySuppliers;
+import com.inventory.aset.model.EntityProducts;
+import com.inventory.aset.model.EntityStock;
+import com.inventory.aset.model.EntitySuppliers;
 import com.inventory.aset.facadebean.local.EntityCategoriesFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityProductsFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityStockFacadeLocal;

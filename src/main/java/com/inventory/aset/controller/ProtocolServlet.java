@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.entity.EntityProtocol;
+import com.inventory.aset.model.EntityProtocol;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;

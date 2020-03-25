@@ -6,7 +6,7 @@
 package com.inventory.aset.controller.autoComplete;
 
 import com.google.gson.Gson;
-import com.inventory.aset.entity.EntityStock;
+import com.inventory.aset.model.EntityStock;
 import com.inventory.aset.facadebean.local.EntityStockFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;

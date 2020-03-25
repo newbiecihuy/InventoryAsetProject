@@ -6,7 +6,7 @@
 package com.inventory.aset.controller.autoComplete;
 
 import com.google.gson.Gson;
-import com.inventory.aset.entity.EntitySuppliers;
+import com.inventory.aset.model.EntitySuppliers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;

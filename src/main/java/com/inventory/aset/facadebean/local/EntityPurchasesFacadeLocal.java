@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.facadebean.local;
 
-import com.inventory.aset.entity.EntityPurchases;
+import com.inventory.aset.model.EntityPurchases;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;

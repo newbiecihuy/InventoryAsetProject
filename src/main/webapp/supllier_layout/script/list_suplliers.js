@@ -128,15 +128,14 @@ $(document).ready(function () {
                         supplier_id: va_supplier_id
                     };
                     if (data_sup === 0) {
-                        return "Not Approved";
+                        return "<a href='#'><font color='c89907'>"+"Waiting"+"</font></a>";  //Not Approved
                     }
                     if (data_sup === 1) {
-                        return "Approved";
+                        return "<a href='#'><font color='0bbc43'>"+"Approved"+"</font></a>";
 //                        return"<a href='#' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + "Active" + "</a>";
                     }
                     if (data_sup === 2) {
-                        $(data_sup).css('color', 'red');
-                        return "Rejected";
+                        return"<a href='#'><font color='d50808'>"+"Rejected"+"</font></a>";
                     }
                 }
             }, {
@@ -175,9 +174,23 @@ $(document).ready(function () {
                             tax: va_tax,
                             status_supp: va_status_supp
                         };
-                        return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
+//                        alert(JSON.stringify(data_supplier.status_supp));
+						// alert(va_status_supp);
+                        if (va_status_supp === 1) {
+                            return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                <a id='updateDataSupp' href='#' onclick='javascript:editSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
                                <a id='deleteDataSupp' href='#' onclick='javascript:deleteSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-trash ' title='Delete'></i></a>";
+                        } else if (va_status_supp ===  0 ) {//|| va_status_supp === 2
+                            return"<a href='#'><i class='fa fa-square-o' title='active'></i></a>\n\
+                               <a id='updateDataSupp' href='#' onclick='javascript:editSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
+                               <a id='deleteDataSupp' href='#' onclick='javascript:deleteSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-trash ' title='Delete'></i></a>";
+
+                        } else if (va_status_supp === 2) {
+                              return"<a href='#'><i class='fa fa-square-o' title='active'></i></a>\n\
+                               <a id='updateDataSupp' href='#' onclick='javascript:editSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
+                               <a id='deleteDataSupp' href='#' onclick='javascript:deleteSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-trash ' title='Delete'></i></a>";
+
+                        }
 //                      return "<a href='" + data_pict_1 + " 'target='_blank' class='btn btn-info'>" + "<font color='#f2f2f2' size='2em'>" + "Display" + "</font>" + "</a>";
                     }
                 }

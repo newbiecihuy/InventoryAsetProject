@@ -6,7 +6,6 @@
     <version>1.0</version>
     <packaging>war</packaging>
     <name>InventoryAsetProject</name>
-    <url>http://maven.apache.org</url>
     
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -316,6 +315,13 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
     <build>
@@ -385,10 +391,14 @@
         </plugins>
     </build>
     <repositories>
-        <repository>
+        <!--        <repository>
             <id>unknown-jars-temp-repo</id>
             <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
             <url>file:${project.basedir}/lib</url>
+        </repository>-->
+        <repository>
+            <id>maven-repo</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
     </repositories>
 </project>

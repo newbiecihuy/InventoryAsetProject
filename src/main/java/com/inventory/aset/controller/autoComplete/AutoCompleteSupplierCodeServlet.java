@@ -6,7 +6,7 @@
 package com.inventory.aset.controller.autoComplete;
 
 import com.google.gson.Gson;
-import com.inventory.aset.entity.EntitySuppliers;
+import com.inventory.aset.model.EntitySuppliers;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -5,8 +5,9 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.EncryptionUtil;
 import com.inventory.aset.controller.util.LogSystem;
-import com.inventory.aset.entity.EntitySuppliers;
+import com.inventory.aset.model.EntitySuppliers;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -89,16 +90,17 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 //                + " WHERE (enSuppliers.supplierName Like \'" + search.toLowerCase() + "%\' "
 //                + " OR enSuppliers.supplierCode Like \'" + search.toLowerCase() + "%\' "
 //                + " OR enSuppliers.contactName Like \'" + search.toLowerCase() + "%\' "
-//                + " OR enSuppliers.isActive  \'" + EncryptionUtil.getStatus(search.toLowerCase()) + "\' "
+//                + " OR enSuppliers.isActive  = \'" + EncryptionUtil.getStatus(search.toLowerCase()) + "\' "
 //                + " )").setMaxResults(max).setFirstResult(start).getResultList();
 //    }
     @Override
     public List<EntitySuppliers> searchSuppliers(String search, int max, int start) {
         try {
             return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers "
-                    + " WHERE (enSuppliers.supplierName Like \'" + search.toLowerCase() + "%\' "
-                    + " OR enSuppliers.supplierCode Like \'" + search.toLowerCase() + "%\' "
-                    + " OR enSuppliers.contactName Like \'" + search.toLowerCase() + "%\' "
+                    + " WHERE (  LOWER(enSuppliers.supplierName) Like \'" + search.toLowerCase() + "%\' "
+                    + " OR  LOWER(enSuppliers.supplierCode)  Like \'%" + search.toLowerCase() + "\' "
+                    + " OR LOWER(enSuppliers.contactName) Like \'" + search.toLowerCase() + "%\' "
+                    + " OR enSuppliers.isActive = \'" + EncryptionUtil.getStatus(search.toLowerCase()) + "\' "
                     + " )").setMaxResults(max).setFirstResult(start).getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
@@ -110,7 +112,7 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     @Override
     public List<EntitySuppliers> getSupplierName(String supplierName) {
         try {
-            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierName  =  \"" + supplierName + "\"").getResultList();
+            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName)  =  \"" + supplierName.toLowerCase() + "\"").getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -144,8 +146,8 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     @Override
     public List<EntitySuppliers> findWithParam(String param1, String param2) {
         try {
-            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierName  =  \"" + param1 + "\" OR "
-                    + " enSupplier.supplierCode =  \"" + param2 + "\"").getResultList();
+            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE LOWER(enSuppliers.supplierName)  =  \"" + param1.toLowerCase() + "\" OR "
+                    + "  LOWER(enSupplier.supplierCode) =  \"" + param2.toLowerCase() + "\"").getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());

@@ -822,12 +822,14 @@ $(document).ready(function () {
                 if (response.RC === "1") {
 
                     $("#ajaxResponse_form_create_po").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order   " + "" + response.msg + "</b></p></div>");
+                    document.getElementById("btn_form_create_po").disabled = true;
                 } else if (response.RC === "2") {
                     $("#ajaxResponse_form_create_po").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>");
                 } else if (response.RC === "xx0") {
                     $("#ajaxResponse_form_create_po").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>");
                 } else if (response.RC === "3") {
                     $("#ajaxResponse_form_create_po").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Purchase Order " + "" + response.msg + "</b></p></div>");
+                    document.getElementById("btn_form_create_po").disabled = true;
                 }
 
                 //display error message
@@ -1935,7 +1937,14 @@ function myFunctionUploadDataUser() {
 }
 //Generate PDF
 function purchasePdfReport(data_record_po) {
+    var data_purchase_pdf_report = {
+        purchase_id: escape(data_record_po.purchase_id),
+        supplier_id: escape(data_record_po.supplier_id),
+        action_insert_item: "pdf"
+    };
+    $.ajax({
 
+    });
 }
 //End Generate PDF
 //

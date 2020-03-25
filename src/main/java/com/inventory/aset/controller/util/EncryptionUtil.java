@@ -158,13 +158,13 @@ public class EncryptionUtil {
     public static String setNumber(String param) {
         String isiParam = null;
         if (param.length() == 1) {
-            isiParam = "000"+param;
+            isiParam = "000" + param;
         }
         if (param.length() == 2) {
-            isiParam = "00"+param;
+            isiParam = "00" + param;
         }
         if (param.length() == 3) {
-            isiParam = "0"+param;
+            isiParam = "0" + param;
         }
         if (param.length() == 4) {
             isiParam = param;
@@ -172,17 +172,21 @@ public class EncryptionUtil {
         return isiParam;
 
     }
-     public static String getStatus(String param) {
-         String value=null;
-         if(param.equalsIgnoreCase("not approved")||param.equalsIgnoreCase("notapproved")){
-             value ="0";
-         }
-         if(param.equalsIgnoreCase("approved") || param.equalsIgnoreCase("appr")){
-             value ="1";
-         }
-         if(param.equalsIgnoreCase("rejected")||param.equalsIgnoreCase("reject")){
-             value ="2";
-         }
-         return value;
-     }
+
+    public static String getStatus(String param) {
+        Integer value = 0;
+        if (param.equalsIgnoreCase("not approved") || param.equalsIgnoreCase("notapproved")) {
+            value = 0;
+        }
+        if (param.equalsIgnoreCase("waiting") || param.equalsIgnoreCase("wai") || param.equalsIgnoreCase("wait")) {
+            value = 0;
+        }
+        if (param.equalsIgnoreCase("approved")  || param.equalsIgnoreCase("ap")  || param.equalsIgnoreCase("app") || param.equalsIgnoreCase("appr") || param.equalsIgnoreCase("apr") || param.equalsIgnoreCase("appro")|| param.equalsIgnoreCase("approv")) {
+            value = 1;
+        }
+        if (param.equalsIgnoreCase("Rejected") || param.equalsIgnoreCase("rej") || param.equalsIgnoreCase("reje") || param.equalsIgnoreCase("rejec") || param.equalsIgnoreCase("reject")) {
+            value = 2;
+        }
+        return value.toString();
+    }
 }

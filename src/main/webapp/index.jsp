@@ -3,6 +3,7 @@
     Created on : Feb 23, 2019, 11:07:14 AM
     Author     : newbiecihuy
 --%>
+<%@page import="com.inventory.aset.controller.util.EncryptionUtil"%>
 <%
     String username = "gudang";//admin
     String rolename = "gudang";
@@ -20,8 +21,8 @@
     }
     if (request.isUserInRole("gudang")) {
         rolename = "gudang";
-        username = request.getUserPrincipal().getName();
-        cookieUsername = new Cookie("username", username);
+        username = EncryptionUtil.setSHA256(request.getUserPrincipal().getName());
+        cookieUsername = new Cookie("username", EncryptionUtil.setSHA256(username));
         response.addCookie(cookieUsername);
         cookieUsername.setMaxAge(50 * 50); //Time is in Minutes
     }

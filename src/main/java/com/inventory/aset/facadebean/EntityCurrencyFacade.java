@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
-import com.inventory.aset.entity.EntityCurrency;
+import com.inventory.aset.model.EntityCurrency;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -188,7 +188,8 @@ button:hover {
     }
 /*
   https://stackoverflow.com/questions/30183334/jquery-ui-dialog-box-x-button-image-is-not-visible
+  
 */
 .ui-state-default .ui-icon {
-    background-image: url("images/ui-icons_888888_256x240.png");//change path of image in css(jquery-ui.css)
+    background-image: url("images/ui-icons_888888_256x240.png"); /*change path of image in css(jquery-ui.css)*/
 }

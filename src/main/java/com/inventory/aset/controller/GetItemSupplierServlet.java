@@ -6,8 +6,8 @@
 package com.inventory.aset.controller;
 
 import com.inventory.aset.facadebean.EntityProductsFacade;
-import com.inventory.aset.entity.EntityProducts;
-import com.inventory.aset.entity.EntityStock;
+import com.inventory.aset.model.EntityProducts;
+import com.inventory.aset.model.EntityStock;
 import com.inventory.aset.controller.util.EncryptionUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -125,40 +125,50 @@ public class GetItemSupplierServlet extends HttpServlet {
 
             JSONArray jsonArray = new JSONArray();
             JSONObject obj = new JSONObject();
-            for (int i = 0; i < dataItem.size(); i++) {
-                EntityProducts entityProducts = (EntityProducts) dataItem.get(i);
-                EntityStock dataStock = entityStockFacadeLocal.find(entityProducts.getIdProduct());
-                if (entityProducts.getIdProduct() == null) {
-                    obj.put("product_id", "");
-                } else {
-                    obj.put("product_id", entityProducts.getIdProduct());
+            if (dataItem.size() > 0) {
+                for (int i = 0; i < dataItem.size(); i++) {
+                    EntityProducts entityProducts = (EntityProducts) dataItem.get(i);
+                    EntityStock dataStock = entityStockFacadeLocal.find(entityProducts.getIdProduct());
+
+                    if (entityProducts.getIdProduct() == null) {
+                        obj.put("product_id", "");
+                    } else {
+                        obj.put("product_id", entityProducts.getIdProduct());
+                    }
+                    if (entityProducts.getSupplierId().getSupplierId() == null) {
+                        obj.put("supplier_id", "");
+                    } else {
+                        obj.put("supplier_id", entityProducts.getSupplierId().getSupplierId());
+                    }
+                    if (entityProducts.getProductName() == null) {
+                        obj.put("item_name_po", "");
+                    } else {
+                        obj.put("item_name_po", EncryptionUtil.upperCaseFirst(entityProducts.getProductName()));
+                    }
+                    if (dataStock.getEstematedDateBefore() == null) {
+                        obj.put("dateBefore", "");
+                    } else {
+                        obj.put("dateBefore", dataStock.getEstematedDateBefore());
+                    }
+                    if (dataStock.getEstematedDateAfter() == null) {
+                        obj.put("dateAfter", "");
+                    } else {
+                        obj.put("dateAfter", dataStock.getEstematedDateAfter());
+                    }
+                    if (dataStock.getBuyPrice() == null) {
+
+                    } else {
+                        obj.put("unit_price_po", dataStock.getBuyPrice());
+                    }
+                    jsonArray.add(obj);
                 }
-                if (entityProducts.getSupplierId().getSupplierId() == null) {
-                    obj.put("supplier_id", "");
-                } else {
-                    obj.put("supplier_id", entityProducts.getSupplierId().getSupplierId());
-                }
-                if (entityProducts.getProductName() == null) {
-                    obj.put("item_name_po", "");
-                } else {
-                    obj.put("item_name_po", EncryptionUtil.upperCaseFirst(entityProducts.getProductName()));
-                }
-                if (dataStock.getEstematedDateBefore() == null) {
-                    obj.put("dateBefore", "");
-                } else {
-                    obj.put("dateBefore", dataStock.getEstematedDateBefore());
-                }
-                if (dataStock.getEstematedDateAfter() == null) {
-                    obj.put("dateAfter", "");
-                } else {
-                    obj.put("dateAfter", dataStock.getEstematedDateAfter());
-                }
-                if (dataStock.getBuyPrice() == null) {
-                    obj.put("unit_price_po", "");
-                } else {
-                    obj.put("unit_price_po", dataStock.getBuyPrice());
-                }
-                jsonArray.add(obj);
+            } else {
+                obj.put("product_id", "0");
+                obj.put("supplier_id", idSupplier);
+                obj.put("item_name_po", "supplier don't have items");
+                obj.put("dateBefore", "0");
+                obj.put("dateAfter", "0");
+                obj.put("unit_price_po", "0");
             }
             out.print(obj.toString());
             System.out.println("isi obj: " + obj.toString());

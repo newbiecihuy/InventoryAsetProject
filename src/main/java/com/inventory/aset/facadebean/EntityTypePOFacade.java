@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
-import com.inventory.aset.entity.EntityTypePO;
+import com.inventory.aset.model.EntityTypePO;
 import java.util.List;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;

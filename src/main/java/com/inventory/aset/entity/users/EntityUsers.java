@@ -6,7 +6,13 @@
 package com.inventory.aset.entity.users;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,14 +39,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tbl_users")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EntityUsers.findAll", query = "SELECT u FROM EntityUsers u")
-    , @NamedQuery(name = "EntityUsers.findByUserId", query = "SELECT u FROM EntityUsers u WHERE u.userId = :userId")
-    , @NamedQuery(name = "EntityUsers.findByEmail", query = "SELECT u FROM EntityUsers u WHERE u.email = :email")
-    , @NamedQuery(name = "EntityUsers.findByUsername", query = "SELECT u FROM EntityUsers u WHERE u.username = :username")
-    , @NamedQuery(name = "EntityUsers.findByRoleName", query = "SELECT u FROM EntityUsers u WHERE u.roleName = :roleName")
-    , @NamedQuery(name = "EntityUsers.findByPassword", query = "SELECT u FROM EntityUsers u WHERE u.password = :password")
-    , @NamedQuery(name = "EntityUsers.findByCreatedDate", query = "SELECT u FROM EntityUsers u WHERE u.createdDate = :createdDate")
-    , @NamedQuery(name = "EntityUsers.findByUpdatedDate", query = "SELECT u FROM EntityUsers u WHERE u.updatedDate = :updatedDate")})
+    @NamedQuery(name = "EntityUsers.findAll", query = "SELECT u FROM EntityUsers u"),
+    @NamedQuery(name = "EntityUsers.findByUserId", query = "SELECT u FROM EntityUsers u WHERE u.userId = :userId"),
+    @NamedQuery(name = "EntityUsers.findByEmail", query = "SELECT u FROM EntityUsers u WHERE u.email = :email"),
+    @NamedQuery(name = "EntityUsers.findByUsername", query = "SELECT u FROM EntityUsers u WHERE u.username = :username"),
+    @NamedQuery(name = "EntityUsers.findByRoleName", query = "SELECT u FROM EntityUsers u WHERE u.roleName = :roleName"),
+    @NamedQuery(name = "EntityUsers.findByPassword", query = "SELECT u FROM EntityUsers u WHERE u.password = :password"),
+    @NamedQuery(name = "EntityUsers.findByCreatedDate", query = "SELECT u FROM EntityUsers u WHERE u.createdDate = :createdDate"),
+    @NamedQuery(name = "EntityUsers.findByUpdatedDate", query = "SELECT u FROM EntityUsers u WHERE u.updatedDate = :updatedDate")})
 public class EntityUsers implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -185,7 +191,7 @@ public class EntityUsers implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = encrypt(getEmail() + password);//password;
     }
 
     public String getPasswordEnc() {
@@ -315,9 +321,25 @@ public class EntityUsers implements Serializable {
     public void setEntityVerificationToken(EntityVerificationToken entityVerificationToken) {
         this.entityVerificationToken = entityVerificationToken;
     }
+//
 
-   
-    
+    public static String encrypt(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+            md.update(input.getBytes("UTF-8"));
+            byte[] messageDigest = md.digest();
+            BigInteger bigInt = new BigInteger(1, messageDigest);
+            return bigInt.toString(16);
+
+        } catch (NoSuchAlgorithmException e) {
+
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(EntityUsers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     @Override
     public int hashCode() {

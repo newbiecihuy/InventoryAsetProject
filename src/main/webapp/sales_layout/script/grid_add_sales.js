@@ -47,9 +47,9 @@ $(document).ready(function () {
                 data: "no",
                 targets: "no"
             }
-            }],
+            }]
 //        order: [[1, 'asc']]
-        asSorting: [[1, 'desc']]
+        ,asSorting: [[1, 'desc']]
     });
     tbl_grid_add_sales.on('order.dt search.dt', function () {
         tbl_grid_add_sales.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
