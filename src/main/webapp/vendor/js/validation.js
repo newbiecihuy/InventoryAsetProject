@@ -39,9 +39,6 @@ function createDynamicURL()
  * https://jennamolby.com/how-to-display-dynamic-content-on-a-page-using-url-parameters/
  * https://gist.github.com/ScottKaye/5158488
  */
-//function getURLParameter(name) {
-//    return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || ['', null])[1]);
-//}
 function getURLParameter(name) {
     return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]);
 }
@@ -98,16 +95,6 @@ function getUrlQueryString(param) {
 }
 //end Get URL Parameters With JavaScript
 $(document).ready(function () {
-//    String.prototype.escapeSpecialChars = function () {
-//        return this.replace(/\\n/g, "\\n")
-//                .replace(/\\'/g, "\\'")
-//                .replace(/\\"/g, '\\"')
-//                .replace(/\\&/g, "\\&")
-//                .replace(/\\r/g, "\\r")
-//                .replace(/\\t/g, "\\t")
-//                .replace(/\\b/g, "\\b")
-//                .replace(/\\f/g, "\\f");
-//    };
     /* parse json fucntion()
      * http://stackoverflow.com/questions/1184624/convert-form-data-to-javascript-object-with-jquery
      * http://jsfiddle.net/sxGtM/3/
@@ -994,21 +981,11 @@ $(document).ready(function () {
         }).autocomplete("option", "appendTo", "#form_create_po");
     });
 
-//    $("#unit_price_po").change(discount);
-//    $("#unit_price_po").blur(format_rupiah);
-//    $("#qtty_po").change(discount);
-//    $("#unit_item_po").blur(format_rupiah);
 
-// match password funct using jquery
-//  $('#password_view, #password_view2').on('keyup', function () {
-//	  if ($('#password_view').val() == $('#password_view2').val()) {
-//	    $('#e_password').html('Matching').css('color', 'green');
-//	  } else 
-//	    $('#e_password').html('Not Matching').css('color', 'red');
-//	});
 
 });
 /* end $(document).ready(function ()}); */
+
 function myFunction_reset_excel_service_details() {
     document.getElementById("form_report_excel_field_service_details").reset();
     $('#tgl_excel_service_details_start').css('background', '');
@@ -1946,6 +1923,17 @@ function purchasePdfReport(data_record_po) {
 
     });
 }
+//Generate PDF
+function soPdfReport(data_record_so) {
+    var data_sales_pdf_report = {
+        purchase_id: escape(data_record_so.sales_id),
+        supplier_id: escape(data_record_so.mecrhant_id),
+        action_insert_item: "pdf"
+    };
+    $.ajax({
+
+    });
+}
 //End Generate PDF
 //
 //Generate Excel
@@ -2095,20 +2083,11 @@ function supplier_empty() {
 }
 function supplier_code_empty() {
     console.log("entered empty function");
-    //get the form data and then serialize that
-    //            var dataString = $("#form_delegate").serialize();
-    //get the form data using another method 
     var supplier_code_po = $("#supplier_code_po").val();
-//    var dataString = {};
-//    if (supplier_name !== "") {
     var dataString = {
         supplier_code_po: supplier_code_po
 
     };
-//    }
-//    if (supplier_code !== "") {
-//        dataString = {supplier_code: supplier_code};
-//    }
     console.log(dataString);
     $.ajax({
         type: "POST",
@@ -2324,15 +2303,12 @@ function add_row() {
     e_price_po.readOnly = true;
     e_price_po.placeholder = "IDR";
     e_price_po.setAttribute('class', 'form-control-static uppercase');
-//    var e_button_1 = document.createElement('button');
-//    e_button_1.setAttribute('class', 'btn-primary');
-//
+
 //
     var e_button_2 = document.createElement('button');
     e_button_2.setAttribute('class', 'btn-warning fa fa-minus-square');
     e_button_2.id = "remove_row";
-//    var e_i = document.createElement('i');
-//    e_i.setAttribute('class', 'fa fa-minus-square');
+
     if (j > 0) {
         k = j;
         row.appendChild(td1);
@@ -2346,8 +2322,7 @@ function add_row() {
 
         td1.appendChild(e_item_name);
         e_item_name.id = "item_name_po_" + k;
-//        e_item_name.setAttribute("onchange", item_supEmpty_);
-//        e_item_name.onblur = item_supEmpty_();
+
         td2.appendChild(e_qtty_po);
         e_qtty_po.id = "qtty_po_" + k;
         td3.appendChild(e_unit_item_po);
@@ -2521,18 +2496,7 @@ function format_rupiah(k) {//used
     }
     return nilai_a;
 }
-//function price_item_cek() {!used
-//    var number = document.getElementById("price_item").value;
-//    var number_string = number.toString();
-//    var sisa = number_string.length % 3;
-//    var rupiah = number_string.substr(0, sisa);
-//    var ribuan = number_string.substr(sisa).match(/\d{3}/g);
-//    if (ribuan) {
-//        var separator = sisa ? '.' : '';
-//        rupiah += separator + ribuan.join('.');
-//    }
-//    return  document.getElementById("price_item").value = number; //rupiah;
-//}
+
 
 function discount(k) { // used
     var nilai_b = 0;

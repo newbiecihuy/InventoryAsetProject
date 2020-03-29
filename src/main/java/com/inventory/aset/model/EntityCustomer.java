@@ -26,20 +26,20 @@ import javax.persistence.TemporalType;
  * @author newbiecihuy
  */
 @Entity
-@Table(name = "tbl_merchant")
+@Table(name = "tbl_customer")
 @NamedQueries({
-    @NamedQuery(name = "EntityMerchant.findAll", query = "SELECT m FROM EntityMerchant m")
+    @NamedQuery(name = "EntityCutomer.findAll", query = "SELECT m FROM EntityCutomer m")
 })
-public class EntityMerchant implements Serializable {
+public class EntityCustomer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_merchant", columnDefinition = "serial", nullable = false)
-    private Long idMerchant;
+    @Column(name = "id_customer", columnDefinition = "serial", nullable = false)
+    private Long idCutomer;
 
-    @Column(name = "merchant_name")
-    private String merchantName;
+    @Column(name = "cutomer_name")
+    private String cutomerName;
 
     @Lob
     @Column(name = "address", length = 512)
@@ -48,7 +48,7 @@ public class EntityMerchant implements Serializable {
     @Basic(optional = false)
     @Column(name = "contact_name", length = 100)
     private String contactName;
-    
+
     @Basic(optional = false)
     @Column(name = "contact_num", length = 30)
     private String contactNum;
@@ -82,12 +82,12 @@ public class EntityMerchant implements Serializable {
 //  void updatedAt() {
 //    this.updatedAt = new Date();
 //  }
-    public EntityMerchant() {
+    public EntityCustomer() {
     }
 
-    public EntityMerchant(Long idMerchant, String merchantName, String address, String contactName, String contactNum, String pic, Date createdDate, Date createdTime) {
-        this.idMerchant = idMerchant;
-        this.merchantName = merchantName;
+    public EntityCustomer(Long idCutomer, String cutomerName, String address, String contactName, String contactNum, String pic, Date createdDate, Date createdTime) {
+        this.idCutomer = idCutomer;
+        this.cutomerName = cutomerName;
         this.address = address;
         this.contactName = contactName;
         this.contactNum = contactNum;
@@ -96,20 +96,20 @@ public class EntityMerchant implements Serializable {
         this.createdTime = createdTime;
     }
 
-    public Long getIdMerchant() {
-        return idMerchant;
+    public Long getIdCutomer() {
+        return idCutomer;
     }
 
-    public void setIdMerchant(Long idMerchant) {
-        this.idMerchant = idMerchant;
+    public void setIdCutomer(Long idCutomer) {
+        this.idCutomer = idCutomer;
     }
 
-    public String getMerchantName() {
-        return merchantName;
+    public String getCutomerName() {
+        return cutomerName;
     }
 
-    public void setMerchantName(String merchantName) {
-        this.merchantName = merchantName;
+    public void setCutomerName(String cutomerName) {
+        this.cutomerName = cutomerName;
     }
 
     public String getAddress() {
@@ -184,28 +184,26 @@ public class EntityMerchant implements Serializable {
         this.createdTime = createdTime;
     }
 
-   
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idMerchant != null ? idMerchant.hashCode() : 0);
+        hash += (idCutomer != null ? idCutomer.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EntityMerchant)) {
+        if (!(object instanceof EntityCustomer)) {
             return false;
         }
-        EntityMerchant other = (EntityMerchant) object;
-        return !((this.idMerchant == null && other.idMerchant != null) || (this.idMerchant != null && !this.idMerchant.equals(other.idMerchant)));
+        EntityCustomer other = (EntityCustomer) object;
+        return !((this.idCutomer == null && other.idCutomer != null) || (this.idCutomer != null && !this.idCutomer.equals(other.idCutomer)));
     }
 
     @Override
     public String toString() {
-        return "com.inventory.aset.model.EntityMerchant[ idMerchant=" + idMerchant + " ]";
+        return "com.inventory.aset.model.EntityCutomer[ idCutomer=" + idCutomer + " ]";
     }
 
 }

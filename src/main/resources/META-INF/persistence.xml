@@ -27,8 +27,8 @@
     <class>com.inventory.aset.model.EntityProductPurchase</class>
     <class>com.inventory.aset.model.EntityTypeRequisition</class>
     <class>com.inventory.aset.model.EntityTypePO</class>
-    <class>com.inventory.aset.model.EntityMerchant</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <class>com.inventory.aset.model.EntityCustomer</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
     <!--    <properties>

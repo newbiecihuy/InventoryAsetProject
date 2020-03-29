@@ -31,19 +31,19 @@
                     <div class="tab">
                         <h3>Merchant</h3>
                         <div class="form-group">
-                            <label for="supplier_name_po" class="required">Merchant Name &nbsp;:</label>
-                            <input type="text"  class="form-control" id="supplier_name_po" name="merchant_name_so" placeholder="Merchant Name" value="" onchange="supplier_empty()" required>
+                            <label for="supplier_name_po" class="required">Customer Name &nbsp;:</label>
+                            <input type="text"  class="form-control" id="customer_name_so" name="customer_name_so" placeholder="Customer Name" value="" onchange="merchant_empty()" required>
                             <span class="form-error"></span>
                         </div>
                         <div class="form-group">
-                            <label for="supplier_code_po" class="required">Merchant Code &nbsp;:</label>
-                            <input type="text" class="form-control" id="merchant_code_po"  placeholder="Merchant Code" name="merchant_code_po" value="" onchange="supplier_code_empty()" required>
-                            <input type="text" class="form-control invisible" id="merchant_id_so" name="merchant_id_so" value="">
-                            <input type="text" class="form-control invisible" id="purchase_id" name="purchase_id" value="">
-                            <input type="text" class="form-control invisible" name="action_insert_po" id="action_insert_po" value=""/>
-                            <input type="text" class="form-control invisible" name="action_edit_po" id="action_edit_po" value=""/>
-                            <input type="text" class="form-control invisible" name="action_delete_po" id="action_delete_po" value=""/>
-                            <input type="text" class="form-control invisible" name="tax_po" id="tax_po" value=""/>
+                            <label for="supplier_code_po" class="required">Customer Code &nbsp;:</label>
+                            <input type="text" class="form-control" id="customer_code_so"  placeholder="Customer Code" name="customer_code_so" value="" onchange="merchant_code_empty()" required>
+                            <input type="text" class="form-control invisible" id="merchant_id_so" name="customer_id_so" value="">
+                            <input type="text" class="form-control invisible" id="purchase_id" name="sales_order_id" value="">
+                            <input type="text" class="form-control invisible" name="action_insert_so" id="action_insert_so" value=""/>
+                            <input type="text" class="form-control invisible" name="action_edit_so" id="action_edit_so" value=""/>
+                            <input type="text" class="form-control invisible" name="action_delete_so" id="action_delete_so" value=""/>
+                            <input type="text" class="form-control invisible" name="tax_so" id="tax_po" value=""/>
                             <span class="form-error"></span>
                         </div>
                     </div>
@@ -55,18 +55,18 @@
                             <span class="form-error"></span>
                         </div>
 
-<!--                        <div class="form-group">
-                            <label for="po_type" class="required">Type &nbsp;:</label>
-                            <input type="text"  class="form-control" id="po_type"  placeholder="P&#8228;O&#8228; Type" name="po_type" onchange="type_po_empty()" value="">
-                            <span class="form-error"></span>
-                        </div>-->
+                        <!--                        <div class="form-group">
+                                                    <label for="po_type" class="required">Type &nbsp;:</label>
+                                                    <input type="text"  class="form-control" id="po_type"  placeholder="P&#8228;O&#8228; Type" name="po_type" onchange="type_po_empty()" value="">
+                                                    <span class="form-error"></span>
+                                                </div>-->
                         <div class="form-group">
                             <label for="payment_term" class="required">Payment Term &nbsp;:</label>
                             <input type="text" class="form-control" id="payment_term_so"  placeholder="Payment Term" name="payment_term_so" value="">
                             <span class="form-error"></span>
                         </div>
                         <div class="form-group">
-                            <label for="delivery_term" class="required">Delivery Term &nbsp;:</label>
+                            <label for="delivery_term_so" class="required">Delivery Term &nbsp;:</label>
                             <input type="text"  required min="1"  class="form-control" id="delivery_term_so"  placeholder="Like 3 Day" oninput="cekNumber()" name="delivery_term_so" value="" >
                             <p id="content_form_error" ></p>
                         </div>
@@ -91,18 +91,18 @@
                         <h3>Delivery Point&comma; Invoice &amp; Bank Transfer</h3>
                         <!--<section>-->
                         <div class="form-group">
-                            <label for="purchase_desc" class="required">Description &nbsp;:</label>
-                            <input type="text" class="form-control" id="purchase_desc"  placeholder="" name="purchase_desc" value="">
+                            <label for="so_desc" class="required">Description &nbsp;:</label>
+                            <input type="text" class="form-control" id="so_desc"  placeholder="" name="so_desc" value="">
                             <span class="form-error"></span>
                         </div>
                         <div class="form-group">
-                            <label for="invoice_to" class="required">Invoice To &nbsp;:</label>
-                            <input type="text" required="" class="form-control" id="invoice_to"  placeholder="Invoice To" name="invoice_to" value="">
+                            <label for="invoice_to_so" class="required">Invoice To &nbsp;:</label>
+                            <input type="text" required="" class="form-control" id="invoice_to_so"  placeholder="Invoice To" name="invoice_to_so" value="">
                             <span class="form-error"></span>
                         </div>
                         <div class="form-group">
-                            <label for="dlvr_point" class="required">Delivery Point &nbsp;:</label>
-                            <input type="text"  class="form-control" id="dlvr_point"  placeholder="Delivery Point" name="dlvr_point" value="">
+                            <label for="dlvr_pointso" class="required">Delivery Point &nbsp;:</label>
+                            <input type="text"  class="form-control" id="dlvr_point_so"  placeholder="Delivery Point" name="dlvr_point_so" value="">
                             <span class="form-error"></span>
                         </div>
                         <button type="submit" class="btn btn-primary" id="btn_add_supplier">Submit</button>
@@ -135,103 +135,103 @@
         </div>
     </div>
     <script type="text/javascript" >
-//        var purchase_id = getUrlQueryString('purchase_id');
-//        if (purchase_id !== "") {
-//            $("#purchase_id").val(purchase_id);
-//        } else {
-//            $("#purchase_id").val("");
-//        }
-//        var supplier_name_po = getUrlQueryString('supplier_name_po');
-//        if (supplier_name_po !== "") {
-//            $("#supplier_name_po").val(supplier_name_po);
-//        } else {
-//            $("#supplier_name_po").val("");
-//        }
-//        var supplier_code_po  = getUrlQueryString('supplier_code_po');
-//        if (supplier_code_po !== "") {
-//            $("#supplier_code_po").val(supplier_code_po);
-//        } else {
-//            $("#supplier_code_po").val("");
-//        }
-//        var supplier_id_po = getUrlQueryString('supplier_id_po');
-//        if (supplier_id_po !== "") {
-//            $("#supplier_id_po").val(supplier_id_po);
-//        } else {
-//            $("#supplier_id_po").val("");
-//        }
-//        var action_edit_po = getUrlQueryString('action_edit_po');
-//        if (action_edit_po !== "") {
-//            $("#action_edit_po").val(action_edit_po);
-//        } else {
-//            $("#action_edit_po").val("");
-//        }
-//        var tax_po = getUrlQueryString('tax_po');
-//        if (tax_po !== "") {
-//            $("#tax_po").val(tax_po);
-//        } else {
-//            $("#tax_po").val("");
-//        }
-//        var tgl_input_po = getUrlQueryString('tgl_input_po');
-//        if (tgl_input_po !== "") {
-//            $("#tgl_input_po").val(tgl_input_po);
-//        } else {
-//            $("#tgl_input_po").val("");
-//        }
-//        var po_type = getUrlQueryString('po_type');
-//        if (po_type !== "") {
-//            $("#po_type").val(po_type);
-//        } else {
-//            $("#po_type").val("");
-//        }
-//        var payment_term = getUrlQueryString('payment_term');
-//        if (payment_term !== "") {
-//            $("#payment_term").val(payment_term);
-//        } else {
-//            $("#payment_term").val("");
-//        }
-//        var delivery_term = getUrlQueryString('delivery_term');
-//        if (delivery_term !== "") {
-//            $("#delivery_term").val(delivery_term);
-//        } else {
-//            $("#delivery_term").val("");
-//        }
-//        var transport_mode = getUrlQueryString('transport_mode');
-//        if (transport_mode !== "") {
-//            $("#transport_mode").val(transport_mode);
-//        } else {
-//            $("#transport_mode").val("");
-//        }
-//        var quotation_number = getUrlQueryString('quotation_number');
-//        if (quotation_number !== "") {
-//            $("#quotation_number").val(quotation_number);
-//        } else {
-//            $("#quotation_number").val("");
-//        }
-//        var rfq_number = getUrlQueryString('rfq_number');
-//        if (rfq_number !== "") {
-//            $("#rfq_number").val(rfq_number);
-//        } else {
-//            $("#rfq_number").val("");
-//        }
-//        //        var id_po_type = getUrlQueryString('id_po_type');
-//
-//        var purchase_desc = getUrlQueryString('purchase_desc');
-//        if (purchase_desc !== "") {
-//            $("#purchase_desc").val(purchase_desc);
-//        } else {
-//            $("#purchase_desc").val("");
-//        }
-//        var invoice_to = getUrlQueryString('invoice_to');
-//        if (invoice_to !== "") {
-//            $("#invoice_to").val(invoice_to);
-//        } else {
-//            $("#invoice_to").val("");
-//        }
-//        var dlvr_point = getUrlQueryString('dlvr_point');
-//        if (dlvr_point !== "") {
-//            $("#dlvr_point").val(dlvr_point);
-//        } else {
-//            $("#dlvr_point").val("");
-//        }
+        var sales_order_id = getUrlQueryString('sales_order_id');
+        if (sales_order_id !== "") {
+            $("#sales_order_id").val(sales_order_id);
+        } else {
+            $("#sales_order_id").val("");
+        }
+        var customer_name_so = getUrlQueryString('customer_name_so');
+        if (customer_name_so !== "") {
+            $("#customer_name_so").val(customer_name_so);
+        } else {
+            $("#customer_name_so").val("");
+        }
+        var customer_code_so = getUrlQueryString('customer_code_so');
+        if (customer_code_so !== "") {
+            $("#customer_code_so").val(customer_code_so);
+        } else {
+            $("#customer_code_so").val("");
+        }
+        var customer_id_so = getUrlQueryString('customer_id_so');
+        if (customer_id_so !== "") {
+            $("#customer_id_so").val(customer_id_so);
+        } else {
+            $("#customer_id_so").val("");
+        }
+        var action_edit_so = getUrlQueryString('action_edit_so');
+        if (action_edit_so !== "") {
+            $("#action_edit_so").val(action_edit_so);
+        } else {
+            $("#action_edit_so").val("");
+        }
+        var tax_po = getUrlQueryString('tax_po');
+        if (tax_po !== "") {
+            $("#tax_po").val(tax_po);
+        } else {
+            $("#tax_po").val("");
+        }
+        var tgl_input_so = getUrlQueryString('tgl_input_so');
+        if (tgl_input_so !== "") {
+            $("#tgl_input_so").val(tgl_input_so);
+        } else {
+            $("#tgl_input_so").val("");
+        }
+        var so_type = getUrlQueryString('so_type');
+        if (so_type !== "") {
+            $("#so_type").val(so_type);
+        } else {
+            $("#so_type").val("");
+        }
+        var payment_term_so = getUrlQueryString('payment_term_so');
+        if (payment_term_so !== "") {
+            $("#payment_term_so").val(payment_term_so);
+        } else {
+            $("#payment_term_so").val("");
+        }
+        var delivery_term_so = getUrlQueryString('delivery_term_so');
+        if (delivery_term_so !== "") {
+            $("#delivery_term_so").val(delivery_term_so);
+        } else {
+            $("#delivery_term_so").val("");
+        }
+        var transport_mode_so = getUrlQueryString('transport_mode_so');
+        if (transport_mode_so !== "") {
+            $("#transport_mode_so").val(transport_mode_so);
+        } else {
+            $("#transport_mode_so").val("");
+        }
+        var quotation_number_so = getUrlQueryString('quotation_number_so');
+        if (quotation_number_so !== "") {
+            $("#quotation_number_so").val(quotation_number_so);
+        } else {
+            $("#quotation_number_so").val("");
+        }
+        var rfq_number_so = getUrlQueryString('rfq_number_so');
+        if (rfq_number_so !== "") {
+            $("#rfq_number_so").val(rfq_number_so);
+        } else {
+            $("#rfq_number_so").val("");
+        }
+        //        var id_po_type = getUrlQueryString('id_po_type');
+
+        var so_desc = getUrlQueryString('so_desc');
+        if (so_desc !== "") {
+            $("#so_desc").val(so_desc);
+        } else {
+            $("#so_desc").val("");
+        }
+        var invoice_to_so = getUrlQueryString('invoice_to_so');
+        if (invoice_to_so !== "") {
+            $("#invoice_to_so").val(invoice_to_so);
+        } else {
+            $("#invoice_to_so").val("");
+        }
+        var dlvr_point_so = getUrlQueryString('dlvr_point_so');
+        if (dlvr_point_so !== "") {
+            $("#dlvr_point_so").val(dlvr_point);
+        } else {
+            $("#dlvr_point_so").val("");
+        }
     </script>
 </body>
