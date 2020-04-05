@@ -24,9 +24,9 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_protocol")
 @NamedQueries({
-    @javax.persistence.NamedQuery(name = "EntityProtocol.findByAll", query = "SELECT entityProtocol from EntityProtocol entityProtocol")
-    ,
-     @javax.persistence.NamedQuery(name = "EntityProtocol.findByIdProtocol", query = "SELECT entityProtocol from EntityProtocol entityProtocol WHERE entityProtocol.idProtocol = :idProtocol")
+    @javax.persistence.NamedQuery(name = "EntityProtocol.findByAll", query = "SELECT entityProtocol from EntityProtocol entityProtocol"),
+    @javax.persistence.NamedQuery(name = "EntityProtocol.findByIdProtocol", query = "SELECT entityProtocol from EntityProtocol entityProtocol WHERE entityProtocol.idProtocol = :idProtocol"),
+    @javax.persistence.NamedQuery(name = "EntityProtocol.findByEmail", query = "SELECT entityProtocol from EntityProtocol entityProtocol WHERE entityProtocol.email = :email")
 })
 public class EntityProtocol implements Serializable {
 
@@ -164,7 +164,6 @@ public class EntityProtocol implements Serializable {
         this.createdTime = createdTime;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;

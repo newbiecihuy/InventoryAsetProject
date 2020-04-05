@@ -33,50 +33,100 @@ public class EntitySettingsFacade extends AbstractFacade<EntitySettings> impleme
     }
 
     @Override
-    public void createSetting(EntitySettings dataSetting) {
-        em.persist(dataSetting);
+    public EntitySettings createSetting(EntitySettings dataSetting) {
+        try {
+            em.persist(dataSetting);
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
-    public void updateSetting(EntitySettings dataSetting) {
-        em.merge(dataSetting);
+    public EntitySettings updateSetting(EntitySettings dataSetting) {
+        try {
+            em.merge(dataSetting);
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
-    public void deleteSetting(EntitySettings dataSetting) {
-        em.merge(dataSetting);
+    public EntitySettings deleteSetting(EntitySettings dataSetting) {
+        try {
+            dataSetting.setIsDelete(true);
+            em.merge(dataSetting);
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
     public void removeSetting(long paramLong) {
-        em.remove(getSetting(paramLong));
+        try {
+            em.remove(getSetting(paramLong));
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+
     }
 
     @Override
     public EntitySettings getSetting(long settingId) {
-        return (EntitySettings) em.find(EntitySettings.class, settingId);
+        try {
+            return (EntitySettings) em.find(EntitySettings.class, settingId);
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List<EntitySettings> getAllSettings(int max, int start) {
+        try {
 //        return em.createNamedQuery("EntitySettings.findAll").getResultList();
-        return em.createQuery("SELECT s FROM EntitySettings s").setMaxResults(max).setFirstResult(start).getResultList();
+            return em.createQuery("SELECT s FROM EntitySettings s").setMaxResults(max).setFirstResult(start).getResultList();
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
-    public List<EntitySettings> findWithParamName(String paramName) {
-        return em.createQuery("SELECT s FROM EntitySettings s WHERE s.paramName =\"" + paramName + "\"").getResultList();
+    public EntitySettings findWithParamName(String paramName) {
+        try {
+//        return em.createQuery("SELECT s FROM EntitySettings s WHERE s.paramName =\"" + paramName + "\"").getResultList();
+            String sql = "SELECT s FROM EntitySettings s WHERE s.paramName= :paramName";
+            Query query = em.createQuery(sql);
+            query.setParameter("paramName", paramName);
+            return (EntitySettings) query.getSingleResult();
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
     public EntitySettings find(Object settingObject) {
-        return (EntitySettings) em.find(EntitySettings.class, settingObject);
+        try {
+            return (EntitySettings) em.find(EntitySettings.class, settingObject);
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
     public int count() {
-        Query queryMax = em.createQuery("SELECT COUNT(s) FROM EntitySettings s");
-        return Integer.parseInt(queryMax.getSingleResult().toString());
+        try {
+            Query queryMax = em.createQuery("SELECT COUNT(s) FROM EntitySettings s");
+            return Integer.parseInt(queryMax.getSingleResult().toString());
+        } catch (Exception e) {
+            System.out.println("Something went wrong :" + e.getMessage());
+        }
+        return 0;
     }
 
 }

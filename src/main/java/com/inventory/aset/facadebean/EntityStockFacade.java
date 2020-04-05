@@ -94,7 +94,11 @@ public class EntityStockFacade extends AbstractFacade<EntityStock> implements En
     @Override
     public List<EntityStock> findByIdProduct(Object idProduct) {
         try {
-            return em.createQuery("SELECT ep  FROM EntityStock ep  WHERE ep.idProduct.idProduct =  \"" + idProduct + "\"").getResultList();
+//            return em.createQuery("SELECT ep  FROM EntityStock ep  WHERE ep.idProduct.idProduct =  \"" + idProduct + "\"").getResultList();
+            String sql = "SELECT ep  FROM EntityStock ep  WHERE ep.idProduct.idProduct =  = :idProduct";
+            Query query = em.createQuery(sql);
+            query.setParameter("idProduct", idProduct);
+            return (List<EntityStock>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());

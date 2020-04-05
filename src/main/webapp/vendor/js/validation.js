@@ -15,7 +15,7 @@ $(function () {
 function createDynamicURL()
 {
 //The variable to be returned
-    var URL = "/InventoryAsetProject/";
+    var URL = "/inventoryaset/";
     //The variables containing the respective IDs
 //    var companyID=...
 //    var branchID=...
@@ -506,8 +506,8 @@ $(document).ready(function () {
                 } else if (response.RC === "2") {
                     $("#ajaxResponse_form_add_item").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item " + item_name + " Already Registered" + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "3") {
-                    $("#ajaxResponse_form_add_item").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item " + item_name + response.msg + "</b></p></div>").addClass('error').css({});
-                } else if (response.RC === "33") {
+                    $("#ajaxResponse_form_add_item").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item " + item_name + response.msg + "</b></p></div>").addClass('error').css({});
+                } else if (response.RC === "4") {
                     $("#ajaxResponse_form_add_item").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + product_code + response.msg + "</b></p></div>").addClass('error').css({});
                 } else if (response.RC === "44") {
                     $("#ajaxResponse_form_add_item").html("<div class='alert alert-warning' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><p><b>" + "Item " + item_name + " Supplier Not found" + "</b></p></div>").addClass('error').css({});
@@ -2657,4 +2657,8 @@ function toRomawi(angka)
     }
 
     return hasil;
+}
+
+function myapproveSupFunc() {
+     console.log("Insert myapproveSupFunc");
 }

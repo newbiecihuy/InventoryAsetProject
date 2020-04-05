@@ -503,7 +503,7 @@ public class CreatePOItemServlet extends HttpServlet {
                             isi_unit_price_po = data_node_unit_price_po[j].replaceAll("['\":<>\\[\\],-]", "");
                         }
                         if (data_node_discount_item_po.length == 1) {
-                            isi_discount_item_po = data_node_discount_item_po[j].toString().replaceAll("['\":<>\\[\\],-]", "");
+                            isi_discount_item_po = data_node_discount_item_po[j].replaceAll("['\":<>\\[\\],-]", "");
                         } else {
                             isi_discount_item_po = data_node_discount_item_po[j].replaceAll("['\":<>\\[\\],-]", "");
                         }

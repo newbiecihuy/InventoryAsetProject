@@ -75,7 +75,11 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     public List<EntitySuppliers> getAllSuppliers(int max, int start) {
 //        return em.createNamedQuery("EntitySuppliers.findAll").getResultList();
         try {
-            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers where enSuppliers.isDelete =" + false + "").setMaxResults(max).setFirstResult(start).getResultList();
+//            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers where enSuppliers.isDelete =" + false + "").setMaxResults(max).setFirstResult(start).getResultList();
+            String sql = "SELECT enSuppliers FROM EntitySuppliers enSuppliers where enSuppliers.isDelete = :supisDelete ";
+            Query query = em.createQuery(sql);
+            query.setParameter("supisDelete", false);
+            return (List<EntitySuppliers>) query.setMaxResults(max).setFirstResult(start).getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -83,25 +87,23 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
         return null;
     }
 
-//    @Override
-//    public List<EntitySuppliers> searchSuppliers(String search, int max, int start) {
-//
-//        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers "
-//                + " WHERE (enSuppliers.supplierName Like \'" + search.toLowerCase() + "%\' "
-//                + " OR enSuppliers.supplierCode Like \'" + search.toLowerCase() + "%\' "
-//                + " OR enSuppliers.contactName Like \'" + search.toLowerCase() + "%\' "
-//                + " OR enSuppliers.isActive  = \'" + EncryptionUtil.getStatus(search.toLowerCase()) + "\' "
-//                + " )").setMaxResults(max).setFirstResult(start).getResultList();
-//    }
     @Override
     public List<EntitySuppliers> searchSuppliers(String search, int max, int start) {
         try {
-            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers "
-                    + " WHERE (  LOWER(enSuppliers.supplierName) Like \'" + search.toLowerCase() + "%\' "
-                    + " OR  LOWER(enSuppliers.supplierCode)  Like \'%" + search.toLowerCase() + "\' "
-                    + " OR LOWER(enSuppliers.contactName) Like \'" + search.toLowerCase() + "%\' "
-                    + " OR enSuppliers.isActive = \'" + EncryptionUtil.getStatus(search.toLowerCase()) + "\' "
-                    + " )").setMaxResults(max).setFirstResult(start).getResultList();
+//             return em.createQuery(
+//                    "SELECT Distinct es.supplierName FROM EntitySuppliers es WHERE es.supplierName LIKE :supplierName")
+//                    .setParameter("supplierName", supplierName + "%")
+//                    .getResultList();
+            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE "
+                    + "  enSuppliers.supplierName LIKE :supplierName "
+                    + " OR enSuppliers.supplierCode  LIKE :supplierCode "
+                    + " OR enSuppliers.contactName LIKE :contactName "
+                    + " OR enSuppliers.isActive = :isActive")
+                    .setParameter("supplierName", search.toLowerCase() + "%")
+                    .setParameter("supplierCode", search.toLowerCase() + "%")
+                    .setParameter("contactName", search.toLowerCase() + "%")
+                    .setParameter("isActive",EncryptionUtil.getStatus(search.toLowerCase()))
+                    .setMaxResults(max).setFirstResult(start).getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -110,9 +112,28 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     }
 
     @Override
-    public List<EntitySuppliers> getSupplierName(String supplierName) {
+    public EntitySuppliers getSupplierName(String supplierName) {
         try {
-            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName)  =  \"" + supplierName.toLowerCase() + "\"").getResultList();
+//            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName)  =  \"" + supplierName.toLowerCase() + "\"").getResultList();
+            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName) = :supplierName";
+            Query query = em.createQuery(sql);
+            query.setParameter("supplierName", supplierName);
+            return (EntitySuppliers) query.getSingleResult();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<EntitySuppliers> listSupplierName(String supplierName) {
+        try {
+//            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName)  =  \"" + supplierName.toLowerCase() + "\"").getResultList();
+            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName) = :supplierName";
+            Query query = em.createQuery(sql);
+            query.setParameter("supplierName", supplierName);
+            return (List<EntitySuppliers>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -123,7 +144,11 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     @Override
     public List<EntitySuppliers> getSupplierCode(String supplierCode) {
         try {
-            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierCode  =  \"" + supplierCode + "\"").getResultList();
+//            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierCode  =  \"" + supplierCode + "\"").getResultList();
+            String sql = "from EntitySuppliers enSuppliers WHERE  enSuppliers.supplierCode = :supplierCode";
+            Query query = em.createQuery(sql);
+            query.setParameter("supplierCode", supplierCode);
+            return (List<EntitySuppliers>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -132,10 +157,11 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     }
 
     @Override
-    public List<EntitySuppliers> findByStatusActive(Long supplier_id) {
+//    public List<EntitySuppliers> findByStatusActive(Long supplier_id) {
+    public EntitySuppliers findByStatusActive(Long supplier_id) {
         try {
 //        return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierId  =  \"" + supplier_id + "\" AND enSuppliers.isActive=1").getResultList();
-            return em.createNamedQuery("EntitySuppliers.findByStatusActive").setParameter("supplierId", supplier_id).getResultList();
+            return (EntitySuppliers) em.createNamedQuery("EntitySuppliers.findByStatusActive").setParameter("supplierId", supplier_id).getSingleResult();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -144,10 +170,16 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     }
 
     @Override
-    public List<EntitySuppliers> findWithParam(String param1, String param2) {
+    public EntitySuppliers findWithParam(String param1, String param2) {
         try {
-            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE LOWER(enSuppliers.supplierName)  =  \"" + param1.toLowerCase() + "\" OR "
-                    + "  LOWER(enSupplier.supplierCode) =  \"" + param2.toLowerCase() + "\"").getResultList();
+//            return (EntitySuppliers) em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE LOWER(enSuppliers.supplierName)  =  \"" + param1.toLowerCase() + "\" OR "
+//                    + "  LOWER(enSupplier.supplierCode) =  \"" + param2.toLowerCase() + "\"").getSingleResult();
+
+            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName) = :supplierName OR LOWER(enSupplier.supplierCode) = :supplierCode";
+            Query query = em.createQuery(sql);
+            query.setParameter("supplierName", param1.toLowerCase());
+            query.setParameter("supplierCode", param2.toLowerCase());
+            return (EntitySuppliers) query.getSingleResult();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -169,7 +201,11 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     @Override
     public List<EntitySuppliers> findBySupplierCode(String pramString) {
         try {
-            return em.createQuery("SELECT Distinct es.supplierCode  FROM EntitySuppliers es WHERE es.supplierCode LIKE \"" + pramString + "%\" ").getResultList();
+//            return (EntitySuppliers) em.createQuery("SELECT Distinct es.supplierCode  FROM EntitySuppliers es WHERE es.supplierCode LIKE \"" + pramString + "%\" ").getResultList();
+            String sql = "from EntitySuppliers enSuppliers WHERE  enSuppliers.supplierCode LIKE :supplierCode ";
+            Query query = em.createQuery(sql);
+            query.setParameter("supplierCode", pramString + "%");
+            return (List<EntitySuppliers>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -180,7 +216,12 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     @Override
     public List<EntitySuppliers> findBySupplierName(String supplierName) {
         try {
-            return em.createQuery("SELECT Distinct es.supplierName  FROM EntitySuppliers es WHERE es.supplierName LIKE \"" + supplierName + "%\" AND es.isActive =  \"" + 1 + "\"").getResultList();
+//            return em.createQuery("SELECT Distinct es.supplierName  FROM EntitySuppliers es WHERE es.supplierName LIKE \"" + supplierName + "%\" AND es.isActive =  \"" + 1 + "\"").getResultList();
+
+            return em.createQuery(
+                    "SELECT Distinct es.supplierName FROM EntitySuppliers es WHERE es.supplierName LIKE :supplierName")
+                    .setParameter("supplierName", supplierName + "%")
+                    .getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());

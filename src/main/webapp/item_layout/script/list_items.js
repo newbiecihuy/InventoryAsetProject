@@ -156,16 +156,15 @@ $(document).ready(function () {
                 visible: true,
                 searchable: true,
                 mRender: function (data_item, type_item, row_item) {
-                    if (data_item === 1) {
-                        return "Approved";
+                   if (data_item === 0) {
+                        return "<a href='#'><font color='c89907',font-weight: 900;>"+"Waiting"+"</font></a>";  //Not Approved
                     }
-                    if (data_item === 0) {
-                        return "NotApproved";
-
+                    if (data_item === 1) {
+                        return "<a href='#'><font color='0bbc43',font-weight: 900;>"+"Approved"+"</font></a>";
+//                        return"<a href='#' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + "Active" + "</a>";
                     }
                     if (data_item === 2) {
-                        $(data_item).css('color', 'red');
-                        return "Rejected";
+                        return"<a href='#'><font color='d50808',font-weight: 900;>"+"Rejected"+"</font></a>";
                     }
 
                 }

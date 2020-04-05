@@ -182,8 +182,8 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
             EntityStock dataStock = new EntityStock();
             supplierId = jsonObject.getString("supplier_id").trim().replaceAll("['\";:<>\\[\\],-]", "");
             System.out.println("isi supplierId ->" + supplierId);
-            List<EntitySuppliers> dataSupplierList = entitySuppliersDao.findByStatusActive(Long.parseLong(supplierId));
-            if (0 == dataSupplierList.size() || dataSupplierList.isEmpty()) {
+            EntitySuppliers dataSupplierList = entitySuppliersDao.findByStatusActive(Long.parseLong(supplierId));
+            if (dataSupplierList == null) {
                 response.setContentType("application/json");
                 response.setHeader("cache-control", "no-cache");
                 PrintWriter out = response.getWriter();
@@ -196,9 +196,9 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
                 System.out.println(jsonobj.toString());
                 return;
             }
-            System.out.println("isi dataSupplierList.get(0).getSupplierId() ->" + dataSupplierList.get(0).getSupplierId());
-            if (dataSupplierList.size() > 0) {
-                List<EntityProducts> dataProductsList = entityProductsDao.listItemBySuplierId(dataSupplierList.get(0).getSupplierId());
+            System.out.println("isi dataSupplierList.get(0).getSupplierId() ->" + dataSupplierList.getSupplierId());
+            if (dataSupplierList !=null) {
+                List<EntityProducts> dataProductsList = entityProductsDao.listItemBySuplierId(dataSupplierList.getSupplierId());
 
                 System.out.println("isi dataProductsList.get(0).getIdProduct() ->" + dataProductsList.get(0).getIdProduct());
                 if (dataProductsList.size() > 0) {
@@ -208,9 +208,9 @@ public class ExcelItemsSuplierServlet extends HttpServlet {
 
 //                      List<EntityStock> dataStockList = entityStockDao.findByIdProduct(dataProducts.getIdProduct());
                         dataStock = entityStockDao.find(dataProducts.getIdProduct());
-                        sheet.addCell(new Label(3, 1, EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getSupplierName())));
-                        sheet.addCell(new Label(3, 2, EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getSupplierCode())));
-                        sheet.addCell(new Label(3, 3, EncryptionUtil.upperCaseFirst(dataSupplierList.get(0).getAddress())));
+                        sheet.addCell(new Label(3, 1, EncryptionUtil.upperCaseFirst(dataSupplierList.getSupplierName())));
+                        sheet.addCell(new Label(3, 2, EncryptionUtil.upperCaseFirst(dataSupplierList.getSupplierCode())));
+                        sheet.addCell(new Label(3, 3, EncryptionUtil.upperCaseFirst(dataSupplierList.getAddress())));
                         sheet.addCell(new Label(0, rowNum, String.valueOf(j + 1)));
                         sheet.addCell(new Label(1, rowNum, dataProducts.getProductCode()));
                         sheet.addCell(new Label(2, rowNum, dataProducts.getProductName()));

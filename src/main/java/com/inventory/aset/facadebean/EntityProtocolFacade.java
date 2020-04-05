@@ -64,9 +64,9 @@ public class EntityProtocolFacade extends AbstractFacade<EntityProtocol> impleme
     }
 
     @Override
-    public List<EntityProtocol> getEmail(String paramString) {
-//        return em.createNamedQuery("EntityProtocol.findByEmail").getResultList();
-        return em.createQuery("SELECT entityProtocol FROM EntityProtocol entityProtocol WHERE entityProtocol.email =  \"" + paramString + "\"").getResultList();
+    public EntityProtocol getEmail(String paramString) {
+        return (EntityProtocol) em.createNamedQuery("EntityProtocol.findByEmail").getSingleResult();
+//        return em.createQuery("SELECT entityProtocol FROM EntityProtocol entityProtocol WHERE entityProtocol.email =  \"" + paramString + "\"").getResultList();
     }
 
     @Override

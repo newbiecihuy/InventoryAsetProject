@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
-import com.inventory.aset.entity.users.EntityUsers;
+import com.inventory.aset.model.users.EntityUsers;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -70,27 +70,35 @@ public class EntityUsersFacade extends AbstractFacade<EntityUsers> implements En
         return em.createNamedQuery("EntityUsers.findAll").setMaxResults(max).setFirstResult(start).getResultList();
 //        return em.createQuery("SELECT u FROM EntityUsers u").setMaxResults(max).getResultList();
     }
+
     @Override
     public List<EntityUsers> getUsers() {
 //        return em.createNamedQuery("EntityUsers.findAll").setMaxResults(max).getResultList();
         return em.createQuery("SELECT u FROM EntityUsers u").getResultList();
     }
-    
-     @Override
+
+    @Override
     public List<EntityUsers> checkUsers(String userName, String passWord) {
-        return em.createQuery("SELECT us.id FROM EntityUsers us WHERE us.userPass =\"" + passWord + "\" AND "
-                    + " us.userName =\"" + userName + "\" AND "
-                    + " us.isActive =\"" + "1" + "\" ").getResultList();
+        return em.createQuery("SELECT us.id FROM EntityUsers us WHERE us.userPass = :passWord AND "
+                + " us.userName = :userName  AND "
+                + " us.isActive =\"" + "1" + "\" ")
+                .setParameter("userName", userName)                
+                .setParameter("passWord", passWord)
+                .getResultList();
     }
 
     @Override
     public List<EntityUsers> findByUsername(String username) {
-        return em.createQuery("SELECT u FROM EntityUsers u WHERE u.username =  \"" + username + "\"").getResultList();
+        return em.createQuery("SELECT u FROM EntityUsers u WHERE u.username = :username ")
+                .setParameter("username", username)
+                .getResultList();
     }
 
     @Override
     public List<EntityUsers> findByRoleName(String varName) {
-        return em.createQuery("SELECT Distinct us.roleName  FROM EntityUsers us WHERE us.roleName LIKE \"" + varName + "%\" ").getResultList();
+        return em.createQuery("SELECT Distinct us.roleName  FROM EntityUsers us WHERE us.roleName LIKE  :varName ")
+                .setParameter("varName", varName + "%")
+                .getResultList();
     }
 
     @Override
@@ -100,7 +108,7 @@ public class EntityUsersFacade extends AbstractFacade<EntityUsers> implements En
 
     @Override
     public int count() {
-       Query queryMax = em.createQuery("SELECT COUNT(us) FROM EntityUsers us");
+        Query queryMax = em.createQuery("SELECT COUNT(us) FROM EntityUsers us");
         return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 

@@ -401,7 +401,7 @@ public class ItemServlet extends HttpServlet {
                     }
 
                     if (!object.getString("description").isEmpty()) {
-                        description = object.getString("description").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        description = object.getString("description");//.trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         description = "";
                     }
@@ -563,7 +563,7 @@ public class ItemServlet extends HttpServlet {
                         supplier_id = 0l;
                     }
                     if (!object.getString("description").isEmpty()) {
-                        description = object.getString("description").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        description = object.getString("description");//.trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         description = "";
                     }

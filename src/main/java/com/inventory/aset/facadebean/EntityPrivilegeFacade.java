@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
-import com.inventory.aset.entity.users.EntityPrivilege;
+import com.inventory.aset.model.users.EntityPrivilege;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

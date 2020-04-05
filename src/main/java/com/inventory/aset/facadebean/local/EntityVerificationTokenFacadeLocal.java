@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.facadebean.local;
 
-import com.inventory.aset.entity.users.EntityVerificationToken;
+import com.inventory.aset.model.users.EntityVerificationToken;
 import java.util.List;
 import javax.ejb.Local;
 

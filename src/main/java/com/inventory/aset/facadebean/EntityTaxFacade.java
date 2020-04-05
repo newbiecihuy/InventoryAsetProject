@@ -64,9 +64,13 @@ public class EntityTaxFacade extends AbstractFacade<EntityTax> implements Entity
     }
 
     @Override
-    public List<EntityTax> getTaxByType(String taxType) {
+    public EntityTax getTaxByType(String taxType) {
 //        return em.createNamedQuery("EntityTax.findAll").getResultList();
-        return em.createQuery("SELECT t FROM EntityTax t WHERE t.taxType =  \"" + taxType + "\"").getResultList();
+//        return em.createQuery("SELECT t FROM EntityTax t WHERE t.taxType =  \"" + taxType + "\"").getResultList();
+        String sql = "SELECT t FROM EntityTax t WHERE t.taxType = :taxType";
+        Query query = em.createQuery(sql);
+        query.setParameter("taxType", taxType);
+        return (EntityTax) query.getSingleResult();
     }
 
     @Override
@@ -76,7 +80,7 @@ public class EntityTaxFacade extends AbstractFacade<EntityTax> implements Entity
 
     @Override
     public int count() {
-         Query queryMax = em.createQuery("SELECT COUNT(t) FROM EntityTax t");
+        Query queryMax = em.createQuery("SELECT COUNT(t) FROM EntityTax t");
         return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 

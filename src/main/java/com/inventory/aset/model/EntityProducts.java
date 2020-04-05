@@ -33,14 +33,14 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_products")
 @NamedQueries({
-    @NamedQuery(name = "EntityProducts.findAll", query = "SELECT p FROM EntityProducts p")
-    , @NamedQuery(name = "EntityProducts.findByIdProduct", query = "SELECT p FROM EntityProducts p WHERE p.idProduct = :idProduct")
-    , @NamedQuery(name = "EntityProducts.findByProductName", query = "SELECT p FROM EntityProducts p WHERE p.productName = :productName")
-    , @NamedQuery(name = "EntityProducts.findByCategoryId", query = "SELECT p FROM EntityProducts p WHERE p.categoryId = :categoryId")
-    , @NamedQuery(name = "EntityProducts.findByMinimumStock", query = "SELECT p FROM EntityProducts p WHERE p.minimumStock = :minimumStock")
-    , @NamedQuery(name = "EntityProducts.findByCreatedAt", query = "SELECT p FROM EntityProducts p WHERE p.createdAt = :createdAt")
-    , @NamedQuery(name = "EntityProducts.findByUpdatedAt", query = "SELECT p FROM EntityProducts p WHERE p.updatedAt = :updatedAt")
-    , @NamedQuery(name = "EntityProducts.findByProductActiveBySup", query = "SELECT p FROM EntityProducts p WHERE p.supplierId.supplierId = :supplierId And p.status_item = 1")})
+    @NamedQuery(name = "EntityProducts.findAll", query = "SELECT p FROM EntityProducts p"),
+    @NamedQuery(name = "EntityProducts.findByIdProduct", query = "SELECT p FROM EntityProducts p WHERE p.idProduct = :idProduct"),
+    @NamedQuery(name = "EntityProducts.findByProductName", query = "SELECT p FROM EntityProducts p WHERE p.productName = :productName"),
+    @NamedQuery(name = "EntityProducts.findByCategoryId", query = "SELECT p FROM EntityProducts p WHERE p.categoryId = :categoryId"),
+    @NamedQuery(name = "EntityProducts.findByMinimumStock", query = "SELECT p FROM EntityProducts p WHERE p.minimumStock = :minimumStock"),
+    @NamedQuery(name = "EntityProducts.findByCreatedAt", query = "SELECT p FROM EntityProducts p WHERE p.createdAt = :createdAt"),
+    @NamedQuery(name = "EntityProducts.findByUpdatedAt", query = "SELECT p FROM EntityProducts p WHERE p.updatedAt = :updatedAt"),
+    @NamedQuery(name = "EntityProducts.findByProductActiveBySup", query = "SELECT p FROM EntityProducts p WHERE p.supplierId.supplierId = :supplierId And p.status_item = 1")})
 public class EntityProducts implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,10 +63,11 @@ public class EntityProducts implements Serializable {
     private String pict_path;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = true)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
     private EntityCategories categoryId;
+    
     @ManyToOne
-    @JoinColumn(name = "supplier_id", referencedColumnName = "supplier_id", nullable = true)
+    @JoinColumn(name = "supplier_id", referencedColumnName = "supplier_id", nullable = false)
     private EntitySuppliers supplierId;
 
     @Basic(optional = false)
@@ -162,7 +163,22 @@ public class EntityProducts implements Serializable {
     }
 
     public void setProductName(String productName) {
-        this.productName = productName;
+        this.productName = productName.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getProductCode() {
@@ -170,7 +186,22 @@ public class EntityProducts implements Serializable {
     }
 
     public void setProductCode(String productCode) {
-        this.productCode = productCode;
+        this.productCode = productCode.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getBarcode() {
@@ -178,7 +209,22 @@ public class EntityProducts implements Serializable {
     }
 
     public void setBarcode(String barcode) {
-        this.barcode = barcode;
+        this.barcode = barcode.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getPict_path() {
@@ -266,7 +312,22 @@ public class EntityProducts implements Serializable {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public int getStatus_item() {

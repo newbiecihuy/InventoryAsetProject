@@ -144,64 +144,64 @@ $(document).ready(function () {
 
 
 
-function myapproveSupFunc() {
-    console.log("Insert myapproveSupFunc");
-    $("#form_upload_excel_user").dialog().dialog("open");
-    $(".hidden_upload_excel_user").removeClass("hidden_upload_excel_user");
-    //     $("#pic_delegate").autocomplete("autocompleteTechnicianServlet");
-    $('#form_upload_excel_user').dialog("widget").position({
-        my: 'left top',
-        at: 'left bottom'
-    });
-    $("#form_upload_excel_user").dialog({
-        autoOpen: false,
-        title: "Upload Data Users",
-        show: "blind",
-        hide: "explode",
-        modal: true,
-        width: 350,
-        zIndex: 1,
-        buttons: [{
-                text: 'Upload',
-                class: 'btn btn-primary',
-                click: function () {
-                    console.log("@ here");
-                    var data_upload_excel_user = new FormData($('#form_upload_excel_user')[0]);
-                    console.log("data_upload_delegate" + data_upload_excel_user);
-                    $.ajax({
-                        type: "POST",
-                        url: "/FieldServiceSolution/uploadDataUsersServlet", //uploadDataUsersServlet
-                        data: data_upload_excel_user,
-                        cache: false,
-                        processData: false, // Do'nt process the files
-                        contentType: false, // Set content type to false as jQuery will tell the server its a query string request                       
-                        success: function (response) {
-                            if (response.RC === "1") {
-                                alert("Success");
-                            } else if (response.RC === "x0s") {
-
-                                alert("No File Found");
-                            } else {
-                                alert("Fail Upload");
-                            }
-                        }, error: function (jqXHR, textStatus, errorThrown) {
-                            alert("Something really bad happened " + textStatus);
-                        }
-                    });
-                }
-            }, {
-                text: 'Clear',
-                class: 'btn btn-primary',
-                click: function () {
-
-                    document.getElementById("form_upload_excel_user").reset();
-                    $('#excel_upload_users').css('background', '');
-//                    $('#pic_delegate').css('background', '');
-
-//                    return;
-                }
-            }]
-    });
-}
+//function myapproveSupFunc() {
+//    console.log("Insert myapproveSupFunc");
+//    $("#form_upload_excel_user").dialog().dialog("open");
+//    $(".hidden_upload_excel_user").removeClass("hidden_upload_excel_user");
+//    //     $("#pic_delegate").autocomplete("autocompleteTechnicianServlet");
+//    $('#form_upload_excel_user').dialog("widget").position({
+//        my: 'left top',
+//        at: 'left bottom'
+//    });
+//    $("#form_upload_excel_user").dialog({
+//        autoOpen: false,
+//        title: "Upload Data Users",
+//        show: "blind",
+//        hide: "explode",
+//        modal: true,
+//        width: 350,
+//        zIndex: 1,
+//        buttons: [{
+//                text: 'Upload',
+//                class: 'btn btn-primary',
+//                click: function () {
+//                    console.log("@ here");
+//                    var data_upload_excel_user = new FormData($('#form_upload_excel_user')[0]);
+//                    console.log("data_upload_delegate" + data_upload_excel_user);
+//                    $.ajax({
+//                        type: "POST",
+//                        url: "/FieldServiceSolution/uploadDataUsersServlet", //uploadDataUsersServlet
+//                        data: data_upload_excel_user,
+//                        cache: false,
+//                        processData: false, // Do'nt process the files
+//                        contentType: false, // Set content type to false as jQuery will tell the server its a query string request                       
+//                        success: function (response) {
+//                            if (response.RC === "1") {
+//                                alert("Success");
+//                            } else if (response.RC === "x0s") {
+//
+//                                alert("No File Found");
+//                            } else {
+//                                alert("Fail Upload");
+//                            }
+//                        }, error: function (jqXHR, textStatus, errorThrown) {
+//                            alert("Something really bad happened " + textStatus);
+//                        }
+//                    });
+//                }
+//            }, {
+//                text: 'Clear',
+//                class: 'btn btn-primary',
+//                click: function () {
+//
+//                    document.getElementById("form_upload_excel_user").reset();
+//                    $('#excel_upload_users').css('background', '');
+////                    $('#pic_delegate').css('background', '');
+//
+////                    return;
+//                }
+//            }]
+//    });
+//}
 
 

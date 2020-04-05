@@ -26,10 +26,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_invoice")
 @NamedQueries({
-    @NamedQuery(name = "EntityInvoice.findAll", query = "SELECT i FROM EntityInvoice i")
-    , 
-    @NamedQuery(name = "EntityInvoice.findByInvoiceId", query = "SELECT i FROM EntityInvoice i WHERE i.invoiceId = :invoiceId")
-    ,
+    @NamedQuery(name = "EntityInvoice.findAll", query = "SELECT i FROM EntityInvoice i"),
+    @NamedQuery(name = "EntityInvoice.findByInvoiceId", query = "SELECT i FROM EntityInvoice i WHERE i.invoiceId = :invoiceId"),
     @NamedQuery(name = "EntityInvoice.findByNoInvoice", query = "SELECT i FROM EntityInvoice i WHERE i.noInvoice = :noInvoice")
 })
 public class EntityInvoice implements Serializable {
@@ -150,7 +148,22 @@ public class EntityInvoice implements Serializable {
     }
 
     public void setTypeInvoice(String typeInvoice) {
-        this.typeInvoice = typeInvoice;
+        this.typeInvoice = typeInvoice.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getTypeTransaction() {

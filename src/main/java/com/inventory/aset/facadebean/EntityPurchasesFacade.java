@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.EncryptionUtil;
 import com.inventory.aset.model.EntityPurchases;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -67,12 +68,28 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
     @Override
     public List<EntityPurchases> searchPurchases(String search, int max, int start) {
 
-        return em.createQuery("SELECT ep FROM EntityPurchases ep "
-                + " WHERE(ep.purchaseCode Like \'%" + search.toLowerCase() + "%\' "
-                + " OR ep.supplierId.supplierName Like \'" + search.toLowerCase() + "%\' "
-                + " OR ep.typePOId.typePo Like \'" + search.toLowerCase() + "%\' "
-                + " OR ep.invoiceTo Like \'" + search.toLowerCase() + "%\' "
-                + " OR ep.deliveryPoint Like \'" + search.toLowerCase() + "%\'  ) ").setMaxResults(max).setFirstResult(start).getResultList();
+//        return em.createQuery("SELECT ep FROM EntityPurchases ep "
+//                + " WHERE(ep.purchaseCode Like \'%" + search.toLowerCase() + "%\' "
+//                + " OR ep.supplierId.supplierName Like \'" + search.toLowerCase() + "%\' "
+//                + " OR ep.typePOId.typePo Like \'" + search.toLowerCase() + "%\' "
+//                + " OR ep.invoiceTo Like \'" + search.toLowerCase() + "%\' "
+//                + " OR ep.deliveryPoint Like \'" + search.toLowerCase() + "%\'  ) ").setMaxResults(max).setFirstResult(start).getResultList();
+        String sql = " FROM EntityPurchases ep WHERE  LOWER(ep.purchaseCode) Like :purchaseCode "
+                + " OR ep.supplierId.supplierName Like :supplierName "
+                + " OR ep.typePOId.typePo Like :typePo "
+                + " OR ep.invoiceTo Like :invoiceTo "
+                + " OR ep.deliveryPoint Like  :deliveryPoint "
+                + " OR ep.appproveBy Like :appproveBy "
+                + " OR ep.isApprove = :isApprove ";
+        Query query = em.createQuery(sql);
+        query.setParameter("purchaseCode", search.toLowerCase() + "%");
+        query.setParameter("supplierName", search.toLowerCase() + "%");
+        query.setParameter("typePo", search.toLowerCase() + "%");
+        query.setParameter("invoiceTo", search.toLowerCase() + "%");
+        query.setParameter("deliveryPoint", search.toLowerCase() + "%");
+        query.setParameter("appproveBy", search.toLowerCase() + "%");
+        query.setParameter("isApprove", EncryptionUtil.getStatus(search.toLowerCase()));
+        return (List<EntityPurchases>) query.setMaxResults(max).setFirstResult(start).getResultList();
     }
 
 //    @Override
@@ -90,9 +107,14 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
     }
 
     @Override
-    public List<EntityPurchases> findByPOCode(String pramString) {
+    public List<EntityPurchases> findByPOCode(String paramString) {
         try {
-            return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.purchaseCode LIKE \"" + pramString + "%\" ").getResultList();
+//            return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.purchaseCode LIKE \"" + pramString + "%\" ").getResultList();
+            String sql = "FROM EntityPurchases ep WHERE ep.purchaseCode LIKE  :paramString ";
+            Query query = em.createQuery(sql);
+            query.setParameter("pramString", paramString.toLowerCase() + "%");
+            return (List<EntityPurchases>) query.getResultList();
+
         } catch (Exception e) {
             System.out.println("Something went wrong :" + e.getMessage());
         }
@@ -100,9 +122,13 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
     }
 
     @Override
-    public List<EntityPurchases> getByPOCode(String pramString) {
+    public List<EntityPurchases> getByPOCode(String paramString) {
         try {
-            return em.createQuery("SELECT Distinct ep.purchaseCode  FROM EntityPurchases ep WHERE ep.purchaseCode LIKE \"" + pramString + "%\" ").getResultList();
+//            return em.createQuery("SELECT Distinct ep.purchaseCode  FROM EntityPurchases ep WHERE ep.purchaseCode LIKE \"" + pramString + "%\" ").getResultList();
+            String sql = "SELECT Distinct ep.purchaseCode  FROM EntityPurchases ep WHERE ep.purchaseCode LIKE :paramString ";
+            Query query = em.createQuery(sql);
+            query.setParameter("paramString", paramString.toLowerCase() + "%");
+            return (List<EntityPurchases>) query.getResultList();
         } catch (Exception e) {
             System.out.println("Something went wrong :" + e.getMessage());
         }
@@ -114,9 +140,13 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
 //    }
 
     @Override
-    public List<EntityPurchases> findByTransportMode(String pramString) {
+    public List<EntityPurchases> findByTransportMode(String paramString) {
         try {
-            return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.transportMode LIKE \"" + pramString + "%\" ").getResultList();
+//            return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.transportMode LIKE \"" + pramString + "%\" ").getResultList();
+            String sql = "SELECT  ep  FROM EntityPurchases ep WHERE ep.transportMode LIKE :paramString ";
+            Query query = em.createQuery(sql);
+            query.setParameter("paramString", paramString.toLowerCase() + "%");
+            return (List<EntityPurchases>) query.getResultList();
         } catch (Exception e) {
             System.out.println("Something went wrong :" + e.getMessage());
         }
@@ -124,9 +154,13 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
     }
 
     @Override
-    public List<EntityPurchases> findByRfqNumber(String pramString) {
+    public EntityPurchases findByRfqNumber(String paramString) {
         try {
-            return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.rfqNumber LIKE \"" + pramString + "%\" ").getResultList();
+//            return em.createQuery("SELECT  ep  FROM EntityPurchases ep WHERE ep.rfqNumber LIKE \"" + pramString + "%\" ").getResultList();
+            String sql = "SELECT  ep  FROM EntityPurchases ep WHERE ep.rfqNumber LIKE :paramString ";
+            Query query = em.createQuery(sql);
+            query.setParameter("paramString", paramString.toLowerCase() + "%");
+            return (EntityPurchases) query.getSingleResult();
         } catch (Exception e) {
             System.out.println("Something went wrong :" + e.getMessage());
         }

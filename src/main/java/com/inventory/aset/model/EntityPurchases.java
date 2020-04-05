@@ -30,9 +30,9 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_purchase")
 @NamedQueries({
-     @NamedQuery(name = "EntityPurchases.findAll", query = "SELECT c FROM EntityPurchases c")
-    ,@NamedQuery(name = "EntityPurchases.findByPurchaseId", query = "SELECT c FROM EntityPurchases c WHERE c.purchaseId = :purchaseId")
-    ,@NamedQuery(name = "EntityPurchases.findByNoPo", query = "SELECT c FROM EntityPurchases c WHERE c.inputDate = :inputDate order by  c.purchaseId desc")
+    @NamedQuery(name = "EntityPurchases.findAll", query = "SELECT c FROM EntityPurchases c"),
+    @NamedQuery(name = "EntityPurchases.findByPurchaseId", query = "SELECT c FROM EntityPurchases c WHERE c.purchaseId = :purchaseId"),
+    @NamedQuery(name = "EntityPurchases.findByNoPo", query = "SELECT c FROM EntityPurchases c WHERE c.inputDate = :inputDate order by  c.purchaseId desc")
 })
 public class EntityPurchases implements Serializable {
 
@@ -191,7 +191,22 @@ public class EntityPurchases implements Serializable {
     }
 
     public void setPurchaseDesc(String purchaseDesc) {
-        this.purchaseDesc = purchaseDesc;
+        this.purchaseDesc = purchaseDesc.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getTransportMode() {
@@ -199,7 +214,22 @@ public class EntityPurchases implements Serializable {
     }
 
     public void setTransportMode(String transportMode) {
-        this.transportMode = transportMode;
+        this.transportMode = transportMode.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getRfqNumber() {
@@ -303,7 +333,22 @@ public class EntityPurchases implements Serializable {
     }
 
     public void setDeliveryTerm(String deliveryTerm) {
-        this.deliveryTerm = deliveryTerm;
+        this.deliveryTerm = deliveryTerm.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getDeliveryPoint() {
@@ -311,7 +356,22 @@ public class EntityPurchases implements Serializable {
     }
 
     public void setDeliveryPoint(String deliveryPoint) {
-        this.deliveryPoint = deliveryPoint;
+        this.deliveryPoint = deliveryPoint.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getInvoiceTo() {

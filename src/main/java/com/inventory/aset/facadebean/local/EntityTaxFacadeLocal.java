@@ -28,8 +28,8 @@ public interface EntityTaxFacadeLocal {
 
     List<EntityTax> getAllTax(int max, int start);
 
-    List<EntityTax> getTaxByType(String taxType);
-    
+    EntityTax getTaxByType(String taxType);
+
     EntityTax find(Object paramObject);
 
     int count();

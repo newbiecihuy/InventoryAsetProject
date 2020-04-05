@@ -38,12 +38,12 @@ public interface EntityPurchasesFacadeLocal {
 
     List<EntityPurchases> findByTransportMode(String pramString);
 
-    List<EntityPurchases> findByRfqNumber(String pramString);
+    EntityPurchases findByRfqNumber(String pramString);
 
     List<EntityPurchases> getByPOCode(String pramString);
 
 //    List<EntityPurchases> getByTypePO(String pramString);
-  EntityPurchases findByNoPo(Date inputDate, String inputTime);
+    EntityPurchases findByNoPo(Date inputDate, String inputTime);
 
     int count();
 

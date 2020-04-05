@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.inventory.aset.entity.users;
+package com.inventory.aset.model.users;
 
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -20,7 +19,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name="tbl_user_roles")
 @NamedQueries({@javax.persistence.NamedQuery(name="EntityUserRoles.findByUserName", query="SELECT u FROM EntityUserRoles u WHERE u.user_roles_pk.id = :id"),
     @javax.persistence.NamedQuery(name="EntityUserRoles.findByRoleName", query="SELECT u FROM EntityUserRoles u WHERE u.user_roles_pk.roleName = :roleName")})
-@XmlRootElement
 public class EntityUserRoles
   implements Serializable
 {

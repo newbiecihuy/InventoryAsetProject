@@ -16,11 +16,11 @@ import javax.ejb.Local;
 @Local
 public interface EntitySettingsFacadeLocal {
 
-    void createSetting(EntitySettings dataSetting);
+    EntitySettings createSetting(EntitySettings dataSetting);
 
-    void updateSetting(EntitySettings dataSetting);
+    EntitySettings updateSetting(EntitySettings dataSetting);
 
-    void deleteSetting(EntitySettings dataSetting);
+    EntitySettings deleteSetting(EntitySettings dataSetting);
 
     void removeSetting(long paramLong);
 
@@ -28,7 +28,7 @@ public interface EntitySettingsFacadeLocal {
 
     List<EntitySettings> getAllSettings(int max, int start);
 
-    List<EntitySettings> findWithParamName(String paramName);
+    EntitySettings findWithParamName(String paramName);
 
     EntitySettings find(Object paramObject);
 

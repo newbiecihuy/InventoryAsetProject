@@ -3,31 +3,31 @@
   <persistence-unit name="inventoryAsetPU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:app/jdbc/dbinventory</jta-data-source>
-    <class>com.inventory.aset.model.EntityPurchases</class>
-    <class>com.inventory.aset.model.EntityInvoice</class>
-    <class>com.inventory.aset.model.EntityTax</class>
-    <class>com.inventory.aset.model.EntitySells</class>
-    <class>com.inventory.aset.model.EntityProductInvoice</class>
-    <class>com.inventory.aset.model.EntitySettings</class>
-    <class>com.inventory.aset.model.EntityCompanyAddress</class>
-    <class>com.inventory.aset.model.EntityStock</class>
-    <class>com.inventory.aset.model.EntityCategories</class>
-    <class>com.inventory.aset.model.users.EntityUserRoles</class>
-    <class>com.inventory.aset.model.users.EntityVerificationToken</class>
-    <class>com.inventory.aset.model.users.EntityPrivilege</class>
-    <class>com.inventory.aset.model.users.EntityUsers</class>
-    <class>com.inventory.aset.model.EntityCompany</class>
-    <class>com.inventory.aset.model.EntityUnits</class>
-    <class>com.inventory.aset.model.EntityProducts</class>
-    <class>com.inventory.aset.model.EntityProductSell</class>
-    <class>com.inventory.aset.model.EntitySuppliers</class>
-    <class>com.inventory.aset.model.EntityCurrency</class>
     <class>com.inventory.aset.model.EntityAsetRequisition</class>
-    <class>com.inventory.aset.model.EntityProtocol</class>
-    <class>com.inventory.aset.model.EntityProductPurchase</class>
-    <class>com.inventory.aset.model.EntityTypeRequisition</class>
-    <class>com.inventory.aset.model.EntityTypePO</class>
+    <class>com.inventory.aset.model.EntityCategories</class>
+    <class>com.inventory.aset.model.EntityCompany</class>
+    <class>com.inventory.aset.model.EntityCompanyAddress</class>
+    <class>com.inventory.aset.model.EntityCurrency</class>
     <class>com.inventory.aset.model.EntityCustomer</class>
+    <class>com.inventory.aset.model.EntityInvoice</class>
+    <class>com.inventory.aset.model.EntityProductInvoice</class>
+    <class>com.inventory.aset.model.EntityProductPurchase</class>
+    <class>com.inventory.aset.model.EntityProductSell</class>
+    <class>com.inventory.aset.model.EntityProducts</class>
+    <class>com.inventory.aset.model.EntityProtocol</class>
+    <class>com.inventory.aset.model.EntityPurchases</class>
+    <class>com.inventory.aset.model.EntitySells</class>
+    <class>com.inventory.aset.model.EntitySettings</class>
+    <class>com.inventory.aset.model.EntityStock</class>
+    <class>com.inventory.aset.model.EntitySuppliers</class>
+    <class>com.inventory.aset.model.EntityTax</class>
+    <class>com.inventory.aset.model.EntityTypePO</class>
+    <class>com.inventory.aset.model.EntityTypeRequisition</class>
+    <class>com.inventory.aset.model.EntityUnits</class>
+    <class>com.inventory.aset.model.users.EntityPrivilege</class>
+    <class>com.inventory.aset.model.users.EntityUserRoles</class>
+    <class>com.inventory.aset.model.users.EntityUsers</class>
+    <class>com.inventory.aset.model.users.EntityVerificationToken</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>

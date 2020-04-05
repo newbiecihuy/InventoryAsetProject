@@ -128,14 +128,14 @@ $(document).ready(function () {
                         supplier_id: va_supplier_id
                     };
                     if (data_sup === 0) {
-                        return "<a href='#'><font color='c89907'>"+"Waiting"+"</font></a>";  //Not Approved
+                        return "<a href='#'><font color='c89907',font-weight: 900;>"+"Waiting"+"</font></a>";  //Not Approved
                     }
                     if (data_sup === 1) {
-                        return "<a href='#'><font color='0bbc43'>"+"Approved"+"</font></a>";
+                        return "<a href='#'><font color='0bbc43',font-weight: 900;>"+"Approved"+"</font></a>";
 //                        return"<a href='#' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + "Active" + "</a>";
                     }
                     if (data_sup === 2) {
-                        return"<a href='#'><font color='d50808'>"+"Rejected"+"</font></a>";
+                        return"<a href='#'><font color='d50808',font-weight: 900;>"+"Rejected"+"</font></a>";
                     }
                 }
             }, {
@@ -206,21 +206,21 @@ $(document).ready(function () {
     $('#grid_supplier tbody').on('click', 'tr', function (item) {
         var data = table_grid_supplier.row(this).data();
 //        alert(data.supplier_id);
-//        if (data.supplier_id !== null) {
+        if (data.supplier_id !== null) {
 //            alert("data.supplier_id");
-//        }else{
-//            alert("selected rows");
-//        }
-//        var id = this.id;
-//        var index = $.inArray(id, selected);
-//        alert(id);
-//        alert(index);
-//        if (index === -1) {
-//            selected.push(id);
-//        } else {
-//            selected.splice(index, 1);
-//        }
-//        $(this).toggleClass('selected');
+        }else{
+            alert("selected rows");
+        }
+        var id = this.id;
+        var index = $.inArray(id, selected);
+        alert(id);
+        alert(index);
+        if (index === -1) {
+            selected.push(id);
+        } else {
+            selected.splice(index, 1);
+        }
+        $(this).toggleClass('selected');
 
     });
 

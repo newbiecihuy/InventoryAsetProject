@@ -212,8 +212,8 @@ public class SupplierServlet extends HttpServlet {
                     } else {
                         obj.put("status_supp", dataSuppliers.getIsActive());
                     }
-                    List<EntityProducts> chekList = entityProductsFacadeLocal.findByProductActiveBySup(dataSuppliers.getSupplierId());
-                    if (chekList.size() > 0) {
+                    EntityProducts chekList = entityProductsFacadeLocal.findByProductActiveBySup(dataSuppliers.getSupplierId());
+                    if (chekList != null) {
                         obj.put("listItem", "1");
                     } else {
                         obj.put("listItem", "0");
@@ -223,9 +223,9 @@ public class SupplierServlet extends HttpServlet {
 //                        } else {
 //                            obj.put("status_supp", dataSuppliers.getContactNum());
 //                        }
-                    List<EntitySettings> getSupllierCode = entitySettingsFacadeLocal.findWithParamName("supplier_code");
-                    if (getSupllierCode.size() > 0) {
-                        EntitySettings dataSetting = getSupllierCode.get(0);
+                    EntitySettings dataSetting = entitySettingsFacadeLocal.findWithParamName("supplier_code");
+                    if (dataSetting != null) {
+//                        EntitySettings dataSetting = getSupllierCode.get(0);
 
                         EntitySuppliers updateData = entitySuppliersFacadeLocal.getSuppliers(dataSuppliers.getSupplierId());
                         updateData.setSupplierCode(dataSetting.getValue());
@@ -314,7 +314,7 @@ public class SupplierServlet extends HttpServlet {
                         supplier_name = "";
                     }
                     if (!object.getString("address_supplier").isEmpty()) {
-                        address_supplier = object.getString("address_supplier").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        address_supplier = object.getString("address_supplier");//.trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         address_supplier = "";
                     }
@@ -343,13 +343,13 @@ public class SupplierServlet extends HttpServlet {
                     } else {
                         checkbox_value = "";
                     }
-                    List<EntitySuppliers> cekSupplierName = entitySuppliersFacadeLocal.getSupplierName(supplier_name.toLowerCase());
+                    EntitySuppliers cekSupplierName = entitySuppliersFacadeLocal.getSupplierName(supplier_name.toLowerCase());
                     System.out.println("isi cekSupplierName" + cekSupplierName);
-                    if (cekSupplierName.size() > 0) {
+                    if (cekSupplierName != null) {
                         code = "2";
                         JSONObject jsonobj = new JSONObject();
                         jsonobj.put("RC", code);
-                        jsonobj.put("msg", msg);
+                        jsonobj.put("msg", "Supplier Name Already Used");
                         out.println(jsonobj.toString());
                         out.flush();
                         System.out.println(jsonobj.toString());
@@ -394,7 +394,7 @@ public class SupplierServlet extends HttpServlet {
                         supplier_name = "";
                     }
                     if (!object.getString("address_supplier").isEmpty()) {
-                        address_supplier = object.getString("address_supplier").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        address_supplier = object.getString("address_supplier");//.trim().replaceAll("['\":<>\\[\\],-]", "")
                     } else {
                         address_supplier = "";
                     }

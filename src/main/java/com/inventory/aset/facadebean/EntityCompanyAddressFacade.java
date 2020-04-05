@@ -11,6 +11,7 @@ import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityCompanyAddressFacadeLocal;
+import javax.persistence.Query;
 
 /**
  *
@@ -58,7 +59,7 @@ public class EntityCompanyAddressFacade extends AbstractFacade<EntityCompanyAddr
 
     @Override
     public List<EntityCompanyAddress> getAllCompanyAddress(int max, int start) {
-//        return em.createNamedQuery("EntityCompanyAddress.findAll").getResultList();
+//      return em.createNamedQuery("EntityCompanyAddress.findAll").getResultList();
         return em.createQuery("SELECT c FROM EntityCompanyAddress c ").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
@@ -69,12 +70,20 @@ public class EntityCompanyAddressFacade extends AbstractFacade<EntityCompanyAddr
 
     @Override
     public EntityCompanyAddress findWithCompanyAddress(String paramName) {
-        return (EntityCompanyAddress) em.createQuery("SELECT c FROM EntityCompanyAddress c WHERE c.address =  \"" + paramName + "\"").getSingleResult();
+//      return (EntityCompanyAddress) em.createQuery("SELECT c FROM EntityCompanyAddress c WHERE c.address =  \"" + paramName + "\"").getSingleResult();
+        String sql = "SELECT c FROM EntityCompanyAddress c WHERE c.address = :paramName";
+        Query query = em.createQuery(sql);
+        query.setParameter("paramName", paramName);
+        return (EntityCompanyAddress) query.getSingleResult();
     }
 
     @Override
     public List<EntityCompanyAddress> findByCompanyAddress(String varName) {
-        return em.createQuery("SELECT Distinct c.address  FROM EntityCompanyAddress c WHERE c.address LIKE \"" + varName + "%\" ").getResultList();
+//      return em.createQuery("SELECT Distinct c.address  FROM EntityCompanyAddress c WHERE c.address LIKE \"" + varName + "%\" ").getResultList();
+        String sql = "SELECT Distinct c.address FROM EntityCompanyAddress c WHERE c.address LIKE :varName ";
+        Query query = em.createQuery(sql);
+        query.setParameter("varName", varName + "%");
+        return (List<EntityCompanyAddress>) query.getResultList();
     }
 
 }

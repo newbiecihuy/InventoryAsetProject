@@ -27,8 +27,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_company_address")
 @NamedQueries({
-    @javax.persistence.NamedQuery(name = "EntityCompanyAddress.findAll", query = "SELECT e from EntityCompanyAddress e"),
-})
+    @javax.persistence.NamedQuery(name = "EntityCompanyAddress.findAll", query = "SELECT e from EntityCompanyAddress e"),})
 public class EntityCompanyAddress implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,13 +43,13 @@ public class EntityCompanyAddress implements Serializable {
     @Basic(optional = false)
     @Column(name = "created_at_time")
     private String createdAtTime;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_company", referencedColumnName = "id_company", nullable = true)
     private EntityCompany idCompany;
 
-    public EntityCompanyAddress(){
-        
+    public EntityCompanyAddress() {
+
     }
 
     public EntityCompanyAddress(Long idCompanyAdress, String address, Date createdAt, String createdAtTime, EntityCompany idCompany) {
@@ -74,7 +73,22 @@ public class EntityCompanyAddress implements Serializable {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = address.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public Date getCreatedAt() {
@@ -100,8 +114,7 @@ public class EntityCompanyAddress implements Serializable {
     public void setIdCompany(EntityCompany idCompany) {
         this.idCompany = idCompany;
     }
-        
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

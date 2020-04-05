@@ -34,7 +34,7 @@ public class AutoCompleteSupplierNameServlet extends HttpServlet {
 
     }
     @EJB
-    EntitySuppliersFacadeLocal entitySupplierDao;
+    EntitySuppliersFacadeLocal entitySupplieFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -75,8 +75,8 @@ public class AutoCompleteSupplierNameServlet extends HttpServlet {
             System.out.println("varName" + varName);
             String json = "";
 
-            List<EntitySuppliers> isi_supplierName = entitySupplierDao.findBySupplierName(varName);
-            System.out.println("isi isi_supplierName.getResultList()" + isi_supplierName);
+            List<EntitySuppliers> isi_supplierName = entitySupplieFacade.findBySupplierName(varName);
+            System.out.println("isi_supplierName.getResultList()" + isi_supplierName);
 
             JSONArray array = new JSONArray();
             json = new Gson().toJson(isi_supplierName);

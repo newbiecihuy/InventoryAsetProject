@@ -71,7 +71,9 @@ public class EntityUnitsFacade extends AbstractFacade<EntityUnits> implements En
 
     @Override
     public List<EntityUnits> getUnitName(String unitName) {
-        return em.createQuery("SELECT u FROM EntityUnits u WHERE u.unitName=  \"" + unitName + "\"").getResultList();
+        return em.createQuery("SELECT u FROM EntityUnits u WHERE u.unitName = :unitName ")
+                .setParameter("unitName", unitName)
+                .getResultList();
     }
 
     @Override

@@ -254,12 +254,12 @@ public class CategoryServlet extends HttpServlet {
                 if (category_id == 0l) {//action_insert.equalsIgnoreCase("INSERT")
 
                     if (!object.getString("category_name").isEmpty()) {
-                        category_name = object.getString("category_name").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        category_name = object.getString("category_name").trim();
                     } else {
                         category_name = "";
                     }
                     if (!object.getString("category_desc").isEmpty()) {
-                        category_desc = object.getString("category_desc").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        category_desc = object.getString("category_desc").trim();
                     } else {
                         category_desc = "";
                     }
@@ -280,12 +280,12 @@ public class CategoryServlet extends HttpServlet {
                     dataCatageroies = entityCategoriesFacadeLocal.getCategories(category_id);
 
                     if (!object.getString("category_name").isEmpty()) {
-                        category_name = object.getString("category_name").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        category_name = object.getString("category_name");//.trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         category_name = "";
                     }
                     if (!object.getString("category_desc").isEmpty()) {
-                        category_desc = object.getString("category_desc").trim().replaceAll("['\":<>\\[\\],-]", "");
+                        category_desc = object.getString("category_desc");//.trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         category_desc = "";
                     }

@@ -29,10 +29,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_suppliers")
 @NamedQueries({
-    @NamedQuery(name = "EntitySuppliers.findAll", query = "SELECT s FROM EntitySuppliers s")
-    , @NamedQuery(name = "EntitySuppliers.findBySupplierId", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierId = :supplierId")
-    , @NamedQuery(name = "EntitySuppliers.findBySupplierName", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierName = :supplierName")
-    ,@NamedQuery(name = "EntitySuppliers.findByStatusActive", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierId = :supplierId And s.isActive = 1")})
+    @NamedQuery(name = "EntitySuppliers.findAll", query = "SELECT s FROM EntitySuppliers s"),
+    @NamedQuery(name = "EntitySuppliers.findBySupplierId", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierId = :supplierId"),
+    @NamedQuery(name = "EntitySuppliers.findBySupplierName", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierName = :supplierName"),
+    @NamedQuery(name = "EntitySuppliers.findByStatusActive", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierId = :supplierId And s.isActive = 1")})
 public class EntitySuppliers implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,11 +42,11 @@ public class EntitySuppliers implements Serializable {
     private Long supplierId;
 
     @Basic(optional = false)
-    @Column(name = "supplier_code", length = 500)
+    @Column(name = "supplier_code", length = 100)
     private String supplierCode;
 
     @Basic(optional = false)
-    @Column(name = "supplier_name", length = 500)
+    @Column(name = "supplier_name", length = 100)
     private String supplierName;
 
     @Lob
@@ -132,7 +132,22 @@ public class EntitySuppliers implements Serializable {
     }
 
     public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName;
+        this.supplierName = supplierName.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getAddress() {
@@ -140,7 +155,22 @@ public class EntitySuppliers implements Serializable {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = address.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getContactName() {

@@ -6,7 +6,7 @@
 package com.inventory.aset.controller.util;
 
 import com.inventory.aset.controller.ItemServlet;
-import com.inventory.aset.entity.users.EntityUsers;
+import com.inventory.aset.model.users.EntityUsers;
 import com.inventory.aset.facadebean.local.EntityCategoriesFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityUsersFacadeLocal;
 import java.io.IOException;

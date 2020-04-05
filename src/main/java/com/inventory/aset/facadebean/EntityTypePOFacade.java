@@ -65,17 +65,27 @@ public class EntityTypePOFacade extends AbstractFacade<EntityTypePO> implements 
 
     @Override
     public List<EntityTypePO> getByTypePO(String paramName) {
-        return em.createQuery("SELECT c FROM EntityTypePO c WHERE c.typePo  =  \"" + paramName + "\"").getResultList();
+        return em.createQuery("SELECT c FROM EntityTypePO c WHERE c.typePo   = :paramName")
+                .setParameter("paramName", paramName)
+                .getResultList();
     }
 
     @Override
     public List<EntityTypePO> findWithTypePo(String paramName) {
-        return em.createQuery("SELECT c FROM EntityTypePO c WHERE c.typePo =  \"" + paramName + "\"").getResultList();
+//        return em.createQuery("SELECT c FROM EntityTypePO c WHERE c.typePo =  \"" + paramName + "\"").getResultList();
+        return em.createQuery(
+                "SELECT c FROM EntityTypePO c WHERE c.typePo = :paramName")
+                .setParameter("paramName", paramName)
+                .getResultList();
     }
 
     @Override
     public List<EntityTypePO> findByTypePo(String varName) {
-        return em.createQuery("SELECT Distinct c.typePo  FROM EntityTypePO c WHERE c.typePo LIKE \"" + varName + "%\" ").getResultList();
+//        return em.createQuery("SELECT Distinct c.typePo  FROM EntityTypePO c WHERE c.typePo LIKE \"" + varName + "%\" ").getResultList();
+        return em.createQuery(
+                "SELECT Distinct c.typePo  FROM EntityTypePO c WHERE c.typePo LIKE :varName")
+                .setParameter("varName", varName + "%")
+                .getResultList();
     }
 
     @Override

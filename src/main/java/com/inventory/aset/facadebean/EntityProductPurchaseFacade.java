@@ -64,7 +64,11 @@ public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPur
 
     @Override
     public EntityProductPurchase findByPOCode(String param) {
-        return (EntityProductPurchase) em.createQuery("SELECT l FROM EntityProductPurchase l WHERE l.purchaseId.purchaseCode =  \"" + param + "\"").getSingleResult();
+//        return (EntityProductPurchase) em.createQuery("SELECT l FROM EntityProductPurchase l WHERE l.purchaseId.purchaseCode =  \"" + param + "\"").getSingleResult();
+        String sql = "FROM EntityProductPurchase l WHERE l.purchaseId.purchaseCode = :param";
+        Query query = em.createQuery(sql);
+        query.setParameter("param", param);
+        return (EntityProductPurchase) query.getSingleResult();
     }
 
     @Override
@@ -73,8 +77,8 @@ public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPur
     }
 
     @Override
-    public List<EntityProductPurchase> productPOlist(Long param) {
-        return em.createNamedQuery("EntityProductPurchase.findByProductPOlist").setParameter("purchaseId", param).getResultList();
+    public EntityProductPurchase productPOlist(Long param) {
+        return (EntityProductPurchase) em.createNamedQuery("EntityProductPurchase.findByProductPOlist").setParameter("purchaseId", param).getSingleResult();
     }
 
     @Override

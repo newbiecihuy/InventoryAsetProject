@@ -325,11 +325,13 @@
 
     </dependencies>
     <build>
+        
         <!--
           Build project with maven without version
           https://stackoverflow.com/questions/9593473/how-to-build-project-with-maven-without-version
         -->
-        <finalName>${project.artifactId}</finalName>
+        <!--<finalName>${project.artifactId}</finalName>-->
+        <finalName>inventoryaset</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -389,6 +391,7 @@
                 </configuration>
             </plugin>
         </plugins>
+         
     </build>
     <repositories>
         <!--        <repository>

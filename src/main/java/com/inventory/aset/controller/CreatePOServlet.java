@@ -31,11 +31,6 @@ import net.sf.json.JSONSerializer;
 import com.inventory.aset.facadebean.local.EntityPurchasesFacadeLocal;
 import com.inventory.aset.facadebean.local.EntitySuppliersFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityTypePOFacadeLocal;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Locale;
-import javax.persistence.Query;
 
 /**
  *
@@ -257,9 +252,9 @@ public class CreatePOServlet extends HttpServlet {
                     if (dataPO.getStatusPo() == null) {
                         obj.put("status_po", "");
                     } else {
-                        List<EntityProductPurchase> itemPurchaseList = entityProductPurchaseFacadeLocal.productPOlist(dataPO.getPurchaseId());
+                        EntityProductPurchase itemPurchaseList = entityProductPurchaseFacadeLocal.productPOlist(dataPO.getPurchaseId());
                         System.out.println("itemPurchaseList == " + itemPurchaseList);
-                        if (itemPurchaseList.isEmpty()) {
+                        if (itemPurchaseList == null) {
                             System.out.println("itemPurchaseList == " + null);
                             obj.put("status_po", "No Item");
                         } else {
@@ -267,10 +262,10 @@ public class CreatePOServlet extends HttpServlet {
                                 obj.put("status_po", EncryptionUtil.upperCaseFirst(dataPO.getStatusPo()));
                             }
                             if (is_approve == 1) {
-                                obj.put("status_po", EncryptionUtil.upperCaseFirst("Approved"));
+                                obj.put("status_po", EncryptionUtil.upperCaseFirst("approved"));
                             }
                             if (is_approve == 2) {
-                                obj.put("status_po", EncryptionUtil.upperCaseFirst("Rejected"));
+                                obj.put("status_po", EncryptionUtil.upperCaseFirst("rejected"));
                             }
                         }
                     }
@@ -518,10 +513,10 @@ public class CreatePOServlet extends HttpServlet {
                         dataPurchases.setTypePOId(dataTypePO);
                     }
 
-                    List<EntitySuppliers> cekSuplierName = entitySuppliersFacadeLocal.getSupplierName(supplier_name.toLowerCase());
+                    EntitySuppliers cekSuplierName = entitySuppliersFacadeLocal.getSupplierName(supplier_name.toLowerCase());
                     System.out.println("isi cekSuplierName" + cekSuplierName);
-                    if (cekSuplierName.size() > 0) {
-                        dataSupplier = entitySuppliersFacadeLocal.getSuppliers(cekSuplierName.get(0).getSupplierId());
+                    if (cekSuplierName != null) {
+                        dataSupplier = entitySuppliersFacadeLocal.getSuppliers(cekSuplierName.getSupplierId());
                         dataPurchases.setSupplierId(dataSupplier);
                     }
                     dataPurchases.setPic(("PIC").toLowerCase());
@@ -681,10 +676,10 @@ public class CreatePOServlet extends HttpServlet {
                         dataPurchases.setTypePOId(dataTypePO);
                     }
 
-                    List<EntitySuppliers> cekSuplierName = entitySuppliersFacadeLocal.getSupplierName(supplier_name.toLowerCase());
+                    EntitySuppliers cekSuplierName = entitySuppliersFacadeLocal.getSupplierName(supplier_name.toLowerCase());
                     System.out.println("isi cekSuplierName" + cekSuplierName);
-                    if (cekSuplierName.size() > 0) {
-                        dataSupplier = entitySuppliersFacadeLocal.getSuppliers(cekSuplierName.get(0).getSupplierId());
+                    if (cekSuplierName != null) {
+                        dataSupplier = entitySuppliersFacadeLocal.getSuppliers(cekSuplierName.getSupplierId());
                         dataPurchases.setSupplierId(dataSupplier);
                     }
                     dataPurchases.setPic(("PIC").toLowerCase());

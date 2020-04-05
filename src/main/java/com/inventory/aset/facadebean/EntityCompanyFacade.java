@@ -60,8 +60,8 @@ public class EntityCompanyFacade extends AbstractFacade<EntityCompany> implement
 
     @Override
     public List<EntityCompany> getAllCompany(int max, int start) {
-//        return em.createNamedQuery("EntityCompany.findAll").getResultList();
-        return em.createQuery("SELECT c FROM EntityCompany c ").setMaxResults(max).setFirstResult(start).getResultList();
+        return em.createNamedQuery("EntityCompany.findAll").setMaxResults(max).setFirstResult(start).getResultList();
+//       return em.createQuery("SELECT c FROM EntityCompany c ").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
@@ -71,17 +71,25 @@ public class EntityCompanyFacade extends AbstractFacade<EntityCompany> implement
 
     @Override
     public EntityCompany findWithCompanyName(String paramName) {
-        return (EntityCompany) em.createQuery("SELECT c FROM EntityCompany c WHERE c.companyName =  \"" + paramName + "\"").getSingleResult();
+//        return (EntityCompany) em.createQuery("SELECT c FROM EntityCompany c WHERE c.companyName =  \"" + paramName + "\"").getSingleResult();
+        String sql = "SELECT c FROM EntityCompany c WHERE c.companyName = :paramName";
+        Query query = em.createQuery(sql);
+        query.setParameter("paramName", paramName);
+        return (EntityCompany) query.getSingleResult();
     }
 
     @Override
     public List<EntityCompany> findByCompanyName(String varName) {
-        return em.createQuery("SELECT Distinct c.companyName  FROM EntityCompany c WHERE c.companyName LIKE \"" + varName + "%\" ").getResultList();
+//        return em.createQuery("SELECT Distinct c.companyName  FROM EntityCompany c WHERE c.companyName LIKE \"" + varName + "%\" ").getResultList();
+        String sql = "SELECT Distinct c.companyName  FROM EntityCompany c WHERE c.companyName LIKE :varName ";
+        Query query = em.createQuery(sql);
+        query.setParameter("varName", varName + "%");
+        return (List<EntityCompany>) query.getResultList();
     }
 
     @Override
-    public EntityCompany find(Object categoryId) {
-        return (EntityCompany) em.find(EntityCompany.class, categoryId);
+    public EntityCompany find(Object compId) {
+        return (EntityCompany) em.find(EntityCompany.class, compId);
     }
 
     @Override

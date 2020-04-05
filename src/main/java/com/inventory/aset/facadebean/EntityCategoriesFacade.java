@@ -92,7 +92,11 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     public List<EntityCategories> getAllCategories(int max, int start) {
 //        return em.createNamedQuery("EntityCategories.findAll").getResultList();
         try {
-            return em.createQuery("SELECT c FROM EntityCategories c Where c.isDelete=" + false + "").setMaxResults(max).setFirstResult(start).getResultList();
+//            return em.createQuery("SELECT c FROM EntityCategories c Where c.isDelete=" + false + "").setMaxResults(max).setFirstResult(start).getResultList();
+            String sql = "from EntityCategories c where c.isDelete = :isDelete";
+            Query query = em.createQuery(sql);
+            query.setParameter("isDelete", false);
+            return (List<EntityCategories>) query.setMaxResults(max).setFirstResult(start).getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -103,9 +107,13 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     @Override
     public List<EntityCategories> searchCategories(String search, int max, int start) {
         try {
-            return em.createQuery("SELECT c FROM EntityCategories c "
-                    + " WHERE(c.categoriesName Like \'" + search.toLowerCase() + "%\' "
-                    + " ) ").setMaxResults(max).setFirstResult(start).getResultList();
+//            return em.createQuery("SELECT c FROM EntityCategories c "
+//                    + " WHERE(c.categoriesName Like \'" + search.toLowerCase() + "%\' "
+//                    + " ) ").setMaxResults(max).setFirstResult(start).getResultList();
+            String sql = "from EntityCategories c where c.categoriesName Like :categoriesName ";
+            Query query = em.createQuery(sql);
+            query.setParameter("categoriesName", search.toLowerCase() + "%");
+            return (List<EntityCategories>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -127,7 +135,11 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     @Override
     public List<EntityCategories> findWithCategoriesName(String categoriesName) {
         try {
-            return em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getResultList();
+//            return em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getResultList();
+            String sql = "SELECT c FROM EntityCategories c WHERE c.categoriesName = :categoriesName";
+            Query query = em.createQuery(sql);
+            query.setParameter("categoriesName", categoriesName);
+            return (List<EntityCategories>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -138,7 +150,11 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     @Override
     public List<EntityCategories> findByCategoriesName(String varName) {
         try {
-            return em.createQuery("SELECT Distinct c.categoriesName  FROM EntityCategories c WHERE c.categoriesName LIKE \"" + varName + "%\" ").getResultList();
+//            return em.createQuery("SELECT Distinct c.categoriesName  FROM EntityCategories c WHERE c.categoriesName LIKE \"" + varName + "%\" ").getResultList();
+            String sql = "SELECT Distinct c.categoriesName FROM EntityCategories c WHERE c.categoriesName LIKE :varName ";
+            Query query = em.createQuery(sql);
+            query.setParameter("varName", varName + "%");
+            return (List<EntityCategories>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -170,7 +186,11 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     @Override
     public EntityCategories findCategoriesName(String categoriesName) {
         try {
-            return (EntityCategories) em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getSingleResult();
+//            return (EntityCategories) em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getSingleResult();
+            String sql = "SELECT c FROM EntityCategories c WHERE c.categoriesName = :categoriesName";
+            Query query = em.createQuery(sql);
+            query.setParameter("categoriesName", categoriesName);
+            return (EntityCategories) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());

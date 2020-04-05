@@ -42,11 +42,11 @@ public class EntityAsetRequisition implements Serializable {
     private Integer jmlAngka;
     @Column(name = "jml_permintaan", nullable = true)
     private Integer jmlPermintaan;
-    
+
     @Temporal(TemporalType.DATE)
     @Column(name = "tanggal_permintaan")
     private Date tanggalPermintaan;
-    
+
     @Column(name = "jam_permintaan", nullable = true)
     private String jamPermintaan;
     @Column(name = "tgl_approve")
@@ -91,7 +91,22 @@ public class EntityAsetRequisition implements Serializable {
     }
 
     public void setDepartemen(String departemen) {
-        this.departemen = departemen;
+        this.departemen = departemen.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getPemohon() {
@@ -163,7 +178,22 @@ public class EntityAsetRequisition implements Serializable {
     }
 
     public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
+        this.keterangan = keterangan.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public Long getTypeReqId() {
@@ -173,8 +203,6 @@ public class EntityAsetRequisition implements Serializable {
     public void setTypeReqId(Long typeReqId) {
         this.typeReqId = typeReqId;
     }
-
-    
 
     @Override
     public int hashCode() {

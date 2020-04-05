@@ -27,20 +27,23 @@ public interface EntitySuppliersFacadeLocal {
     EntitySuppliers getSuppliers(long supplierId);
 
     List<EntitySuppliers> getAllSuppliers(int max, int start);
-    
-    List<EntitySuppliers> searchSuppliers(String search,int max, int start);
 
-    List<EntitySuppliers> getSupplierName(String supplierName);
+    List<EntitySuppliers> searchSuppliers(String search, int max, int start);
+
+    EntitySuppliers getSupplierName(String supplierName);
+
+    List<EntitySuppliers> listSupplierName(String supplierName);
 
     List<EntitySuppliers> getSupplierCode(String supplierCode);
 
-    List<EntitySuppliers> findByStatusActive(Long supplier_id);
+//    List<EntitySuppliers> findByStatusActive(Long supplier_id);
+    EntitySuppliers findByStatusActive(Long supplier_id);
 
     List<EntitySuppliers> findBySupplierCode(String pramString);
 
     List<EntitySuppliers> findBySupplierName(String supplierName);
 
-    List<EntitySuppliers> findWithParam(String param1, String param2);
+    EntitySuppliers findWithParam(String param1, String param2);
 
 //    List<EntityStock> findWithMinimumStock(int minimumStock);
     EntitySuppliers find(Object paramObject);

@@ -41,7 +41,7 @@ public class EntityProductSell implements Serializable {
     private EntitySells sellId;
 
     @ManyToOne
-    @JoinColumn(name = "id_product", referencedColumnName = "idProduct")
+    @JoinColumn(name = "id_product", referencedColumnName = "id_product")
     private EntityProducts idProduct;
 
     @Column(name = "qtty")

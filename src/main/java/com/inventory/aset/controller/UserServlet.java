@@ -5,9 +5,9 @@
  */
 package com.inventory.aset.controller;
 
-import com.inventory.aset.entity.users.EntityUserRoles;
-import com.inventory.aset.entity.users.EntityUserRolesPK;
-import com.inventory.aset.entity.users.EntityUsers;
+import com.inventory.aset.model.users.EntityUserRoles;
+import com.inventory.aset.model.users.EntityUserRolesPK;
+import com.inventory.aset.model.users.EntityUsers;
 import com.inventory.aset.controller.util.EncryptionUtil;
 import java.io.IOException;
 import java.io.PrintWriter;

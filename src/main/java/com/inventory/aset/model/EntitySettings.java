@@ -27,10 +27,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_settings")
 @NamedQueries({
-    @NamedQuery(name = "Settings.findAll", query = "SELECT s FROM EntitySettings s")
-    , 
-    @NamedQuery(name = "Settings.findByIdSetting", query = "SELECT s FROM EntitySettings s WHERE s.idSetting = :idSetting")
-    ,
+    @NamedQuery(name = "Settings.findAll", query = "SELECT s FROM EntitySettings s"),
+    @NamedQuery(name = "Settings.findByIdSetting", query = "SELECT s FROM EntitySettings s WHERE s.idSetting = :idSetting"),
     @NamedQuery(name = "Settings.findByParamName", query = "SELECT s FROM EntitySettings s WHERE s.paramName = :paramName")})
 public class EntitySettings implements Serializable {
 
@@ -91,7 +89,22 @@ public class EntitySettings implements Serializable {
     }
 
     public void setParamName(String paramName) {
-        this.paramName = paramName;
+        this.paramName = paramName.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getValue() {
@@ -99,7 +112,22 @@ public class EntitySettings implements Serializable {
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.value = value.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getDescription() {
@@ -107,7 +135,22 @@ public class EntitySettings implements Serializable {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public boolean isIsDelete() {
@@ -142,7 +185,6 @@ public class EntitySettings implements Serializable {
         this.createdTime = createdTime;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;

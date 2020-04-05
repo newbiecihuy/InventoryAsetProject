@@ -28,10 +28,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_categories")
 @NamedQueries({
-    @NamedQuery(name = "EntityCategories.findAll", query = "SELECT c FROM EntityCategories c")
-    ,
-    @NamedQuery(name = "EntityCategories.findBycategoryId", query = "SELECT c FROM EntityCategories c WHERE c.categoryId = :categoryId")
-    , 
+    @NamedQuery(name = "EntityCategories.findAll", query = "SELECT c FROM EntityCategories c"),
+    @NamedQuery(name = "EntityCategories.findBycategoryId", query = "SELECT c FROM EntityCategories c WHERE c.categoryId = :categoryId"),
     @NamedQuery(name = "EntityCategories.findBycategoriesName", query = "SELECT c FROM EntityCategories c WHERE c.categoriesName = :categoriesName")
 })
 public class EntityCategories implements Serializable {
@@ -94,7 +92,22 @@ public class EntityCategories implements Serializable {
     }
 
     public void setCategoriesName(String categoriesName) {
-        this.categoriesName = categoriesName;
+        this.categoriesName = categoriesName.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public Date getCreatedDate() {
@@ -118,7 +131,22 @@ public class EntityCategories implements Serializable {
     }
 
     public void setCategoryDesc(String categoryDesc) {
-        this.categoryDesc = categoryDesc;
+        this.categoryDesc = categoryDesc.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public Date getUpdatedDate() {

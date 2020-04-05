@@ -31,7 +31,7 @@ public interface EntityProductsFacadeLocal {
 
     List<EntityProducts> serachProducts(String search, int max, int start);
 
-    List<EntityProducts> getSku(long paramName);
+    EntityProducts getSku(long paramName);
 
     List<EntityProducts> findByProductName(String pramString);
 
@@ -43,7 +43,7 @@ public interface EntityProductsFacadeLocal {
 
     List<EntityProducts> findWithProductNameSuplier(String paramName, long paramLong);
 
-    List<EntityProducts> findByProductActiveBySup(Long supplier_id);
+    EntityProducts findByProductActiveBySup(Long supplier_id);
 
     List<EntityProducts> findBySuplierId(Long paramLong);
 
@@ -54,7 +54,7 @@ public interface EntityProductsFacadeLocal {
 
     List<EntityProducts> listItemBySuplierId(Long paramSupId);
 
-    List<EntityProducts> getItemDetails(Long paramLong, String paramString);
+    EntityProducts getItemDetails(Long paramLong, String paramString);
 
     EntityProducts find(Object paramObject);
 

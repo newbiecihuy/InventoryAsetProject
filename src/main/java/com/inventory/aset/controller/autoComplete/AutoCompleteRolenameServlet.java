@@ -6,7 +6,7 @@
 package com.inventory.aset.controller.autoComplete;
 
 import com.google.gson.Gson;
-import com.inventory.aset.entity.users.EntityUsers;
+import com.inventory.aset.model.users.EntityUsers;
 import com.inventory.aset.controller.util.EncryptionUtil;
 import java.io.IOException;
 import java.io.PrintWriter;

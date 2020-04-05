@@ -115,7 +115,7 @@ public class DataSupplierServlet extends HttpServlet {
                 param = supplier_name;
             }
 //            System.out.println("supplier_code: " + supplier_code);
-            List<EntitySuppliers> dataSuppliers = entitySupplierDao.getSupplierName(param);//null;
+            List<EntitySuppliers> dataSuppliers = entitySupplierDao.listSupplierName(param);//null;
             JSONArray jsonArray = new JSONArray();
             JSONObject obj = new JSONObject();
 
