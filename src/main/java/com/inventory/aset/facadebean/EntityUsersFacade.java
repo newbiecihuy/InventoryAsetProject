@@ -81,7 +81,7 @@ public class EntityUsersFacade extends AbstractFacade<EntityUsers> implements En
     public List<EntityUsers> checkUsers(String userName, String passWord) {
         return em.createQuery("SELECT us.id FROM EntityUsers us WHERE us.userPass = :passWord AND "
                 + " us.userName = :userName  AND "
-                + " us.isActive =\"" + "1" + "\" ")
+                + " us.isActive =\"" + true + "\" ")
                 .setParameter("userName", userName)                
                 .setParameter("passWord", passWord)
                 .getResultList();

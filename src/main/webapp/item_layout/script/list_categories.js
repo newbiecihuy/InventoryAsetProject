@@ -58,21 +58,6 @@ $(document).ready(function () {
                 visible: true,
                 searchable: true
             }, {
-                data: "is_delete",
-                targets: "is_delete",
-                bAutoWidth: true,
-                visible: true,
-                searchable: true,
-                mRender: function (data_sup, type_sup, row_sup) {
-                    if (data_sup === '1') {
-                        return "NActive";
-                    }
-                    if (data_sup === '0') {
-                        return "Active";
-                    }
-
-                }
-            }, {
                 data: "create_date",
                 targets: "create_date",
                 bAutoWidth: true,
@@ -84,6 +69,21 @@ $(document).ready(function () {
                 bAutoWidth: true,
                 visible: true,
                 searchable: true
+            }, {
+                data: "is_delete",
+                targets: "is_delete",
+                bAutoWidth: true,
+                visible: true,
+                searchable: true,
+                mRender: function (data_sup, type_sup, row_sup) {
+                    if (data_sup === '0') {
+                        return "<a class='btn btn-danger'>NActive";
+                    }
+                    if (data_sup === '1') {
+                        return "<a class='btn btn-success'>Active";
+                    }
+
+                }
             }, {
                 data: "action_category",
                 targets: "action_category",

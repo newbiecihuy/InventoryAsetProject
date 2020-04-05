@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -55,14 +56,22 @@ public class EntityCategories implements Serializable {
     private Date updatedDate;
     @Column(name = "updated_time")
     private String updatedTime;
+    @Column(name = "status_item")
+    private int status_item;
     @Column(name = "is_delete")
-    private boolean isDelete = false;
+    private boolean isDelete;
 
     @Column(name = "pic")
     private String pic;
 
     @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "categoryId")
     private Collection<EntityProducts> entityProducts;
+
+    @PrePersist
+    public void prePersist() {
+        isDelete = false;
+        status_item = 1;
+    }
 
     public EntityCategories() {
     }
@@ -163,6 +172,14 @@ public class EntityCategories implements Serializable {
 
     public void setUpdatedTime(String updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    public int getStatus_item() {
+        return status_item;
+    }
+
+    public void setStatus_item(int status_item) {
+        this.status_item = status_item;
     }
 
     public boolean isIsDelete() {

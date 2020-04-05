@@ -118,13 +118,12 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
                     + " WHERE ep.productName LIKE :productName "
                     + " OR ep.productCode LIKE :productCode "
                     + " OR ep.supplierId.supplierName LIKE :supplierName "
-                    + " OR ep.categoryId.categoriesName LIKE  :categoriesName "
-                    + " OR ep.status_item = :status_item ")
+                    + " OR ep.categoryId.categoriesName LIKE :categoriesName "
+                    + " OR ep.status_item = \"" + EncryptionUtil.getStatus(search.toLowerCase()) + "\"")
                     .setParameter("productName", search.toLowerCase() + "%")
                     .setParameter("productCode", search.toLowerCase() + "%")
                     .setParameter("supplierName", search.toLowerCase() + "%")
                     .setParameter("categoriesName", search.toLowerCase() + "%")
-                    .setParameter("status_item", EncryptionUtil.getStatus(search.toLowerCase()))
                     .setMaxResults(max).setFirstResult(start).getResultList();
 //            String sql = "SELECT ep FROM EntityProducts ep WHERE "
 //                    + " LOWER(ep.productName) Like :productName "

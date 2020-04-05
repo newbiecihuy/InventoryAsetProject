@@ -97,7 +97,7 @@ public class EntityStockFacade extends AbstractFacade<EntityStock> implements En
 //            return em.createQuery("SELECT ep  FROM EntityStock ep  WHERE ep.idProduct.idProduct =  \"" + idProduct + "\"").getResultList();
             String sql = "SELECT ep  FROM EntityStock ep  WHERE ep.idProduct.idProduct =  = :idProduct";
             Query query = em.createQuery(sql);
-            query.setParameter("idProduct", idProduct);
+            query.setParameter("idProduct", Long.parseLong(idProduct.toString()));
             return (List<EntityStock>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);

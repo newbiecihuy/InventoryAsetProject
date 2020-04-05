@@ -35,10 +35,10 @@
                                 <tr>
                                     <th class="no">No.</th>
                                     <th class="category_id">Id</th>
-                                    <th class="name_categories">Category</th>         
-                                    <th class="is_delete">Status</th> 
+                                    <th class="name_categories">Category</th>   
                                     <th class="create_date">Create Date</th> 
                                     <th class="pic">pic</th>      
+                                    <th class="is_delete">Status</th> 
                                     <th class="action_category">Action</th>  
                                 </tr>
                             </thead>

@@ -177,11 +177,16 @@ public class CategoryServlet extends HttpServlet {
                     } else {
                         obj.put("pic", EncryptionUtil.upperCaseFirst(dataCategories.getPic()));
                     }
-                    if (!dataCategories.isIsDelete()) {
+                    if (dataCategories.getStatus_item() == 0) {
                         obj.put("is_delete", "0");
                     } else {
                         obj.put("is_delete", "1");
                     }
+//                    if (!dataCategories.isIsDelete()) {
+//                        obj.put("is_delete", "0");
+//                    } else {
+//                        obj.put("is_delete", "1");
+//                    }
                     jsonArray.add(obj);
                 }
             }

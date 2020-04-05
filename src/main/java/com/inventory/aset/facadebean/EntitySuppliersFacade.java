@@ -98,11 +98,10 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
                     + "  enSuppliers.supplierName LIKE :supplierName "
                     + " OR enSuppliers.supplierCode  LIKE :supplierCode "
                     + " OR enSuppliers.contactName LIKE :contactName "
-                    + " OR enSuppliers.isActive = :isActive")
+                    + " OR enSuppliers.isActive  = \"" + EncryptionUtil.getStatus(search.toLowerCase()) + "\"")
                     .setParameter("supplierName", search.toLowerCase() + "%")
                     .setParameter("supplierCode", search.toLowerCase() + "%")
                     .setParameter("contactName", search.toLowerCase() + "%")
-                    .setParameter("isActive",EncryptionUtil.getStatus(search.toLowerCase()))
                     .setMaxResults(max).setFirstResult(start).getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);

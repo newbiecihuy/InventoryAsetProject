@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.EncryptionUtil;
 import com.inventory.aset.controller.util.LogSystem;
 import com.inventory.aset.model.EntityCategories;
 import java.util.List;
@@ -107,13 +108,13 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     @Override
     public List<EntityCategories> searchCategories(String search, int max, int start) {
         try {
-//            return em.createQuery("SELECT c FROM EntityCategories c "
-//                    + " WHERE(c.categoriesName Like \'" + search.toLowerCase() + "%\' "
-//                    + " ) ").setMaxResults(max).setFirstResult(start).getResultList();
-            String sql = "from EntityCategories c where c.categoriesName Like :categoriesName ";
-            Query query = em.createQuery(sql);
-            query.setParameter("categoriesName", search.toLowerCase() + "%");
-            return (List<EntityCategories>) query.getResultList();
+            return em.createQuery("SELECT c FROM EntityCategories c "
+                    + " WHERE LOWER(c.categoriesName) Like :categoriesName "
+                    + " OR  LOWER(c.pic) LIKE :pic "
+                    + " OR  c.status_item = \"" + EncryptionUtil.isStatus(search.toLowerCase()) + "\" ")
+                    .setParameter("categoriesName", search.toLowerCase() + "%")
+                    .setParameter("pic", search.toLowerCase() + "%")
+                    .setMaxResults(max).setFirstResult(start).getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -136,9 +137,9 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     public List<EntityCategories> findWithCategoriesName(String categoriesName) {
         try {
 //            return em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getResultList();
-            String sql = "SELECT c FROM EntityCategories c WHERE c.categoriesName = :categoriesName";
+            String sql = "SELECT c FROM EntityCategories c WHERE LOWER(c.categoriesName)= :categoriesName";
             Query query = em.createQuery(sql);
-            query.setParameter("categoriesName", categoriesName);
+            query.setParameter("categoriesName", categoriesName.toLowerCase());
             return (List<EntityCategories>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
@@ -155,6 +156,21 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
             Query query = em.createQuery(sql);
             query.setParameter("varName", varName + "%");
             return (List<EntityCategories>) query.getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public EntityCategories findCategoriesName(String categoriesName) {
+        try {
+//            return (EntityCategories) em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getSingleResult();
+            String sql = "SELECT c FROM EntityCategories c WHERE c.categoriesName = :categoriesName";
+            Query query = em.createQuery(sql);
+            query.setParameter("categoriesName", categoriesName.toLowerCase());
+            return (EntityCategories) query.getSingleResult();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -183,18 +199,4 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
 //    protected EntityManager getEntityManager() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-    @Override
-    public EntityCategories findCategoriesName(String categoriesName) {
-        try {
-//            return (EntityCategories) em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getSingleResult();
-            String sql = "SELECT c FROM EntityCategories c WHERE c.categoriesName = :categoriesName";
-            Query query = em.createQuery(sql);
-            query.setParameter("categoriesName", categoriesName);
-            return (EntityCategories) query.getResultList();
-        } catch (Exception ex) {
-            LogSystem.error(getClass(), ex);
-            System.out.println("ERROR: " + ex.getMessage());
-        }
-        return null;
-    }
 }

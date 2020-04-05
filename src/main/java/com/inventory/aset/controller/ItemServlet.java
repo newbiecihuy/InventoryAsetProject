@@ -540,16 +540,17 @@ public class ItemServlet extends HttpServlet {
                     } else {
                         product_code = "";
                     }
+
+                    if (!object.getString("category_id").isEmpty()) {
+                        categori_id = Long.parseLong(object.getString("category_id").trim().replaceAll("['\":<>\\[\\],-]", ""));
+                    } else {
+                        categori_id = 0l;
+                    }
                     if (!object.getString("categories_name").isEmpty()) {
                         categories_name = object.getString("categories_name");
 
                     } else {
                         categories_name = "";
-                    }
-                    if (!object.getString("category_id").isEmpty()) {
-                        categori_id = Long.parseLong(object.getString("category_id").trim().replaceAll("['\":<>\\[\\],-]", ""));
-                    } else {
-                        categori_id = 0l;
                     }
                     if (!object.getString("supplier_name").isEmpty()) {
                         supplier_name = object.getString("supplier_name");

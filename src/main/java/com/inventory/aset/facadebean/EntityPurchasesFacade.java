@@ -80,7 +80,7 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
                 + " OR ep.invoiceTo Like :invoiceTo "
                 + " OR ep.deliveryPoint Like  :deliveryPoint "
                 + " OR ep.appproveBy Like :appproveBy "
-                + " OR ep.isApprove = :isApprove ";
+                + " OR ep.isApprove = \"" + EncryptionUtil.getStatus(search.toLowerCase()) + "\"";
         Query query = em.createQuery(sql);
         query.setParameter("purchaseCode", search.toLowerCase() + "%");
         query.setParameter("supplierName", search.toLowerCase() + "%");
@@ -88,7 +88,6 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
         query.setParameter("invoiceTo", search.toLowerCase() + "%");
         query.setParameter("deliveryPoint", search.toLowerCase() + "%");
         query.setParameter("appproveBy", search.toLowerCase() + "%");
-        query.setParameter("isApprove", EncryptionUtil.getStatus(search.toLowerCase()));
         return (List<EntityPurchases>) query.setMaxResults(max).setFirstResult(start).getResultList();
     }
 

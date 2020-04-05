@@ -128,14 +128,15 @@ $(document).ready(function () {
                         supplier_id: va_supplier_id
                     };
                     if (data_sup === 0) {
-                        return "<a href='#'><font color='c89907',font-weight: 900;>"+"Waiting"+"</font></a>";  //Not Approved
+//                        return "<a href='#'><font color='c89907',font-weight: 900;>"+"Waiting"+"</font></a>";  //Not Approved
+                        return "<a href='#'><font class='btn btn-warning'>" + "Waiting" + "</font></a>";  //Not Approved
                     }
                     if (data_sup === 1) {
-                        return "<a href='#'><font color='0bbc43',font-weight: 900;>"+"Approved"+"</font></a>";
+                        return "<a href='#'><font class='btn btn-success'>" + "Approved" + "</font></a>";
 //                        return"<a href='#' onclick='javascript:suplierExcelReport(" + JSON.stringify(data_record_supplier) + ")' >" + "Active" + "</a>";
                     }
                     if (data_sup === 2) {
-                        return"<a href='#'><font color='d50808',font-weight: 900;>"+"Rejected"+"</font></a>";
+                      return"<a href='#'><font class='btn btn-danger'>" + "Rejected" + "</font></a>";
                     }
                 }
             }, {
@@ -175,18 +176,18 @@ $(document).ready(function () {
                             status_supp: va_status_supp
                         };
 //                        alert(JSON.stringify(data_supplier.status_supp));
-						// alert(va_status_supp);
+                        // alert(va_status_supp);
                         if (va_status_supp === 1) {
                             return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                <a id='updateDataSupp' href='#' onclick='javascript:editSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
                                <a id='deleteDataSupp' href='#' onclick='javascript:deleteSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-trash ' title='Delete'></i></a>";
-                        } else if (va_status_supp ===  0 ) {//|| va_status_supp === 2
+                        } else if (va_status_supp === 0) {//|| va_status_supp === 2
                             return"<a href='#'><i class='fa fa-square-o' title='active'></i></a>\n\
                                <a id='updateDataSupp' href='#' onclick='javascript:editSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
                                <a id='deleteDataSupp' href='#' onclick='javascript:deleteSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-trash ' title='Delete'></i></a>";
 
                         } else if (va_status_supp === 2) {
-                              return"<a href='#'><i class='fa fa-square-o' title='active'></i></a>\n\
+                            return"<a href='#'><i class='fa fa-square-o' title='active'></i></a>\n\
                                <a id='updateDataSupp' href='#' onclick='javascript:editSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-edit'title='Edit'></i></a>\n\
                                <a id='deleteDataSupp' href='#' onclick='javascript:deleteSupplierFunc(" + JSON.stringify(data_supplier) + ")'><i class='fa fa-trash ' title='Delete'></i></a>";
 
@@ -208,7 +209,7 @@ $(document).ready(function () {
 //        alert(data.supplier_id);
         if (data.supplier_id !== null) {
 //            alert("data.supplier_id");
-        }else{
+        } else {
             alert("selected rows");
         }
         var id = this.id;

@@ -181,10 +181,21 @@ public class EncryptionUtil {
         if (param.equalsIgnoreCase("waiting") || param.equalsIgnoreCase("wai") || param.equalsIgnoreCase("wait")) {
             value = 0;
         }
-        if (param.equalsIgnoreCase("approved")  || param.equalsIgnoreCase("ap")  || param.equalsIgnoreCase("app") || param.equalsIgnoreCase("appr") || param.equalsIgnoreCase("apr") || param.equalsIgnoreCase("appro")|| param.equalsIgnoreCase("approv")) {
+        if (param.equalsIgnoreCase("approved") || param.equalsIgnoreCase("ap") || param.equalsIgnoreCase("app") || param.equalsIgnoreCase("appr") || param.equalsIgnoreCase("apr") || param.equalsIgnoreCase("appro") || param.equalsIgnoreCase("approv")) {
             value = 1;
         }
         if (param.equalsIgnoreCase("Rejected") || param.equalsIgnoreCase("rej") || param.equalsIgnoreCase("reje") || param.equalsIgnoreCase("rejec") || param.equalsIgnoreCase("reject")) {
+            value = 2;
+        }
+        return value.toString();
+    }
+
+    public static String isStatus(String param) {
+        Integer value = null;
+        if (param.equalsIgnoreCase("active") || param.equalsIgnoreCase("ac") || param.equalsIgnoreCase("act") || param.equalsIgnoreCase("acti")) {
+            value = 1;
+        }
+        if (param.equalsIgnoreCase("nactive") || param.equalsIgnoreCase("na") || param.equalsIgnoreCase("nac") || param.equalsIgnoreCase("nact") || param.equalsIgnoreCase("nacti")) {
             value = 2;
         }
         return value.toString();
