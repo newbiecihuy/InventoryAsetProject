@@ -109,20 +109,20 @@ public class DataSupplierCodeServlet extends HttpServlet {
             for (int i = 0; i < dataSuppliers.size(); i++) {
                 EntitySuppliers entitySuppliers = (EntitySuppliers) dataSuppliers.get(i);
 
-                if (entitySuppliers.getSupplierId() == null) {
+                if (entitySuppliers.getPartnerId()== null) {
                     obj.put("supplier_id", "");
                 } else {
-                    obj.put("supplier_id", entitySuppliers.getSupplierId());
+                    obj.put("supplier_id", entitySuppliers.getPartnerId());
                 }
-                if (entitySuppliers.getSupplierName() == null) {
+                if (entitySuppliers.getName()== null) {
                     obj.put("supplier_name", "");
                 } else {
-                    obj.put("supplier_name", EncryptionUtil.upperCaseFirst(entitySuppliers.getSupplierName()));
+                    obj.put("supplier_name", EncryptionUtil.upperCaseFirst(entitySuppliers.getName()));
                 }
-                if (entitySuppliers.getSupplierCode() == null) {
+                if (entitySuppliers.getPartnerCode()== null) {
                     obj.put("supplier_code", "");
                 } else {
-                    obj.put("supplier_code", EncryptionUtil.upperCaseFirst(entitySuppliers.getSupplierCode()));
+                    obj.put("supplier_code", EncryptionUtil.upperCaseFirst(entitySuppliers.getPartnerCode()));
                 }
                 if (entitySuppliers.isTax()) {
                     obj.put("tax", "1");

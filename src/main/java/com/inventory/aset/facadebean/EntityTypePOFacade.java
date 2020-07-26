@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import com.inventory.aset.model.EntityTypePO;
 import java.util.List;
 import javax.ejb.Stateful;
@@ -20,7 +21,7 @@ import javax.persistence.Query;
 @Stateful
 public class EntityTypePOFacade extends AbstractFacade<EntityTypePO> implements EntityTypePOFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+   @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntityTypePOFacade() {

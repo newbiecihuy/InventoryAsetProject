@@ -122,9 +122,9 @@
             <li>
                 <a href="#" class="dropdown-toggle font-cl"><i class="fa fa-list fa-fw"></i> Stock Manager<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level submenu">
-                    <li class="has-spinner" >
+<!--                    <li class="has-spinner" >
                         <a href="index.jsp?url=item_layout&pages=add_stock_item" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> Add Stock &#40; Raw Material &#41;</a>
-                    </li>
+                    </li>-->
                     <li class="has-spinner" >
                         <a href="index.jsp?url=item_layout&pages=list_stock_item" class="font-cl has-spinner"><span class="spinner"><i class="fa fa fa-circle-o-notch fa-spin" style="font-size:14px;color:#3399ff"></i></span> View Stock &#40; Raw Material &#41;</a>
                     </li>

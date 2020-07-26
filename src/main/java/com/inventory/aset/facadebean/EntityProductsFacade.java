@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import com.inventory.aset.controller.util.EncryptionUtil;
 import com.inventory.aset.controller.util.LogSystem;
 import com.inventory.aset.model.EntityProducts;
@@ -23,7 +24,7 @@ import javax.persistence.Query;
 @Stateless
 public class EntityProductsFacade extends AbstractFacade<EntityProducts> implements EntityProductsFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+    @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntityProductsFacade() {
@@ -104,6 +105,51 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
             query.setParameter("isDelete", false);
             query.setParameter("catDelete", false);
             return (List<EntityProducts>) query.setMaxResults(max).setFirstResult(start).getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<EntityProducts> getAllProductsRaw(int max, int start) {
+//        return em.createNamedQuery("EntityProducts.findAll").getResultList();
+        try {
+//            return em.createQuery("SELECT ep FROM EntityProducts ep Where ep.isDelete =" + false + " AND  ep.categoryId.isDelete =" + false + "").setMaxResults(max).setFirstResult(start).getResultList();
+            String sql = "SELECT ep FROM EntityProducts ep Where ep.isDelete = :isDelete "
+                    + " AND ep.categoryId.isDelete = :catDelete "
+                    + " AND ep.isApprove = 1";
+            Query query = em.createQuery(sql);
+            query.setParameter("isDelete", false);
+            query.setParameter("catDelete", false);
+            return (List<EntityProducts>) query.setMaxResults(max).setFirstResult(start).getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<EntityProducts> serachProductsRaw(String search, int max, int start) {
+        try {
+            return em.createQuery("SELECT ep FROM EntityProducts ep "
+                    + " WHERE ep.productName LIKE :productName "
+                    + " OR ep.productCode LIKE :productCode "
+                    + " OR ep.supplierId.supplierName LIKE :supplierName "
+                    + " OR ep.categoryId.categoriesName LIKE :categoriesName "
+                    + " OR ep.status_item = \"" + EncryptionUtil.getStatus(search.toLowerCase()) + "\" "
+                    + " AND ep.isDelete = :isDelete "
+                    + " AND ep.categoryId.isDelete = :catDelete "
+                    + " AND ep.isApprove = 1")
+                    .setParameter("productName", search.toLowerCase() + "%")
+                    .setParameter("productCode", search.toLowerCase() + "%")
+                    .setParameter("supplierName", search.toLowerCase() + "%")
+                    .setParameter("categoriesName", search.toLowerCase() + "%")
+                    .setParameter("isDelete", false)
+                    .setParameter("catDelete", false)
+                    .setMaxResults(max).setFirstResult(start).getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -259,7 +305,7 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
 //                    + " ep.supplierId.supplierId =  \"" + paramLong + "\" "
 //                    + " AND " + " ep.status_item =  \"" + 1 + "\"").getResultList();
             String sql = "SELECT Distinct ep.productName  FROM EntityProducts ep WHERE ep.supplierId.supplierId = :supplierId "
-                    + "A ND ep.status_item= :status_item ";
+                    + " AND ep.status_item= :status_item ";
             Query query = em.createQuery(sql);
             query.setParameter("supplierId", paramLong);
             query.setParameter("status_item", 1);
@@ -334,19 +380,18 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
     }
 
     @Override
-    public EntityProducts getItemDetails(Long paramLong, String paramString) {
+    public List<EntityProducts> getItemDetails(Long paramLong, String paramString) {
         try {
 //            return em.createQuery("SELECT  ep  FROM EntityProducts ep WHERE "
 //                    + " ep.supplierId.supplierId =  \"" + paramLong + "\" "
 //                    + " AND ep.productName=  \"" + paramString + "\"").getResultList();
 
             String sql = "FROM EntityProducts ep WHERE ep.supplierId.supplierId = :supplierId "
-                    + "AND ep.productName= :productName ";
+                    + "AND ep.productName LIKE :productName ";
             Query query = em.createQuery(sql);
             query.setParameter("supplierId", paramLong);
-            query.setParameter("productName", paramString);
-
-            return (EntityProducts) query.getSingleResult();
+            query.setParameter("productName", "%" + paramString + "%");
+            return (List<EntityProducts>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());

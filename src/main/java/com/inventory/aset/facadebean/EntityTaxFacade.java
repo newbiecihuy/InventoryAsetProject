@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import com.inventory.aset.model.EntityTax;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -20,7 +21,7 @@ import javax.persistence.Query;
 @Stateless
 public class EntityTaxFacade extends AbstractFacade<EntityTax> implements EntityTaxFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+   @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntityTaxFacade() {

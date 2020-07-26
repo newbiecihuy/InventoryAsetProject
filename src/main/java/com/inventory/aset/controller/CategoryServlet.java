@@ -124,27 +124,30 @@ public class CategoryServlet extends HttpServlet {
             JSONArray jsonArray = new JSONArray();
             int no = Integer.parseInt(start) + 1;
             List<EntityCategories> categoriesList = null;
+
             if (searchString.isEmpty()) {
                 categoriesList = entityCategoriesFacadeLocal.getAllCategories(Integer.parseInt(length), Integer.parseInt(start));
             } else {
                 categoriesList = entityCategoriesFacadeLocal.searchCategories(searchString.toLowerCase(), Integer.parseInt(length), Integer.parseInt(start));
             }
+            
+            if (categoriesList.size() > 0) {
 
-            if (Integer.parseInt(length) <= categoriesList.size()) {
-                totalCount = categoriesList.size();
-                if (totalCount > 0) {
-                    if (totalCount % Integer.parseInt(length) == 0) {
-                        totalPages = totalCount / Integer.parseInt(length);
+                if (Integer.parseInt(length) <= categoriesList.size()) {
+                    totalCount = categoriesList.size();
+                    if (totalCount > 0) {
+                        if (totalCount % Integer.parseInt(length) == 0) {
+                            totalPages = totalCount / Integer.parseInt(length);
+                        } else {
+                            totalPages = totalCount / Integer.parseInt(length) + 1;
+                        }
                     } else {
-                        totalPages = totalCount / Integer.parseInt(length) + 1;
+                        totalPages = 0;
                     }
                 } else {
                     totalPages = 0;
                 }
-            } else {
-                totalPages = 0;
-            }
-            if (categoriesList.size() > 0) {
+// if (categoriesList.size() > 0) {
                 for (int i = 0; i < categoriesList.size(); i++) {
                     EntityCategories dataCategories = (EntityCategories) categoriesList.get(i);
                     JSONObject obj = new JSONObject();

@@ -7,6 +7,7 @@ package com.inventory.aset.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Pattern;
 
 /**
  *
@@ -43,7 +45,10 @@ public class EntityProtocol implements Serializable {
     private String smtpSocketFactoryClass;
     @Column(name = "smtp_port")
     private String smtpPort;
-    @Column(name = "email")
+    
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email Address")
+    @Basic(optional = false)
+    @Column(name = "email", unique = true)
     private String email;
     @Column(name = "email_pass")
     private String emailPass;

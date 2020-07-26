@@ -7,19 +7,20 @@ package com.inventory.aset.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -27,89 +28,43 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tbl_customer")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 80)
+@DiscriminatorValue("Customer")
 @NamedQueries({
-    @NamedQuery(name = "EntityCustomer.findAll", query = "SELECT m FROM EntityCustomer m")
-})
-public class EntityCustomer implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_customer", columnDefinition = "serial", nullable = false)
-    private Long idCutomer;
-
-    @Column(name = "cutomer_name")
-    private String cutomerName;
-
-    @Lob
-    @Column(name = "address", length = 512)
-    private String address;
-
-    @Basic(optional = false)
-    @Column(name = "contact_name", length = 100)
-    private String contactName;
-
-    @Basic(optional = false)
-    @Column(name = "contact_num", length = 30)
-    private String contactNum;
-
-    @Basic(optional = false)
-    @Column(name = "is_active")
-    private int isActive = 0;
-
-    @Basic(optional = false)
-    @Column(name = "tax")
-    private boolean tax = false;
-    @Column(name = "is_delete")
-    private boolean isDelete = false;
-    @Column(name = "pic")
-    private String pic;
-    @Basic(optional = false)
-    @Column(name = "created_date")
-    @Temporal(TemporalType.DATE)
-    private Date createdDate;
-    @Temporal(TemporalType.TIME)
-    @Column(name = "created_time")
-    private Date createdTime;
-
-    @PrePersist
-    void createdAt() {
-        this.createdDate = new Date();
-        this.createdTime = new Date();
-    }
+    @NamedQuery(name = "EntityCustomer.findAll", query = "SELECT ec FROM EntityCustomer ec"),
+    @NamedQuery(name = "EntityCustomer.findByStatusActive", query = "SELECT ec FROM EntityCustomer ec WHERE ec.partnerId = :customerId And ec.isActive = 1 And ec.patnerType =\"" + "Customer" + "\"")})
+public class EntityCustomer extends EntityPartner implements Serializable {
 
 //  @PreUpdate
 //  void updatedAt() {
 //    this.updatedAt = new Date();
 //  }
+    @Column(name = "uuid")
+    private String uuid;
+
+    @PrePersist
+    @Override
+    public void onCreate() {
+        this.patnerType = "Customer";
+        this.setUuid(UUID.randomUUID().toString());
+    }
+
     public EntityCustomer() {
     }
 
-    public EntityCustomer(Long idCutomer, String cutomerName, String address, String contactName, String contactNum, String pic, Date createdDate, Date createdTime) {
-        this.idCutomer = idCutomer;
-        this.cutomerName = cutomerName;
-        this.address = address;
-        this.contactName = contactName;
-        this.contactNum = contactNum;
-        this.pic = pic;
-        this.createdDate = createdDate;
-        this.createdTime = createdTime;
+    public EntityCustomer(String uuid, Long partnerId, String partnerCode, String name, String address, String contactName, String contactNum, Date inputDate, Date updatedDate, int isActive, boolean tax, boolean isDelete, List<EntityProducts> entityProducts, List<EntityDocument> entityDocument, String pic, String patnerType) {
+        super(partnerId, partnerCode, name, address, contactName, contactNum, inputDate, updatedDate, isActive, tax, isDelete, entityProducts, entityDocument, pic, patnerType);
+        this.uuid = uuid;
     }
 
-    public Long getIdCutomer() {
-        return idCutomer;
+   
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setIdCutomer(Long idCutomer) {
-        this.idCutomer = idCutomer;
-    }
-
-    public String getCutomerName() {
-        return cutomerName;
-    }
-
-    public void setCutomerName(String cutomerName) {
-        this.cutomerName = cutomerName.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+    public void setUuid(String uuid) {
+        this.uuid = uuid.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
                 .replaceAll("<script>(.*?)</script>", "")
                 .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
                 .replaceAll("(?i)<.*?\\s+on.*?/>", "")
@@ -125,6 +80,31 @@ public class EntityCustomer implements Serializable {
                 .replaceAll("eval\\((.*?)\\)", "")
                 .replaceAll("expression\\((.*?)\\)", "")
                 .replaceAll("['\":<>\\[\\],-]", "");
+    }
+
+    public String getPatnerType() {
+        return patnerType;
+    }
+
+    public void setPatnerType(String patnerType) {
+        this.patnerType = patnerType;
+    }
+
+    public Long getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(Long partnerId) {
+        this.partnerId = partnerId;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -132,22 +112,7 @@ public class EntityCustomer implements Serializable {
     }
 
     public void setAddress(String address) {
-        this.address = address.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
-                .replaceAll("<script>(.*?)</script>", "")
-                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
-                .replaceAll("vbscript", "")
-                .replaceAll("encode", "")
-                .replaceAll("decode", "")
-                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
-                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
-                .replaceAll("</script>", "")
-                .replaceAll("<script(.*?)>", "")
-                .replaceAll("eval\\((.*?)\\)", "")
-                .replaceAll("expression\\((.*?)\\)", "")
-                .replaceAll("['\":<>\\[\\],-]", "");
+        this.address = address;
     }
 
     public String getContactName() {
@@ -164,6 +129,22 @@ public class EntityCustomer implements Serializable {
 
     public void setContactNum(String contactNum) {
         this.contactNum = contactNum;
+    }
+
+    public Date getInputDate() {
+        return inputDate;
+    }
+
+    public void setInputDate(Date inputDate) {
+        this.inputDate = inputDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     public int getIsActive() {
@@ -190,6 +171,22 @@ public class EntityCustomer implements Serializable {
         this.isDelete = isDelete;
     }
 
+    public List<EntityProducts> getEntityProducts() {
+        return entityProducts;
+    }
+
+    public void setEntityProducts(List<EntityProducts> entityProducts) {
+        this.entityProducts = entityProducts;
+    }
+
+    public List<EntityDocument> getEntityDocument() {
+        return entityDocument;
+    }
+
+    public void setEntityDocument(List<EntityDocument> entityDocument) {
+        this.entityDocument = entityDocument;
+    }
+
     public String getPic() {
         return pic;
     }
@@ -198,26 +195,10 @@ public class EntityCustomer implements Serializable {
         this.pic = pic;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCutomer != null ? idCutomer.hashCode() : 0);
+        hash += (partnerId != null ? partnerId.hashCode() : 0);
         return hash;
     }
 
@@ -228,12 +209,12 @@ public class EntityCustomer implements Serializable {
             return false;
         }
         EntityCustomer other = (EntityCustomer) object;
-        return !((this.idCutomer == null && other.idCutomer != null) || (this.idCutomer != null && !this.idCutomer.equals(other.idCutomer)));
+        return !((this.partnerId == null && other.partnerId != null) || (this.partnerId != null && !this.partnerId.equals(other.partnerId)));
     }
 
     @Override
     public String toString() {
-        return "com.inventory.aset.model.EntityCutomer[ idCutomer=" + idCutomer + " ]";
+        return "com.inventory.aset.model.EntityCutomer[ partnerId=" + partnerId + " ]";
     }
 
 }

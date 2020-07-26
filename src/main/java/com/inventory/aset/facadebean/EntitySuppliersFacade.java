@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import com.inventory.aset.controller.util.EncryptionUtil;
 import com.inventory.aset.controller.util.LogSystem;
 import com.inventory.aset.model.EntitySuppliers;
@@ -22,7 +23,7 @@ import javax.persistence.Query;
 @Stateless
 public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> implements EntitySuppliersFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+    @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntitySuppliersFacade() {
@@ -47,6 +48,7 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     @Override
     public void deleteSuppliers(EntitySuppliers dataSupplier) {
         try {
+            dataSupplier.setIsDelete(true);
             em.merge(dataSupplier);
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
@@ -56,7 +58,6 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 
     @Override
     public void removeSuppliers(long paramLong) {
-
         em.remove(getSuppliers(paramLong));
     }
 
@@ -76,7 +77,8 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 //        return em.createNamedQuery("EntitySuppliers.findAll").getResultList();
         try {
 //            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers where enSuppliers.isDelete =" + false + "").setMaxResults(max).setFirstResult(start).getResultList();
-            String sql = "SELECT enSuppliers FROM EntitySuppliers enSuppliers where enSuppliers.isDelete = :supisDelete ";
+            String sql = "SELECT enSuppliers FROM EntitySuppliers enSuppliers where enSuppliers.isDelete = :supisDelete "
+                    + " AND enSuppliers.patnerType =\"" + "supplier" + "\"";
             Query query = em.createQuery(sql);
             query.setParameter("supisDelete", false);
             return (List<EntitySuppliers>) query.setMaxResults(max).setFirstResult(start).getResultList();
@@ -95,13 +97,14 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 //                    .setParameter("supplierName", supplierName + "%")
 //                    .getResultList();
             return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE "
-                    + "  enSuppliers.supplierName LIKE :supplierName "
-                    + " OR enSuppliers.supplierCode  LIKE :supplierCode "
-                    + " OR enSuppliers.contactName LIKE :contactName "
-                    + " OR enSuppliers.isActive  = \"" + EncryptionUtil.getStatus(search.toLowerCase()) + "\"")
-                    .setParameter("supplierName", search.toLowerCase() + "%")
-                    .setParameter("supplierCode", search.toLowerCase() + "%")
-                    .setParameter("contactName", search.toLowerCase() + "%")
+                    + " enSuppliers.name LIKE LOWER(:supplierName) "
+                    + " OR enSuppliers.partnerCode  LIKE LOWER(:supplierCode) "
+                    + " OR enSuppliers.contactName LIKE LOWER(:contactName) "
+                    + " OR enSuppliers.isActive  = \"" + EncryptionUtil.getStatus(search) + "\""
+                    + " AND enSuppliers.patnerType = \"" + "Supplier" + "\"")
+                    .setParameter("supplierName", search + "%")
+                    .setParameter("supplierCode", search + "%")
+                    .setParameter("contactName", search + "%")
                     .setMaxResults(max).setFirstResult(start).getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
@@ -114,7 +117,8 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     public EntitySuppliers getSupplierName(String supplierName) {
         try {
 //            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName)  =  \"" + supplierName.toLowerCase() + "\"").getResultList();
-            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName) = :supplierName";
+            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.name) = LOWER(:supplierName) "
+                    + " AND enSuppliers.patnerType =\"" + "supplier" + "\"";
             Query query = em.createQuery(sql);
             query.setParameter("supplierName", supplierName);
             return (EntitySuppliers) query.getSingleResult();
@@ -129,7 +133,8 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     public List<EntitySuppliers> listSupplierName(String supplierName) {
         try {
 //            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName)  =  \"" + supplierName.toLowerCase() + "\"").getResultList();
-            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName) = :supplierName";
+            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.name) =  LOWER(:supplierName) "
+                    + "AND enSuppliers.patnerType =\"" + "supplier" + "\"";
             Query query = em.createQuery(sql);
             query.setParameter("supplierName", supplierName);
             return (List<EntitySuppliers>) query.getResultList();
@@ -144,10 +149,27 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     public List<EntitySuppliers> getSupplierCode(String supplierCode) {
         try {
 //            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierCode  =  \"" + supplierCode + "\"").getResultList();
-            String sql = "from EntitySuppliers enSuppliers WHERE  enSuppliers.supplierCode = :supplierCode";
+            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.partnerCode) = :supplierCode "
+                    + "AND enSuppliers.patnerType =\"" + "supplier" + "\"";
             Query query = em.createQuery(sql);
-            query.setParameter("supplierCode", supplierCode);
+            query.setParameter("supplierCode", supplierCode.toLowerCase());
             return (List<EntitySuppliers>) query.getResultList();
+        } catch (Exception ex) {
+            LogSystem.error(getClass(), ex);
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
+    }
+    
+    @Override
+    public EntitySuppliers cekSupplierCode(String supplierCode) {
+        try {
+//            return em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE enSuppliers.supplierCode  =  \"" + supplierCode + "\"").getResultList();
+            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.partnerCode) = :partnerCode "
+                    + " AND enSuppliers.patnerType =\"" + "supplier" + "\"";
+            Query query = em.createQuery(sql);
+            query.setParameter("partnerCode", supplierCode.toLowerCase());
+            return (EntitySuppliers) query.getSingleResult();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -174,7 +196,8 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 //            return (EntitySuppliers) em.createQuery("SELECT enSuppliers FROM EntitySuppliers enSuppliers WHERE LOWER(enSuppliers.supplierName)  =  \"" + param1.toLowerCase() + "\" OR "
 //                    + "  LOWER(enSupplier.supplierCode) =  \"" + param2.toLowerCase() + "\"").getSingleResult();
 
-            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.supplierName) = :supplierName OR LOWER(enSupplier.supplierCode) = :supplierCode";
+            String sql = "from EntitySuppliers enSuppliers WHERE  LOWER(enSuppliers.name) = :supplierName OR LOWER(enSupplier.partnerCode) = :supplierCode "
+                    + "AND enSuppliers.patnerType =\"" + "supplier" + "\"";
             Query query = em.createQuery(sql);
             query.setParameter("supplierName", param1.toLowerCase());
             query.setParameter("supplierCode", param2.toLowerCase());
@@ -198,12 +221,13 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
     }
 
     @Override
-    public List<EntitySuppliers> findBySupplierCode(String pramString) {
+    public List<EntitySuppliers> findBySupplierCode(String paramString) {
         try {
 //            return (EntitySuppliers) em.createQuery("SELECT Distinct es.supplierCode  FROM EntitySuppliers es WHERE es.supplierCode LIKE \"" + pramString + "%\" ").getResultList();
-            String sql = "from EntitySuppliers enSuppliers WHERE  enSuppliers.supplierCode LIKE :supplierCode ";
+            String sql = "from EntitySuppliers enSuppliers WHERE  enSuppliers.partnerCode LIKE :partnerCode AND es.isActive =  \"" + 1 + "\" "
+                    + "AND enSuppliers.patnerType =\"" + "supplier" + "\"";
             Query query = em.createQuery(sql);
-            query.setParameter("supplierCode", pramString + "%");
+            query.setParameter("supplierCode", paramString + "%");
             return (List<EntitySuppliers>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
@@ -218,8 +242,11 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 //            return em.createQuery("SELECT Distinct es.supplierName  FROM EntitySuppliers es WHERE es.supplierName LIKE \"" + supplierName + "%\" AND es.isActive =  \"" + 1 + "\"").getResultList();
 
             return em.createQuery(
-                    "SELECT Distinct es.supplierName FROM EntitySuppliers es WHERE es.supplierName LIKE :supplierName")
+                    "SELECT Distinct es.name FROM EntitySuppliers es WHERE es.name LIKE :supplierName "
+                    + "AND es.isActive =\"" + 1 + "\" "
+                    + "AND es.patnerType = :patnerType ")
                     .setParameter("supplierName", supplierName + "%")
+                    .setParameter("patnerType", "supplier")
                     .getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
@@ -230,7 +257,8 @@ public class EntitySuppliersFacade extends AbstractFacade<EntitySuppliers> imple
 
     @Override
     public int count() {
-        Query queryMax = em.createQuery("SELECT COUNT(es) FROM EntitySuppliers es");
+        Query queryMax = em.createQuery("SELECT COUNT(es) FROM EntitySuppliers es "
+                + "WHERE es.patnerType =\"" + "Supplier" + "\"");
         return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 

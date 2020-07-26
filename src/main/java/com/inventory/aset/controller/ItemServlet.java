@@ -133,22 +133,22 @@ public class ItemServlet extends HttpServlet {
             } else {
                 productList = entityProductsFacadeLocal.serachProducts(searchString.toLowerCase(), Integer.parseInt(length), Integer.parseInt(start));
             }
-
-            if (Integer.parseInt(length) <= productList.size()) {
-                totalCount = productList.size();
-                if (totalCount > 0) {
-                    if (totalCount % Integer.parseInt(length) == 0) {
-                        totalPages = totalCount / Integer.parseInt(length);
+            if (productList.size() > 0) {
+                if (Integer.parseInt(length) <= productList.size()) {
+                    totalCount = productList.size();
+                    if (totalCount > 0) {
+                        if (totalCount % Integer.parseInt(length) == 0) {
+                            totalPages = totalCount / Integer.parseInt(length);
+                        } else {
+                            totalPages = totalCount / Integer.parseInt(length) + 1;
+                        }
                     } else {
-                        totalPages = totalCount / Integer.parseInt(length) + 1;
+                        totalPages = 0;
                     }
                 } else {
                     totalPages = 0;
                 }
-            } else {
-                totalPages = 0;
-            }
-            if (productList.size() > 0) {
+//            if (productList.size() > 0) {
                 for (int i = 0; i < productList.size(); i++) {
                     EntityProducts dataProduct = (EntityProducts) productList.get(i);
 //                    EntityStock dataStock = (EntityStock) productList.get(i);
@@ -179,16 +179,16 @@ public class ItemServlet extends HttpServlet {
                         obj.put("create_date", sdf.format(dataProduct.getCreatedAt()) + "-" + dataProduct.getCreatedAtTime());
                     }
 
-                    if (dataProduct.getSupplierId().getSupplierId() == null) {
+                    if (dataProduct.getPartnerId().getPartnerId() == null) {
                         obj.put("supplier_id", "");
                     } else {
-                        obj.put("supplier_id", dataProduct.getSupplierId().getSupplierId());
+                        obj.put("supplier_id", dataProduct.getPartnerId().getPartnerId());
                     }
 
-                    if (dataProduct.getSupplierId().getSupplierName() == null) {
+                    if (dataProduct.getPartnerId() == null) {
                         obj.put("supplier_name", "");
                     } else {
-                        obj.put("supplier_name", EncryptionUtil.upperCaseFirst(dataProduct.getSupplierId().getSupplierName()));
+                        obj.put("supplier_name", EncryptionUtil.upperCaseFirst(dataProduct.getPartnerId().getName()));
                     }
 
                     if (dataProduct.getCategoryId().getCategoriesName() == null) {
@@ -474,7 +474,7 @@ public class ItemServlet extends HttpServlet {
                         return;
                     }
 
-                    dataProducts.setSupplierId(dataSuppplier);
+                    dataProducts.setPartnerId(dataSuppplier);
                     dataProducts.setProductName(item_name.toLowerCase());
                     dataProducts.setCreatedAt(now);
                     dataProducts.setProductCode(product_code.toLowerCase());
@@ -592,7 +592,7 @@ public class ItemServlet extends HttpServlet {
                         return;
                     }
 
-                    dataProducts.setSupplierId(dataSuppplier);
+                    dataProducts.setPartnerId(dataSuppplier);
                     dataProducts.setProductName(item_name.toLowerCase());
                     dataProducts.setCreatedAt(now);
                     dataProducts.setCreatedAtTime(time_now);

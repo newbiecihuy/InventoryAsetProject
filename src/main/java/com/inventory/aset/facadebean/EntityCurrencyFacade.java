@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import com.inventory.aset.model.EntityCurrency;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -19,7 +20,7 @@ import com.inventory.aset.facadebean.local.EntityCurrencyFacadeLocal;
 @Stateless
 public class EntityCurrencyFacade extends AbstractFacade<EntityCurrency> implements EntityCurrencyFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+    @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntityCurrencyFacade() {

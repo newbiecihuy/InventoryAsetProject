@@ -5,26 +5,27 @@
  */
 package com.inventory.aset.facadebean;
 
-import com.inventory.aset.model.EntityProductPurchase;
+import com.inventory.aset.controller.util.Constants;
+import com.inventory.aset.model.EntityProductDocument;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.inventory.aset.facadebean.local.EntityProductPurchaseFacadeLocal;
 import javax.persistence.Query;
+import com.inventory.aset.facadebean.local.EntityProductDocumentFacadeLocal;
 
 /**
  *
  * @author newbiecihuy
  */
 @Stateless
-public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPurchase> implements EntityProductPurchaseFacadeLocal {
+public class EntityProductDocumentFacade extends AbstractFacade<EntityProductDocument> implements EntityProductDocumentFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+    @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
-    public EntityProductPurchaseFacade() {
-        super(EntityProductPurchase.class);
+    public EntityProductDocumentFacade() {
+        super(EntityProductDocument.class);
     }
 
     protected EntityManager EntityLocationsDao() {
@@ -32,17 +33,17 @@ public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPur
     }
 
     @Override
-    public void createProductPurchase(EntityProductPurchase dataLocations) {
+    public void createProductPurchase(EntityProductDocument dataLocations) {
         em.persist(dataLocations);
     }
 
     @Override
-    public void updateProductPurchase(EntityProductPurchase dataLocations) {
+    public void updateProductPurchase(EntityProductDocument dataLocations) {
         em.merge(dataLocations);
     }
 
     @Override
-    public void deleteLProductPurchase(EntityProductPurchase dataLocations) {
+    public void deleteLProductPurchase(EntityProductDocument dataLocations) {
         em.merge(dataLocations);
     }
 
@@ -52,33 +53,33 @@ public class EntityProductPurchaseFacade extends AbstractFacade<EntityProductPur
     }
 
     @Override
-    public EntityProductPurchase getProductPurchase(long paramLong) {
-        return em.find(EntityProductPurchase.class, paramLong);
+    public EntityProductDocument getProductPurchase(long paramLong) {
+        return em.find(EntityProductDocument.class, paramLong);
     }
 
     @Override
-    public List<EntityProductPurchase> getAllProductPurchase(int param, int max, int start) {
-//        return em.createNamedQuery("EntityProductPurchase.findAll").getResultList();
+    public List<EntityProductDocument> getAllProductPurchase(int param, int max, int start) {
+//        return em.createNamedQuery("EntityProductDocument.findAll").getResultList();
         return em.createQuery("SELECT l FROM EntityProductPurchase l where l.purchaseId.purchaseId=  \"" + param + "\"").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
-    public EntityProductPurchase findByPOCode(String param) {
-//        return (EntityProductPurchase) em.createQuery("SELECT l FROM EntityProductPurchase l WHERE l.purchaseId.purchaseCode =  \"" + param + "\"").getSingleResult();
+    public EntityProductDocument findByPOCode(String param) {
+//        return (EntityProductDocument) em.createQuery("SELECT l FROM EntityProductDocument l WHERE l.purchaseId.purchaseCode =  \"" + param + "\"").getSingleResult();
         String sql = "FROM EntityProductPurchase l WHERE l.purchaseId.purchaseCode = :param";
         Query query = em.createQuery(sql);
         query.setParameter("param", param);
-        return (EntityProductPurchase) query.getSingleResult();
+        return (EntityProductDocument) query.getSingleResult();
     }
 
     @Override
-    public EntityProductPurchase find(Object id) {
-        return (EntityProductPurchase) em.find(EntityProductPurchase.class, id);
+    public EntityProductDocument find(Object id) {
+        return (EntityProductDocument) em.find(EntityProductDocument.class, id);
     }
 
     @Override
-    public EntityProductPurchase productPOlist(Long param) {
-        return (EntityProductPurchase) em.createNamedQuery("EntityProductPurchase.findByProductPOlist").setParameter("purchaseId", param).getSingleResult();
+    public List<EntityProductDocument> productPOlist(Long param) {
+        return (List<EntityProductDocument>) em.createNamedQuery("EntityProductPurchase.findByProductPOlist").setParameter("purchaseId", param).getResultList();
     }
 
     @Override

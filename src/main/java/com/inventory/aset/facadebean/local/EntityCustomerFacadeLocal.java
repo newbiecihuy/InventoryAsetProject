@@ -30,19 +30,22 @@ public interface EntityCustomerFacadeLocal {
 
     List<EntityCustomer> searchCutomer(String search, int max, int start);
 
-    List<EntityCustomer> getCutomerName(String supplierName);
+    EntityCustomer getCutomerName(String supplierName);
+
+    List<EntityCustomer> listCutomerName(String supplierName);
 
     List<EntityCustomer> getCutomerCode(String supplierCode);
 
-    List<EntityCustomer> findByStatusActive(Long supplier_id);
+    EntityCustomer findByStatusActive(Long supplier_id);
 
     EntityCustomer findByCutomerCode(String pramString);
+
+    List<EntityCustomer> listSupplierCode(String paramString);
 
     EntityCustomer findByCutomerName(String supplierName);
 
     EntityCustomer findWithParam(String param1, String param2);
 
-//    List<EntityStock> findWithMinimumStock(int minimumStock);
     EntityCustomer findById(Object paramObject);
 
     int count();

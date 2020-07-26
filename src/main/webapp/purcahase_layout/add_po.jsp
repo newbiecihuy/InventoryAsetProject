@@ -29,12 +29,12 @@
 
                     <div class="tab">
                         <h3>Supplier</h3>
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="supplier_name_po" class="required">Supplier Name &nbsp;:</label>
                             <input type="text"  class="form-control" id="supplier_name_po" name="supplier_name_po" placeholder="Supplier Name" value="" onchange="supplier_empty()" required>
                             <span class="form-error"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="supplier_code_po" class="required">Supplier Code &nbsp;:</label>
                             <input type="text" class="form-control" id="supplier_code_po"  placeholder="Supplier Code" name="supplier_code_po" value="" onchange="supplier_code_empty()" required>
                             <input type="text" class="form-control invisible" id="supplier_id_po" name="supplier_id_po" value="">
@@ -48,38 +48,38 @@
                     </div>
                     <div class="tab">
                         <h3>Date P&#8228;O&#8228;</h3>
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="tgl_input_po">Date &nbsp;:</label>
                             <input type="text" class="form-control datePick" id="tgl_input_po"  placeholder="dd/MM/yyyy" name="tgl_input_po" value="">
                             <span class="form-error"></span>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="po_type" class="required">Type &nbsp;:</label>
                             <input type="text"  class="form-control" id="po_type"  placeholder="P&#8228;O&#8228; Type" name="po_type" onchange="type_po_empty()" value="">
                             <span class="form-error"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="payment_term" class="required">Payment Term &nbsp;:</label>
                             <input type="text" class="form-control" id="payment_term"  placeholder="Payment Term" name="payment_term" value="">
                             <span class="form-error"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="delivery_term" class="required">Delivery Term &nbsp;:</label>
                             <input type="text"  required min="1"  class="form-control" id="delivery_term"  placeholder="Like 3 Day" oninput="cekNumber()" name="delivery_term"value="">
                             <p id="content_form_error" ></p>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="transport_mode" class="required">Transport Mode &nbsp;:</label>
                             <input type="text" required="" class="form-control" id="transport_mode"  placeholder="Like Expedition" name="transport_mode" value="">
                             <span class="form-error"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="quotation_number" class="required">Quotation Number &nbsp;:</label>
                             <input type="text" required="" class="form-control" id="quotation_number"  placeholder="" name="quotation_number" value="">
                             <span class="form-error"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="rfq_number" class="required">RFQ Number &nbsp;:</label>
                             <input type="text"  class="form-control" id="rfq_number"  placeholder="" name="rfq_number" value="">
                             <input type="text"  class="form-control invisible" name="id_po_type" id="id_po_type" value=""/>
@@ -89,17 +89,17 @@
                     <div class="tab">
                         <h3>Delivery Point&comma; Invoice &amp; Bank Transfer</h3>
                         <!--<section>-->
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="purchase_desc" class="required">Description &nbsp;:</label>
                             <input type="text" class="form-control" id="purchase_desc"  placeholder="" name="purchase_desc" value="">
                             <span class="form-error"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="invoice_to" class="required">Invoice To &nbsp;:</label>
                             <input type="text" required="" class="form-control" id="invoice_to"  placeholder="Invoice To" name="invoice_to" value="">
                             <span class="form-error"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group w-75">
                             <label for="dlvr_point" class="required">Delivery Point &nbsp;:</label>
                             <input type="text"  class="form-control" id="dlvr_point"  placeholder="Delivery Point" name="dlvr_point" value="">
                             <span class="form-error"></span>

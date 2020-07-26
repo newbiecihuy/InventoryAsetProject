@@ -84,8 +84,13 @@ public class AutoCompleteSupplierNameServlet extends HttpServlet {
             response.getWriter().write(json);
 
             JSONObject rows = new JSONObject();
-            rows.put("results", isi_supplierName.size());
-            rows.put("rows", array);
+            if (rows.size() > 0) {
+                rows.put("results", isi_supplierName.size());
+                rows.put("rows", array);
+            } else {
+                rows.put("results", 0);
+                rows.put("rows", 0);
+            }
 
             response.getWriter().close();
 

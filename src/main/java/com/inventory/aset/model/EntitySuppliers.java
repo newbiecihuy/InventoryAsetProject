@@ -8,19 +8,19 @@ package com.inventory.aset.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -28,111 +28,54 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tbl_suppliers")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING, length = 80)
+@DiscriminatorValue("Supplier")
 @NamedQueries({
     @NamedQuery(name = "EntitySuppliers.findAll", query = "SELECT s FROM EntitySuppliers s"),
-    @NamedQuery(name = "EntitySuppliers.findBySupplierId", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierId = :supplierId"),
-    @NamedQuery(name = "EntitySuppliers.findBySupplierName", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierName = :supplierName"),
-    @NamedQuery(name = "EntitySuppliers.findByStatusActive", query = "SELECT s FROM EntitySuppliers s WHERE s.supplierId = :supplierId And s.isActive = 1")})
-public class EntitySuppliers implements Serializable {
+    @NamedQuery(name = "EntitySuppliers.findByStatusActive", query = "SELECT s FROM EntitySuppliers s WHERE s.partnerId = :partnerId And s.isActive = 1 And s.patnerType =\"" + "Supplier" + "\"")})
+public class EntitySuppliers extends EntityPartner implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "supplier_id", columnDefinition = "serial", nullable = false)
-    private Long supplierId;
+    @Column(name = "uuid")
+    private String uuid;
 
-    @Basic(optional = false)
-    @Column(name = "supplier_code", length = 100)
-    private String supplierCode;
-
-    @Basic(optional = false)
-    @Column(name = "supplier_name", length = 100)
-    private String supplierName;
-
-    @Lob
-    @Column(name = "address", length = 512)
-    private String address;
-
-    @Basic(optional = false)
-    @Column(name = "contact_name", length = 500)
-    private String contactName;
-
-    @Basic(optional = false)
-    @Column(name = "contact_num", length = 500)
-    private String contactNum;
-
-    @Basic(optional = false)
-    @Column(name = "created_date")
-    @Temporal(TemporalType.DATE)
-    private Date createdDate;
-    @Column(name = "created_time")
-    private String createdTime;
-    @Basic(optional = false)
-    @Column(name = "updated_date")
-    @Temporal(TemporalType.DATE)
-    private Date updatedDate;
-    @Column(name = "updated_time")
-    private String updatedTime;
-//    @Basic(optional = false)
-//    @Column(name = "is_active")
-//    private boolean isActive = true;
-    @Basic(optional = false)
-    @Column(name = "is_active")
-    private int isActive = 0;
-
-    @Basic(optional = false)
-    @Column(name = "tax")
-    private boolean tax = false;
-    @Column(name = "is_delete")
-    private boolean isDelete = false;
-    @Column(name = "pic")
-    private String pic;
-    @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "supplierId")
-    private List<EntityProducts> entityProducts;
-    @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "supplierId")
-    private List<EntityPurchases> entityPurchases;
+    @PrePersist
+    @Override
+    public void onCreate() {
+        this.patnerType = "supplier";
+        this.setUuid(UUID.randomUUID().toString());
+    }
 
     public EntitySuppliers() {
     }
 
-    public EntitySuppliers(Long supplierId, String supplierCode, String supplierName, String address, String contactName, String contactNum, Date createdDate, String createdTime, Date updatedDate, String updatedTime, String pic, List<EntityProducts> entityProducts, List<EntityPurchases> entityPurchases) {
-        this.supplierId = supplierId;
-        this.supplierCode = supplierCode;
-        this.supplierName = supplierName;
-        this.address = address;
-        this.contactName = contactName;
-        this.contactNum = contactNum;
-        this.createdDate = createdDate;
-        this.createdTime = createdTime;
-        this.updatedDate = updatedDate;
-        this.updatedTime = updatedTime;
-        this.pic = pic;
-        this.entityProducts = entityProducts;
-        this.entityPurchases = entityPurchases;
+    public EntitySuppliers(String uuid, Long partnerId, String partnerCode, String name, String address, String contactName, String contactNum, Date inputDate, Date updatedDate, int isActive, boolean tax, boolean isDelete, List<EntityProducts> entityProducts, List<EntityDocument> entityDocument, String pic, String patnerType) {
+        super(partnerId, partnerCode, name, address, contactName, contactNum, inputDate, updatedDate, isActive, tax, isDelete, entityProducts, entityDocument, pic, patnerType);
+        this.uuid = uuid;
     }
 
-    public Long getSupplierId() {
-        return supplierId;
+    public String getPatnerType() {
+        return patnerType;
     }
 
-    public void setSupplierId(Long supplierId) {
-        this.supplierId = supplierId;
+    public void setPatnerType(String patnerType) {
+        this.patnerType = patnerType;
     }
 
-    public String getSupplierCode() {
-        return supplierCode;
+    public Long getPartnerId() {
+        return partnerId;
     }
 
-    public void setSupplierCode(String supplierCode) {
-        this.supplierCode = supplierCode;
+    public void setPartnerId(Long partnerId) {
+        this.partnerId = partnerId;
     }
 
-    public String getSupplierName() {
-        return supplierName;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+    public void setUuid(String uuid) {
+        this.uuid = uuid.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
                 .replaceAll("<script>(.*?)</script>", "")
                 .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
                 .replaceAll("(?i)<.*?\\s+on.*?/>", "")
@@ -148,6 +91,14 @@ public class EntitySuppliers implements Serializable {
                 .replaceAll("eval\\((.*?)\\)", "")
                 .replaceAll("expression\\((.*?)\\)", "")
                 .replaceAll("['\":<>\\[\\],-]", "");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -155,22 +106,7 @@ public class EntitySuppliers implements Serializable {
     }
 
     public void setAddress(String address) {
-        this.address = address.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
-                .replaceAll("<script>(.*?)</script>", "")
-                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
-                .replaceAll("vbscript", "")
-                .replaceAll("encode", "")
-                .replaceAll("decode", "")
-                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
-                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
-                .replaceAll("</script>", "")
-                .replaceAll("<script(.*?)>", "")
-                .replaceAll("eval\\((.*?)\\)", "")
-                .replaceAll("expression\\((.*?)\\)", "")
-                .replaceAll("['\":<>\\[\\],-]", "");
+        this.address = address;
     }
 
     public String getContactName() {
@@ -189,20 +125,12 @@ public class EntitySuppliers implements Serializable {
         this.contactNum = contactNum;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Date getInputDate() {
+        return inputDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
+    public void setInputDate(Date inputDate) {
+        this.inputDate = inputDate;
     }
 
     public Date getUpdatedDate() {
@@ -211,14 +139,6 @@ public class EntitySuppliers implements Serializable {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
-    }
-
-    public String getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(String updatedTime) {
-        this.updatedTime = updatedTime;
     }
 
     public int getIsActive() {
@@ -245,14 +165,6 @@ public class EntitySuppliers implements Serializable {
         this.isDelete = isDelete;
     }
 
-    public String getPic() {
-        return pic;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
-
     public List<EntityProducts> getEntityProducts() {
         return entityProducts;
     }
@@ -261,18 +173,26 @@ public class EntitySuppliers implements Serializable {
         this.entityProducts = entityProducts;
     }
 
-    public List<EntityPurchases> getEntityPurchases() {
-        return entityPurchases;
+    public List<EntityDocument> getEntityDocument() {
+        return entityDocument;
     }
 
-    public void setEntityPurchases(List<EntityPurchases> entityPurchases) {
-        this.entityPurchases = entityPurchases;
+    public void setEntityDocument(List<EntityDocument> entityDocument) {
+        this.entityDocument = entityDocument;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (supplierId != null ? supplierId.hashCode() : 0);
+        hash += (partnerId != null ? partnerId.hashCode() : 0);
         return hash;
     }
 
@@ -283,7 +203,7 @@ public class EntitySuppliers implements Serializable {
             return false;
         }
         EntitySuppliers other = (EntitySuppliers) object;
-        if ((this.supplierId == null && other.supplierId != null) || (this.supplierId != null && !this.supplierId.equals(other.supplierId))) {
+        if ((this.partnerId == null && other.partnerId != null) || (this.partnerId != null && !this.partnerId.equals(other.partnerId))) {
             return false;
         }
         return true;
@@ -291,7 +211,7 @@ public class EntitySuppliers implements Serializable {
 
     @Override
     public String toString() {
-        return "com.inventory.aset.entity.Suppliers[ supplierId=" + supplierId + " ]";
+        return "com.inventory.aset.entity.Suppliers[ partnerId=" + partnerId + " ]";
     }
 
 }

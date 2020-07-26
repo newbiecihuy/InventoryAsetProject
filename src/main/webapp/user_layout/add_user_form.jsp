@@ -72,7 +72,7 @@
             <form id="form_add_pic" name="form_add_pic" method="POST" action="">
                 <div id="form_add_user_response" class="resp"></div>
                 <div  class="box-body">
-                    <div id="div_username" class="form-group">
+                    <div id="div_username" class="form-group w-50">
                         <label for="userName" class="req">User Name &nbsp;:</label>
                         <input type="text" name="userName" id="userName" oninput="cekUserName()" placeholder="User Name" class="form-control uppercase" value="<%-- out.println(userName);--%>" />
                         <input type="hidden" readonly="readonly" name="id_user" id="id_user" value="<%--out.println(id_user);--%>" />
@@ -81,35 +81,35 @@
                         <input type="hidden" readonly="readonly" name="action_delete" id="action_delete"/>
                         <span class="required-server"> </span>
                     </div> 
-                    <div class="form-group">
+                    <div class="form-group w-50">
                         <label for="email" class="req">E-Mail &nbsp;:</label>
                         <input type="text"  name="email" id="email" oninput="cekEmail()"  class="required ui-widget-content form-control" value="<%-- out.println(email);--%>">
                         <span class="required-server"> </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group w-50">
                         <label for="address" class="req">Address&nbsp;:</label>
-                        <textarea  name="address" id="address"  placeholder="Adress"  class="form-control ui-widget-content sw uppercase"> <%-- out.println(address);--%></textarea>
+                        <textarea  name="address" id="address"  placeholder="Adress"  class="form-control sw uppercase"> <%-- out.println(address);--%></textarea>
                         <span class="required-server"> </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group w-50">
                         <label for="roleName" class="req"> Role &nbsp;:</label>
                         <input type="text" name="roleName" id="roleName" class="form-control  uppercase" data-required="true" value="<%-- out.println(roleName);--%>"/>
                         <span class="required-server"> </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group w-50">
                         <label for="nomorIMEI" class="req">Nomor IMEI &nbsp;:</label>
                         <input type="text" name="nomorIMEI" id="nomorIMEI" class="required ui-widget-content form-control" value="<%-- out.println(nomorIMEI);--%>"/>
                         <span class="required-server"> </span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group w-50">
                         <label for="phone" class="req"> Phone &nbsp;:</label>
                         <input type="text" id="phone" name="phone" class="form-control" data-required="true" value="<%-- out.println(phone);--%>"/> 
                         <span class="required-server"> </span>
                     </div>
 
 
-                    <!--                    <div class="form-group">
+                    <!--                    <div class="form-group w-50">
                                             <label for="gender" class="req">  Gender &nbsp;:</label>
                                             <div>
                                                 <input type="radio" name="gender"  id="gender" value="m"> Male<br>
@@ -121,7 +121,7 @@
                                             <span class="required-server">   </span>
                     
                                         </div>-->
-                    <div class="form-group">
+                    <div class="form-group w-50">
                         <label for="gender" class="req">  Gender &nbsp;:</label>
                         <label class="checkbox-inline" for="is_active_a">
                             <input type="radio" name="gender" id="gender" value="m"> Male

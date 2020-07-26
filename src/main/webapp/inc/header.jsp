@@ -22,7 +22,7 @@
         <!-- Style CSS -->
         <link href="vendor/css/style.css" rel="stylesheet" type="text/css">
         <!-- Bootstrap Core CSS -->
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="vendor/bootstrap_v3.3.6/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="vendor/bootstrap_v3.3.6/css/bootstrap.min.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="vendor/bootstrap_v3.3.6/css/bootstrap-theme.min.css" type="text/css" media="screen" />
 

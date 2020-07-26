@@ -52,30 +52,32 @@
                 </button>
                 <a  href="index.jsp" class="navbar-brand font-header"><span class="logo-lg"><%=title%></span></a>
             </div>
-            <%
-                if (username != "") {
-            %>  
-            <%
-                if (rolename == "admin") {
-            %>  
-            <%@include file="inc/sidebar.jsp"%>
-            <%}else if (rolename == "gudang") {%>
-            <%@include file="inc/sidebar_gudang.jsp"%>
-            <%}%>
-            <%}%>
-            <!-- /.navbar-header -->
-            <ul class="nav navbar-top-links navbar-right">
-                <li>	
-                    <%
+            <div id="sidebar">
+                <%
+                    if (username != "") {
+                %>  
+                <%
+                    if (rolename == "admin") {
+                %>  
+                <%@include file="inc/sidebar.jsp"%>
+                <%} else if (rolename == "gudang") {%>
+                <%@include file="inc/sidebar_gudang.jsp"%>
+                <%}%>
+                <%}%>
+                <!-- /.navbar-header -->
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>	
+                        <%
 
-                        if (username != "") {
-                    %>  
-                    <a href="<%= response.encodeURL("logoutServlet")%>" class="font-log"><i class="fa fa-sign-out "></i>
-                        Sign out
-                        <%}%>
-                    </a>
-                </li>
-            </ul>
+                            if (username != "") {
+                        %>  
+                        <a href="<%= response.encodeURL("logoutServlet")%>" class="font-log"><i class="fa fa-sign-out "></i>
+                            Sign out
+                            <%}%>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
 
 

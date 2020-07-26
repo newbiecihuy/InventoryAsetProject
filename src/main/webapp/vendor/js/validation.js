@@ -15,7 +15,7 @@ $(function () {
 function createDynamicURL()
 {
 //The variable to be returned
-    var URL = "/inventoryaset/";
+    var URL = "/inventory-apps/";
     //The variables containing the respective IDs
 //    var companyID=...
 //    var branchID=...
@@ -833,46 +833,6 @@ $(document).ready(function () {
         });
         return false;
     });
-//form_report_excel_field_service_details
-//    $("#form_report_excel_field_service_details").submit(function () {
-//})
-//source https://stackoverflow.com/questions/35203019/how-can-i-send-an-ajax-request-on-button-click-from-a-form-with-2-buttons
-//    $("#btn_barchart").click(function (e) {
-//        e.preventDefault();
-////        alert("form_bar_chart");
-//        var dataString = $("#form_bar_chart").serialize();
-//        $.ajax({
-//            type: "GET",
-//            url: createDynamicURL() + "/dataBarChartServlet",
-//            data: dataString,
-//            success: function (result) {
-////                alert('ok');
-////                document.getElementById("form_bar_chart").reset();
-//            },
-//            error: function (result) {
-//                alert('error');
-//            }
-//        });
-//        return false;
-//    });
-//    $("#btn_piechart").click(function (e) {
-////        alert("form_pie_chart");
-//        e.preventDefault();
-//        var dataString = $("#form_pie_chart").serialize();
-//        $.ajax({
-//            type: "GET",
-//            url: createDynamicURL() + "/dataPieChartServlet",
-//            data: dataString,
-//            success: function (result) {
-////                alert('ok');
-////                document.getElementById("form_pie_chart").reset();
-//            },
-//            error: function (result) {
-//                alert('error');
-//            }
-//        });
-//        return false;
-//    });
 //autocomplete
 //    console.log($("#roleName").val());
     $("#roleName").autocomplete({
@@ -1963,7 +1923,7 @@ function suplierExcelReport(data_record_supplier) {
 //End Generate Excel
 //
 function categories_empty() {
-    console.log("entered categories_empty function");
+//    console.log("entered categories_empty function");
     var categories_name = $("#categories_name").val();
     var dataString = {categories_name: categories_name};
     console.log(dataString);
@@ -2660,5 +2620,5 @@ function toRomawi(angka)
 }
 
 function myapproveSupFunc() {
-     console.log("Insert myapproveSupFunc");
+    console.log("Insert myapproveSupFunc");
 }

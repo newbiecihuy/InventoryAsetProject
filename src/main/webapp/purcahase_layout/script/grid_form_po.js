@@ -239,7 +239,7 @@ $(document).ready(function () {
 
                         };
                         if (row_po["is_delete"] === "0") {//active
-                            if (row_po["status_po"] !== "No Item") {
+                            if (row_po["status_po"] !== "No Item" ) {
 //                            $("i#list_item").css("background-color", "blue");
                                 return"<a href='#'><i class='fa fa-check-square-o' title='inactive'></i></a>\n\
                                <a id='addItemPo' href='#' onclick='javascript:addPoItemFunc(" + JSON.stringify(data_form_po) + ")'><i class='fa fa-plus' title='Add Item'></i></a>\n\

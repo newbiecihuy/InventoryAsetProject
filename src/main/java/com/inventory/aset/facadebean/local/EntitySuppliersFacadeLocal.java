@@ -31,10 +31,12 @@ public interface EntitySuppliersFacadeLocal {
     List<EntitySuppliers> searchSuppliers(String search, int max, int start);
 
     EntitySuppliers getSupplierName(String supplierName);
-
+    
     List<EntitySuppliers> listSupplierName(String supplierName);
 
     List<EntitySuppliers> getSupplierCode(String supplierCode);
+    
+    EntitySuppliers cekSupplierCode(String supplierCode);
 
 //    List<EntitySuppliers> findByStatusActive(Long supplier_id);
     EntitySuppliers findByStatusActive(Long supplier_id);

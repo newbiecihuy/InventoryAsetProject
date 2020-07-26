@@ -34,7 +34,7 @@ public class DataSupplierServlet extends HttpServlet {
 
     }
     @EJB
-    EntitySuppliersFacadeLocal entitySupplierDao;
+    EntitySuppliersFacadeLocal entitySupplierFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -115,27 +115,27 @@ public class DataSupplierServlet extends HttpServlet {
                 param = supplier_name;
             }
 //            System.out.println("supplier_code: " + supplier_code);
-            List<EntitySuppliers> dataSuppliers = entitySupplierDao.listSupplierName(param);//null;
+            List<EntitySuppliers> dataSuppliers = entitySupplierFacade.listSupplierName(param);//null;
             JSONArray jsonArray = new JSONArray();
             JSONObject obj = new JSONObject();
 
             for (int i = 0; i < dataSuppliers.size(); i++) {
                 EntitySuppliers entitySuppliers = (EntitySuppliers) dataSuppliers.get(i);
 
-                if (entitySuppliers.getSupplierId() == null) {
+                if (entitySuppliers.getPartnerId()== null) {
                     obj.put("supplier_id", "");
                 } else {
-                    obj.put("supplier_id", entitySuppliers.getSupplierId());
+                    obj.put("supplier_id", entitySuppliers.getPartnerId());
                 }
-                if (entitySuppliers.getSupplierName() == null) {
+                if (entitySuppliers.getName()== null) {
                     obj.put("supplier_name", "");
                 } else {
-                    obj.put("supplier_name", EncryptionUtil.upperCaseFirst(entitySuppliers.getSupplierName()));
+                    obj.put("supplier_name", EncryptionUtil.upperCaseFirst(entitySuppliers.getName()));
                 }
-                if (entitySuppliers.getSupplierCode() == null) {
+                if (entitySuppliers.getPartnerCode() == null) {
                     obj.put("supplier_code", "");
                 } else {
-                    obj.put("supplier_code", EncryptionUtil.upperCaseFirst(entitySuppliers.getSupplierCode()));
+                    obj.put("supplier_code", EncryptionUtil.upperCaseFirst(entitySuppliers.getPartnerCode()));
                 }
                 if (entitySuppliers.isTax()) {
                     obj.put("tax", "1");

@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import com.inventory.aset.controller.util.EncryptionUtil;
 import com.inventory.aset.controller.util.LogSystem;
 import com.inventory.aset.model.EntityCategories;
@@ -22,7 +23,7 @@ import javax.persistence.Query;
 @Stateless
 public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> implements EntityCategoriesFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+    @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntityCategoriesFacade() {
@@ -108,13 +109,20 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     @Override
     public List<EntityCategories> searchCategories(String search, int max, int start) {
         try {
-            return em.createQuery("SELECT c FROM EntityCategories c "
-                    + " WHERE LOWER(c.categoriesName) Like :categoriesName "
-                    + " OR  LOWER(c.pic) LIKE :pic "
-                    + " OR  c.status_item = \"" + EncryptionUtil.isStatus(search.toLowerCase()) + "\" ")
-                    .setParameter("categoriesName", search.toLowerCase() + "%")
-                    .setParameter("pic", search.toLowerCase() + "%")
-                    .setMaxResults(max).setFirstResult(start).getResultList();
+//            return em.createQuery("SELECT c FROM EntityCategories c "
+//                    + " WHERE(c.categoriesName Like \'" + search.toLowerCase() + "%\' "
+//                    + " ) ").setMaxResults(max).setFirstResult(start).getResultList();
+            String sql = "SELECT c FROM EntityCategories c WHERE "
+                    + "LOWER(c.categoriesName) LIKE LOWER(:categoriesName) "
+                    + "OR  LOWER(c.pic) LIKE LOWER(:pic) "
+                    + "OR  c.status_item = \"" + EncryptionUtil.isStatus(search) + "\" ";
+            Query query = em.createQuery(sql);
+            query.setParameter("categoriesName", "%" + search + "%");
+            query.setParameter("pic", "%" + search + "%");
+            System.out.println("query => " + query);
+            System.out.println("sql=> " + sql);
+            return (List<EntityCategories>) query.setMaxResults(max).setFirstResult(start).getResultList();
+
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
             System.out.println("ERROR: " + ex.getMessage());
@@ -137,9 +145,9 @@ public class EntityCategoriesFacade extends AbstractFacade<EntityCategories> imp
     public List<EntityCategories> findWithCategoriesName(String categoriesName) {
         try {
 //            return em.createQuery("SELECT c FROM EntityCategories c WHERE c.categoriesName =  \"" + categoriesName + "\"").getResultList();
-            String sql = "SELECT c FROM EntityCategories c WHERE LOWER(c.categoriesName)= :categoriesName";
+            String sql = "SELECT c FROM EntityCategories c WHERE LOWER(c.categoriesName) LIKE :categoriesName ";
             Query query = em.createQuery(sql);
-            query.setParameter("categoriesName", categoriesName.toLowerCase());
+            query.setParameter("categoriesName", categoriesName.toLowerCase() + "%");
             return (List<EntityCategories>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);

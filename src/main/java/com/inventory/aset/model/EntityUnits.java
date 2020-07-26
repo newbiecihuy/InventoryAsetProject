@@ -56,14 +56,14 @@ public class EntityUnits implements Serializable {
     private boolean isDelete = false;
 
     @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "unitId")
-    private Collection<EntityProductPurchase> entityProductPurchase;
+    private Collection<EntityProductDocument> entityProductPurchase;
     @Column(name = "pic")
     private String pic;
 
     public EntityUnits() {
     }
 
-    public EntityUnits(Long unitId, String unitName, Date createdDate, String createdTime, Date updateDate, String updateTime, Collection<EntityProductPurchase> entityProductPurchase, String pic) {
+    public EntityUnits(Long unitId, String unitName, Date createdDate, String createdTime, Date updateDate, String updateTime, Collection<EntityProductDocument> entityProductPurchase, String pic) {
         this.unitId = unitId;
         this.unitName = unitName;
         this.createdDate = createdDate;
@@ -145,11 +145,11 @@ public class EntityUnits implements Serializable {
         this.isDelete = isDelete;
     }
 
-    public Collection<EntityProductPurchase> getEntityProductPurchase() {
+    public Collection<EntityProductDocument> getEntityProductPurchase() {
         return entityProductPurchase;
     }
 
-    public void setEntityProductPurchase(Collection<EntityProductPurchase> entityProductPurchase) {
+    public void setEntityProductPurchase(Collection<EntityProductDocument> entityProductPurchase) {
         this.entityProductPurchase = entityProductPurchase;
     }
 

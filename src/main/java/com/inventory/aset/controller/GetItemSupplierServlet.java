@@ -121,45 +121,47 @@ public class GetItemSupplierServlet extends HttpServlet {
             if (!jsonObject.getString("idSupplier").isEmpty() && jsonObject.getString("idSupplier") != null) {
                 idSupplier = Long.parseLong(jsonObject.getString("idSupplier").trim().replaceAll("['\":<>\\[\\],-]", ""));
             }
-            EntityProducts dataItem = entityProductsFacadeLocal.getItemDetails(idSupplier, item_name_po);//null;
+            List<EntityProducts> dataItem = entityProductsFacadeLocal.getItemDetails(idSupplier, item_name_po);//null;
 
-//            JSONArray jsonArray = new JSONArray();
+            JSONArray jsonArray = new JSONArray();
             JSONObject obj = new JSONObject();
-            if (dataItem != null) {
-                EntityStock dataStock = entityStockFacadeLocal.find(dataItem.getIdProduct());
+            if (dataItem.size() > 0) {
+                for (int i = 0; i < dataItem.size(); i++) {
+                    EntityProducts entityProducts = (EntityProducts) dataItem.get(i);
+                    EntityStock dataStock = entityStockFacadeLocal.find(entityProducts.getIdProduct());
 
-                if (dataItem.getIdProduct() == null) {
-                    obj.put("product_id", "");
-                } else {
-                    obj.put("product_id", dataItem.getIdProduct());
-                }
-                if (dataItem.getSupplierId().getSupplierId() == null) {
-                    obj.put("supplier_id", "");
-                } else {
-                    obj.put("supplier_id", dataItem.getSupplierId().getSupplierId());
-                }
-                if (dataItem.getProductName() == null) {
-                    obj.put("item_name_po", "");
-                } else {
-                    obj.put("item_name_po", EncryptionUtil.upperCaseFirst(dataItem.getProductName()));
-                }
-                if (dataStock.getEstematedDateBefore() == null) {
-                    obj.put("dateBefore", "");
-                } else {
-                    obj.put("dateBefore", dataStock.getEstematedDateBefore());
-                }
-                if (dataStock.getEstematedDateAfter() == null) {
-                    obj.put("dateAfter", "");
-                } else {
-                    obj.put("dateAfter", dataStock.getEstematedDateAfter());
-                }
-                if (dataStock.getBuyPrice() == null) {
+                    if (entityProducts.getIdProduct() == null) {
+                        obj.put("product_id", "");
+                    } else {
+                        obj.put("product_id", entityProducts.getIdProduct());
+                    }
+                    if (entityProducts.getPartnerId()== null) {
+                        obj.put("supplier_id", "");
+                    } else {
+                        obj.put("supplier_id", entityProducts.getPartnerId().getPartnerId());
+                    }
+                    if (entityProducts.getProductName() == null) {
+                        obj.put("item_name_po", "");
+                    } else {
+                        obj.put("item_name_po", EncryptionUtil.upperCaseFirst(entityProducts.getProductName()));
+                    }
+                    if (dataStock.getEstematedDateBefore() == null) {
+                        obj.put("dateBefore", "");
+                    } else {
+                        obj.put("dateBefore", dataStock.getEstematedDateBefore());
+                    }
+                    if (dataStock.getEstematedDateAfter() == null) {
+                        obj.put("dateAfter", "");
+                    } else {
+                        obj.put("dateAfter", dataStock.getEstematedDateAfter());
+                    }
+                    if (dataStock.getBuyPrice() == null) {
 
-                } else {
-                    obj.put("unit_price_po", dataStock.getBuyPrice());
+                    } else {
+                        obj.put("unit_price_po", dataStock.getBuyPrice());
+                    }
+                    jsonArray.add(obj);
                 }
-//                    jsonArray.add(obj);
-
             } else {
                 obj.put("product_id", "0");
                 obj.put("supplier_id", idSupplier);

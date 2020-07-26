@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import com.inventory.aset.controller.util.EncryptionUtil;
 import com.inventory.aset.model.EntityPurchases;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.inventory.aset.facadebean.local.EntityPurchasesFacadeLocal;
+import com.inventory.aset.model.EntityDocument;
 import java.util.Date;
 import javax.persistence.Query;
 
@@ -22,7 +24,7 @@ import javax.persistence.Query;
 @Stateless
 public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> implements EntityPurchasesFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+    @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntityPurchasesFacade() {
@@ -95,8 +97,7 @@ public class EntityPurchasesFacade extends AbstractFacade<EntityPurchases> imple
 //    public List<EntityPurchases> getAllDataPurchases(int max) {
 //        return em.createNamedQuery("EntityPurchases.findAll").setMaxResults(max).getResultList();
 //    }
-    @Override
-    public EntityPurchases find(Object purchaseId) {
+    public EntityPurchases find(Long purchaseId) {
         try {
             return (EntityPurchases) em.find(EntityPurchases.class, purchaseId);
         } catch (Exception e) {

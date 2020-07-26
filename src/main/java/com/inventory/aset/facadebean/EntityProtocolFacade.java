@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import com.inventory.aset.model.EntityCurrency;
 import com.inventory.aset.model.EntityProtocol;
 import java.util.List;
@@ -21,7 +22,7 @@ import javax.persistence.Query;
 @Stateless
 public class EntityProtocolFacade extends AbstractFacade<EntityProtocol> implements EntityProtocolFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+    @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntityProtocolFacade() {

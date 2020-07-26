@@ -158,29 +158,29 @@ public class SupplierServlet extends HttpServlet {
                     EntitySuppliers dataSuppliers = (EntitySuppliers) supplierList.get(i);
                     JSONObject obj = new JSONObject();
 //                    if (dataSuppliers.isIsActive() == true) {
-                    if (dataSuppliers.getSupplierId() == null) {
+                    if (dataSuppliers.getPartnerId()== null) {
                         obj.put("supplier_id", "");
                         obj.put("no", "");
                         obj.put("action_supp", "");
                     } else {
-                        obj.put("supplier_id", dataSuppliers.getSupplierId());
+                        obj.put("supplier_id", dataSuppliers.getPartnerId());
                         obj.put("no", no++);
                         obj.put("action_supp", "");
                     }
-                    if (dataSuppliers.getCreatedDate() == null) {
+                    if (dataSuppliers.getInputDate()== null) {
                         obj.put("created_date", "");
                     } else {
-                        obj.put("created_date", sdf.format(dataSuppliers.getCreatedDate()) + "-" + dataSuppliers.getCreatedTime());
+                        obj.put("created_date", sdf.format(dataSuppliers.getInputDate()));
                     }
-                    if (dataSuppliers.getSupplierName() == null) {
+                    if (dataSuppliers.getName()== null) {
                         obj.put("supplier_name", "");
                     } else {
-                        obj.put("supplier_name", EncryptionUtil.upperCaseFirst(dataSuppliers.getSupplierName()));
+                        obj.put("supplier_name", EncryptionUtil.upperCaseFirst(dataSuppliers.getName()));
                     }
-                    if (dataSuppliers.getSupplierCode() == null) {
+                    if (dataSuppliers.getPartnerCode()== null) {
                         obj.put("supplier_code", "");
                     } else {
-                        obj.put("supplier_code", EncryptionUtil.upperCaseFirst(dataSuppliers.getSupplierCode()));
+                        obj.put("supplier_code", EncryptionUtil.upperCaseFirst(dataSuppliers.getPartnerCode()));
                     }
                     if (dataSuppliers.getAddress() == null) {
                         obj.put("address", "");
@@ -212,7 +212,7 @@ public class SupplierServlet extends HttpServlet {
                     } else {
                         obj.put("status_supp", dataSuppliers.getIsActive());
                     }
-                    EntityProducts chekList = entityProductsFacadeLocal.findByProductActiveBySup(dataSuppliers.getSupplierId());
+                    EntityProducts chekList = entityProductsFacadeLocal.findByProductActiveBySup(dataSuppliers.getPartnerId());
                     if (chekList != null) {
                         obj.put("listItem", "1");
                     } else {
@@ -227,8 +227,8 @@ public class SupplierServlet extends HttpServlet {
                     if (dataSetting != null) {
 //                        EntitySettings dataSetting = getSupllierCode.get(0);
 
-                        EntitySuppliers updateData = entitySuppliersFacadeLocal.getSuppliers(dataSuppliers.getSupplierId());
-                        updateData.setSupplierCode(dataSetting.getValue());
+                        EntitySuppliers updateData = entitySuppliersFacadeLocal.getSuppliers(dataSuppliers.getPartnerId());
+                        updateData.setPartnerCode(dataSetting.getValue());
                         entitySuppliersFacadeLocal.updateSuppliers(updateData);
                     }
 //                    }
@@ -321,7 +321,7 @@ public class SupplierServlet extends HttpServlet {
                     if (!object.getString("supplier_code").isEmpty()) {
                         supplier_code = object.getString("supplier_code");
                     } else {
-                        address_supplier = "";
+                        supplier_code = "";
                     }
                     if (!object.getString("contact_suplier_name").isEmpty()) {
                         contact_suplier_name = object.getString("contact_suplier_name");
@@ -355,9 +355,10 @@ public class SupplierServlet extends HttpServlet {
                         System.out.println(jsonobj.toString());
                         return;
                     }
-                    List<EntitySuppliers> cekSupplierCode = entitySuppliersFacadeLocal.getSupplierCode(supplier_code.toLowerCase());
-                    System.out.println("isi cekSupplierCode" + cekSupplierCode);
-                    if (cekSupplierCode.size() > 0) {
+                    System.out.println("isi supplier_code" + supplier_code);
+                    EntitySuppliers ceksupCode = entitySuppliersFacadeLocal.cekSupplierCode(supplier_code);
+                    System.out.println("isi ceksupCode" + ceksupCode);
+                    if (ceksupCode != null ) {
                         code = "33";
                         msg = "Already Registered";
                         JSONObject jsonobj = new JSONObject();
@@ -369,11 +370,9 @@ public class SupplierServlet extends HttpServlet {
                         return;
                     }
 
-                    dataSupplier.setSupplierName(supplier_name.toLowerCase());
-                    dataSupplier.setSupplierCode(supplier_code.toLowerCase());
+                    dataSupplier.setName(supplier_name.toLowerCase());
+                    dataSupplier.setPartnerCode(supplier_code.toLowerCase());
                     dataSupplier.setAddress(address_supplier.toLowerCase());
-                    dataSupplier.setCreatedDate(now);
-                    dataSupplier.setCreatedTime(time_now);
                     dataSupplier.setPic(("PIC").toLowerCase());
                     dataSupplier.setContactName(contact_suplier_name.toLowerCase());
                     dataSupplier.setContactNum(cotact_suplier_num);
@@ -424,11 +423,9 @@ public class SupplierServlet extends HttpServlet {
                         checkbox_value = "";
                     }
 
-                    dataSupplier.setSupplierName(supplier_name.toLowerCase());
-                    dataSupplier.setSupplierCode(supplier_code.toLowerCase());
+                    dataSupplier.setName(supplier_name.toLowerCase());
+                    dataSupplier.setPartnerCode(supplier_code.toLowerCase());
                     dataSupplier.setAddress(address_supplier.toLowerCase());
-                    dataSupplier.setUpdatedDate(now);
-                    dataSupplier.setUpdatedTime(time_now);
                     dataSupplier.setContactName(contact_suplier_name.toLowerCase());
                     dataSupplier.setContactNum(cotact_suplier_num);
                     if ("on".equalsIgnoreCase(checkbox_value)) {
@@ -443,8 +440,6 @@ public class SupplierServlet extends HttpServlet {
                     dataSupplier = entitySuppliersFacadeLocal.getSuppliers(supplier_id);
                     dataSupplier.setIsActive(2);
                     dataSupplier.setIsDelete(true);
-                    dataSupplier.setUpdatedDate(now);
-                    dataSupplier.setUpdatedTime(time_now);
                     entitySuppliersFacadeLocal.deleteSuppliers(dataSupplier);
                     code = "4";
                     msg = "Has been Deleted";
@@ -453,7 +448,6 @@ public class SupplierServlet extends HttpServlet {
                     dataSupplier.setIsActive(1);
                     dataSupplier.setIsDelete(false);
                     dataSupplier.setUpdatedDate(now);
-                    dataSupplier.setUpdatedTime(time_now);
                     entitySuppliersFacadeLocal.deleteSuppliers(dataSupplier);
                     code = "4";
                     msg = "Has been Approved";
@@ -463,7 +457,6 @@ public class SupplierServlet extends HttpServlet {
                     dataSupplier.setIsActive(2);
                     dataSupplier.setIsDelete(false);
                     dataSupplier.setUpdatedDate(now);
-                    dataSupplier.setUpdatedTime(time_now);
                     entitySuppliersFacadeLocal.deleteSuppliers(dataSupplier);
                     code = "4";
                     msg = "Has been rejected";

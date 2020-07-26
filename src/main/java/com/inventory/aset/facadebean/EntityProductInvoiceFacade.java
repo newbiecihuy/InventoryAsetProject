@@ -5,8 +5,11 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import javax.ejb.Stateful;
 import com.inventory.aset.facadebean.local.EntityProductInvoiceFacadeLocal;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -14,7 +17,8 @@ import com.inventory.aset.facadebean.local.EntityProductInvoiceFacadeLocal;
  */
 @Stateful
 public class EntityProductInvoiceFacade implements EntityProductInvoiceFacadeLocal {
-
+    @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
+    private EntityManager em;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 }

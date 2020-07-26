@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import com.inventory.aset.controller.util.LogSystem;
 import com.inventory.aset.model.EntityProducts;
 import com.inventory.aset.model.EntityStock;
@@ -22,7 +23,7 @@ import javax.persistence.Query;
 @Stateless
 public class EntityStockFacade extends AbstractFacade<EntityStock> implements EntityStockFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+  @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntityStockFacade() {
@@ -95,7 +96,7 @@ public class EntityStockFacade extends AbstractFacade<EntityStock> implements En
     public List<EntityStock> findByIdProduct(Object idProduct) {
         try {
 //            return em.createQuery("SELECT ep  FROM EntityStock ep  WHERE ep.idProduct.idProduct =  \"" + idProduct + "\"").getResultList();
-            String sql = "SELECT ep  FROM EntityStock ep  WHERE ep.idProduct.idProduct =  = :idProduct";
+            String sql = "SELECT ep  FROM EntityStock ep  WHERE ep.idProduct.idProduct = :idProduct";
             Query query = em.createQuery(sql);
             query.setParameter("idProduct", Long.parseLong(idProduct.toString()));
             return (List<EntityStock>) query.getResultList();

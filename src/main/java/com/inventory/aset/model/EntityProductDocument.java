@@ -27,11 +27,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tbl_product_purchase")
 @NamedQueries({
-    @NamedQuery(name = "EntityProductPurchase.findAll", query = "SELECT c FROM EntityProductPurchase c")
-    ,@NamedQuery(name = "EntityProductPurchase.findByidProductPurchase", query = "SELECT c FROM EntityProductPurchase c WHERE c.idProductPurchase = :idProductPurchase")
-    ,@NamedQuery(name = "EntityProductPurchase.findByProductPOlist", query = "SELECT c FROM EntityProductPurchase c WHERE c.purchaseId.purchaseId = :purchaseId")
+    @NamedQuery(name = "EntityProductDocument.findAll", query = "SELECT c FROM EntityProductDocument c")
+    ,@NamedQuery(name = "EntityProductDocument.findByidProductPurchase", query = "SELECT c FROM EntityProductDocument c WHERE c.idProductPurchase = :idProductPurchase")
+    ,@NamedQuery(name = "EntityProductDocument.findByProductPOlist", query = "SELECT c FROM EntityProductDocument c WHERE c.documentId.documentId = :doumentId")
 })
-public class EntityProductPurchase implements Serializable {
+public class EntityProductDocument implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,8 +40,8 @@ public class EntityProductPurchase implements Serializable {
     private Long idProductPurchase;
 
     @ManyToOne
-    @JoinColumn(name = "purchase_id", referencedColumnName = "purchase_id")
-    private EntityPurchases purchaseId;
+    @JoinColumn(name = "document_id", referencedColumnName = "document_id")
+    private EntityDocument documentId;
 
     @ManyToOne
     @JoinColumn(name = "id_product", referencedColumnName = "id_product")
@@ -83,8 +83,6 @@ public class EntityProductPurchase implements Serializable {
 
     @Column(name = "tax_status")
     private Integer tax_status;
-//    @Column(name = "tax_status")
-//    private boolean tax_status;
 
     @Column(name = "update_date")
     @Temporal(TemporalType.DATE)
@@ -92,13 +90,13 @@ public class EntityProductPurchase implements Serializable {
     @Column(name = "update_time")
     private String updateTime;
 
-    public EntityProductPurchase() {
+    public EntityProductDocument() {
 
     }
 
-    public EntityProductPurchase(Long idProductPurchase, EntityPurchases purchaseId, EntityProducts idProduct, EntityUnits unitId, int qtty, int totalProductPurchase, String pic, Date createdDate, String createdTime, Date inputDate, String inputTime, Integer disconto, Integer tax_status, Date updateDate, String updateTime) {
+    public EntityProductDocument(Long idProductPurchase, EntityDocument documentId, EntityProducts idProduct, EntityUnits unitId, int qtty, int totalProductPurchase, String pic, Date createdDate, String createdTime, Date inputDate, String inputTime, Integer disconto, Integer tax_status, Date updateDate, String updateTime) {
         this.idProductPurchase = idProductPurchase;
-        this.purchaseId = purchaseId;
+        this.documentId = documentId;
         this.idProduct = idProduct;
         this.unitId = unitId;
         this.qtty = qtty;
@@ -114,6 +112,8 @@ public class EntityProductPurchase implements Serializable {
         this.updateTime = updateTime;
     }
 
+   
+
     public Long getIdProductPurchase() {
         return idProductPurchase;
     }
@@ -122,13 +122,15 @@ public class EntityProductPurchase implements Serializable {
         this.idProductPurchase = idProductPurchase;
     }
 
-    public EntityPurchases getPurchaseId() {
-        return purchaseId;
+    public EntityDocument getDocumentId() {
+        return documentId;
     }
 
-    public void setPurchaseId(EntityPurchases purchaseId) {
-        this.purchaseId = purchaseId;
+    public void setDocumentId(EntityDocument documentId) {
+        this.documentId = documentId;
     }
+
+   
 
     public EntityProducts getIdProduct() {
         return idProduct;
@@ -183,7 +185,22 @@ public class EntityProductPurchase implements Serializable {
     }
 
     public void setPic(String pic) {
-        this.pic = pic;
+        this.pic = pic.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public Date getCreatedDate() {
@@ -215,7 +232,22 @@ public class EntityProductPurchase implements Serializable {
     }
 
     public void setInputTime(String inputTime) {
-        this.inputTime = inputTime;
+        this.inputTime = inputTime.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public Integer getDisconto() {
@@ -247,7 +279,22 @@ public class EntityProductPurchase implements Serializable {
     }
 
     public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
+        this.updateTime = updateTime.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     @Override
@@ -260,10 +307,10 @@ public class EntityProductPurchase implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EntityProductPurchase)) {
+        if (!(object instanceof EntityProductDocument)) {
             return false;
         }
-        EntityProductPurchase other = (EntityProductPurchase) object;
+        EntityProductDocument other = (EntityProductDocument) object;
         return !((this.idProductPurchase == null && other.idProductPurchase != null) || (this.idProductPurchase != null && !this.idProductPurchase.equals(other.idProductPurchase)));
     }
 

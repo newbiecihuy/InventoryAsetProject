@@ -29,9 +29,15 @@ public interface EntityProductsFacadeLocal {
 
     List<EntityProducts> getAllProducts(int max, int start);
 
+    List<EntityProducts> getAllProductsRaw(int max, int start);
+
     List<EntityProducts> serachProducts(String search, int max, int start);
 
-    EntityProducts getSku(long paramName);
+    List<EntityProducts> serachProductsRaw(String search, int max, int start);
+
+    EntityProducts getSku(long paramName
+
+    );
 
     List<EntityProducts> findByProductName(String pramString);
 
@@ -54,7 +60,7 @@ public interface EntityProductsFacadeLocal {
 
     List<EntityProducts> listItemBySuplierId(Long paramSupId);
 
-    EntityProducts getItemDetails(Long paramLong, String paramString);
+    List<EntityProducts> getItemDetails(Long paramLong, String paramString);
 
     EntityProducts find(Object paramObject);
 

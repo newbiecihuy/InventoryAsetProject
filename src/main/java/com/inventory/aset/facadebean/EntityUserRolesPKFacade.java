@@ -5,6 +5,7 @@
  */
 package com.inventory.aset.facadebean;
 
+import com.inventory.aset.controller.util.Constants;
 import com.inventory.aset.model.users.EntityUserRolesPK;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -20,7 +21,7 @@ import javax.persistence.Query;
 @Stateless
 public class EntityUserRolesPKFacade extends AbstractFacade<EntityUserRolesPK> implements EntityUserRolesPKFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+    @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntityUserRolesPKFacade() {

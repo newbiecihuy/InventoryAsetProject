@@ -40,7 +40,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "EntityProducts.findByMinimumStock", query = "SELECT p FROM EntityProducts p WHERE p.minimumStock = :minimumStock"),
     @NamedQuery(name = "EntityProducts.findByCreatedAt", query = "SELECT p FROM EntityProducts p WHERE p.createdAt = :createdAt"),
     @NamedQuery(name = "EntityProducts.findByUpdatedAt", query = "SELECT p FROM EntityProducts p WHERE p.updatedAt = :updatedAt"),
-    @NamedQuery(name = "EntityProducts.findByProductActiveBySup", query = "SELECT p FROM EntityProducts p WHERE p.supplierId.supplierId = :supplierId And p.status_item = 1")})
+    @NamedQuery(name = "EntityProducts.findByProductActiveBySup", query = "SELECT p FROM EntityProducts p WHERE p.partnerId.partnerId = :partnerId And p.status_item = 1")})
 public class EntityProducts implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,8 +67,8 @@ public class EntityProducts implements Serializable {
     private EntityCategories categoryId;
     
     @ManyToOne
-    @JoinColumn(name = "supplier_id", referencedColumnName = "supplier_id", nullable = false)
-    private EntitySuppliers supplierId;
+    @JoinColumn(name = "partner_id", referencedColumnName = "partner_id", nullable = false)
+    private EntityPartner partnerId;
 
     @Basic(optional = false)
     @Column(name = "minimum_stock")
@@ -114,10 +114,10 @@ public class EntityProducts implements Serializable {
     private EntityStock entityStock;
 
     @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "idProduct")
-    private Collection<EntityProductPurchase> entityProductPurchase;
+    private Collection<EntityProductDocument> entityProductPurchase;
 
-    @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "idProduct")
-    private Collection<EntityProductSell> entityProductSell;
+//    @OneToMany(cascade = {javax.persistence.CascadeType.ALL}, mappedBy = "idProduct")
+//    private Collection<EntityProductSell> entityProductSell;
 
     @Column(name = "is_approve")
     private boolean isApprove = false;
@@ -129,14 +129,14 @@ public class EntityProducts implements Serializable {
 
     }
 
-    public EntityProducts(Long idProduct, String productName, String productCode, String barcode, String pict_path, EntityCategories categoryId, EntitySuppliers supplierId, Date createdAt, String createdAtTime, Date inputDate, String inputTime, Date updatedAt, String updatedAtTime, String description, EntityStock entityStock, Collection<EntityProductPurchase> entityProductPurchase, Collection<EntityProductSell> entityProductSell, String pic) {
+    public EntityProducts(Long idProduct, String productName, String productCode, String barcode, String pict_path, EntityCategories categoryId, EntityPartner partnerId, Date createdAt, String createdAtTime, Date inputDate, String inputTime, Date updatedAt, String updatedAtTime, String description, EntityStock entityStock, Collection<EntityProductDocument> entityProductPurchase, String pic) {
         this.idProduct = idProduct;
         this.productName = productName;
         this.productCode = productCode;
         this.barcode = barcode;
         this.pict_path = pict_path;
         this.categoryId = categoryId;
-        this.supplierId = supplierId;
+        this.partnerId = partnerId;
         this.createdAt = createdAt;
         this.createdAtTime = createdAtTime;
         this.inputDate = inputDate;
@@ -146,9 +146,10 @@ public class EntityProducts implements Serializable {
         this.description = description;
         this.entityStock = entityStock;
         this.entityProductPurchase = entityProductPurchase;
-        this.entityProductSell = entityProductSell;
         this.pic = pic;
     }
+
+    
 
     public Long getIdProduct() {
         return idProduct;
@@ -243,13 +244,15 @@ public class EntityProducts implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public EntitySuppliers getSupplierId() {
-        return supplierId;
+    public EntityPartner getPartnerId() {
+        return partnerId;
     }
 
-    public void setSupplierId(EntitySuppliers supplierId) {
-        this.supplierId = supplierId;
+    public void setPartnerId(EntityPartner partnerId) {
+        this.partnerId = partnerId;
     }
+
+   
 
     public int getMinimumStock() {
         return minimumStock;
@@ -354,20 +357,12 @@ public class EntityProducts implements Serializable {
         this.entityStock = entityStock;
     }
 
-    public Collection<EntityProductPurchase> getEntityProductPurchase() {
+    public Collection<EntityProductDocument> getEntityProductPurchase() {
         return entityProductPurchase;
     }
 
-    public void setEntityProductPurchase(Collection<EntityProductPurchase> entityProductPurchase) {
+    public void setEntityProductPurchase(Collection<EntityProductDocument> entityProductPurchase) {
         this.entityProductPurchase = entityProductPurchase;
-    }
-
-    public Collection<EntityProductSell> getEntityProductSell() {
-        return entityProductSell;
-    }
-
-    public void setEntityProductSell(Collection<EntityProductSell> entityProductSell) {
-        this.entityProductSell = entityProductSell;
     }
 
     public boolean isIsApprove() {

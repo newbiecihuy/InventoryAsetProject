@@ -5,7 +5,8 @@
  */
 package com.inventory.aset.facadebean;
 
-import com.inventory.aset.model.EntitySells;
+import com.inventory.aset.controller.util.Constants;
+import com.inventory.aset.model.EntitySales;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,13 +19,13 @@ import javax.persistence.Query;
  * @author newbiecihuy
  */
 @Stateless
-public class EntitySellsFacade extends AbstractFacade<EntitySells> implements EntitySellsFacadeLocal {
+public class EntitySellsFacade extends AbstractFacade<EntitySales> implements EntitySellsFacadeLocal {
 
-    @PersistenceContext(unitName = "inventoryAsetPU")
+   @PersistenceContext(unitName = Constants.JPA_UNIT_NAME)
     private EntityManager em;
 
     public EntitySellsFacade() {
-        super(EntitySells.class);
+        super(EntitySales.class);
     }
 
     @Override
@@ -33,17 +34,17 @@ public class EntitySellsFacade extends AbstractFacade<EntitySells> implements En
     }
 
     @Override
-    public void createSell(EntitySells dataSell) {
+    public void createSell(EntitySales dataSell) {
         em.persist(dataSell);
     }
 
     @Override
-    public void updateSell(EntitySells dataSell) {
+    public void updateSell(EntitySales dataSell) {
         em.merge(dataSell);
     }
 
     @Override
-    public void deleteSell(EntitySells dataSell) {
+    public void deleteSell(EntitySales dataSell) {
         em.merge(dataSell);
     }
 
@@ -53,19 +54,19 @@ public class EntitySellsFacade extends AbstractFacade<EntitySells> implements En
     }
 
     @Override
-    public EntitySells getSell(long sellId) {
-        return em.find(EntitySells.class, sellId);
+    public EntitySales getSell(long sellId) {
+        return em.find(EntitySales.class, sellId);
     }
 
     @Override
-    public List<EntitySells> getAllSells(int max, int start) {
-//       return em.createNamedQuery("EntitySells.findAll").getResultList();
+    public List<EntitySales> getAllSells(int max, int start) {
+//       return em.createNamedQuery("EntitySales.findAll").getResultList();
         return em.createQuery("SELECT s FROM EntitySells s").setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
-    public EntitySells find(Object sellId) {
-        return (EntitySells) em.find(EntitySells.class, sellId);
+    public EntitySales find(Object sellId) {
+        return (EntitySales) em.find(EntitySales.class, sellId);
     }
 
     @Override

@@ -8,7 +8,6 @@ package com.inventory.aset.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -17,8 +16,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
@@ -31,30 +28,21 @@ import javax.persistence.TemporalType;
  * @author newbiecihuy
  */
 @Entity
-@Table(name = "tbl_purchase")
+@Table(name = "tbl_sales")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 80)
-@DiscriminatorValue("PurchaseOrder")
-
+@DiscriminatorValue("SalesOrder")
 @NamedQueries({
-    @NamedQuery(name = "EntityPurchases.findAll", query = "SELECT c FROM EntityPurchases c"),
-    @NamedQuery(name = "EntityPurchases.findByPurchaseId", query = "SELECT c FROM EntityPurchases c WHERE c.documentId = :documentId"),
-    @NamedQuery(name = "EntityPurchases.findByNoPo", query = "SELECT c FROM EntityPurchases c WHERE c.inputDate = :inputDate order by  c.documentId desc")
-})
-public class EntityPurchases extends EntityDocument implements Serializable {
-
-//    private static final long serialVersionUID = 1L;
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "purchase_id", columnDefinition = "serial", nullable = false)
-//    private Long purchaseId;
-    @Basic(optional = false)
-    @Column(name = "purchase_code")
-    private String purchaseCode;
+    @NamedQuery(name = "EntitySales.findAll", query = "SELECT s FROM EntitySales s")})
+public class EntitySales extends EntityDocument implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "purchase_desc")
-    private String purchaseDesc;
+    @Column(name = "sales_code")
+    private String salesCode;
+
+    @Basic(optional = false)
+    @Column(name = "sales_desc")
+    private String salesDesc;
 
     @Basic(optional = false)
     @Column(name = "date")
@@ -73,16 +61,12 @@ public class EntityPurchases extends EntityDocument implements Serializable {
     @Column(name = "quotation_number")
     private String quotationNumber;
 
-    @Column(name = "total_product_purchase_cost")
-    private String totalProductPurchaseCost = "0";
-
-    @ManyToOne
-    @JoinColumn(name = "type_po_id", referencedColumnName = "type_po_id")
-    private EntityTypePO typePOId;
+    @Column(name = "total_product_sales_cost")
+    private String totalProductSalesCost;
 
     @Basic(optional = false)
-    @Column(name = "no_po")
-    private Long NoPo;
+    @Column(name = "no_so")
+    private Long NoSo;
 
     @Basic(optional = false)
     @Column(name = "delivery_term")
@@ -96,8 +80,8 @@ public class EntityPurchases extends EntityDocument implements Serializable {
     @Column(name = "invoice_to")
     private String invoiceTo;
 
-    @Column(name = "status_po")
-    private String statusPo;
+    @Column(name = "status_so")
+    private String statusSo;
 
     @Column(name = "appprove_by")
     private String appproveBy;
@@ -105,50 +89,44 @@ public class EntityPurchases extends EntityDocument implements Serializable {
     @Column(name = "pic")
     private String pic;
 
-    public EntityPurchases() {
-
+    public EntitySales() {
+       
     }
 
     @PrePersist
     @Override
     protected void onCreate() {
-        statusPo = "No Item";
-        totalProductPurchaseCost = "0";
-        this.documentType = "PurchaseOrder";
-    }
+      statusSo = "No Item";
+      totalProductSalesCost = "0";
+      this.documentType ="SalesOrder";
+   }
 
-    public EntityPurchases(String purchaseCode, String purchaseDesc, Date date, String transportMode, String rfqNumber, String quotationNumber, EntityTypePO typePOId, Long NoPo, String deliveryTerm, String deliveryPoint, String invoiceTo, String statusPo, String appproveBy, String pic, Long documentId, String uuid, String time, Date inputDate, int isApprove, boolean isDelete, Date updatedDate, List<EntityProductDocument> entityProductPurchase, EntityPartner partnerId, String typeDocument) {
-        super(documentId, uuid, time, inputDate, isApprove, isDelete, updatedDate, entityProductPurchase, partnerId, typeDocument);
-        this.purchaseCode = purchaseCode;
-        this.purchaseDesc = purchaseDesc;
+    public EntitySales(String salesCode, String salesDesc, Date date, String transportMode, String rfqNumber, String quotationNumber, String totalProductSalesCost, Long NoSo, String deliveryTerm, String deliveryPoint, String invoiceTo, String statusSo, String appproveBy, String pic, Long documentId, String uuid, String time, Date inputDate, int isApprove, boolean isDelete, Date updatedDate, List<EntityProductDocument> entityProductPurchase, EntityPartner partnerId, String documentType) {
+        super(documentId, uuid, time, inputDate, isApprove, isDelete, updatedDate, entityProductPurchase, partnerId, documentType);
+        this.salesCode = salesCode;
+        this.salesDesc = salesDesc;
         this.date = date;
         this.transportMode = transportMode;
         this.rfqNumber = rfqNumber;
         this.quotationNumber = quotationNumber;
-        this.typePOId = typePOId;
-        this.NoPo = NoPo;
+        this.totalProductSalesCost = totalProductSalesCost;
+        this.NoSo = NoSo;
         this.deliveryTerm = deliveryTerm;
         this.deliveryPoint = deliveryPoint;
         this.invoiceTo = invoiceTo;
-        this.statusPo = statusPo;
+        this.statusSo = statusSo;
         this.appproveBy = appproveBy;
         this.pic = pic;
     }
 
-    public String getPurchaseCode() {
-        return purchaseCode;
+    
+
+    public String getSalesCode() {
+        return salesCode;
     }
 
-    public void setPurchaseCode(String purchaseCode) {
-        this.purchaseCode = purchaseCode;
-    }
-
-    public String getPurchaseDesc() {
-        return purchaseDesc;
-    }
-
-    public void setPurchaseDesc(String purchaseDesc) {
-        this.purchaseDesc = purchaseDesc.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+    public void setSalesCode(String salesCode) {
+        this.salesCode = salesCode.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
                 .replaceAll("<script>(.*?)</script>", "")
                 .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
                 .replaceAll("(?i)<.*?\\s+on.*?/>", "")
@@ -164,6 +142,37 @@ public class EntityPurchases extends EntityDocument implements Serializable {
                 .replaceAll("eval\\((.*?)\\)", "")
                 .replaceAll("expression\\((.*?)\\)", "")
                 .replaceAll("['\":<>\\[\\],-]", "");
+    }
+
+    public String getSalesDesc() {
+        return salesDesc;
+    }
+
+    public void setSalesDesc(String salesDesc) {
+        this.salesDesc = salesDesc.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getTransportMode() {
@@ -194,7 +203,22 @@ public class EntityPurchases extends EntityDocument implements Serializable {
     }
 
     public void setRfqNumber(String rfqNumber) {
-        this.rfqNumber = rfqNumber;
+        this.rfqNumber = rfqNumber.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getQuotationNumber() {
@@ -202,23 +226,38 @@ public class EntityPurchases extends EntityDocument implements Serializable {
     }
 
     public void setQuotationNumber(String quotationNumber) {
-        this.quotationNumber = quotationNumber;
+        this.quotationNumber = quotationNumber.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
-    public String getTotalProductPurchaseCost() {
-        return totalProductPurchaseCost;
+    public String getTotalProductSalesCost() {
+        return totalProductSalesCost;
     }
 
-    public void setTotalProductPurchaseCost(String totalProductPurchaseCost) {
-        this.totalProductPurchaseCost = totalProductPurchaseCost;
+    public void setTotalProductSalesCost(String totalProductSalesCost) {
+        this.totalProductSalesCost = totalProductSalesCost;
     }
 
-    public EntityTypePO getTypePOId() {
-        return typePOId;
+    public Long getNoSo() {
+        return NoSo;
     }
 
-    public void setTypePOId(EntityTypePO typePOId) {
-        this.typePOId = typePOId;
+    public void setNoSo(Long NoSo) {
+        this.NoSo = NoSo;
     }
 
     public String getDeliveryTerm() {
@@ -272,23 +311,30 @@ public class EntityPurchases extends EntityDocument implements Serializable {
     }
 
     public void setInvoiceTo(String invoiceTo) {
-        this.invoiceTo = invoiceTo;
+        this.invoiceTo = invoiceTo.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
-    public Date getDate() {
-        return date;
+    public String getStatusSo() {
+        return statusSo;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getStatusPo() {
-        return statusPo;
-    }
-
-    public void setStatusPo(String statusPo) {
-        this.statusPo = statusPo.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+    public void setStatusSo(String statusSo) {
+        this.statusSo = statusSo.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
                 .replaceAll("<script>(.*?)</script>", "")
                 .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
                 .replaceAll("(?i)<.*?\\s+on.*?/>", "")
@@ -352,14 +398,6 @@ public class EntityPurchases extends EntityDocument implements Serializable {
                 .replaceAll("['\":<>\\[\\],-]", "");
     }
 
-    public Long getNoPo() {
-        return NoPo;
-    }
-
-    public void setNoPo(Long NoPo) {
-        this.NoPo = NoPo;
-    }
-
     public Long getDocumentId() {
         return documentId;
     }
@@ -368,50 +406,65 @@ public class EntityPurchases extends EntityDocument implements Serializable {
         this.documentId = documentId;
     }
 
-    public EntityPartner getPartnerId() {
-        return partnerId;
-    }
 
-    public void setPartnerId(EntityPartner partnerId) {
-        this.partnerId = partnerId;
-    }
-
-    @Override
     public String getUuid() {
         return uuid;
     }
 
-    @Override
     public void setUuid(String uuid) {
-        this.uuid = uuid;
+        this.uuid = uuid.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
-    @Override
     public String getTime() {
         return time;
     }
 
-    @Override
     public void setTime(String time) {
-        this.time = time;
+        this.time = time.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
+                .replaceAll("<script>(.*?)</script>", "")
+                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>", "")
+                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
+                .replaceAll("vbscript", "")
+                .replaceAll("encode", "")
+                .replaceAll("decode", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
+                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
+                .replaceAll("</script>", "")
+                .replaceAll("<script(.*?)>", "")
+                .replaceAll("eval\\((.*?)\\)", "")
+                .replaceAll("expression\\((.*?)\\)", "")
+                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
-    @Override
     public Date getInputDate() {
         return inputDate;
     }
 
-    @Override
     public void setInputDate(Date inputDate) {
         this.inputDate = inputDate;
     }
 
-    @Override
     public int getIsApprove() {
         return isApprove;
     }
 
-    @Override
     public void setIsApprove(int isApprove) {
         this.isApprove = isApprove;
     }
@@ -424,12 +477,10 @@ public class EntityPurchases extends EntityDocument implements Serializable {
         this.updatedDate = updatedDate;
     }
 
-    @Override
     public List<EntityProductDocument> getEntityProductPurchase() {
         return entityProductPurchase;
     }
 
-    @Override
     public void setEntityProductPurchase(List<EntityProductDocument> entityProductPurchase) {
         this.entityProductPurchase = entityProductPurchase;
     }
@@ -442,7 +493,15 @@ public class EntityPurchases extends EntityDocument implements Serializable {
         this.isDelete = isDelete;
     }
 
-    public String getDocumentType() {
+    public EntityPartner getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(EntityPartner partnerId) {
+        this.partnerId = partnerId;
+    }
+
+     public String getDocumentType() {
         return documentType;
     }
 
@@ -465,7 +524,8 @@ public class EntityPurchases extends EntityDocument implements Serializable {
                 .replaceAll("['\":<>\\[\\],-]", "");
     }
 
-
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -476,10 +536,10 @@ public class EntityPurchases extends EntityDocument implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EntityPurchases)) {
+        if (!(object instanceof EntitySales)) {
             return false;
         }
-        EntityPurchases other = (EntityPurchases) object;
+        EntitySales other = (EntitySales) object;
         if ((this.documentId == null && other.documentId != null) || (this.documentId != null && !this.documentId.equals(other.documentId))) {
             return false;
         }
@@ -488,6 +548,7 @@ public class EntityPurchases extends EntityDocument implements Serializable {
 
     @Override
     public String toString() {
-        return "com.inventory.aset.entity.EntityPurchases[ documentId=" + documentId + " ]";
+        return "com.inventory.aset.entity.EntitySells[ documentId=" + documentId + " ]";
     }
+
 }

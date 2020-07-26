@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.inventory.aset.model.EntityCategories;
-import com.inventory.aset.model.EntityProductPurchase;
+import com.inventory.aset.model.EntityProductDocument;
 import com.inventory.aset.model.EntityProducts;
 import com.inventory.aset.model.EntityPurchases;
 import com.inventory.aset.model.EntityStock;
@@ -28,12 +28,12 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import com.inventory.aset.facadebean.local.EntityCategoriesFacadeLocal;
-import com.inventory.aset.facadebean.local.EntityProductPurchaseFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityProductsFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityPurchasesFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityStockFacadeLocal;
 import com.inventory.aset.facadebean.local.EntityUnitsFacadeLocal;
 import java.text.ParseException;
+import com.inventory.aset.facadebean.local.EntityProductDocumentFacadeLocal;
 
 /**
  *
@@ -48,7 +48,7 @@ public class CreatePOItemServlet extends HttpServlet {
     @EJB
     EntityPurchasesFacadeLocal entityPurchasesFacadeLocal;
     @EJB
-    EntityProductPurchaseFacadeLocal entityProductPurchaseDao;
+    EntityProductDocumentFacadeLocal entityProductPurchaseDao;
     @EJB
     EntityProductsFacadeLocal entityProductsDao;
     @EJB
@@ -84,7 +84,7 @@ public class CreatePOItemServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Inside doGet");
+        System.out.println("Inside doGet CreatePOItem");
         PrintWriter out = response.getWriter();
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -124,7 +124,7 @@ public class CreatePOItemServlet extends HttpServlet {
             Date tanggalGaransi = null;
             JSONArray jsonArray = new JSONArray();
             int no = Integer.parseInt(start) + 1;
-            List<EntityProductPurchase> itemList = entityProductPurchaseDao.getAllProductPurchase(Integer.parseInt(idPurcase), Integer.parseInt(length), Integer.parseInt(start));
+            List<EntityProductDocument> itemList = entityProductPurchaseDao.getAllProductPurchase(Integer.parseInt(idPurcase), Integer.parseInt(length), Integer.parseInt(start));
             if (Integer.parseInt(length) <= itemList.size()) {
                 totalCount = itemList.size();
                 if (totalCount > 0) {
@@ -141,7 +141,7 @@ public class CreatePOItemServlet extends HttpServlet {
             }
             if (itemList.size() > 0) {
                 for (int i = 0; i < itemList.size(); i++) {
-                    EntityProductPurchase dataProductPurchase = (EntityProductPurchase) itemList.get(i);
+                    EntityProductDocument dataProductPurchase = (EntityProductDocument) itemList.get(i);
 //                    EntityStock dataStock = (EntityStock) productList.get(i);
 //                    EntityStock dataStock = entityStockDao.find(dataProduct.getIdProduct());
                     JSONObject obj = new JSONObject();
@@ -155,30 +155,30 @@ public class CreatePOItemServlet extends HttpServlet {
                         obj.put("no_itemPo", no++);
                         obj.put("action_item_po", "");
                     }
-                    if (dataProductPurchase.getPurchaseId().getPurchaseId() == null) {
+                    if (dataProductPurchase.getDocumentId().getDocumentId()== null) {
                         obj.put("id_po", "");
                     } else {
-                        obj.put("id_po", dataProductPurchase.getPurchaseId().getPurchaseId());
+                        obj.put("id_po", dataProductPurchase.getDocumentId().getDocumentId());
                     }
                     if (dataProductPurchase.getIdProduct().getCategoryId().getCategoryId() == null) {
                         obj.put("id_categories_po", "");
                     } else {
                         obj.put("id_categories_po", dataProductPurchase.getIdProduct().getCategoryId().getCategoryId());
                     }
-                    if (dataProductPurchase.getPurchaseId().getSupplierId().getSupplierId() == null) {
+                    if (dataProductPurchase.getDocumentId().getPartnerId() == null) {
                         obj.put("id_supplier_po", "");
                     } else {
-                        obj.put("id_supplier_po", dataProductPurchase.getPurchaseId().getSupplierId().getSupplierId());
+                        obj.put("id_supplier_po", dataProductPurchase.getDocumentId().getPartnerId().getPartnerId());
                     }
-                    if (dataProductPurchase.getPurchaseId().getSupplierId().getSupplierName() == null) {
+                    if (dataProductPurchase.getDocumentId().getPartnerId() == null) {
                         obj.put("supplier_name_po", "");
                     } else {
-                        obj.put("supplier_name_po", dataProductPurchase.getPurchaseId().getSupplierId().getSupplierName());
+                        obj.put("supplier_name_po", dataProductPurchase.getDocumentId().getPartnerId().getName());
                     }
-                    if (dataProductPurchase.getPurchaseId().getSupplierId().getSupplierCode() == null) {
+                    if (dataProductPurchase.getDocumentId().getPartnerId().getPartnerCode()== null) {
                         obj.put("supplier_code_po", "");
                     } else {
-                        obj.put("supplier_code_po", dataProductPurchase.getPurchaseId().getSupplierId().getSupplierCode());
+                        obj.put("supplier_code_po", dataProductPurchase.getDocumentId().getPartnerId().getPartnerCode());
                     }
                     if (dataProductPurchase.getTax_status() == 0) {
                         obj.put("supplier_tax_po", "0");
@@ -295,7 +295,7 @@ public class CreatePOItemServlet extends HttpServlet {
 //            JSONArray arrMid = null;
             EntityPurchases dataPurcahse = new EntityPurchases();
             EntityProducts dataProducts = new EntityProducts();
-            EntityProductPurchase dataProductPurchase = new EntityProductPurchase();
+            EntityProductDocument dataProductPurchase = new EntityProductDocument();
             EntityStock dataStockProduct = new EntityStock();
 //            
             EntityCategories dataCategories = new EntityCategories();
@@ -583,7 +583,7 @@ public class CreatePOItemServlet extends HttpServlet {
 //                        }
                         dataProducts = entityProductsDao.find(cekItemName.get(0).getIdProduct());
 
-                        dataProductPurchase.setPurchaseId(dataPurcahse);
+                        dataProductPurchase.setDocumentId(dataPurcahse);
                         dataProductPurchase.setQtty(Integer.parseInt(isi_qtty_po));
                         dataProductPurchase.setDisconto(Integer.parseInt(isi_discount_item_po));
                         dataProductPurchase.setPrice(Integer.parseInt(isi_price_po));

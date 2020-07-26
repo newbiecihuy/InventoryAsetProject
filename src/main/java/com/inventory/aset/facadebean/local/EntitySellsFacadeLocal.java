@@ -5,7 +5,7 @@
  */
 package com.inventory.aset.facadebean.local;
 
-import com.inventory.aset.model.EntitySells;
+import com.inventory.aset.model.EntitySales;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -16,20 +16,20 @@ import javax.ejb.Local;
 @Local
 public interface EntitySellsFacadeLocal {
 
-    void createSell(EntitySells dataSell);
+    void createSell(EntitySales dataSell);
 
-    void updateSell(EntitySells dataSell);
+    void updateSell(EntitySales dataSell);
 
-    void deleteSell(EntitySells dataSell);
+    void deleteSell(EntitySales dataSell);
 
     void removeSell(long sellId);
 
-    EntitySells getSell(long sellId);
+    EntitySales getSell(long sellId);
 
-    List<EntitySells> getAllSells(int max, int start);
+    List<EntitySales> getAllSells(int max, int start);
 
 //    List<EntityProductSell> getSellId(Object sellId);
-    EntitySells find(Object paramObject);
+    EntitySales find(Object paramObject);
 
     int count();
 }
