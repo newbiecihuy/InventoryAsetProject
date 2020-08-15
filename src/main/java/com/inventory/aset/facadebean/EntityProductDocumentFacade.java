@@ -60,13 +60,15 @@ public class EntityProductDocumentFacade extends AbstractFacade<EntityProductDoc
     @Override
     public List<EntityProductDocument> getAllProductPurchase(int param, int max, int start) {
 //        return em.createNamedQuery("EntityProductDocument.findAll").getResultList();
-        return em.createQuery("SELECT l FROM EntityProductPurchase l where l.purchaseId.purchaseId=  \"" + param + "\"").setMaxResults(max).setFirstResult(start).getResultList();
+        return em.createQuery("SELECT l FROM EntityProductDocument l where l.documentId.documentId=  :documentId ")
+                .setParameter("documentId", param)
+                .setMaxResults(max).setFirstResult(start).getResultList();
     }
 
     @Override
     public EntityProductDocument findByPOCode(String param) {
 //        return (EntityProductDocument) em.createQuery("SELECT l FROM EntityProductDocument l WHERE l.purchaseId.purchaseCode =  \"" + param + "\"").getSingleResult();
-        String sql = "FROM EntityProductPurchase l WHERE l.purchaseId.purchaseCode = :param";
+        String sql = "FROM EntityProductDocument l WHERE l.purchaseId.purchaseCode = :param";
         Query query = em.createQuery(sql);
         query.setParameter("param", param);
         return (EntityProductDocument) query.getSingleResult();
@@ -79,12 +81,12 @@ public class EntityProductDocumentFacade extends AbstractFacade<EntityProductDoc
 
     @Override
     public List<EntityProductDocument> productPOlist(Long param) {
-        return (List<EntityProductDocument>) em.createNamedQuery("EntityProductPurchase.findByProductPOlist").setParameter("purchaseId", param).getResultList();
+        return (List<EntityProductDocument>) em.createNamedQuery("EntityProductDocument.findByProductPOlist").setParameter("documentId", param).getResultList();
     }
 
     @Override
     public int count() {
-        Query queryMax = em.createQuery("SELECT COUNT(l) FROM EntityProductPurchase l");
+        Query queryMax = em.createQuery("SELECT COUNT(l) FROM EntityProductDocument l");
         return Integer.parseInt(queryMax.getSingleResult().toString());
     }
 

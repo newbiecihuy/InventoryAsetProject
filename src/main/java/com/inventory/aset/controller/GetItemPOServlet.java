@@ -86,7 +86,7 @@ public class GetItemPOServlet extends HttpServlet {
             String value = "";
             int result = 0;
             String varName = request.getParameter("term").toLowerCase();
-             System.out.println("varName" + varName);
+            System.out.println("varName" + varName);
             Long varlong = Long.parseLong(request.getParameter("idSupplier").trim().replaceAll("['\":<>\\[\\],-]", ""));
             System.out.println("varlong" + varlong);
             System.out.println("Entered");
@@ -96,7 +96,7 @@ public class GetItemPOServlet extends HttpServlet {
             List<EntityProducts> dataItem = entityProductsFacadeLocal.findBySuplierId(varlong);
             System.out.println("isi dataItem.getResultList()" + dataItem);
             org.json.simple.JSONArray array = new org.json.simple.JSONArray();
-            if (!dataItem.isEmpty()) {
+            if (dataItem != null) {
                 json = new Gson().toJson(dataItem);
                 result = dataItem.size();
             } else {

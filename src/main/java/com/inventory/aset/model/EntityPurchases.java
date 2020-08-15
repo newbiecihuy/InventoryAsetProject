@@ -117,8 +117,7 @@ public class EntityPurchases extends EntityDocument implements Serializable {
         this.documentType = "PurchaseOrder";
     }
 
-    public EntityPurchases(String purchaseCode, String purchaseDesc, Date date, String transportMode, String rfqNumber, String quotationNumber, EntityTypePO typePOId, Long NoPo, String deliveryTerm, String deliveryPoint, String invoiceTo, String statusPo, String appproveBy, String pic, Long documentId, String uuid, String time, Date inputDate, int isApprove, boolean isDelete, Date updatedDate, List<EntityProductDocument> entityProductPurchase, EntityPartner partnerId, String typeDocument) {
-        super(documentId, uuid, time, inputDate, isApprove, isDelete, updatedDate, entityProductPurchase, partnerId, typeDocument);
+    public EntityPurchases(String purchaseCode, String purchaseDesc, Date date, String transportMode, String rfqNumber, String quotationNumber, EntityTypePO typePOId, Long NoPo, String deliveryTerm, String deliveryPoint, String invoiceTo, String statusPo, String appproveBy, String pic) {
         this.purchaseCode = purchaseCode;
         this.purchaseDesc = purchaseDesc;
         this.date = date;
@@ -377,16 +376,6 @@ public class EntityPurchases extends EntityDocument implements Serializable {
     }
 
     @Override
-    public String getUuid() {
-        return uuid;
-    }
-
-    @Override
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    @Override
     public String getTime() {
         return time;
     }
@@ -464,7 +453,6 @@ public class EntityPurchases extends EntityDocument implements Serializable {
                 .replaceAll("expression\\((.*?)\\)", "")
                 .replaceAll("['\":<>\\[\\],-]", "");
     }
-
 
     @Override
     public int hashCode() {

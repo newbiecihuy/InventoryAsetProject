@@ -444,7 +444,7 @@ $(document).ready(function () {
 
         var item_name = $("#item_name").val();
         var categori_name = $("#categories_name").val();
-        var description = $("#description").val();
+        var description = $("#descr").val();
         var product_code = $("#product_code").val();
         if ($("#item_name").val() === "") {
 
@@ -477,7 +477,7 @@ $(document).ready(function () {
                 ) === true) {
             $('#item_name').css('background', '');
             $('#categori_name').css('background', '');
-            $('#description').css('background', '');
+            $('#descr').css('background', '');
         } else {
             console.log("cancel");
             $('#item_name').css('background', '');
@@ -578,7 +578,8 @@ $(document).ready(function () {
             $('#purchase_desc').css('background', '');
             return false;
         }
-
+//        const data = $('#form_add_po').serializeObject();
+//        alert(JSON.stringify(data, null, 2));
         $.ajax({
             type: "POST",
             url: createDynamicURL() + "/createPOServlet",
@@ -799,6 +800,7 @@ $(document).ready(function () {
     });
     $("#form_create_po").submit(function () {
 
+//        alert(JSON.stringify($('#form_create_po').serializeObject(), null, 2));
         $.ajax({
             type: "POST",
             url: createDynamicURL() + "/ceatePOItemServlet",
@@ -1708,7 +1710,7 @@ function editItemFunc(data_Items) {
             + "&id_product=" + escape(data_Items.id_product) + "&action_edit_item=" + "EDIT" + "&product_code=" + escape(data_Items.product_code)
             + "&categories_name=" + escape(data_Items.name_category) + "&category_id=" + escape(data_Items.category_id) + "&price_item=" + escape(data_Items.price_item)
             + "&estemated_date_before=" + escape(data_Items.estemated_date_before) + "&estemated_date_after=" + escape(data_Items.estemated_date_after)
-            + "&description=" + escape(data_Items.description) + "&id_stock=" + escape(data_Items.id_stock);
+            + "&descr=" + escape(data_Items.description) + "&id_stock=" + escape(data_Items.id_stock);
 //    var isi_param = param.replace(/%20/g, "");
 
     window.location = "index.jsp?url=item_layout&pages=form_add_item" + param;//decodeURI(param)
@@ -2386,6 +2388,7 @@ function item_supEmpty_(k, item_name_po) {
             url: createDynamicURL() + "/getItemSupplierServlet", //
             data: {
                 jsonfield: JSON.stringify(dataString) // look here!
+//                jsonfield: JSON.stringify(dataString, null, 2)
             },
             dataType: "json",
             //if received a response from the server

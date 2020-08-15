@@ -48,13 +48,13 @@ public class CreatePOItemServlet extends HttpServlet {
     @EJB
     EntityPurchasesFacadeLocal entityPurchasesFacadeLocal;
     @EJB
-    EntityProductDocumentFacadeLocal entityProductPurchaseDao;
+    EntityProductDocumentFacadeLocal entityProductDocumentFacadeLocal;
     @EJB
-    EntityProductsFacadeLocal entityProductsDao;
+    EntityProductsFacadeLocal entityProductsFacadeLocal;
     @EJB
-    EntityStockFacadeLocal entityStockDao;
+    EntityStockFacadeLocal entityStockFacadeLocal;
     @EJB
-    EntityUnitsFacadeLocal entityUnitsDao;
+    EntityUnitsFacadeLocal entityUnitsFacadeLocal;
 //    @EJB
 //    EntityTypePOFacadeLocal entityTypePODao;
     @EJB
@@ -114,7 +114,7 @@ public class CreatePOItemServlet extends HttpServlet {
             //            System.out.println("page" + page);
             int totalPages = 0;
             int totalCount = 0;
-            int recordsFiltered = entityProductPurchaseDao.count();
+            int recordsFiltered = entityProductDocumentFacadeLocal.count();
             System.out.println("recordsFiltered " + recordsFiltered);
             Date d2 = sdf.parse(tgl);
             String relation = "";
@@ -124,7 +124,7 @@ public class CreatePOItemServlet extends HttpServlet {
             Date tanggalGaransi = null;
             JSONArray jsonArray = new JSONArray();
             int no = Integer.parseInt(start) + 1;
-            List<EntityProductDocument> itemList = entityProductPurchaseDao.getAllProductPurchase(Integer.parseInt(idPurcase), Integer.parseInt(length), Integer.parseInt(start));
+            List<EntityProductDocument> itemList = entityProductDocumentFacadeLocal.getAllProductPurchase(Integer.parseInt(idPurcase), Integer.parseInt(length), Integer.parseInt(start));
             if (Integer.parseInt(length) <= itemList.size()) {
                 totalCount = itemList.size();
                 if (totalCount > 0) {
@@ -513,33 +513,33 @@ public class CreatePOItemServlet extends HttpServlet {
                             isi_price_po = data_node_price_po[j].replaceAll("['\":<>\\[\\],-]", "");
                         }
 
-                        List<EntityUnits> cekUnitName = entityUnitsDao.getUnitName(isi_unit_item_po);
+                        List<EntityUnits> cekUnitName = entityUnitsFacadeLocal.getUnitName(isi_unit_item_po);
                         if (cekUnitName.size() > 0) {
-                            dataUnit = entityUnitsDao.getUnit(cekUnitName.get(0).getUnitId());
+                            dataUnit = entityUnitsFacadeLocal.getUnit(cekUnitName.get(0).getUnitId());
                             dataProductPurchase.setUnitId(dataUnit);
                         } else {
                             dataUnit.setUnitName(isi_unit_item_po);
                             dataUnit.setCreatedDate(now);
                             dataUnit.setCreatedTime(time_now);
                             dataUnit.setPic(("PIC").toLowerCase());
-                            entityUnitsDao.createUnit(dataUnit);
+                            entityUnitsFacadeLocal.createUnit(dataUnit);
                             dataProductPurchase.setUnitId(dataUnit);
 
                         }
 //                        List<EntityProducts> cekItemName = entityProductsDao.findWithProductName(isi_item_name.toLowerCase());    
                         System.out.println("supplier_id_form_create_po :" + supplier_id_form_create_po + " isi_id_product :" + isi_id_product);
-                        List<EntityProducts> cekItemName = entityProductsDao.findBySuplierIdItemId(supplier_id_form_create_po, Long.parseLong(isi_id_product));
+                        List<EntityProducts> cekItemName = entityProductsFacadeLocal.findBySuplierIdItemId(supplier_id_form_create_po, Long.parseLong(isi_id_product));
                         System.out.println("isi cekItemName" + cekItemName);
                         if (cekItemName.size() > 0) {
-                            List<EntityStock> dataStokById = entityStockDao.findByIdProduct(cekItemName.get(0).getIdProduct());//id_product
+                            List<EntityStock> dataStokById = entityStockFacadeLocal.findByIdProduct(cekItemName.get(0).getIdProduct());//id_product
 //                            dataStokById.get(0).setStock(Integer.parseInt(isi_qtty_po));
                             if (dataStokById.size() > 0) {
-                                dataStockProduct = entityStockDao.find(dataStokById.get(0).getIdStock());
+                                dataStockProduct = entityStockFacadeLocal.find(dataStokById.get(0).getIdStock());
                                 dataStockProduct.setDate(now);
                                 dataStockProduct.setTime(time_now);
                                 dataStockProduct.setPic(("PIC").toLowerCase());
                                 dataStockProduct.setStock(Integer.parseInt(isi_qtty_po));
-                                entityStockDao.updateStock(dataStockProduct);
+                                entityStockFacadeLocal.updateStock(dataStockProduct);
                             } else {
 //                                List<EntityCategories> dataCategory = entityCategoriesDaoLocal.findByCategoriesName("raw material");
 //                                dataCategories = entityCategoriesDaoLocal.find(dataCategory.get(0).getCategoryId());
@@ -581,7 +581,7 @@ public class CreatePOItemServlet extends HttpServlet {
 //                            dataStockProduct.setStock(Integer.parseInt(isi_qtty_po));
 //                            entityStockDao.createStock(dataStockProduct);
 //                        }
-                        dataProducts = entityProductsDao.find(cekItemName.get(0).getIdProduct());
+                        dataProducts = entityProductsFacadeLocal.find(cekItemName.get(0).getIdProduct());
 
                         dataProductPurchase.setDocumentId(dataPurcahse);
                         dataProductPurchase.setQtty(Integer.parseInt(isi_qtty_po));
@@ -595,7 +595,7 @@ public class CreatePOItemServlet extends HttpServlet {
                         dataProductPurchase.setPic(("PIC").toLowerCase());
                         dataProductPurchase.setTax_status(Integer.parseInt(tax_po_val));
                         dataProductPurchase.setDisconto(Integer.parseInt(isi_discount_item_po));
-                        entityProductPurchaseDao.createProductPurchase(dataProductPurchase);
+                        entityProductDocumentFacadeLocal.createProductPurchase(dataProductPurchase);
                         dataPurcahse.setStatusPo("need approval");
                         dataPurcahse.setTotalProductPurchaseCost(total_price_po);
                         entityPurchasesFacadeLocal.updatePurchases(dataPurcahse);

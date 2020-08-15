@@ -29,7 +29,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "EntityProductDocument.findAll", query = "SELECT c FROM EntityProductDocument c")
     ,@NamedQuery(name = "EntityProductDocument.findByidProductPurchase", query = "SELECT c FROM EntityProductDocument c WHERE c.idProductPurchase = :idProductPurchase")
-    ,@NamedQuery(name = "EntityProductDocument.findByProductPOlist", query = "SELECT c FROM EntityProductDocument c WHERE c.documentId.documentId = :doumentId")
+    ,@NamedQuery(name = "EntityProductDocument.findByProductPOlist", query = "SELECT c FROM EntityProductDocument c WHERE c.documentId.documentId = :documentId")
 })
 public class EntityProductDocument implements Serializable {
 

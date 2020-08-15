@@ -46,8 +46,8 @@ public class EntityDocument implements Serializable {
     @Column(name = "document_id", columnDefinition = "serial", nullable = false)
     protected Long documentId;
 
-    @Column(name = "uuid")
-    protected String uuid;
+//    @Column(name = "uuid")
+//    protected String uuid;
 
     @Basic(optional = false)
     @Column(name = "time")
@@ -82,7 +82,6 @@ public class EntityDocument implements Serializable {
     @PrePersist
     protected void onCreate() {
         inputDate = new Date();
-        this.setUuid(UUID.randomUUID().toString());
     }
 
     @PreUpdate
@@ -93,9 +92,8 @@ public class EntityDocument implements Serializable {
     public EntityDocument() {
     }
 
-    public EntityDocument(Long documentId, String uuid, String time, Date inputDate, int isApprove, boolean isDelete, Date updatedDate, List<EntityProductDocument> entityProductPurchase, EntityPartner partnerId, String documentType) {
+    public EntityDocument(Long documentId, String time, Date inputDate, int isApprove, boolean isDelete, Date updatedDate, List<EntityProductDocument> entityProductPurchase, EntityPartner partnerId, String documentType) {
         this.documentId = documentId;
-        this.uuid = uuid;
         this.time = time;
         this.inputDate = inputDate;
         this.isApprove = isApprove;
@@ -105,39 +103,13 @@ public class EntityDocument implements Serializable {
         this.partnerId = partnerId;
         this.documentType = documentType;
     }
-
-    
-
-   
+  
     public Long getDocumentId() {
         return documentId;
     }
 
     public void setDocumentId(Long documentId) {
         this.documentId = documentId;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
-                .replaceAll("<script>(.*?)</script>", "")
-                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
-                .replaceAll("vbscript", "")
-                .replaceAll("encode", "")
-                .replaceAll("decode", "")
-                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
-                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
-                .replaceAll("</script>", "")
-                .replaceAll("<script(.*?)>", "")
-                .replaceAll("eval\\((.*?)\\)", "")
-                .replaceAll("expression\\((.*?)\\)", "")
-                .replaceAll("['\":<>\\[\\],-]", "");
     }
 
     public String getTime() {
@@ -243,7 +215,6 @@ public class EntityDocument implements Serializable {
     }
 
       
-
     @Override
     public int hashCode() {
         int hash = 0;

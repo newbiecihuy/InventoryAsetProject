@@ -400,8 +400,8 @@ public class ItemServlet extends HttpServlet {
                         price_item = "";
                     }
 
-                    if (!object.getString("description").isEmpty()) {
-                        description = object.getString("description");//.trim().replaceAll("['\":<>\\[\\],-]", "");
+                    if (!object.getString("descr").isEmpty()) {
+                        description = object.getString("descr");//.trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         description = "";
                     }
@@ -437,29 +437,34 @@ public class ItemServlet extends HttpServlet {
 //                        return;
 //                    }
                     List<EntityProducts> cekItemName = entityProductsFacadeLocal.findWithProductNameSuplier(item_name.toLowerCase(), supplier_id);
-                    System.out.println("isi cekItemName" + cekItemName);
-                    if (cekItemName.size() > 0) {
-                        code = "2";
-                        JSONObject jsonobj = new JSONObject();
-                        jsonobj.put("RC", code);
-                        jsonobj.put("msg", msg);
-                        out.println(jsonobj.toString());
-                        out.flush();
-                        System.out.println(jsonobj.toString());
-                        return;
+                    if (cekItemName != null || !cekItemName.isEmpty()) {
+                        System.out.println("isi cekItemName" + cekItemName);
+                        if (cekItemName.size() > 0) {
+                            code = "2";
+                            msg = "item Already Registered";
+                            JSONObject jsonobj = new JSONObject();
+                            jsonobj.put("RC", code);
+                            jsonobj.put("msg", msg);
+                            out.println(jsonobj.toString());
+                            out.flush();
+                            System.out.println(jsonobj.toString());
+                            return;
+                        }
                     }
                     List<EntityProducts> cekProductCode = entityProductsFacadeLocal.findByProductCode(product_code.toLowerCase());
-                    System.out.println("isi cekProductCode.size" + cekProductCode.size());
-                    if (cekProductCode.size() > 0) {
-                        code = "33";
-                        msg = "Product Code Already Registered";
-                        JSONObject jsonobj = new JSONObject();
-                        jsonobj.put("RC", code);
-                        jsonobj.put("msg", msg);
-                        out.println(jsonobj.toString());
-                        out.flush();
-                        System.out.println(jsonobj.toString());
-                        return;
+                    if (cekProductCode != null || !cekProductCode.isEmpty()) {
+                        System.out.println("isi cekProductCode.size" + cekProductCode.size());
+                        if (cekProductCode.size() > 0) {
+                            code = "33";
+                            msg = "Product Code Already Registered";
+                            JSONObject jsonobj = new JSONObject();
+                            jsonobj.put("RC", code);
+                            jsonobj.put("msg", msg);
+                            out.println(jsonobj.toString());
+                            out.flush();
+                            System.out.println(jsonobj.toString());
+                            return;
+                        }
                     }
                     dataSuppplier = entitySuppliersFacadeLocal.find(supplier_id);
                     System.out.println("isi dataSuppplier" + dataSuppplier);
@@ -563,8 +568,8 @@ public class ItemServlet extends HttpServlet {
                     } else {
                         supplier_id = 0l;
                     }
-                    if (!object.getString("description").isEmpty()) {
-                        description = object.getString("description");//.trim().replaceAll("['\":<>\\[\\],-]", "");
+                    if (!object.getString("descr").isEmpty()) {
+                        description = object.getString("descr");//.trim().replaceAll("['\":<>\\[\\],-]", "");
                     } else {
                         description = "";
                     }

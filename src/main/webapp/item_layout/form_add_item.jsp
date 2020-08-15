@@ -53,9 +53,9 @@
         if (request.getParameter("estemated_date_after") != null) {
             estemated_date_after = request.getParameter("estemated_date_after");
         }
-        String description = "";
-        if (request.getParameter("description") != null) {
-            description = request.getParameter("description");
+        String descr = "";
+        if (request.getParameter("descr") != null) {
+            descr = request.getParameter("descr");
         }
 
     %>
@@ -128,8 +128,7 @@
                         </div>
                         <div class="form-group">
                             <label for="title" class="required">Item Description &nbsp;:</label>
-
-                            <textarea class="form-control ui-widget-content sw uppercase" id="description" name="description" placeholder="Item Description"><% out.println(description);%></textarea>
+                            <textarea class="form-control ui-widget-content sw uppercase" id="descr" name="descr" placeholder="Item Description"><% out.println(descr);%></textarea>
                             <span class="required-server"> </span>
                         </div>
                     </div>

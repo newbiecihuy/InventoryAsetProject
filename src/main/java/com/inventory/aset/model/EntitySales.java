@@ -101,8 +101,7 @@ public class EntitySales extends EntityDocument implements Serializable {
       this.documentType ="SalesOrder";
    }
 
-    public EntitySales(String salesCode, String salesDesc, Date date, String transportMode, String rfqNumber, String quotationNumber, String totalProductSalesCost, Long NoSo, String deliveryTerm, String deliveryPoint, String invoiceTo, String statusSo, String appproveBy, String pic, Long documentId, String uuid, String time, Date inputDate, int isApprove, boolean isDelete, Date updatedDate, List<EntityProductDocument> entityProductPurchase, EntityPartner partnerId, String documentType) {
-        super(documentId, uuid, time, inputDate, isApprove, isDelete, updatedDate, entityProductPurchase, partnerId, documentType);
+    public EntitySales(String salesCode, String salesDesc, Date date, String transportMode, String rfqNumber, String quotationNumber, String totalProductSalesCost, Long NoSo, String deliveryTerm, String deliveryPoint, String invoiceTo, String statusSo, String appproveBy, String pic) {
         this.salesCode = salesCode;
         this.salesDesc = salesDesc;
         this.date = date;
@@ -119,6 +118,7 @@ public class EntitySales extends EntityDocument implements Serializable {
         this.pic = pic;
     }
 
+  
     
 
     public String getSalesCode() {
@@ -406,29 +406,6 @@ public class EntitySales extends EntityDocument implements Serializable {
         this.documentId = documentId;
     }
 
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid.replaceAll("(?i)<script.*?>.*?</script.*?>", "")
-                .replaceAll("<script>(.*?)</script>", "")
-                .replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?/>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?>", "")
-                .replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "")
-                .replaceAll("vbscript", "")
-                .replaceAll("encode", "")
-                .replaceAll("decode", "")
-                .replaceAll("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", "")
-                .replaceAll("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", "")
-                .replaceAll("</script>", "")
-                .replaceAll("<script(.*?)>", "")
-                .replaceAll("eval\\((.*?)\\)", "")
-                .replaceAll("expression\\((.*?)\\)", "")
-                .replaceAll("['\":<>\\[\\],-]", "");
-    }
 
     public String getTime() {
         return time;

@@ -137,7 +137,7 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
             return em.createQuery("SELECT ep FROM EntityProducts ep "
                     + " WHERE ep.productName LIKE :productName "
                     + " OR ep.productCode LIKE :productCode "
-                    + " OR ep.supplierId.supplierName LIKE :supplierName "
+                    + " OR ep.partnerId.name LIKE :name "
                     + " OR ep.categoryId.categoriesName LIKE :categoriesName "
                     + " OR ep.status_item = \"" + EncryptionUtil.getStatus(search.toLowerCase()) + "\" "
                     + " AND ep.isDelete = :isDelete "
@@ -145,7 +145,7 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
                     + " AND ep.isApprove = 1")
                     .setParameter("productName", search.toLowerCase() + "%")
                     .setParameter("productCode", search.toLowerCase() + "%")
-                    .setParameter("supplierName", search.toLowerCase() + "%")
+                    .setParameter("name", search.toLowerCase() + "%")
                     .setParameter("categoriesName", search.toLowerCase() + "%")
                     .setParameter("isDelete", false)
                     .setParameter("catDelete", false)
@@ -163,12 +163,12 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
             return em.createQuery("SELECT ep FROM EntityProducts ep "
                     + " WHERE ep.productName LIKE :productName "
                     + " OR ep.productCode LIKE :productCode "
-                    + " OR ep.supplierId.supplierName LIKE :supplierName "
+                    + " OR ep.partnerId.name LIKE :name "
                     + " OR ep.categoryId.categoriesName LIKE :categoriesName "
                     + " OR ep.status_item = \"" + EncryptionUtil.getStatus(search.toLowerCase()) + "\"")
                     .setParameter("productName", search.toLowerCase() + "%")
                     .setParameter("productCode", search.toLowerCase() + "%")
-                    .setParameter("supplierName", search.toLowerCase() + "%")
+                    .setParameter("name", search.toLowerCase() + "%")
                     .setParameter("categoriesName", search.toLowerCase() + "%")
                     .setMaxResults(max).setFirstResult(start).getResultList();
 //            String sql = "SELECT ep FROM EntityProducts ep WHERE "
@@ -250,10 +250,13 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
 //            return em.createQuery("SELECT ep FROM EntityProducts ep WHERE "
 //                    + " ep.productName =  \"" + paramName + "\" "
 //                    + " AND " + "ep.supplierId.supplierId =  \"" + paramLong + "\" ").getResultList();
-            String sql = "from EntityProducts ep WHERE ep.productName = :productName AND ep.supplierId.supplierId = :supplierId ";
+            String sql = "from EntityProducts ep "
+                    + " JOIN FETCH ep.partnerId AS p"
+                    + " WHERE ep.productName = :productName AND "
+                    + " p.partnerId = :partnerId ";
             Query query = em.createQuery(sql);
             query.setParameter("productName", paramName);
-            query.setParameter("paramLong", paramName);
+            query.setParameter("partnerId", paramLong);
             return (List<EntityProducts>) query.getResultList();
         } catch (Exception ex) {
             LogSystem.error(getClass(), ex);
@@ -304,10 +307,12 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
 //            return em.createQuery("SELECT Distinct ep.productName  FROM EntityProducts ep WHERE "
 //                    + " ep.supplierId.supplierId =  \"" + paramLong + "\" "
 //                    + " AND " + " ep.status_item =  \"" + 1 + "\"").getResultList();
-            String sql = "SELECT Distinct ep.productName  FROM EntityProducts ep WHERE ep.supplierId.supplierId = :supplierId "
+            String sql = "SELECT Distinct ep.productName FROM EntityProducts ep "
+                    + " JOIN FETCH ep.partnerId AS p "
+                    + " WHERE p.partnerId = :partnerId "
                     + " AND ep.status_item= :status_item ";
             Query query = em.createQuery(sql);
-            query.setParameter("supplierId", paramLong);
+            query.setParameter("partnerId", paramLong);
             query.setParameter("status_item", 1);
             return (List<EntityProducts>) query.getResultList();
         } catch (Exception ex) {
@@ -347,10 +352,12 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
 //            return em.createQuery("SELECT ep FROM EntityProducts ep WHERE "
 //                    + " ep.supplierId.supplierId =  \"" + paramSupId + "\" "
 //                    + " AND " + "ep.idProduct =  \"" + paramId + "\"").getResultList();
-            String sql = "FROM EntityProducts ep WHERE ep.supplierId.supplierId = :supplierId "
-                    + "AND ep.idProduct= :idProduct ";
+            String sql = "FROM EntityProducts ep "
+                    + "JOIN FETCH ep.partnerId AS p"
+                    + " WHERE p.partnerId  = :partnerId "
+                    + " AND ep.idProduct= :idProduct ";
             Query query = em.createQuery(sql);
-            query.setParameter("supplierId", paramSupId);
+            query.setParameter("partnerId", paramSupId);
             query.setParameter("idProduct", paramId);
             return (List<EntityProducts>) query.getResultList();
         } catch (Exception ex) {
@@ -366,10 +373,12 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
 //            return em.createQuery("SELECT  ep   FROM EntityProducts ep WHERE "
 //                    + " ep.supplierId.supplierId =  \"" + paramSupId + "\" "
 //                    + " AND " + "ep.status_item =  \"" + 1 + "\"").getResultList();
-            String sql = "FROM EntityProducts ep WHERE ep.supplierId.supplierId = :supplierId "
-                    + "AND ep.status_item= :status_item ";
+            String sql = "FROM EntityProducts ep "
+                    + " JOIN FETCH ep.partnerId AS p"
+                    + " WHERE p.partnerId = :partnerId "
+                    + " AND ep.status_item= :status_item ";
             Query query = em.createQuery(sql);
-            query.setParameter("supplierId", paramSupId);
+            query.setParameter("partnerId", paramSupId);
             query.setParameter("status_item", 1);
             return (List<EntityProducts>) query.getResultList();
         } catch (Exception ex) {
@@ -386,10 +395,12 @@ public class EntityProductsFacade extends AbstractFacade<EntityProducts> impleme
 //                    + " ep.supplierId.supplierId =  \"" + paramLong + "\" "
 //                    + " AND ep.productName=  \"" + paramString + "\"").getResultList();
 
-            String sql = "FROM EntityProducts ep WHERE ep.supplierId.supplierId = :supplierId "
+            String sql = "FROM EntityProducts ep "
+                    + " JOIN FETCH ep.partnerId AS p"
+                    + " WHERE p.partnerId = :partnerId "
                     + "AND ep.productName LIKE :productName ";
             Query query = em.createQuery(sql);
-            query.setParameter("supplierId", paramLong);
+            query.setParameter("partnerId", paramLong);
             query.setParameter("productName", "%" + paramString + "%");
             return (List<EntityProducts>) query.getResultList();
         } catch (Exception ex) {
